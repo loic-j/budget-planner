@@ -8,3 +8,4 @@
 | [development/getting-started.md](./development/getting-started.md)         | Local setup, env vars, first run            |
 | [development/code-conventions.md](./development/code-conventions.md)       | TypeScript rules, patterns, anti-patterns   |
 | [business/requirements.md](./business/requirements.md)                     | Feature specs and domain rules              |
+| [screens/README.md](./screens/README.md)                                   | Screen inventory, navigation flow, layouts  |

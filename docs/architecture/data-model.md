@@ -82,17 +82,18 @@ Invite link token. User visits `/invite/:token` to join budget.
 
 Core plan entity. Owns all financial data.
 
-| Field          | Type     | Notes                        |
-| -------------- | -------- | ---------------------------- |
-| id             | cuid     | PK                           |
-| name           | String   |                              |
-| description    | String?  |                              |
-| ownerId        | String   | FK → User                    |
-| start_date     | DateTime | Budget projection start date |
-| currency       | String   | ISO 4217 (e.g. "EUR", "USD") |
-| initial_saving | Decimal  | Starting savings balance     |
-| created_at     | DateTime | Auto                         |
-| updated_at     | DateTime | Auto-updated                 |
+| Field          | Type     | Notes                                 |
+| -------------- | -------- | ------------------------------------- |
+| id             | cuid     | PK                                    |
+| name           | String   |                                       |
+| description    | String?  |                                       |
+| ownerId        | String   | FK → User                             |
+| start_date     | DateTime | Budget projection start date          |
+| end_date       | DateTime | Budget projection end date (editable) |
+| currency       | String   | ISO 4217 (e.g. "EUR", "USD")          |
+| initial_saving | Decimal  | Starting savings balance              |
+| created_at     | DateTime | Auto                                  |
+| updated_at     | DateTime | Auto-updated                          |
 
 ---
 

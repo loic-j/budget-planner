@@ -27,16 +27,18 @@ Full-stack TypeScript monorepo (pnpm workspaces). Backend and frontend share typ
 
 ## Frontend — `apps/web`
 
-| Layer      | Technology               | Version         | Notes                               |
-| ---------- | ------------------------ | --------------- | ----------------------------------- |
-| Framework  | React                    | ^18.3.1         | StrictMode enabled                  |
-| Build      | Vite                     | ^5.4.2          | HMR, proxies /api → backend         |
-| Language   | TypeScript               | 5.6.3           | Strict mode                         |
-| UI         | Material-UI (MUI)        | ^6.4.1          | Emotion styling engine              |
-| Font       | Inter (via @fontsource)  | ^5.1.1          | 400/500/600 weights                 |
-| Routing    | React Router             | ^6.26.1         | File-based page components          |
-| Forms      | React Hook Form + Zod    | ^7.72.1         | `zodResolver` for validation        |
-| API Client | Hono RPC (`hono/client`) | same as backend | End-to-end type safety, no code-gen |
+| Layer      | Technology               | Version         | Notes                                                                                  |
+| ---------- | ------------------------ | --------------- | -------------------------------------------------------------------------------------- |
+| Framework  | React                    | ^18.3.1         | StrictMode enabled                                                                     |
+| Build      | Vite                     | ^5.4.2          | HMR, proxies /api → backend                                                            |
+| Language   | TypeScript               | 5.6.3           | Strict mode                                                                            |
+| UI         | Material-UI (MUI)        | ^6.4.1          | Emotion styling engine                                                                 |
+| Font       | Inter (via @fontsource)  | ^5.1.1          | 400/500/600 weights                                                                    |
+| Routing    | React Router             | ^6.26.1         | File-based page components                                                             |
+| Forms      | React Hook Form + Zod    | ^7.72.1         | `zodResolver` for validation                                                           |
+| Charts     | Nivo                     | ^0.87           | `@nivo/line`, `@nivo/bar`, `@nivo/pie`, `@nivo/stream` — real-time capable, composable |
+| Data Grid  | MUI X DataGrid           | ^7.x            | `@mui/x-data-grid` free tier — inline row editing for bulk expense/revenue entry       |
+| API Client | Hono RPC (`hono/client`) | same as backend | End-to-end type safety, no code-gen                                                    |
 
 ---
 
