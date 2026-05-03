@@ -1,0 +1,1780 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Planner — Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #121212;
+        --bg-paper: #1e1e1e;
+        --bg-paper-2: #2a2a2a;
+        --primary: #009688;
+        --primary-dark: #00796b;
+        --primary-light: #4db6ac;
+        --primary-a12: rgba(0, 150, 136, 0.12);
+        --primary-a20: rgba(0, 150, 136, 0.2);
+        --error: #ef5350;
+        --error-a12: rgba(239, 83, 80, 0.12);
+        --warning: #ffa726;
+        --warning-a12: rgba(255, 167, 38, 0.12);
+        --success: #66bb6a;
+        --success-a12: rgba(102, 187, 106, 0.12);
+        --info: #42a5f5;
+        --info-a12: rgba(66, 165, 245, 0.12);
+        --tp: rgba(255, 255, 255, 0.87);
+        --ts: rgba(255, 255, 255, 0.6);
+        --td: rgba(255, 255, 255, 0.38);
+        --div: rgba(255, 255, 255, 0.12);
+        --bdr: rgba(255, 255, 255, 0.23);
+        --bdrh: rgba(255, 255, 255, 0.87);
+        --r: 4px;
+        --r-md: 8px;
+        --r-lg: 12px;
+        --sh1: 0 2px 8px rgba(0, 0, 0, 0.6);
+        --sh2: 0 4px 16px rgba(0, 0, 0, 0.7);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--tp);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      /* ── Top nav ── */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-paper);
+        border-bottom: 1px solid var(--div);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 24px;
+        height: 56px;
+      }
+      .topnav .logo {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--primary);
+        margin-right: 16px;
+      }
+      .topnav a {
+        text-decoration: none;
+        color: var(--ts);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: var(--r);
+        transition: all 0.15s;
+      }
+      .topnav a:hover {
+        background: var(--primary-a12);
+        color: var(--tp);
+      }
+      .topnav a.active {
+        background: var(--primary-a12);
+        color: var(--primary);
+      }
+
+      /* ── Layout ── */
+      .page {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      h1 {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 48px 0 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--div);
+      }
+      h3 {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--ts);
+        margin-bottom: 16px;
+      }
+      .subtitle {
+        color: var(--ts);
+        font-size: 15px;
+      }
+
+      /* ── Section grid ── */
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      /* ── Color palette ── */
+      .palette {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .swatch {
+        width: 96px;
+      }
+      .swatch-block {
+        width: 96px;
+        height: 64px;
+        border-radius: var(--r-md);
+        display: flex;
+        align-items: flex-end;
+        padding: 6px;
+        font-size: 11px;
+        font-weight: 500;
+        box-shadow: var(--sh1);
+      }
+      .swatch-name {
+        font-size: 12px;
+        color: var(--ts);
+        margin-top: 6px;
+      }
+
+      /* ── Typography ── */
+      .typo-row {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .t-h1 {
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .t-h2 {
+        font-size: 28px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .t-h3 {
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .t-h4 {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .t-h5 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .t-h6 {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .t-body1 {
+        font-size: 16px;
+      }
+      .t-body2 {
+        font-size: 14px;
+      }
+      .t-caption {
+        font-size: 12px;
+        color: var(--ts);
+      }
+      .t-overline {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ts);
+      }
+
+      /* ── Buttons ── */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: none;
+        border-radius: var(--r);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 20px;
+        height: 36px;
+        letter-spacing: 0.02em;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .btn-contained {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-contained:hover {
+        background: var(--primary-dark);
+        box-shadow: var(--sh1);
+      }
+      .btn-outlined {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid rgba(0, 150, 136, 0.5);
+      }
+      .btn-outlined:hover {
+        background: var(--primary-a12);
+        border-color: var(--primary);
+      }
+      .btn-text {
+        background: transparent;
+        color: var(--primary);
+      }
+      .btn-text:hover {
+        background: var(--primary-a12);
+      }
+      .btn-error-contained {
+        background: var(--error);
+        color: #fff;
+      }
+      .btn-error-contained:hover {
+        background: #c62828;
+        box-shadow: var(--sh1);
+      }
+      .btn-error-outlined {
+        background: transparent;
+        color: var(--error);
+        border: 1px solid rgba(239, 83, 80, 0.5);
+      }
+      .btn-error-outlined:hover {
+        background: var(--error-a12);
+      }
+      .btn-sm {
+        height: 28px;
+        padding: 4px 14px;
+        font-size: 13px;
+      }
+      .btn-lg {
+        height: 44px;
+        padding: 10px 28px;
+        font-size: 15px;
+      }
+      .btn:disabled {
+        opacity: 0.38;
+        cursor: default;
+      }
+
+      /* ── Icon button ── */
+      .icon-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: var(--ts);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        transition: all 0.15s;
+      }
+      .icon-btn:hover {
+        background: var(--primary-a12);
+        color: var(--tp);
+      }
+
+      /* ── Inputs ── */
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .field label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ts);
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        background: transparent;
+        border: 1px solid var(--bdr);
+        border-radius: var(--r);
+        color: var(--tp);
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        padding: 10px 14px;
+        outline: none;
+        width: 100%;
+        transition: border-color 0.15s;
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px var(--primary-a20);
+      }
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: var(--td);
+      }
+      .field .helper {
+        font-size: 12px;
+        color: var(--ts);
+      }
+      .field.error label {
+        color: var(--error);
+      }
+      .field.error input {
+        border-color: var(--error);
+      }
+      .field.error input:focus {
+        box-shadow: 0 0 0 2px var(--error-a12);
+      }
+      .field.error .helper {
+        color: var(--error);
+      }
+      .field.success input {
+        border-color: var(--success);
+      }
+      .input-with-icon {
+        position: relative;
+      }
+      .input-with-icon input {
+        padding-right: 40px;
+      }
+      .input-with-icon .input-icon {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--ts);
+        font-size: 16px;
+        cursor: pointer;
+      }
+      .field select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='rgba(255,255,255,.6)'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 32px;
+      }
+
+      /* ── Chips ── */
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 24px;
+        padding: 0 10px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .chip-primary {
+        background: var(--primary-a20);
+        color: var(--primary-light);
+      }
+      .chip-success {
+        background: var(--success-a12);
+        color: var(--success);
+      }
+      .chip-warning {
+        background: var(--warning-a12);
+        color: var(--warning);
+      }
+      .chip-error {
+        background: var(--error-a12);
+        color: var(--error);
+      }
+      .chip-default {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--ts);
+      }
+
+      /* ── Role badges ── */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        height: 20px;
+        padding: 0 8px;
+        border-radius: var(--r);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .badge-owner {
+        background: var(--primary-a20);
+        color: var(--primary-light);
+      }
+      .badge-editor {
+        background: var(--info-a12);
+        color: var(--info);
+      }
+      .badge-viewer {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--ts);
+      }
+
+      /* ── Switch / Toggle ── */
+      .switch {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .switch input {
+        display: none;
+      }
+      .switch-track {
+        width: 40px;
+        height: 22px;
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.3);
+        position: relative;
+        transition: background 0.2s;
+      }
+      .switch input:checked ~ .switch-track {
+        background: var(--primary);
+      }
+      .switch-thumb {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #fff;
+        transition: left 0.2s;
+        box-shadow: var(--sh1);
+      }
+      .switch input:checked ~ .switch-track .switch-thumb {
+        left: 21px;
+      }
+      .switch-label {
+        font-size: 14px;
+        color: var(--tp);
+      }
+
+      /* ── Checkbox ── */
+      .checkbox {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .checkbox input {
+        display: none;
+      }
+      .checkbox-box {
+        width: 18px;
+        height: 18px;
+        border-radius: var(--r);
+        border: 2px solid var(--bdr);
+        background: transparent;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .checkbox input:checked ~ .checkbox-box {
+        background: var(--primary);
+        border-color: var(--primary);
+      }
+      .checkbox input:checked ~ .checkbox-box::after {
+        content: '';
+        display: block;
+        width: 5px;
+        height: 9px;
+        border: 2px solid #fff;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg) translate(-1px, -1px);
+      }
+      .checkbox-label {
+        font-size: 14px;
+        color: var(--tp);
+      }
+
+      /* ── Radio ── */
+      .radio {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .radio input {
+        display: none;
+      }
+      .radio-dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid var(--bdr);
+        background: transparent;
+        transition: all 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .radio input:checked ~ .radio-dot {
+        border-color: var(--primary);
+      }
+      .radio input:checked ~ .radio-dot::after {
+        content: '';
+        display: block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--primary);
+      }
+
+      /* ── Alerts ── */
+      .alert {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: var(--r);
+        font-size: 14px;
+      }
+      .alert-icon {
+        font-size: 18px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+      .alert-success {
+        background: var(--success-a12);
+        border: 1px solid rgba(102, 187, 106, 0.3);
+        color: var(--success);
+      }
+      .alert-error {
+        background: var(--error-a12);
+        border: 1px solid rgba(239, 83, 80, 0.3);
+        color: var(--error);
+      }
+      .alert-warning {
+        background: var(--warning-a12);
+        border: 1px solid rgba(255, 167, 38, 0.3);
+        color: var(--warning);
+      }
+      .alert-info {
+        background: var(--info-a12);
+        border: 1px solid rgba(66, 165, 245, 0.3);
+        color: var(--info);
+      }
+      .alert-text {
+        color: var(--tp);
+      }
+      .alert-title {
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      /* ── Card ── */
+      .card {
+        background: var(--bg-paper);
+        border-radius: var(--r-md);
+        border: 1px solid var(--div);
+        padding: 20px;
+        box-shadow: var(--sh1);
+      }
+      .card-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .card-subtitle {
+        font-size: 13px;
+        color: var(--ts);
+        margin-bottom: 16px;
+      }
+
+      /* ── Stat card ── */
+      .stat-card {
+        background: var(--bg-paper);
+        border-radius: var(--r-md);
+        border: 1px solid var(--div);
+        padding: 20px 24px;
+        min-width: 160px;
+      }
+      .stat-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--ts);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .stat-value {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 4px 0;
+      }
+      .stat-sub {
+        font-size: 13px;
+        color: var(--ts);
+      }
+      .stat-pos {
+        color: var(--success);
+      }
+      .stat-neg {
+        color: var(--error);
+      }
+
+      /* ── Table ── */
+      .table-wrap {
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        overflow: hidden;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead {
+        background: var(--bg-paper-2);
+      }
+      thead th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--ts);
+        letter-spacing: 0.04em;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--div);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--div);
+        transition: background 0.1s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+      tbody td {
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+      .td-muted {
+        color: var(--ts);
+      }
+      .td-mono {
+        font-variant-numeric: tabular-nums;
+      }
+      .td-pos {
+        color: var(--success);
+        font-weight: 500;
+      }
+      .td-neg {
+        color: var(--error);
+        font-weight: 500;
+      }
+      .row-dirty {
+        border-left: 3px solid var(--warning);
+      }
+      .row-dirty td:first-child {
+        padding-left: 13px;
+      }
+
+      /* ── Dialog preview ── */
+      .dialog-preview {
+        position: relative;
+        border: 2px dashed var(--div);
+        border-radius: var(--r-lg);
+        padding: 20px;
+        background: var(--bg);
+      }
+      .dialog-label {
+        position: absolute;
+        top: -10px;
+        left: 16px;
+        background: var(--bg);
+        padding: 0 8px;
+        font-size: 11px;
+        color: var(--ts);
+        font-weight: 500;
+      }
+      .dialog-box {
+        max-width: 400px;
+        background: var(--bg-paper);
+        border-radius: var(--r-lg);
+        box-shadow: var(--sh2);
+        overflow: hidden;
+      }
+      .dialog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px 16px;
+        border-bottom: 1px solid var(--div);
+      }
+      .dialog-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .dialog-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .dialog-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 16px 24px;
+        border-top: 1px solid var(--div);
+      }
+
+      /* ── Bottom nav preview ── */
+      .bottom-nav {
+        display: flex;
+        align-items: center;
+        background: var(--bg-paper);
+        border-top: 1px solid var(--div);
+        border-radius: 0 0 var(--r-lg) var(--r-lg);
+      }
+      .bottom-nav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 4px 8px;
+        gap: 4px;
+        cursor: pointer;
+        color: var(--ts);
+        font-size: 10px;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+      .bottom-nav-item.active {
+        color: var(--primary);
+      }
+      .bottom-nav-icon {
+        font-size: 22px;
+      }
+
+      /* ── Sidebar preview ── */
+      .sidebar-preview {
+        display: flex;
+        background: var(--bg-paper);
+        border: 1px solid var(--div);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        height: 480px;
+        box-shadow: var(--sh2);
+      }
+      .sidebar {
+        width: 240px;
+        background: var(--bg-paper);
+        border-right: 1px solid var(--div);
+        display: flex;
+        flex-direction: column;
+        transition: width 0.2s;
+        flex-shrink: 0;
+      }
+      .sidebar.collapsed {
+        width: 64px;
+      }
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid var(--div);
+        height: 56px;
+      }
+      .sidebar-logo {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--primary);
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .sidebar.collapsed .sidebar-logo {
+        display: none;
+      }
+      .sidebar-toggle {
+        background: none;
+        border: none;
+        color: var(--ts);
+        cursor: pointer;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .budget-name {
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ts);
+        border-bottom: 1px solid var(--div);
+      }
+      .budget-name-text {
+        white-space: nowrap;
+        overflow: hidden;
+        flex: 1;
+      }
+      .sidebar.collapsed .budget-name-text {
+        display: none;
+      }
+      .nav-section {
+        flex: 1;
+        padding: 8px 0;
+        overflow-y: auto;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 16px;
+        cursor: pointer;
+        color: var(--ts);
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.15s;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--tp);
+      }
+      .nav-item.active {
+        background: var(--primary-a12);
+        color: var(--primary);
+        border-left: 3px solid var(--primary);
+        padding-left: 13px;
+      }
+      .nav-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .nav-label {
+        white-space: nowrap;
+      }
+      .sidebar.collapsed .nav-label {
+        display: none;
+      }
+      .nav-divider {
+        height: 1px;
+        background: var(--div);
+        margin: 4px 0;
+      }
+      .sidebar-footer {
+        padding: 12px 16px;
+        border-top: 1px solid var(--div);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .sidebar.collapsed .sidebar-footer-text {
+        display: none;
+      }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .sidebar-footer-text {
+        overflow: hidden;
+      }
+      .sidebar-footer-name {
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .sidebar-footer-action {
+        font-size: 11px;
+        color: var(--ts);
+        cursor: pointer;
+      }
+      .sidebar-content {
+        flex: 1;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--td);
+        font-size: 15px;
+      }
+
+      /* ── Divider ── */
+      .divider {
+        height: 1px;
+        background: var(--div);
+        margin: 4px 0;
+      }
+      .divider-text {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--td);
+        font-size: 12px;
+      }
+      .divider-text::before,
+      .divider-text::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--div);
+      }
+
+      /* ── Progress ── */
+      .progress-bar {
+        height: 6px;
+        background: var(--div);
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: var(--primary);
+        border-radius: 3px;
+      }
+
+      /* ── Tabs ── */
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid var(--div);
+        gap: 0;
+      }
+      .tab {
+        padding: 12px 20px;
+        cursor: pointer;
+        color: var(--ts);
+        font-weight: 500;
+        font-size: 14px;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        color: var(--tp);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+
+      /* ── Tooltip ── */
+      .tooltip-demo {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }
+      .has-tooltip {
+        position: relative;
+        display: inline-block;
+      }
+      .has-tooltip:hover .tooltip {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .tooltip {
+        position: absolute;
+        bottom: calc(100% + 8px);
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(50, 50, 50, 0.95);
+        color: var(--tp);
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: var(--r);
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s;
+        box-shadow: var(--sh1);
+      }
+
+      /* ── Snackbar ── */
+      .snackbar {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: #333;
+        color: var(--tp);
+        border-radius: var(--r-md);
+        padding: 12px 16px;
+        font-size: 14px;
+        box-shadow: var(--sh2);
+        min-width: 280px;
+      }
+      .snackbar-icon {
+        font-size: 18px;
+      }
+      .snackbar-text {
+        flex: 1;
+      }
+      .snackbar-action {
+        color: var(--primary);
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      /* ── Password strength ── */
+      .pwd-strength {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .pwd-bars {
+        display: flex;
+        gap: 4px;
+      }
+      .pwd-bar {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--div);
+        transition: background 0.3s;
+      }
+      .pwd-bar.fill-1 {
+        background: var(--error);
+      }
+      .pwd-bar.fill-2 {
+        background: var(--warning);
+      }
+      .pwd-bar.fill-3 {
+        background: var(--primary);
+      }
+      .pwd-bar.fill-4 {
+        background: var(--success);
+      }
+      .pwd-checklist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 16px;
+      }
+      .pwd-check {
+        font-size: 12px;
+        color: var(--td);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .pwd-check.ok {
+        color: var(--success);
+      }
+      .pwd-check::before {
+        content: '○';
+      }
+      .pwd-check.ok::before {
+        content: '✓';
+      }
+
+      @media (max-width: 600px) {
+        .page {
+          padding: 24px 16px 60px;
+        }
+        h1 {
+          font-size: 22px;
+        }
+        .palette {
+          gap: 8px;
+        }
+        .swatch {
+          width: 80px;
+        }
+        .swatch-block {
+          width: 80px;
+          height: 52px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav">
+      <span class="logo">Budget Planner</span>
+      <a href="index.html" class="active">Design System</a>
+      <a href="auth.html">Auth</a>
+      <a href="budget-list.html">Budgets</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <main class="page">
+      <h1>Design System</h1>
+      <p class="subtitle">Component library — MUI v6 dark theme · Inter · Teal primary</p>
+
+      <!-- COLOR PALETTE -->
+      <h2>Color Palette</h2>
+      <div class="palette">
+        <div class="swatch">
+          <div class="swatch-block" style="background: #009688; color: #fff">500</div>
+          <div class="swatch-name">Primary (Teal)</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #4db6ac; color: #000">300</div>
+          <div class="swatch-name">Primary Light</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #00796b; color: #fff">700</div>
+          <div class="swatch-name">Primary Dark</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #66bb6a; color: #000"></div>
+          <div class="swatch-name">Success</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #ef5350; color: #fff"></div>
+          <div class="swatch-name">Error</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #ffa726; color: #000"></div>
+          <div class="swatch-name">Warning</div>
+        </div>
+        <div class="swatch">
+          <div class="swatch-block" style="background: #42a5f5; color: #000"></div>
+          <div class="swatch-name">Info</div>
+        </div>
+        <div class="swatch">
+          <div
+            class="swatch-block"
+            style="
+              background: #121212;
+              color: rgba(255, 255, 255, 0.6);
+              border: 1px solid rgba(255, 255, 255, 0.12);
+            "
+          ></div>
+          <div class="swatch-name">Background</div>
+        </div>
+        <div class="swatch">
+          <div
+            class="swatch-block"
+            style="
+              background: #1e1e1e;
+              color: rgba(255, 255, 255, 0.6);
+              border: 1px solid rgba(255, 255, 255, 0.12);
+            "
+          ></div>
+          <div class="swatch-name">Paper</div>
+        </div>
+        <div class="swatch">
+          <div
+            class="swatch-block"
+            style="background: rgba(255, 255, 255, 0.87); color: #121212"
+          ></div>
+          <div class="swatch-name">Text Primary</div>
+        </div>
+        <div class="swatch">
+          <div
+            class="swatch-block"
+            style="background: rgba(255, 255, 255, 0.6); color: #121212"
+          ></div>
+          <div class="swatch-name">Text Secondary</div>
+        </div>
+        <div class="swatch">
+          <div
+            class="swatch-block"
+            style="background: rgba(255, 255, 255, 0.38); color: #121212"
+          ></div>
+          <div class="swatch-name">Disabled</div>
+        </div>
+      </div>
+
+      <!-- TYPOGRAPHY -->
+      <h2>Typography — Inter</h2>
+      <div class="typo-row">
+        <div><span class="t-overline">Overline</span> — labels, section headers</div>
+        <div class="t-caption">Caption — 12px — helper text, metadata</div>
+        <div class="t-body2">Body 2 — 14px — default UI text, table content</div>
+        <div class="t-body1">Body 1 — 16px — readable content, descriptions</div>
+        <div class="t-h6">Heading 6 — 14px semibold — card titles, labels</div>
+        <div class="t-h5">Heading 5 — 16px semibold — section titles</div>
+        <div class="t-h4">Heading 4 — 18px semibold</div>
+        <div class="t-h3">Heading 3 — 22px semibold</div>
+        <div class="t-h2">Heading 2 — 28px semibold</div>
+        <div class="t-h1">Heading 1 — 36px semibold</div>
+      </div>
+
+      <!-- BUTTONS -->
+      <h2>Buttons</h2>
+      <h3>Variants</h3>
+      <div class="row" style="align-items: center">
+        <button class="btn btn-contained">Contained</button>
+        <button class="btn btn-outlined">Outlined</button>
+        <button class="btn btn-text">Text</button>
+        <button class="btn btn-contained" disabled>Disabled</button>
+      </div>
+      <h3>Sizes</h3>
+      <div class="row" style="align-items: center">
+        <button class="btn btn-contained btn-sm">Small</button>
+        <button class="btn btn-contained">Medium</button>
+        <button class="btn btn-contained btn-lg">Large</button>
+      </div>
+      <h3>Semantic</h3>
+      <div class="row" style="align-items: center">
+        <button class="btn btn-contained">✚ Add Expense</button>
+        <button class="btn btn-outlined">Save All</button>
+        <button class="btn btn-error-contained">Delete</button>
+        <button class="btn btn-error-outlined">Remove</button>
+        <button class="btn btn-text">Cancel</button>
+      </div>
+      <h3>Icon Buttons</h3>
+      <div class="row" style="align-items: center">
+        <button class="icon-btn">✏</button>
+        <button class="icon-btn">✕</button>
+        <button class="icon-btn">⋮</button>
+        <button class="icon-btn">⬇</button>
+      </div>
+
+      <!-- FORM INPUTS -->
+      <h2>Form Inputs</h2>
+      <div class="row">
+        <div class="col" style="min-width: 220px">
+          <div class="field">
+            <label>Budget name *</label>
+            <input type="text" placeholder="My Family Budget 2025" />
+            <span class="helper">Used in navigation and reports</span>
+          </div>
+        </div>
+        <div class="col" style="min-width: 220px">
+          <div class="field error">
+            <label>Email address</label>
+            <input type="email" value="notanemail" />
+            <span class="helper">Enter a valid email address</span>
+          </div>
+        </div>
+        <div class="col" style="min-width: 160px">
+          <div class="field">
+            <label>Amount (EUR)</label>
+            <input type="number" placeholder="0.00" />
+          </div>
+        </div>
+        <div class="col" style="min-width: 160px">
+          <div class="field">
+            <label>Start date</label>
+            <input type="date" value="2025-01-01" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col" style="min-width: 220px">
+          <div class="field">
+            <label>Password</label>
+            <div class="input-with-icon">
+              <input type="password" value="SecurePass1" placeholder="••••••••" />
+              <span class="input-icon">👁</span>
+            </div>
+          </div>
+          <div class="pwd-strength">
+            <div class="pwd-bars">
+              <div class="pwd-bar fill-3"></div>
+              <div class="pwd-bar fill-3"></div>
+              <div class="pwd-bar fill-3"></div>
+              <div class="pwd-bar"></div>
+            </div>
+            <div class="pwd-checklist">
+              <div class="pwd-check ok">8+ chars</div>
+              <div class="pwd-check ok">Uppercase</div>
+              <div class="pwd-check ok">Number</div>
+              <div class="pwd-check">Special char</div>
+            </div>
+          </div>
+        </div>
+        <div class="col" style="min-width: 200px">
+          <div class="field">
+            <label>Currency</label>
+            <select>
+              <option>EUR — Euro</option>
+              <option>USD — US Dollar</option>
+              <option>GBP — British Pound</option>
+            </select>
+          </div>
+        </div>
+        <div class="col" style="min-width: 200px">
+          <div class="field">
+            <label>Frequency</label>
+            <select>
+              <option>Monthly</option>
+              <option>Yearly</option>
+              <option>Every X months</option>
+              <option>One-time</option>
+            </select>
+          </div>
+        </div>
+        <div class="col" style="min-width: 200px">
+          <div class="field">
+            <label>Loan type</label>
+            <select>
+              <option>Mortgage</option>
+              <option>Car loan</option>
+              <option>Personal</option>
+              <option>Student</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOGGLES -->
+      <h2>Toggles &amp; Checkboxes</h2>
+      <div class="row" style="align-items: flex-start; gap: 32px">
+        <div class="col" style="gap: 14px">
+          <h3 style="margin: 0">Switch</h3>
+          <label class="switch">
+            <input type="checkbox" checked />
+            <div class="switch-track"><div class="switch-thumb"></div></div>
+            <span class="switch-label">Dark mode</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" />
+            <div class="switch-track"><div class="switch-thumb"></div></div>
+            <span class="switch-label">Notifications</span>
+          </label>
+        </div>
+        <div class="col" style="gap: 14px">
+          <h3 style="margin: 0">Checkbox</h3>
+          <label class="checkbox">
+            <input type="checkbox" checked />
+            <div class="checkbox-box"></div>
+            <span class="checkbox-label">Selected row</span>
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" />
+            <div class="checkbox-box"></div>
+            <span class="checkbox-label">Unselected row</span>
+          </label>
+        </div>
+        <div class="col" style="gap: 14px">
+          <h3 style="margin: 0">Radio</h3>
+          <label class="radio">
+            <input type="radio" name="r" checked />
+            <div class="radio-dot"></div>
+            <span class="checkbox-label">ADULT</span>
+          </label>
+          <label class="radio">
+            <input type="radio" name="r" />
+            <div class="radio-dot"></div>
+            <span class="checkbox-label">CHILD</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- CHIPS & BADGES -->
+      <h2>Chips &amp; Badges</h2>
+      <h3>Status chips</h3>
+      <div class="row" style="align-items: center">
+        <div class="chip chip-primary">Monthly</div>
+        <div class="chip chip-success">Active</div>
+        <div class="chip chip-warning">Pending</div>
+        <div class="chip chip-error">Overdue</div>
+        <div class="chip chip-default">Yearly</div>
+        <div class="chip chip-default">One-time</div>
+      </div>
+      <h3 style="margin-top: 16px">Role badges</h3>
+      <div class="row" style="align-items: center">
+        <div class="badge badge-owner">OWNER</div>
+        <div class="badge badge-editor">EDITOR</div>
+        <div class="badge badge-viewer">VIEWER</div>
+      </div>
+      <h3 style="margin-top: 16px">Category chips (expense)</h3>
+      <div class="row" style="align-items: center; flex-wrap: wrap">
+        <div class="chip chip-default">🏠 Housing</div>
+        <div class="chip chip-default">🍔 Food</div>
+        <div class="chip chip-default">🚗 Transportation</div>
+        <div class="chip chip-default">❤ Health</div>
+        <div class="chip chip-default">🎓 Education</div>
+        <div class="chip chip-default">✈ Travel</div>
+        <div class="chip chip-default">🎁 Gift</div>
+        <div class="chip chip-primary">+ Add category</div>
+      </div>
+
+      <!-- ALERTS -->
+      <h2>Alerts</h2>
+      <div class="col" style="gap: 10px; max-width: 560px">
+        <div class="alert alert-success">
+          <span class="alert-icon">✓</span>
+          <div class="alert-text">
+            <div class="alert-title">Budget saved</div>
+            All changes have been saved successfully.
+          </div>
+        </div>
+        <div class="alert alert-error">
+          <span class="alert-icon">✕</span>
+          <div class="alert-text">
+            <div class="alert-title">Save failed</div>
+            Could not connect to server. Please try again.
+          </div>
+        </div>
+        <div class="alert alert-warning">
+          <span class="alert-icon">⚠</span>
+          <div class="alert-text">
+            <div class="alert-title">Unsaved changes</div>
+            You have 3 rows with pending edits. Save before leaving.
+          </div>
+        </div>
+        <div class="alert alert-info">
+          <span class="alert-icon">ℹ</span>
+          <div class="alert-text">
+            Monthly payment calculated automatically from loan parameters.
+          </div>
+        </div>
+      </div>
+
+      <!-- SNACKBAR -->
+      <h2>Snackbar (Toast)</h2>
+      <div class="col" style="gap: 10px">
+        <div class="snackbar">
+          <span class="snackbar-icon" style="color: var(--success)">✓</span>
+          <span class="snackbar-text">Expense added successfully</span>
+          <span class="snackbar-action">UNDO</span>
+        </div>
+        <div class="snackbar">
+          <span class="snackbar-icon" style="color: var(--error)">✕</span>
+          <span class="snackbar-text">Failed to delete. Try again.</span>
+          <span class="snackbar-action">RETRY</span>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <h2>Tabs</h2>
+      <div class="tabs">
+        <div class="tab active">Regular Expenses</div>
+        <div class="tab">Loans</div>
+      </div>
+      <div style="padding: 16px 0; color: var(--ts); font-size: 14px">Tab content renders here</div>
+
+      <!-- STAT CARDS -->
+      <h2>Summary / Stat Cards</h2>
+      <div class="row">
+        <div class="stat-card">
+          <div class="stat-label">Monthly Revenue</div>
+          <div class="stat-value">€ 5 400</div>
+          <div class="stat-sub">/ month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Monthly Expenses</div>
+          <div class="stat-value">€ 3 200</div>
+          <div class="stat-sub">/ month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Net Cash Flow</div>
+          <div class="stat-value stat-pos">+ € 2 200</div>
+          <div class="stat-sub">/ month</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Net Cash Flow</div>
+          <div class="stat-value stat-neg">− € 800</div>
+          <div class="stat-sub">/ month · over budget</div>
+        </div>
+      </div>
+
+      <!-- DATA TABLE -->
+      <h2>Data Table (Expenses DataGrid)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 40px">
+                <label class="checkbox" style="margin: 0"
+                  ><input type="checkbox" />
+                  <div class="checkbox-box"></div
+                ></label>
+              </th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Amount</th>
+              <th>Frequency</th>
+              <th>Person</th>
+              <th>Start date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <label class="checkbox" style="margin: 0"
+                  ><input type="checkbox" />
+                  <div class="checkbox-box"></div
+                ></label>
+              </td>
+              <td>Rent</td>
+              <td><div class="chip chip-default" style="font-size: 11px">🏠 Housing</div></td>
+              <td class="td-mono">€ 1 200</td>
+              <td class="td-muted">Monthly</td>
+              <td class="td-muted">—</td>
+              <td class="td-muted">Jan 2025</td>
+              <td><button class="icon-btn" style="font-size: 14px">✕</button></td>
+            </tr>
+            <tr class="row-dirty">
+              <td>
+                <label class="checkbox" style="margin: 0"
+                  ><input type="checkbox" />
+                  <div class="checkbox-box"></div
+                ></label>
+              </td>
+              <td>
+                <strong>Food</strong>
+                <span style="font-size: 11px; color: var(--warning)">unsaved</span>
+              </td>
+              <td><div class="chip chip-default" style="font-size: 11px">🍔 Food</div></td>
+              <td class="td-mono" style="color: var(--warning)">€ 650</td>
+              <td class="td-muted">Monthly</td>
+              <td class="td-muted">—</td>
+              <td class="td-muted">Jan 2025</td>
+              <td><button class="icon-btn" style="font-size: 14px">✕</button></td>
+            </tr>
+            <tr>
+              <td>
+                <label class="checkbox" style="margin: 0"
+                  ><input type="checkbox" />
+                  <div class="checkbox-box"></div
+                ></label>
+              </td>
+              <td>Gym membership</td>
+              <td><div class="chip chip-default" style="font-size: 11px">❤ Health</div></td>
+              <td class="td-mono">€ 40</td>
+              <td class="td-muted">Monthly</td>
+              <td class="td-muted">Jane</td>
+              <td class="td-muted">Mar 2024</td>
+              <td><button class="icon-btn" style="font-size: 14px">✕</button></td>
+            </tr>
+            <tr style="opacity: 0.5">
+              <td></td>
+              <td colspan="7" style="color: var(--td); font-style: italic">
+                Click to add a new row…
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0"
+      >
+        <span style="color: var(--ts); font-size: 12px">Showing 3 of 3 rows</span>
+        <div style="display: flex; gap: 8px">
+          <button class="btn btn-outlined btn-sm">✚ Add row</button>
+          <button class="btn btn-contained btn-sm">Save all (Ctrl+S)</button>
+        </div>
+      </div>
+
+      <!-- DIALOG -->
+      <h2>Dialog (Modal)</h2>
+      <div class="dialog-preview">
+        <span class="dialog-label">Modal overlay</span>
+        <div class="dialog-box">
+          <div class="dialog-header">
+            <span class="dialog-title">Create new budget</span>
+            <button class="icon-btn">✕</button>
+          </div>
+          <div class="dialog-body">
+            <div class="field">
+              <label>Budget name *</label>
+              <input type="text" value="Family 2025" />
+            </div>
+            <div class="row">
+              <div class="field" style="flex: 1">
+                <label>Start date *</label>
+                <input type="date" value="2025-01-01" />
+              </div>
+              <div class="field" style="flex: 1">
+                <label>End date *</label>
+                <input type="date" value="2055-01-01" />
+              </div>
+            </div>
+            <div class="field">
+              <label>Currency *</label>
+              <select>
+                <option>EUR — Euro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Initial savings (optional)</label>
+              <input type="number" placeholder="10 000" />
+            </div>
+          </div>
+          <div class="dialog-footer">
+            <button class="btn btn-text">Cancel</button>
+            <button class="btn btn-contained">Create budget</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION COMPONENTS -->
+      <h2>Navigation — App Shell</h2>
+      <h3>Sidebar (desktop) — click [≡] to collapse</h3>
+      <div class="sidebar-preview" id="shellPreview">
+        <div class="sidebar" id="sidebar">
+          <div class="sidebar-header">
+            <button class="sidebar-toggle" onclick="toggleSidebar()">≡</button>
+            <span class="sidebar-logo">Budget Planner</span>
+          </div>
+          <div class="budget-name">
+            <span style="font-size: 18px">▾</span>
+            <span class="budget-name-text">Family 2025</span>
+          </div>
+          <div class="nav-section">
+            <div class="nav-item active">
+              <span class="nav-icon">▣</span><span class="nav-label">Dashboard</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">↓</span><span class="nav-label">Expenses</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">↑</span><span class="nav-label">Revenues</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">◎</span><span class="nav-label">Savings</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">◆</span><span class="nav-label">Assets</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">〜</span><span class="nav-label">Projections</span>
+            </div>
+            <div class="nav-divider"></div>
+            <div class="nav-item">
+              <span class="nav-icon">👥</span><span class="nav-label">Members</span>
+            </div>
+            <div class="nav-item">
+              <span class="nav-icon">⚙</span><span class="nav-label">Settings</span>
+            </div>
+          </div>
+          <div class="sidebar-footer">
+            <div class="avatar">JD</div>
+            <div class="sidebar-footer-text">
+              <div class="sidebar-footer-name">Jane Doe</div>
+              <div class="sidebar-footer-action">Sign out</div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-content">Page content area</div>
+      </div>
+
+      <h3 style="margin-top: 32px">Bottom navigation (mobile)</h3>
+      <div
+        style="
+          max-width: 360px;
+          border: 1px solid var(--div);
+          border-radius: var(--r-lg);
+          overflow: hidden;
+        "
+      >
+        <div
+          style="
+            background: var(--bg);
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--td);
+          "
+        >
+          Page content
+        </div>
+        <div class="bottom-nav">
+          <div class="bottom-nav-item active">
+            <span class="bottom-nav-icon">▣</span>
+            <span>Dash</span>
+          </div>
+          <div class="bottom-nav-item">
+            <span class="bottom-nav-icon">↓</span>
+            <span>Expenses</span>
+          </div>
+          <div class="bottom-nav-item">
+            <span class="bottom-nav-icon">↑</span>
+            <span>Revenues</span>
+          </div>
+          <div class="bottom-nav-item">
+            <span class="bottom-nav-icon">〜</span>
+            <span>Charts</span>
+          </div>
+          <div class="bottom-nav-item">
+            <span class="bottom-nav-icon">⋯</span>
+            <span>More</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <h2>Progress</h2>
+      <div class="col" style="gap: 16px; max-width: 400px">
+        <div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 6px;
+              font-size: 13px;
+            "
+          >
+            <span>Emergency fund</span><span style="color: var(--ts)">68%</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+        </div>
+        <div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 6px;
+              font-size: 13px;
+            "
+          >
+            <span>Retirement savings</span><span style="color: var(--ts)">32%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 32%; background: var(--info)"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVIDERS -->
+      <h2>Dividers</h2>
+      <div class="col" style="gap: 16px; max-width: 400px">
+        <div class="divider"></div>
+        <div class="divider-text">or</div>
+      </div>
+    </main>
+
+    <script>
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Planner — Auth Screens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #121212;
+        --bg-paper: #1e1e1e;
+        --primary: #009688;
+        --primary-dark: #00796b;
+        --primary-light: #4db6ac;
+        --primary-a12: rgba(0, 150, 136, 0.12);
+        --primary-a20: rgba(0, 150, 136, 0.2);
+        --error: #ef5350;
+        --error-a12: rgba(239, 83, 80, 0.12);
+        --success: #66bb6a;
+        --success-a12: rgba(102, 187, 106, 0.12);
+        --tp: rgba(255, 255, 255, 0.87);
+        --ts: rgba(255, 255, 255, 0.6);
+        --td: rgba(255, 255, 255, 0.38);
+        --div: rgba(255, 255, 255, 0.12);
+        --bdr: rgba(255, 255, 255, 0.23);
+        --r: 4px;
+        --r-md: 8px;
+        --r-lg: 12px;
+        --sh1: 0 2px 8px rgba(0, 0, 0, 0.6);
+        --sh2: 0 8px 32px rgba(0, 0, 0, 0.8);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--tp);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      /* top nav */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-paper);
+        border-bottom: 1px solid var(--div);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 24px;
+        height: 56px;
+      }
+      .topnav .logo {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--primary);
+        margin-right: 16px;
+      }
+      .topnav a {
+        text-decoration: none;
+        color: var(--ts);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: var(--r);
+        transition: all 0.15s;
+      }
+      .topnav a:hover {
+        background: var(--primary-a12);
+        color: var(--tp);
+      }
+      .topnav a.active {
+        background: var(--primary-a12);
+        color: var(--primary);
+      }
+
+      /* screen switcher */
+      .screen-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 24px 16px 16px;
+      }
+      .screen-tab {
+        padding: 6px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        border: 1px solid var(--div);
+        color: var(--ts);
+        background: transparent;
+        transition: all 0.15s;
+      }
+      .screen-tab.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+
+      /* screen wrapper */
+      .screen {
+        display: none;
+      }
+      .screen.visible {
+        display: block;
+      }
+
+      /* auth layout */
+      .auth-bg {
+        min-height: calc(100vh - 56px - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 16px;
+      }
+      .auth-card {
+        width: 100%;
+        max-width: 400px;
+        background: var(--bg-paper);
+        border-radius: var(--r-lg);
+        box-shadow: var(--sh2);
+        padding: 40px 40px 32px;
+        border: 1px solid var(--div);
+      }
+      .auth-logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .auth-logo-icon {
+        font-size: 28px;
+      }
+      .auth-subtitle {
+        color: var(--ts);
+        font-size: 14px;
+        margin-bottom: 32px;
+      }
+
+      .form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ts);
+      }
+      .field input {
+        background: transparent;
+        border: 1px solid var(--bdr);
+        border-radius: var(--r);
+        color: var(--tp);
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        padding: 11px 14px;
+        outline: none;
+        width: 100%;
+        transition: border-color 0.15s;
+      }
+      .field input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px var(--primary-a20);
+      }
+      .field input::placeholder {
+        color: var(--td);
+      }
+      .field .helper {
+        font-size: 12px;
+        color: var(--ts);
+      }
+      .field.error label {
+        color: var(--error);
+      }
+      .field.error input {
+        border-color: var(--error);
+      }
+      .field.error input:focus {
+        box-shadow: 0 0 0 2px var(--error-a12);
+      }
+      .field.error .helper {
+        color: var(--error);
+      }
+      .field.success input {
+        border-color: var(--success);
+      }
+
+      .input-wrap {
+        position: relative;
+      }
+      .input-wrap input {
+        padding-right: 44px;
+      }
+      .input-wrap .eye {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--ts);
+        cursor: pointer;
+        font-size: 16px;
+        padding: 4px;
+      }
+
+      .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: none;
+        border-radius: var(--r);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 11px 20px;
+        height: 44px;
+        letter-spacing: 0.02em;
+        transition: all 0.15s;
+      }
+      .btn-contained {
+        background: var(--primary);
+        color: #fff;
+        width: 100%;
+      }
+      .btn-contained:hover {
+        background: var(--primary-dark);
+        box-shadow: var(--sh1);
+      }
+      .btn-outlined {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid rgba(0, 150, 136, 0.5);
+        width: 100%;
+      }
+      .btn-outlined:hover {
+        background: var(--primary-a12);
+      }
+      .btn-text {
+        background: transparent;
+        color: var(--primary);
+        border: none;
+        cursor: pointer;
+        font-size: 13px;
+        font-family: 'Inter', sans-serif;
+        padding: 0;
+      }
+      .btn-text:hover {
+        text-decoration: underline;
+      }
+      .btn:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+
+      .link {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 13px;
+      }
+      .link:hover {
+        text-decoration: underline;
+      }
+
+      .divider-text {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: var(--td);
+        font-size: 12px;
+        margin: 4px 0;
+      }
+      .divider-text::before,
+      .divider-text::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--div);
+      }
+
+      .form-footer {
+        text-align: center;
+        color: var(--ts);
+        font-size: 13px;
+        margin-top: 8px;
+      }
+
+      /* password strength */
+      .pwd-strength {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .pwd-bars {
+        display: flex;
+        gap: 4px;
+      }
+      .pwd-bar {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--div);
+        transition: background 0.3s;
+      }
+      .pwd-bar.c1 {
+        background: var(--error);
+      }
+      .pwd-bar.c2 {
+        background: #ffa726;
+      }
+      .pwd-bar.c3 {
+        background: var(--primary);
+      }
+      .pwd-bar.c4 {
+        background: var(--success);
+      }
+      .pwd-checks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+      }
+      .pwd-check {
+        font-size: 12px;
+        color: var(--td);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .pwd-check.ok {
+        color: var(--success);
+      }
+      .pwd-check::before {
+        content: '○';
+      }
+      .pwd-check.ok::before {
+        content: '✓';
+      }
+
+      /* verify email card */
+      .verify-icon {
+        font-size: 48px;
+        text-align: center;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--primary-a12);
+        margin: 0 auto 24px;
+      }
+
+      /* countdown */
+      .countdown {
+        color: var(--td);
+        font-size: 12px;
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      /* mobile hint */
+      .mobile-hint {
+        text-align: center;
+        padding: 12px;
+        font-size: 12px;
+        color: var(--td);
+        border-top: 1px solid var(--div);
+        margin-top: 0;
+      }
+
+      @media (max-width: 480px) {
+        .auth-card {
+          padding: 28px 20px 24px;
+          border-radius: 0;
+          border-left: none;
+          border-right: none;
+          max-width: 100%;
+        }
+        .auth-bg {
+          padding: 0;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav">
+      <span class="logo">Budget Planner</span>
+      <a href="index.html">Design System</a>
+      <a href="auth.html" class="active">Auth</a>
+      <a href="budget-list.html">Budgets</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <!-- Screen switcher -->
+    <div class="screen-tabs">
+      <button class="screen-tab active" onclick="showScreen('login', this)">Login</button>
+      <button class="screen-tab" onclick="showScreen('register', this)">Register</button>
+      <button class="screen-tab" onclick="showScreen('verify', this)">Email Verification</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+     LOGIN
+══════════════════════════════════════════════ -->
+    <div id="screen-login" class="screen visible">
+      <div class="auth-bg">
+        <div class="auth-card">
+          <div class="auth-logo">
+            <span class="auth-logo-icon">◈</span>
+            Budget Planner
+          </div>
+          <p class="auth-subtitle">Plan your financial life — login to continue</p>
+
+          <div class="form">
+            <div class="field success">
+              <label>Email address</label>
+              <input type="email" value="jane@example.com" />
+            </div>
+
+            <div class="field">
+              <label>Password</label>
+              <div class="input-wrap">
+                <input type="password" value="mypassword" placeholder="••••••••" />
+                <button class="eye" title="Show password">👁</button>
+              </div>
+              <div style="display: flex; justify-content: flex-end; margin-top: 2px">
+                <a href="#" class="link">Forgot password?</a>
+              </div>
+            </div>
+
+            <button class="btn btn-contained">Sign in</button>
+
+            <div class="divider-text">or</div>
+
+            <div class="form-footer">
+              New here?
+              <a href="#" class="link" onclick="showScreen('register', null)">Create an account</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobile-hint">Resize browser narrow to see mobile layout</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+     REGISTER
+══════════════════════════════════════════════ -->
+    <div id="screen-register" class="screen">
+      <div class="auth-bg">
+        <div class="auth-card">
+          <div class="auth-logo">
+            <span class="auth-logo-icon">◈</span>
+            Budget Planner
+          </div>
+          <p class="auth-subtitle">Create your account to get started</p>
+
+          <div class="form">
+            <div class="field">
+              <label>Full name</label>
+              <input type="text" value="Jane Doe" />
+            </div>
+
+            <div class="field">
+              <label>Email address</label>
+              <input type="email" placeholder="you@email.com" />
+            </div>
+
+            <div class="field">
+              <label>Password</label>
+              <div class="input-wrap">
+                <input type="password" value="SecurePass1" placeholder="Choose a password" />
+                <button class="eye" title="Show password">👁</button>
+              </div>
+              <!-- password strength indicator -->
+              <div class="pwd-strength" style="margin-top: 8px">
+                <div class="pwd-bars">
+                  <div class="pwd-bar c3"></div>
+                  <div class="pwd-bar c3"></div>
+                  <div class="pwd-bar c3"></div>
+                  <div class="pwd-bar"></div>
+                </div>
+                <div class="pwd-checks">
+                  <div class="pwd-check ok">8+ chars</div>
+                  <div class="pwd-check ok">Uppercase</div>
+                  <div class="pwd-check ok">Number</div>
+                  <div class="pwd-check">Special char</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-contained">Create account</button>
+
+            <div class="form-footer">
+              Already have an account?
+              <a href="#" class="link" onclick="showScreen('login', null)">Sign in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════
+     EMAIL VERIFICATION
+══════════════════════════════════════════════ -->
+    <div id="screen-verify" class="screen">
+      <div class="auth-bg">
+        <div class="auth-card" style="text-align: center">
+          <div class="verify-icon">✉</div>
+
+          <h2 style="font-size: 22px; font-weight: 600; margin-bottom: 12px">Check your email</h2>
+          <p style="color: var(--ts); font-size: 14px; margin-bottom: 8px">
+            We sent a verification link to
+          </p>
+          <p style="font-weight: 600; margin-bottom: 32px">jane@example.com</p>
+
+          <div class="form">
+            <button class="btn btn-contained">Resend email</button>
+            <p class="countdown">You can resend in 58s</p>
+
+            <div class="divider-text" style="margin-top: 8px"></div>
+
+            <div class="form-footer">
+              Wrong email?
+              <a href="#" class="link" onclick="showScreen('login', null)">Sign in again</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showScreen(id, btn) {
+        document.querySelectorAll('.screen').forEach((s) => s.classList.remove('visible'));
+        document.getElementById('screen-' + id).classList.add('visible');
+        if (btn) {
+          document.querySelectorAll('.screen-tab').forEach((t) => t.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      }
+    </script>
+  </body>
+</html>

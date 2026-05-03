@@ -1,0 +1,1673 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Planner — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #121212;
+        --bg-paper: #1e1e1e;
+        --bg-paper-2: #252525;
+        --primary: #009688;
+        --primary-dark: #00796b;
+        --primary-light: #4db6ac;
+        --primary-a12: rgba(0, 150, 136, 0.12);
+        --primary-a20: rgba(0, 150, 136, 0.2);
+        --error: #ef5350;
+        --success: #66bb6a;
+        --warning: #ffa726;
+        --info: #42a5f5;
+        --tp: rgba(255, 255, 255, 0.87);
+        --ts: rgba(255, 255, 255, 0.6);
+        --td: rgba(255, 255, 255, 0.38);
+        --div: rgba(255, 255, 255, 0.12);
+        --bdr: rgba(255, 255, 255, 0.23);
+        --r: 4px;
+        --r-md: 8px;
+        --r-lg: 12px;
+        --sh1: 0 2px 8px rgba(0, 0, 0, 0.6);
+        --sh2: 0 8px 32px rgba(0, 0, 0, 0.8);
+        --sidebar-w: 240px;
+        --sidebar-w-col: 64px;
+        --appbar-h: 56px;
+        --bottomnav-h: 56px;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--tp);
+        font-size: 14px;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      /* demo topnav */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 300;
+        background: var(--bg-paper);
+        border-bottom: 1px solid var(--div);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 24px;
+        height: 48px;
+      }
+      .topnav .logo {
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--primary);
+        margin-right: 12px;
+      }
+      .topnav a {
+        text-decoration: none;
+        color: var(--ts);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 4px 10px;
+        border-radius: var(--r);
+        transition: all 0.15s;
+      }
+      .topnav a:hover {
+        background: var(--primary-a12);
+        color: var(--tp);
+      }
+      .topnav a.active {
+        background: var(--primary-a12);
+        color: var(--primary);
+      }
+      .topnav-right {
+        margin-left: auto;
+        display: flex;
+        gap: 6px;
+      }
+      .demo-btn {
+        padding: 4px 12px;
+        border-radius: var(--r);
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--div);
+        color: var(--ts);
+        background: transparent;
+        transition: all 0.15s;
+      }
+      .demo-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+
+      /* ══ SHELL LAYOUT ══ */
+      .shell {
+        display: flex;
+        height: calc(100vh - 48px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ── Sidebar ── */
+      .sidebar {
+        width: var(--sidebar-w);
+        background: var(--bg-paper);
+        border-right: 1px solid var(--div);
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        transition: width 0.2s ease;
+        overflow: hidden;
+        z-index: 200;
+      }
+      .sidebar.collapsed {
+        width: var(--sidebar-w-col);
+      }
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 16px;
+        height: var(--appbar-h);
+        border-bottom: 1px solid var(--div);
+        flex-shrink: 0;
+      }
+      .sidebar-toggle {
+        background: none;
+        border: none;
+        color: var(--ts);
+        cursor: pointer;
+        font-size: 20px;
+        line-height: 1;
+        flex-shrink: 0;
+        padding: 4px;
+      }
+      .sidebar-toggle:hover {
+        color: var(--tp);
+      }
+      .sidebar-brand {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--primary);
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .budget-switcher {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--div);
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.15s;
+      }
+      .budget-switcher:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .budget-switcher-icon {
+        font-size: 16px;
+        flex-shrink: 0;
+        color: var(--ts);
+      }
+      .budget-switcher-name {
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        flex: 1;
+      }
+      .budget-switcher-arrow {
+        font-size: 10px;
+        color: var(--ts);
+        flex-shrink: 0;
+      }
+
+      .nav-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 6px 0;
+      }
+      .nav-group-label {
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--td);
+        padding: 10px 16px 4px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 9px 16px;
+        cursor: pointer;
+        color: var(--ts);
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.15s;
+        white-space: nowrap;
+        overflow: hidden;
+        border-left: 3px solid transparent;
+      }
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--tp);
+      }
+      .nav-item.active {
+        background: var(--primary-a12);
+        color: var(--primary);
+        border-left-color: var(--primary);
+      }
+      .nav-icon {
+        font-size: 19px;
+        flex-shrink: 0;
+        width: 20px;
+        text-align: center;
+      }
+      .nav-label {
+        white-space: nowrap;
+      }
+      .nav-divider {
+        height: 1px;
+        background: var(--div);
+        margin: 4px 8px;
+      }
+
+      .sidebar-footer {
+        padding: 10px 16px;
+        border-top: 1px solid var(--div);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .sidebar-footer:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .footer-info {
+        overflow: hidden;
+        flex: 1;
+      }
+      .footer-name {
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+      .footer-action {
+        font-size: 11px;
+        color: var(--ts);
+      }
+
+      /* collapsed sidebar hides text */
+      .sidebar.collapsed .sidebar-brand,
+      .sidebar.collapsed .budget-switcher-name,
+      .sidebar.collapsed .budget-switcher-arrow,
+      .sidebar.collapsed .nav-group-label,
+      .sidebar.collapsed .nav-label,
+      .sidebar.collapsed .footer-info {
+        display: none;
+      }
+      .sidebar.collapsed .nav-item {
+        justify-content: center;
+        padding: 9px 0;
+      }
+      .sidebar.collapsed .budget-switcher {
+        justify-content: center;
+        padding: 10px 0;
+      }
+      .sidebar.collapsed .sidebar-footer {
+        justify-content: center;
+        padding: 10px 0;
+      }
+      .sidebar.collapsed .nav-item.active {
+        border-left-color: var(--primary);
+      }
+
+      /* ── Main content ── */
+      .main {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Mobile AppBar ── */
+      .mobile-appbar {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        height: var(--appbar-h);
+        background: var(--bg-paper);
+        border-bottom: 1px solid var(--div);
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      .mobile-appbar-title {
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .mobile-menu-btn {
+        background: none;
+        border: none;
+        color: var(--tp);
+        font-size: 22px;
+        cursor: pointer;
+        padding: 4px;
+      }
+      .mobile-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      /* ── Bottom nav ── */
+      .bottom-nav {
+        display: none;
+        background: var(--bg-paper);
+        border-top: 1px solid var(--div);
+        height: var(--bottomnav-h);
+        flex-shrink: 0;
+      }
+      .bottom-nav-inner {
+        display: flex;
+        height: 100%;
+      }
+      .bnav-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        cursor: pointer;
+        color: var(--ts);
+        font-size: 10px;
+        font-weight: 500;
+        transition: color 0.15s;
+      }
+      .bnav-item.active {
+        color: var(--primary);
+      }
+      .bnav-icon {
+        font-size: 20px;
+      }
+
+      /* mobile drawer */
+      .drawer-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 250;
+        display: none;
+      }
+      .drawer-overlay.open {
+        display: block;
+      }
+      .drawer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 260;
+        background: var(--bg-paper);
+        border-radius: var(--r-lg) var(--r-lg) 0 0;
+        border-top: 1px solid var(--div);
+        transform: translateY(100%);
+        transition: transform 0.25s;
+      }
+      .drawer.open {
+        transform: translateY(0);
+      }
+      .drawer-handle {
+        width: 40px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--div);
+        margin: 12px auto 8px;
+      }
+      .drawer-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 24px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--ts);
+        transition: background 0.1s;
+      }
+      .drawer-item:hover {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      .drawer-divider {
+        height: 1px;
+        background: var(--div);
+        margin: 4px 0;
+      }
+
+      /* ══ DASHBOARD CONTENT ══ */
+      .page-content {
+        padding: 28px 32px;
+        flex: 1;
+      }
+      .page-header {
+        margin-bottom: 24px;
+      }
+      .page-title {
+        font-size: 22px;
+        font-weight: 600;
+      }
+      .page-subtitle {
+        font-size: 13px;
+        color: var(--ts);
+        margin-top: 2px;
+      }
+
+      /* stat cards */
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .stat-card {
+        background: var(--bg-paper);
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        padding: 18px 20px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .stat-card:hover {
+        border-color: rgba(0, 150, 136, 0.4);
+        box-shadow: var(--sh1);
+      }
+      .stat-label {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--ts);
+        margin-bottom: 8px;
+      }
+      .stat-value {
+        font-size: 26px;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+      .stat-value.pos {
+        color: var(--success);
+      }
+      .stat-value.neg {
+        color: var(--error);
+      }
+      .stat-unit {
+        font-size: 12px;
+        color: var(--ts);
+      }
+
+      /* chart cards */
+      .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .chart-card {
+        background: var(--bg-paper);
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        overflow: hidden;
+      }
+      .chart-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 20px 12px;
+        border-bottom: 1px solid var(--div);
+      }
+      .chart-title {
+        font-size: 14px;
+        font-weight: 600;
+      }
+      .chart-actions {
+        display: flex;
+        gap: 4px;
+      }
+      .time-btn {
+        padding: 3px 10px;
+        border-radius: 12px;
+        border: 1px solid var(--div);
+        background: transparent;
+        color: var(--ts);
+        font-size: 12px;
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        transition: all 0.15s;
+      }
+      .time-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+      .chart-body {
+        padding: 16px 20px 20px;
+        position: relative;
+      }
+
+      /* two-col chart layout */
+      .chart-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      /* SVG charts */
+      svg text {
+        font-family: 'Inter', sans-serif;
+      }
+
+      /* expenses screen preview */
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid var(--div);
+      }
+      .tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        color: var(--ts);
+        font-weight: 500;
+        font-size: 13px;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        transition: all 0.15s;
+      }
+      .tab:hover {
+        color: var(--tp);
+      }
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+      .table-wrap {
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        overflow: hidden;
+        margin-top: 16px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      thead {
+        background: var(--bg-paper-2);
+      }
+      thead th {
+        text-align: left;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--ts);
+        letter-spacing: 0.04em;
+        padding: 9px 14px;
+        border-bottom: 1px solid var(--div);
+      }
+      tbody tr {
+        border-bottom: 1px solid var(--div);
+        transition: background 0.1s;
+      }
+      tbody tr:last-child {
+        border-bottom: none;
+      }
+      tbody tr:hover {
+        background: rgba(255, 255, 255, 0.025);
+      }
+      tbody td {
+        padding: 11px 14px;
+        font-size: 13px;
+      }
+      .td-s {
+        color: var(--ts);
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        height: 22px;
+        padding: 0 8px;
+        border-radius: 11px;
+        font-size: 11px;
+        font-weight: 500;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--ts);
+      }
+      .row-dirty {
+        border-left: 3px solid var(--warning);
+      }
+      .row-dirty td:first-child {
+        padding-left: 11px;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        border: none;
+        border-radius: var(--r);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 14px;
+        height: 32px;
+        letter-spacing: 0.02em;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .btn-contained {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-contained:hover {
+        background: var(--primary-dark);
+      }
+      .btn-outlined {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid rgba(0, 150, 136, 0.5);
+      }
+      .btn-outlined:hover {
+        background: var(--primary-a12);
+      }
+      .icon-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: var(--ts);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+      }
+      .icon-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* screen switcher */
+      .screen-switch {
+        display: flex;
+        gap: 6px;
+        padding: 8px 0 16px;
+        flex-wrap: wrap;
+      }
+      .ss-btn {
+        padding: 5px 14px;
+        border-radius: 16px;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 500;
+        border: 1px solid var(--div);
+        color: var(--ts);
+        background: transparent;
+        transition: all 0.15s;
+      }
+      .ss-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+      .screen {
+        display: none;
+      }
+      .screen.visible {
+        display: block;
+      }
+
+      /* budget switcher popover */
+      .popover {
+        position: absolute;
+        left: 8px;
+        top: calc(var(--appbar-h) + 45px + 8px);
+        z-index: 220;
+        background: var(--bg-paper-2);
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        min-width: 200px;
+        box-shadow: var(--sh2);
+        display: none;
+        overflow: hidden;
+      }
+      .popover-title {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--td);
+        padding: 10px 14px 6px;
+      }
+      .popover-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: background 0.1s;
+      }
+      .popover-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .popover-item.current {
+        color: var(--primary);
+      }
+      .popover-divider {
+        height: 1px;
+        background: var(--div);
+      }
+      .popover-new {
+        color: var(--primary);
+        font-size: 13px;
+      }
+
+      /* responsive breakpoint: ≤900px = mobile layout */
+      @media (max-width: 900px) {
+        .sidebar {
+          display: none;
+        }
+        .mobile-appbar {
+          display: flex;
+        }
+        .bottom-nav {
+          display: block;
+        }
+        .page-content {
+          padding: 20px 16px;
+        }
+        .stat-row {
+          grid-template-columns: 1fr 1fr;
+        }
+        .chart-grid-2 {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 500px) {
+        .stat-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- demo nav -->
+    <nav class="topnav">
+      <span class="logo">Budget Planner</span>
+      <a href="index.html">Design System</a>
+      <a href="auth.html">Auth</a>
+      <a href="budget-list.html">Budgets</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <div class="topnav-right">
+        <button class="demo-btn active" onclick="setScreen('dashboard', this)">Dashboard</button>
+        <button class="demo-btn" onclick="setScreen('expenses', this)">Expenses</button>
+      </div>
+    </nav>
+
+    <!-- ══ SHELL ══ -->
+    <div class="shell">
+      <!-- sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">≡</button>
+          <span class="sidebar-brand">Budget Planner</span>
+        </div>
+
+        <div class="budget-switcher" onclick="togglePopover()">
+          <span class="budget-switcher-icon">▾</span>
+          <span class="budget-switcher-name">Family 2025</span>
+          <span class="budget-switcher-arrow">▾</span>
+        </div>
+
+        <!-- budget switcher popover -->
+        <div class="popover" id="budgetPopover">
+          <div class="popover-title">Switch budget</div>
+          <div class="popover-item current">● Family 2025</div>
+          <div class="popover-item">○ John's Budget</div>
+          <div class="popover-item">○ Shared Plan</div>
+          <div class="popover-divider"></div>
+          <div class="popover-item popover-new">✚ New budget</div>
+        </div>
+
+        <nav class="nav-body">
+          <div
+            class="nav-item active"
+            id="nav-dashboard"
+            onclick="
+              setScreen('dashboard', null);
+              setNav(this);
+            "
+          >
+            <span class="nav-icon">▣</span><span class="nav-label">Dashboard</span>
+          </div>
+          <div
+            class="nav-item"
+            id="nav-expenses"
+            onclick="
+              setScreen('expenses', null);
+              setNav(this);
+            "
+          >
+            <span class="nav-icon">↓</span><span class="nav-label">Expenses</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">↑</span><span class="nav-label">Revenues</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">◎</span><span class="nav-label">Savings</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">◆</span><span class="nav-label">Assets</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">〜</span><span class="nav-label">Projections</span>
+          </div>
+          <div class="nav-divider"></div>
+          <div class="nav-item">
+            <span class="nav-icon">👥</span><span class="nav-label">Members</span>
+          </div>
+          <div class="nav-item">
+            <span class="nav-icon">⚙</span><span class="nav-label">Settings</span>
+          </div>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="avatar">JD</div>
+          <div class="footer-info">
+            <div class="footer-name">Jane Doe</div>
+            <div class="footer-action">Sign out</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- main -->
+      <div class="main">
+        <!-- mobile appbar -->
+        <div class="mobile-appbar">
+          <button class="mobile-menu-btn" onclick="openDrawerMenu()">≡</button>
+          <span class="mobile-appbar-title">Family 2025</span>
+          <div class="mobile-avatar">JD</div>
+        </div>
+
+        <!-- ══ DASHBOARD SCREEN ══ -->
+        <div id="screen-dashboard" class="screen visible">
+          <div class="page-content">
+            <div class="page-header">
+              <div class="page-title">Dashboard</div>
+              <div class="page-subtitle">Jan 2025 – Jan 2055 · EUR</div>
+            </div>
+
+            <!-- stat cards -->
+            <div class="stat-row">
+              <div class="stat-card">
+                <div class="stat-label">Monthly Revenue</div>
+                <div class="stat-value">€ 5 400</div>
+                <div class="stat-unit">/ month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Monthly Expenses</div>
+                <div class="stat-value">€ 3 200</div>
+                <div class="stat-unit">/ month</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-label">Net Cash Flow</div>
+                <div class="stat-value pos">+ € 2 200</div>
+                <div class="stat-unit">/ month</div>
+              </div>
+            </div>
+
+            <div class="chart-grid">
+              <!-- Net worth chart -->
+              <div class="chart-card">
+                <div class="chart-header">
+                  <span class="chart-title">Net Worth Over Time</span>
+                  <div class="chart-actions">
+                    <button class="time-btn">10yr</button>
+                    <button class="time-btn">20yr</button>
+                    <button class="time-btn active">30yr</button>
+                    <button class="time-btn">Full</button>
+                  </div>
+                </div>
+                <div class="chart-body">
+                  <svg width="100%" height="200" viewBox="0 0 700 200" preserveAspectRatio="none">
+                    <!-- grid lines -->
+                    <line
+                      x1="0"
+                      y1="160"
+                      x2="700"
+                      y2="160"
+                      stroke="rgba(255,255,255,.06)"
+                      stroke-width="1"
+                    />
+                    <line
+                      x1="0"
+                      y1="120"
+                      x2="700"
+                      y2="120"
+                      stroke="rgba(255,255,255,.06)"
+                      stroke-width="1"
+                    />
+                    <line
+                      x1="0"
+                      y1="80"
+                      x2="700"
+                      y2="80"
+                      stroke="rgba(255,255,255,.06)"
+                      stroke-width="1"
+                    />
+                    <line
+                      x1="0"
+                      y1="40"
+                      x2="700"
+                      y2="40"
+                      stroke="rgba(255,255,255,.06)"
+                      stroke-width="1"
+                    />
+                    <!-- area fill -->
+                    <defs>
+                      <linearGradient id="netWorthGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#009688" stop-opacity=".3" />
+                        <stop offset="100%" stop-color="#009688" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M0,175 C50,173 100,170 150,162 C200,150 250,130 300,108 C350,85 400,65 450,48 C500,33 550,22 600,15 C640,10 670,8 700,7 L700,200 L0,200 Z"
+                      fill="url(#netWorthGrad)"
+                    />
+                    <!-- line -->
+                    <path
+                      d="M0,175 C50,173 100,170 150,162 C200,150 250,130 300,108 C350,85 400,65 450,48 C500,33 550,22 600,15 C640,10 670,8 700,7"
+                      fill="none"
+                      stroke="#009688"
+                      stroke-width="2.5"
+                    />
+                    <!-- x axis labels -->
+                    <text x="0" y="195" fill="rgba(255,255,255,.4)" font-size="10">2025</text>
+                    <text x="110" y="195" fill="rgba(255,255,255,.4)" font-size="10">2030</text>
+                    <text x="225" y="195" fill="rgba(255,255,255,.4)" font-size="10">2035</text>
+                    <text x="340" y="195" fill="rgba(255,255,255,.4)" font-size="10">2040</text>
+                    <text x="455" y="195" fill="rgba(255,255,255,.4)" font-size="10">2045</text>
+                    <text x="570" y="195" fill="rgba(255,255,255,.4)" font-size="10">2050</text>
+                    <!-- y axis labels -->
+                    <text x="3" y="163" fill="rgba(255,255,255,.4)" font-size="10">0</text>
+                    <text x="3" y="123" fill="rgba(255,255,255,.4)" font-size="10">€200k</text>
+                    <text x="3" y="83" fill="rgba(255,255,255,.4)" font-size="10">€400k</text>
+                    <text x="3" y="43" fill="rgba(255,255,255,.4)" font-size="10">€600k</text>
+                    <!-- tooltip crosshair example -->
+                    <line
+                      x1="450"
+                      y1="0"
+                      x2="450"
+                      y2="180"
+                      stroke="rgba(255,255,255,.15)"
+                      stroke-width="1"
+                      stroke-dasharray="4"
+                    />
+                    <circle
+                      cx="450"
+                      cy="48"
+                      r="5"
+                      fill="#009688"
+                      stroke="var(--bg-paper)"
+                      stroke-width="2"
+                    />
+                    <!-- tooltip bubble -->
+                    <rect
+                      x="360"
+                      y="18"
+                      width="120"
+                      height="44"
+                      rx="6"
+                      fill="var(--bg-paper-2)"
+                      stroke="rgba(255,255,255,.12)"
+                      stroke-width="1"
+                    />
+                    <text x="370" y="36" fill="rgba(255,255,255,.6)" font-size="10">Jan 2045</text>
+                    <text x="370" y="52" fill="#4db6ac" font-size="12" font-weight="600">
+                      € 412 000
+                    </text>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- two-col row: bar chart + pie chart -->
+              <div class="chart-grid-2">
+                <!-- Monthly cash flow bar chart -->
+                <div class="chart-card">
+                  <div class="chart-header">
+                    <span class="chart-title">Monthly Cash Flow — 2025</span>
+                  </div>
+                  <div class="chart-body">
+                    <svg width="100%" height="180" viewBox="0 0 400 180" preserveAspectRatio="none">
+                      <defs>
+                        <linearGradient id="revGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#66bb6a" stop-opacity=".9" />
+                          <stop offset="100%" stop-color="#66bb6a" stop-opacity=".5" />
+                        </linearGradient>
+                        <linearGradient id="expGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stop-color="#ef5350" stop-opacity=".9" />
+                          <stop offset="100%" stop-color="#ef5350" stop-opacity=".5" />
+                        </linearGradient>
+                      </defs>
+                      <!-- grid -->
+                      <line
+                        x1="0"
+                        y1="140"
+                        x2="400"
+                        y2="140"
+                        stroke="rgba(255,255,255,.06)"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="0"
+                        y1="100"
+                        x2="400"
+                        y2="100"
+                        stroke="rgba(255,255,255,.06)"
+                        stroke-width="1"
+                      />
+                      <line
+                        x1="0"
+                        y1="60"
+                        x2="400"
+                        y2="60"
+                        stroke="rgba(255,255,255,.06)"
+                        stroke-width="1"
+                      />
+                      <!-- months: J F M A M J J (7 months) -->
+                      <!-- Revenue bars (green) -->
+                      <rect x="4" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <rect x="60" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <rect x="116" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <rect x="172" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <rect x="228" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <rect x="284" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <rect x="340" y="42" width="22" height="98" rx="2" fill="url(#revGrad)" />
+                      <!-- Expense bars (red) -->
+                      <rect x="28" y="82" width="22" height="58" rx="2" fill="url(#expGrad)" />
+                      <rect x="84" y="76" width="22" height="64" rx="2" fill="url(#expGrad)" />
+                      <rect x="140" y="82" width="22" height="58" rx="2" fill="url(#expGrad)" />
+                      <rect x="196" y="80" width="22" height="60" rx="2" fill="url(#expGrad)" />
+                      <rect x="252" y="79" width="22" height="61" rx="2" fill="url(#expGrad)" />
+                      <rect x="308" y="82" width="22" height="58" rx="2" fill="url(#expGrad)" />
+                      <rect x="364" y="77" width="22" height="63" rx="2" fill="url(#expGrad)" />
+                      <!-- month labels -->
+                      <text
+                        x="11"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        Jan
+                      </text>
+                      <text
+                        x="67"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        Feb
+                      </text>
+                      <text
+                        x="123"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        Mar
+                      </text>
+                      <text
+                        x="179"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        Apr
+                      </text>
+                      <text
+                        x="235"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        May
+                      </text>
+                      <text
+                        x="291"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        Jun
+                      </text>
+                      <text
+                        x="347"
+                        y="158"
+                        fill="rgba(255,255,255,.4)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        Jul
+                      </text>
+                      <!-- legend -->
+                      <rect x="4" y="168" width="10" height="6" rx="1" fill="#66bb6a" />
+                      <text x="18" y="175" fill="rgba(255,255,255,.6)" font-size="10">Revenue</text>
+                      <rect x="80" y="168" width="10" height="6" rx="1" fill="#ef5350" />
+                      <text x="94" y="175" fill="rgba(255,255,255,.6)" font-size="10">
+                        Expenses
+                      </text>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Expense breakdown pie chart -->
+                <div class="chart-card">
+                  <div class="chart-header">
+                    <span class="chart-title">Expense Breakdown</span>
+                  </div>
+                  <div
+                    class="chart-body"
+                    style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap"
+                  >
+                    <svg width="140" height="140" viewBox="0 0 140 140" style="flex-shrink: 0">
+                      <!-- donut slices: Housing 35%, Food 20%, Loans 25%, Transport 12%, Other 8% -->
+                      <!-- using stroke-dasharray trick on a circle r=50, circumference=314 -->
+                      <circle
+                        cx="70"
+                        cy="70"
+                        r="50"
+                        fill="none"
+                        stroke="#009688"
+                        stroke-width="28"
+                        stroke-dasharray="110 204"
+                        stroke-dashoffset="0"
+                        transform="rotate(-90 70 70)"
+                      />
+                      <circle
+                        cx="70"
+                        cy="70"
+                        r="50"
+                        fill="none"
+                        stroke="#42a5f5"
+                        stroke-width="28"
+                        stroke-dasharray="63 251"
+                        stroke-dashoffset="-110"
+                        transform="rotate(-90 70 70)"
+                      />
+                      <circle
+                        cx="70"
+                        cy="70"
+                        r="50"
+                        fill="none"
+                        stroke="#ffa726"
+                        stroke-width="28"
+                        stroke-dasharray="78 236"
+                        stroke-dashoffset="-173"
+                        transform="rotate(-90 70 70)"
+                      />
+                      <circle
+                        cx="70"
+                        cy="70"
+                        r="50"
+                        fill="none"
+                        stroke="#ce93d8"
+                        stroke-width="28"
+                        stroke-dasharray="38 276"
+                        stroke-dashoffset="-251"
+                        transform="rotate(-90 70 70)"
+                      />
+                      <circle
+                        cx="70"
+                        cy="70"
+                        r="50"
+                        fill="none"
+                        stroke="rgba(255,255,255,.2)"
+                        stroke-width="28"
+                        stroke-dasharray="25 289"
+                        stroke-dashoffset="-289"
+                        transform="rotate(-90 70 70)"
+                      />
+                      <!-- center -->
+                      <circle cx="70" cy="70" r="32" fill="var(--bg-paper)" />
+                      <text
+                        x="70"
+                        y="66"
+                        fill="rgba(255,255,255,.87)"
+                        font-size="14"
+                        font-weight="600"
+                        text-anchor="middle"
+                      >
+                        € 3 200
+                      </text>
+                      <text
+                        x="70"
+                        y="80"
+                        fill="rgba(255,255,255,.5)"
+                        font-size="10"
+                        text-anchor="middle"
+                      >
+                        /month
+                      </text>
+                    </svg>
+                    <div
+                      style="
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                        font-size: 12px;
+                        min-width: 120px;
+                      "
+                    >
+                      <div style="display: flex; align-items: center; gap: 8px">
+                        <span
+                          style="
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 2px;
+                            background: #009688;
+                            flex-shrink: 0;
+                          "
+                        ></span
+                        ><span style="flex: 1">Housing</span
+                        ><span style="color: var(--ts)">35%</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px">
+                        <span
+                          style="
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 2px;
+                            background: #42a5f5;
+                            flex-shrink: 0;
+                          "
+                        ></span
+                        ><span style="flex: 1">Food</span><span style="color: var(--ts)">20%</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px">
+                        <span
+                          style="
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 2px;
+                            background: #ffa726;
+                            flex-shrink: 0;
+                          "
+                        ></span
+                        ><span style="flex: 1">Loans</span><span style="color: var(--ts)">25%</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px">
+                        <span
+                          style="
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 2px;
+                            background: #ce93d8;
+                            flex-shrink: 0;
+                          "
+                        ></span
+                        ><span style="flex: 1">Transport</span
+                        ><span style="color: var(--ts)">12%</span>
+                      </div>
+                      <div style="display: flex; align-items: center; gap: 8px">
+                        <span
+                          style="
+                            width: 10px;
+                            height: 10px;
+                            border-radius: 2px;
+                            background: rgba(255, 255, 255, 0.2);
+                            flex-shrink: 0;
+                          "
+                        ></span
+                        ><span style="flex: 1">Other</span><span style="color: var(--ts)">8%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /chart-grid-2 -->
+            </div>
+            <!-- /chart-grid -->
+          </div>
+          <!-- /page-content -->
+        </div>
+        <!-- /screen-dashboard -->
+
+        <!-- ══ EXPENSES SCREEN ══ -->
+        <div id="screen-expenses" class="screen">
+          <div class="page-content">
+            <div class="page-header">
+              <div class="page-title">Expenses</div>
+            </div>
+
+            <!-- expense chart -->
+            <div class="chart-card" style="margin-bottom: 20px">
+              <div class="chart-header">
+                <span class="chart-title">Monthly Expenses Over Time</span>
+                <div class="chart-actions">
+                  <button class="time-btn active">Monthly total</button>
+                  <button class="time-btn">Cumulative</button>
+                  <button class="time-btn">By category</button>
+                </div>
+              </div>
+              <div class="chart-body">
+                <svg width="100%" height="160" viewBox="0 0 700 160" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="expAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#ef5350" stop-opacity=".25" />
+                      <stop offset="100%" stop-color="#ef5350" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <line
+                    x1="0"
+                    y1="120"
+                    x2="700"
+                    y2="120"
+                    stroke="rgba(255,255,255,.06)"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="0"
+                    y1="80"
+                    x2="700"
+                    y2="80"
+                    stroke="rgba(255,255,255,.06)"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="0"
+                    y1="40"
+                    x2="700"
+                    y2="40"
+                    stroke="rgba(255,255,255,.06)"
+                    stroke-width="1"
+                  />
+                  <!-- total line (bold) -->
+                  <path
+                    d="M0,85 C80,82 150,78 220,88 C280,96 320,70 380,62 C440,54 500,65 560,55 C610,47 660,45 700,43"
+                    fill="none"
+                    stroke="#ef5350"
+                    stroke-width="2.5"
+                  />
+                  <!-- housing line -->
+                  <path
+                    d="M0,100 C80,98 150,96 220,102 C280,106 320,90 380,84 C440,78 500,88 560,80 C610,74 660,72 700,70"
+                    fill="none"
+                    stroke="#009688"
+                    stroke-width="1.5"
+                    stroke-dasharray="4"
+                  />
+                  <!-- loans line (step down) -->
+                  <path
+                    d="M0,115 L400,115 L400,130 L700,130"
+                    fill="none"
+                    stroke="#ffa726"
+                    stroke-width="1.5"
+                    stroke-dasharray="4"
+                  />
+                  <!-- x labels -->
+                  <text x="0" y="152" fill="rgba(255,255,255,.4)" font-size="10">2025</text>
+                  <text x="110" y="152" fill="rgba(255,255,255,.4)" font-size="10">2030</text>
+                  <text x="225" y="152" fill="rgba(255,255,255,.4)" font-size="10">2035</text>
+                  <text x="340" y="152" fill="rgba(255,255,255,.4)" font-size="10">2040</text>
+                  <text x="455" y="152" fill="rgba(255,255,255,.4)" font-size="10">2045</text>
+                  <text x="570" y="152" fill="rgba(255,255,255,.4)" font-size="10">2050</text>
+                  <!-- legend -->
+                  <rect x="0" y="4" width="10" height="4" rx="1" fill="#ef5350" />
+                  <text x="14" y="10" fill="rgba(255,255,255,.55)" font-size="10">Total</text>
+                  <rect x="55" y="4" width="10" height="4" rx="1" fill="#009688" />
+                  <text x="69" y="10" fill="rgba(255,255,255,.55)" font-size="10">Housing</text>
+                  <rect x="122" y="4" width="10" height="4" rx="1" fill="#ffa726" />
+                  <text x="136" y="10" fill="rgba(255,255,255,.55)" font-size="10">Loans</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- tabs -->
+            <div class="tabs">
+              <div class="tab active">Regular Expenses</div>
+              <div class="tab">Loans</div>
+            </div>
+
+            <!-- toolbar -->
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 0 0;
+              "
+            >
+              <div style="display: flex; gap: 8px">
+                <button class="btn btn-outlined">✚ Add row</button>
+                <button
+                  class="btn"
+                  style="
+                    color: var(--error);
+                    background: transparent;
+                    border: 1px solid rgba(239, 83, 80, 0.3);
+                  "
+                >
+                  ✕ Delete selected
+                </button>
+              </div>
+              <button class="btn btn-contained">Save all (Ctrl+S)</button>
+            </div>
+
+            <!-- data table -->
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 36px"></th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Frequency</th>
+                    <th>Person</th>
+                    <th>Start</th>
+                    <th style="width: 36px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" style="accent-color: var(--primary)" /></td>
+                    <td>Rent</td>
+                    <td><div class="chip">🏠 Housing</div></td>
+                    <td style="font-variant-numeric: tabular-nums">€ 1 200</td>
+                    <td class="td-s">Monthly</td>
+                    <td class="td-s">—</td>
+                    <td class="td-s">Jan 2025</td>
+                    <td><button class="icon-btn">✕</button></td>
+                  </tr>
+                  <tr class="row-dirty">
+                    <td><input type="checkbox" style="accent-color: var(--primary)" /></td>
+                    <td>
+                      Food <span style="font-size: 10px; color: var(--warning)">unsaved</span>
+                    </td>
+                    <td><div class="chip">🍔 Food</div></td>
+                    <td style="font-variant-numeric: tabular-nums; color: var(--warning)">€ 650</td>
+                    <td class="td-s">Monthly</td>
+                    <td class="td-s">—</td>
+                    <td class="td-s">Jan 2025</td>
+                    <td><button class="icon-btn">✕</button></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" style="accent-color: var(--primary)" /></td>
+                    <td>Gym</td>
+                    <td><div class="chip">❤ Health</div></td>
+                    <td style="font-variant-numeric: tabular-nums">€ 40</td>
+                    <td class="td-s">Monthly</td>
+                    <td class="td-s">Jane</td>
+                    <td class="td-s">Mar 2024</td>
+                    <td><button class="icon-btn">✕</button></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" style="accent-color: var(--primary)" /></td>
+                    <td>Car insurance</td>
+                    <td><div class="chip">🚗 Transport</div></td>
+                    <td style="font-variant-numeric: tabular-nums">€ 95</td>
+                    <td class="td-s">Monthly</td>
+                    <td class="td-s">John</td>
+                    <td class="td-s">Jun 2023</td>
+                    <td><button class="icon-btn">✕</button></td>
+                  </tr>
+                  <tr style="opacity: 0.4">
+                    <td></td>
+                    <td colspan="7" style="color: var(--td); font-style: italic; font-size: 13px">
+                      Click to add a new row…
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 2px 0;
+                font-size: 12px;
+                color: var(--ts);
+              "
+            >
+              <span>Showing 4 of 4 rows · 1 unsaved</span>
+            </div>
+          </div>
+        </div>
+        <!-- /screen-expenses -->
+
+        <!-- bottom nav -->
+        <div class="bottom-nav">
+          <div class="bottom-nav-inner">
+            <div class="bnav-item active" onclick="setScreen('dashboard', null)">
+              <span class="bnav-icon">▣</span><span>Dash</span>
+            </div>
+            <div class="bnav-item" onclick="setScreen('expenses', null)">
+              <span class="bnav-icon">↓</span><span>Expenses</span>
+            </div>
+            <div class="bnav-item"><span class="bnav-icon">↑</span><span>Revenues</span></div>
+            <div class="bnav-item"><span class="bnav-icon">〜</span><span>Charts</span></div>
+            <div class="bnav-item" onclick="openMoreDrawer()">
+              <span class="bnav-icon">⋯</span><span>More</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /main -->
+    </div>
+    <!-- /shell -->
+
+    <!-- mobile "More" drawer -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawers()"></div>
+    <div class="drawer" id="moreDrawer">
+      <div class="drawer-handle"></div>
+      <div class="drawer-item"><span style="font-size: 18px">◎</span> Savings</div>
+      <div class="drawer-item"><span style="font-size: 18px">◆</span> Assets</div>
+      <div class="drawer-divider"></div>
+      <div class="drawer-item"><span style="font-size: 18px">👥</span> Members</div>
+      <div class="drawer-item"><span style="font-size: 18px">⚙</span> Settings</div>
+    </div>
+
+    <!-- mobile menu drawer -->
+    <div class="drawer" id="menuDrawer" style="padding-bottom: 16px">
+      <div class="drawer-handle"></div>
+      <div class="drawer-item" style="font-weight: 600; color: var(--primary)">Family 2025 ▾</div>
+      <div class="drawer-divider"></div>
+      <div
+        class="drawer-item active"
+        onclick="
+          setScreen('dashboard', null);
+          closeDrawers();
+        "
+      >
+        ▣ Dashboard
+      </div>
+      <div
+        class="drawer-item"
+        onclick="
+          setScreen('expenses', null);
+          closeDrawers();
+        "
+      >
+        ↓ Expenses
+      </div>
+      <div class="drawer-item">↑ Revenues</div>
+      <div class="drawer-item">◎ Savings</div>
+      <div class="drawer-item">◆ Assets</div>
+      <div class="drawer-item">〜 Projections</div>
+      <div class="drawer-divider"></div>
+      <div class="drawer-item">👥 Members</div>
+      <div class="drawer-item">⚙ Settings</div>
+      <div class="drawer-divider"></div>
+      <div class="drawer-item" style="color: var(--error)">⎋ Sign out</div>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+        document.getElementById('budgetPopover').style.display = 'none';
+      }
+
+      function togglePopover() {
+        const p = document.getElementById('budgetPopover');
+        p.style.display = p.style.display === 'block' ? 'none' : 'block';
+      }
+
+      function setScreen(id, btn) {
+        document.querySelectorAll('.screen').forEach((s) => s.classList.remove('visible'));
+        document.getElementById('screen-' + id).classList.add('visible');
+        if (btn) {
+          document.querySelectorAll('.demo-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+        } else {
+          // sync demo buttons
+          document.querySelectorAll('.demo-btn').forEach((b) => {
+            b.classList.toggle('active', b.textContent.toLowerCase() === id);
+          });
+        }
+      }
+
+      function setNav(el) {
+        document.querySelectorAll('.nav-item').forEach((n) => n.classList.remove('active'));
+        el.classList.add('active');
+      }
+
+      function openMoreDrawer() {
+        document.getElementById('drawerOverlay').classList.add('open');
+        document.getElementById('moreDrawer').classList.add('open');
+      }
+
+      function openDrawerMenu() {
+        document.getElementById('drawerOverlay').classList.add('open');
+        document.getElementById('menuDrawer').classList.add('open');
+      }
+
+      function closeDrawers() {
+        document.getElementById('drawerOverlay').classList.remove('open');
+        document.getElementById('moreDrawer').classList.remove('open');
+        document.getElementById('menuDrawer').classList.remove('open');
+      }
+
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.budget-switcher') && !e.target.closest('.popover')) {
+          document.getElementById('budgetPopover').style.display = 'none';
+        }
+      });
+    </script>
+  </body>
+</html>

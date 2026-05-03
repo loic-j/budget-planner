@@ -1,0 +1,795 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Planner — Budget List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #121212;
+        --bg-paper: #1e1e1e;
+        --bg-paper-2: #2a2a2a;
+        --primary: #009688;
+        --primary-dark: #00796b;
+        --primary-light: #4db6ac;
+        --primary-a12: rgba(0, 150, 136, 0.12);
+        --primary-a20: rgba(0, 150, 136, 0.2);
+        --error: #ef5350;
+        --error-a12: rgba(239, 83, 80, 0.12);
+        --info: #42a5f5;
+        --info-a12: rgba(66, 165, 245, 0.12);
+        --tp: rgba(255, 255, 255, 0.87);
+        --ts: rgba(255, 255, 255, 0.6);
+        --td: rgba(255, 255, 255, 0.38);
+        --div: rgba(255, 255, 255, 0.12);
+        --bdr: rgba(255, 255, 255, 0.23);
+        --r: 4px;
+        --r-md: 8px;
+        --r-lg: 12px;
+        --sh1: 0 2px 8px rgba(0, 0, 0, 0.6);
+        --sh2: 0 8px 32px rgba(0, 0, 0, 0.8);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--tp);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      /* top nav (demo nav) */
+      .topnav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg-paper);
+        border-bottom: 1px solid var(--div);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 24px;
+        height: 56px;
+      }
+      .topnav .logo {
+        font-weight: 600;
+        font-size: 16px;
+        color: var(--primary);
+        margin-right: 16px;
+      }
+      .topnav a {
+        text-decoration: none;
+        color: var(--ts);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 4px 12px;
+        border-radius: var(--r);
+        transition: all 0.15s;
+      }
+      .topnav a:hover {
+        background: var(--primary-a12);
+        color: var(--tp);
+      }
+      .topnav a.active {
+        background: var(--primary-a12);
+        color: var(--primary);
+      }
+
+      /* app header */
+      .app-header {
+        background: var(--bg-paper);
+        border-bottom: 1px solid var(--div);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        height: 64px;
+      }
+      .app-header-logo {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .user-menu {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 600;
+        flex-shrink: 0;
+      }
+      .user-name {
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .user-menu-icon {
+        color: var(--ts);
+        font-size: 12px;
+      }
+
+      /* page */
+      .page-body {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 40px 32px 80px;
+      }
+
+      /* view toggle */
+      .view-toggle {
+        display: flex;
+        gap: 8px;
+        padding: 16px 0 8px;
+        justify-content: center;
+      }
+      .view-btn {
+        padding: 6px 18px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        border: 1px solid var(--div);
+        color: var(--ts);
+        background: transparent;
+        transition: all 0.15s;
+      }
+      .view-btn.active {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+
+      /* view containers */
+      .view {
+        display: none;
+      }
+      .view.visible {
+        display: block;
+      }
+
+      /* section header */
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+      }
+      .section-title {
+        font-size: 22px;
+        font-weight: 600;
+      }
+
+      /* buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        border: none;
+        border-radius: var(--r);
+        cursor: pointer;
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 8px 20px;
+        height: 38px;
+        letter-spacing: 0.02em;
+        transition: all 0.15s;
+        white-space: nowrap;
+      }
+      .btn-contained {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-contained:hover {
+        background: var(--primary-dark);
+        box-shadow: var(--sh1);
+      }
+      .btn-outlined {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid rgba(0, 150, 136, 0.5);
+      }
+      .btn-outlined:hover {
+        background: var(--primary-a12);
+      }
+      .btn-text {
+        background: transparent;
+        color: var(--primary);
+        border: none;
+      }
+      .btn-text:hover {
+        background: var(--primary-a12);
+      }
+      .btn-sm {
+        height: 30px;
+        padding: 4px 14px;
+        font-size: 13px;
+      }
+      .btn-err {
+        background: transparent;
+        color: var(--error);
+        border: none;
+      }
+      .btn-err:hover {
+        background: var(--error-a12);
+      }
+      .icon-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: transparent;
+        color: var(--ts);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        transition: all 0.15s;
+      }
+      .icon-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--tp);
+      }
+
+      /* budget cards grid */
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+      }
+      .budget-card {
+        background: var(--bg-paper);
+        border: 1px solid var(--div);
+        border-radius: var(--r-lg);
+        padding: 20px 20px 16px;
+        box-shadow: var(--sh1);
+        transition: all 0.2s;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .budget-card:hover {
+        border-color: rgba(0, 150, 136, 0.4);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        transform: translateY(-2px);
+      }
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        height: 20px;
+        padding: 0 8px;
+        border-radius: var(--r);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+      }
+      .badge-owner {
+        background: var(--primary-a20);
+        color: var(--primary-light);
+      }
+      .badge-editor {
+        background: var(--info-a12);
+        color: var(--info);
+      }
+      .badge-viewer {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--ts);
+      }
+      .card-name {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .card-meta {
+        font-size: 13px;
+        color: var(--ts);
+        margin-bottom: 4px;
+      }
+      .card-members {
+        font-size: 12px;
+        color: var(--td);
+        margin-bottom: 16px;
+      }
+      .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border-top: 1px solid var(--div);
+        padding-top: 12px;
+      }
+
+      /* dropdown menu */
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: calc(100% + 4px);
+        z-index: 50;
+        background: var(--bg-paper-2);
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        min-width: 160px;
+        box-shadow: var(--sh2);
+        overflow: hidden;
+      }
+      .dropdown-item {
+        padding: 10px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background 0.1s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dropdown-item:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .dropdown-item.danger {
+        color: var(--error);
+      }
+      .dropdown-divider {
+        height: 1px;
+        background: var(--div);
+      }
+
+      /* empty state */
+      .empty-state {
+        text-align: center;
+        padding: 80px 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .empty-icon {
+        font-size: 64px;
+        opacity: 0.3;
+      }
+      .empty-title {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .empty-subtitle {
+        color: var(--ts);
+        font-size: 15px;
+        max-width: 320px;
+      }
+
+      /* dialog overlay */
+      .dialog-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 200;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .dialog-overlay.open {
+        display: flex;
+      }
+      .dialog {
+        background: var(--bg-paper);
+        border-radius: var(--r-lg);
+        width: 100%;
+        max-width: 480px;
+        box-shadow: var(--sh2);
+        border: 1px solid var(--div);
+      }
+      .dialog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px 16px;
+        border-bottom: 1px solid var(--div);
+      }
+      .dialog-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .dialog-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .dialog-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        padding: 16px 24px;
+        border-top: 1px solid var(--div);
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .field label {
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--ts);
+      }
+      .field input,
+      .field select {
+        background: transparent;
+        border: 1px solid var(--bdr);
+        border-radius: var(--r);
+        color: var(--tp);
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        padding: 10px 14px;
+        outline: none;
+        width: 100%;
+        transition: border-color 0.15s;
+      }
+      .field input:focus,
+      .field select:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px var(--primary-a20);
+      }
+      .field input::placeholder {
+        color: var(--td);
+      }
+      .field select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='rgba(255,255,255,.6)'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 32px;
+      }
+      .row {
+        display: flex;
+        gap: 16px;
+      }
+      .row .field {
+        flex: 1;
+      }
+
+      /* user dropdown */
+      .user-dropdown {
+        position: absolute;
+        right: 24px;
+        top: calc(64px + 56px + 8px);
+        z-index: 150;
+        background: var(--bg-paper-2);
+        border: 1px solid var(--div);
+        border-radius: var(--r-md);
+        min-width: 220px;
+        box-shadow: var(--sh2);
+        overflow: hidden;
+      }
+      .user-dropdown-header {
+        padding: 14px 16px;
+        border-bottom: 1px solid var(--div);
+      }
+      .user-dropdown-name {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .user-dropdown-email {
+        font-size: 12px;
+        color: var(--ts);
+      }
+
+      /* mobile cards list style */
+      .mobile-fab {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 150, 136, 0.5);
+        display: none;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @media (max-width: 640px) {
+        .app-header {
+          padding: 0 16px;
+        }
+        .page-body {
+          padding: 24px 16px 80px;
+        }
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .section-header .btn {
+          display: none;
+        }
+        .mobile-fab {
+          display: flex;
+        }
+        .user-name {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topnav">
+      <span class="logo">Budget Planner</span>
+      <a href="index.html">Design System</a>
+      <a href="auth.html">Auth</a>
+      <a href="budget-list.html" class="active">Budgets</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <!-- view switcher (demo only) -->
+    <div class="view-toggle">
+      <button class="view-btn active" onclick="showView('list', this)">Budget List</button>
+      <button class="view-btn" onclick="showView('empty', this)">Empty State</button>
+      <button class="view-btn" onclick="showView('dialog', this)">New Budget Dialog</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     APP HEADER (shared across views)
+══════════════════════════════════════════ -->
+    <header class="app-header">
+      <div class="app-header-logo">◈ Budget Planner</div>
+      <div class="user-menu" onclick="toggleUserMenu()">
+        <div class="avatar">JD</div>
+        <span class="user-name">Jane Doe</span>
+        <span class="user-menu-icon">▾</span>
+      </div>
+    </header>
+
+    <!-- user dropdown (toggled) -->
+    <div class="user-dropdown" id="userDropdown" style="display: none">
+      <div class="user-dropdown-header">
+        <div class="user-dropdown-name">Jane Doe</div>
+        <div class="user-dropdown-email">jane@example.com</div>
+      </div>
+      <div class="dropdown-item">⚙ Profile settings</div>
+      <div class="dropdown-item danger">⎋ Sign out</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     VIEW: BUDGET LIST
+══════════════════════════════════════════ -->
+    <div id="view-list" class="view visible">
+      <div class="page-body">
+        <div class="section-header">
+          <h1 class="section-title">My Budgets</h1>
+          <button class="btn btn-contained" onclick="showView('dialog', null)">✚ New Budget</button>
+        </div>
+
+        <div class="cards-grid">
+          <!-- Card 1: OWNER -->
+          <div class="budget-card" onclick="window.location = 'dashboard.html'">
+            <div class="card-top">
+              <span class="badge badge-owner">OWNER</span>
+              <div class="dropdown">
+                <button
+                  class="icon-btn"
+                  onclick="
+                    event.stopPropagation();
+                    toggleMenu('m1');
+                  "
+                >
+                  ⋮
+                </button>
+                <div class="dropdown-menu" id="m1" style="display: none">
+                  <div class="dropdown-item">✏ Rename</div>
+                  <div class="dropdown-item">⎘ Duplicate</div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-item danger">✕ Delete</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-name">Family 2025</div>
+            <div class="card-meta">EUR · Jan 2025 → Jan 2055</div>
+            <div class="card-members">3 members</div>
+            <div class="card-actions">
+              <button
+                class="btn btn-contained btn-sm"
+                onclick="
+                  event.stopPropagation();
+                  window.location = 'dashboard.html';
+                "
+              >
+                Open
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: EDITOR -->
+          <div class="budget-card">
+            <div class="card-top">
+              <span class="badge badge-editor">EDITOR</span>
+              <div class="dropdown">
+                <button
+                  class="icon-btn"
+                  onclick="
+                    event.stopPropagation();
+                    toggleMenu('m2');
+                  "
+                >
+                  ⋮
+                </button>
+                <div class="dropdown-menu" id="m2" style="display: none">
+                  <div class="dropdown-item">✏ Rename</div>
+                </div>
+              </div>
+            </div>
+            <div class="card-name">John's Budget</div>
+            <div class="card-meta">USD · Mar 2024 → Jan 2040</div>
+            <div class="card-members">1 member</div>
+            <div class="card-actions">
+              <button class="btn btn-contained btn-sm">Open</button>
+            </div>
+          </div>
+
+          <!-- Card 3: VIEWER -->
+          <div class="budget-card">
+            <div class="card-top">
+              <span class="badge badge-viewer">VIEWER</span>
+            </div>
+            <div class="card-name">Shared Plan</div>
+            <div class="card-meta">EUR · Jan 2025 → Jan 2045</div>
+            <div class="card-members">2 members</div>
+            <div class="card-actions">
+              <button class="btn btn-outlined btn-sm">Open</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- mobile FAB -->
+      <button class="mobile-fab" onclick="showView('dialog', null)">✚</button>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     VIEW: EMPTY STATE
+══════════════════════════════════════════ -->
+    <div id="view-empty" class="view">
+      <div class="page-body">
+        <div class="section-header">
+          <h1 class="section-title">My Budgets</h1>
+        </div>
+        <div class="empty-state">
+          <div class="empty-icon">◈</div>
+          <div class="empty-title">No budgets yet</div>
+          <p class="empty-subtitle">
+            Create your first budget to start planning your financial future.
+          </p>
+          <button
+            class="btn btn-contained"
+            onclick="showView('dialog', null)"
+            style="margin-top: 8px"
+          >
+            ✚ Create your first budget
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+     VIEW: DIALOG DEMO
+══════════════════════════════════════════ -->
+    <div id="view-dialog" class="view">
+      <div class="page-body" style="padding-bottom: 40px">
+        <p style="color: var(--ts); font-size: 13px; margin-bottom: 24px">
+          Dialog appears centered over the page. Background dimmed. Click Cancel or ✕ to close.
+        </p>
+      </div>
+      <!-- dialog shown inline for demo -->
+      <div
+        style="
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          padding: 0 16px 60px;
+        "
+      >
+        <div class="dialog">
+          <div class="dialog-header">
+            <span class="dialog-title">Create new budget</span>
+            <button class="icon-btn" onclick="showView('list', null)">✕</button>
+          </div>
+          <div class="dialog-body">
+            <div class="field">
+              <label>Budget name *</label>
+              <input type="text" value="My Budget 2025" />
+            </div>
+            <div class="row">
+              <div class="field">
+                <label>Start date *</label>
+                <input type="date" value="2025-01-01" />
+              </div>
+              <div class="field">
+                <label>End date *</label>
+                <input type="date" value="2055-01-01" />
+              </div>
+            </div>
+            <div class="field">
+              <label>Currency *</label>
+              <select>
+                <option>EUR — Euro</option>
+                <option>USD — US Dollar</option>
+                <option>GBP — British Pound</option>
+                <option>CHF — Swiss Franc</option>
+                <option>JPY — Japanese Yen</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Initial savings (optional)</label>
+              <input type="number" placeholder="e.g. 10 000" />
+            </div>
+          </div>
+          <div class="dialog-footer">
+            <button class="btn btn-text" onclick="showView('list', null)">Cancel</button>
+            <button class="btn btn-contained">Create budget</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showView(id, btn) {
+        document.querySelectorAll('.view').forEach((v) => v.classList.remove('visible'));
+        document.getElementById('view-' + id).classList.add('visible');
+        if (btn) {
+          document.querySelectorAll('.view-btn').forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+        }
+      }
+      function toggleMenu(id) {
+        const m = document.getElementById(id);
+        const open = m.style.display === 'block';
+        document.querySelectorAll('.dropdown-menu').forEach((d) => (d.style.display = 'none'));
+        m.style.display = open ? 'none' : 'block';
+      }
+      function toggleUserMenu() {
+        const d = document.getElementById('userDropdown');
+        d.style.display = d.style.display === 'none' ? 'block' : 'none';
+      }
+      document.addEventListener('click', () => {
+        document.querySelectorAll('.dropdown-menu').forEach((d) => (d.style.display = 'none'));
+        document.getElementById('userDropdown').style.display = 'none';
+      });
+    </script>
+  </body>
+</html>
