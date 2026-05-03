@@ -7,6 +7,9 @@ export default defineConfig({
       entry: 'src/index.ts',
     }),
   ],
+  ssr: {
+    noExternal: ['hono-pino'],
+  },
   server: {
     port: 3000,
   },
