@@ -6,7 +6,7 @@
 
 ## Description
 
-Build the expenses screen with a real-time Nivo line chart (top) and two MUI DataGrid tabs — Regular Expenses and Loans — (bottom). Chart updates within 300ms of any row edit. Documented in `docs/screens/06-expenses.md`.
+Build the expenses screen with a real-time MUI X Charts line chart (top) and two MUI DataGrid tabs — Regular Expenses and Loans — (bottom). Chart updates within 300ms of any row edit. Documented in `docs/screens/06-expenses.md`.
 
 ## What to build
 
@@ -18,7 +18,7 @@ Build the expenses screen with a real-time Nivo line chart (top) and two MUI Dat
 
 ### ExpenseProjectionChart — `apps/web/src/components/expenses/ExpenseProjectionChart.tsx`
 
-- `@nivo/line` responsive line chart
+- `LineChart (@mui/x-charts)` responsive line chart
 - Data: one line per active expense category + bold "Total" line
 - Loans appear as a separate "Loans" line that steps down to 0 when last loan ends
 - X axis: years from `start_date` to `end_date`
@@ -75,7 +75,7 @@ Live preview: "Monthly payment: €X XXX" updates as user types (client-side PMT
 
 ## Steps
 
-1. Install `@nivo/line` if not already present
+1. Install `@mui/x-charts` if not already present
 2. Build `ExpenseProjectionChart` with static mock data first, then wire to projection API
 3. Build `RegularExpensesGrid` — inline editing + local draft state
 4. Implement 300ms debounce + chart recompute from draft state

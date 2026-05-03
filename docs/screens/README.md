@@ -2,7 +2,7 @@
 
 ## Tech Notes
 
-- **Charts:** [Nivo](https://nivo.rocks) — `@nivo/line`, `@nivo/bar`, `@nivo/pie`, `@nivo/stream`
+- **Charts:** MUI X Charts (`@mui/x-charts`) — `LineChart`, `BarChart`, `PieChart` — auto-syncs MUI theme and dark mode
 - **Tables:** MUI X DataGrid (`@mui/x-data-grid` free tier) — inline row editing
 - **UI:** Material-UI v6, dark mode, Inter font
 - **Responsive:** collapsible sidebar on desktop, bottom navigation on mobile

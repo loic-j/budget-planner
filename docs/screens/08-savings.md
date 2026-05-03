@@ -12,7 +12,7 @@ Real-time chart showing cumulative savings balance + inline-editable DataGrid.
 │ SIDEBAR │  Savings                                               │
 │         │                                                        │
 │         │  ┌──────────────────────────────────────────────────┐ │
-│         │  │  SAVINGS BALANCE CHART      (@nivo/line)   [▾]   │ │
+│         │  │  SAVINGS BALANCE CHART    (@mui/x-charts)   [▾]   │ │
 │         │  │                                                  │ │
 │         │  │  €500k ─┤                         ╭─────────    │ │
 │         │  │  €400k ─┤                    ╭────╯             │ │
@@ -44,7 +44,7 @@ Real-time chart showing cumulative savings balance + inline-editable DataGrid.
 │ [≡]  Savings        [👤] │
 ├──────────────────────────┤
 │ ┌──────────────────────┐ │
-│ │  CHART (@nivo/line)  │ │
+│ │  CHART (@mui/x-charts)  │ │
 │ │  [cumulative line]   │ │
 │ │  height: 200px       │ │
 │ └──────────────────────┘ │
@@ -72,7 +72,7 @@ Real-time chart showing cumulative savings balance + inline-editable DataGrid.
 
 ## Features
 
-### Chart — `@nivo/line`
+### Chart — `LineChart (@mui/x-charts)`
 
 - X axis: years from `start_date` to `end_date`
 - Y axis: cumulative savings balance in budget currency

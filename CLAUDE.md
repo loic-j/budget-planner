@@ -7,7 +7,7 @@ Personal finance planning app where users model revenues, expenses, assets, and 
 **Tech Stack:**
 
 - **Backend:** Hono (Node.js), TypeScript, Prisma + PostgreSQL
-- **Frontend:** React 18, Vite, TypeScript, Material-UI (MUI) + MUI X DataGrid, React Hook Form + Zod, Nivo (charts)
+- **Frontend:** React 18, Vite, TypeScript, Material-UI (MUI) + MUI X DataGrid + MUI X Charts, React Hook Form + Zod
 - **Auth:** Better Auth
 - **API Documentation:** OpenAPI 3.1 with Scalar UI
 - **Monorepo:** pnpm workspaces

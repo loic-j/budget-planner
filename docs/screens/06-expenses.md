@@ -12,7 +12,7 @@ Two tabs: **Regular** and **Loans**. Real-time chart updates as rows are edited.
 │ SIDEBAR │  Expenses                                              │
 │         │                                                        │
 │         │  ┌──────────────────────────────────────────────────┐ │
-│         │  │  EXPENSE PROJECTION CHART    (@nivo/line)  [▾]   │ │
+│         │  │  EXPENSE PROJECTION CHART  (@mui/x-charts)  [▾]   │ │
 │         │  │                                                  │ │
 │         │  │  €3 500 ─┤  ╭──╮    ╭────╮                      │ │
 │         │  │  €3 000 ─┤──╯  ╰────╯    ╰──────────            │ │
@@ -70,7 +70,7 @@ Two tabs: **Regular** and **Loans**. Real-time chart updates as rows are edited.
 │ [≡]  Expenses       [👤] │
 ├──────────────────────────┤
 │ ┌──────────────────────┐ │
-│ │  CHART (@nivo/line)  │ │
+│ │  CHART (@mui/x-charts)  │ │
 │ │  [line chart]        │ │
 │ │  height: 200px       │ │
 │ └──────────────────────┘ │
@@ -98,7 +98,7 @@ On mobile, inline DataGrid is replaced by card list. Tapping a card or `[✎]` o
 
 ## Features
 
-### Chart — `@nivo/line`
+### Chart — `LineChart (@mui/x-charts)`
 
 - X axis: years from `start_date` to `end_date`
 - Y axis: monthly expense amount (EUR)

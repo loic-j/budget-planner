@@ -92,7 +92,7 @@ Clicking a card navigates to the corresponding data screen.
 
 ## Charts
 
-### Net Worth Over Time — `@nivo/line`
+### Net Worth Over Time — `LineChart (@mui/x-charts)`
 
 - X axis: years from `start_date` to `end_date`
 - Y axis: net worth in budget currency
@@ -101,14 +101,14 @@ Clicking a card navigates to the corresponding data screen.
 - Time range toggle: `10yr / 20yr / 30yr / full`
 - Crosshair on hover
 
-### Monthly Cash Flow — `@nivo/bar`
+### Monthly Cash Flow — `BarChart (@mui/x-charts)`
 
 - Grouped bar per month for current calendar year
 - Two bars per month: Revenue (green) and Expenses (red)
 - Hover tooltip: month + values
 - Toggle to see full projection year range
 
-### Expense Breakdown — `@nivo/pie`
+### Expense Breakdown — `PieChart (@mui/x-charts)`
 
 - One slice per expense category (top 6 + "Other")
 - Amounts shown as monthly average

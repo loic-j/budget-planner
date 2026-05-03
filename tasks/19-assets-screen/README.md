@@ -6,7 +6,7 @@
 
 ## Description
 
-Build the assets screen with a Nivo line chart showing projected asset values over time, and an add/edit drawer form (not inline DataGrid — the form is richer). Documented in `docs/screens/09-assets.md`.
+Build the assets screen with a MUI X Charts line chart showing projected asset values over time, and an add/edit drawer form (not inline DataGrid — the form is richer). Documented in `docs/screens/09-assets.md`.
 
 ## What to build
 
@@ -18,7 +18,7 @@ Build the assets screen with a Nivo line chart showing projected asset values ov
 
 ### AssetValueChart — `apps/web/src/components/assets/AssetValueChart.tsx`
 
-- `@nivo/line` chart
+- `LineChart (@mui/x-charts)` chart
 - One line per asset, color-coded by type (REAL_ESTATE, INVESTMENT, VEHICLE, OTHER)
 - Bold "Total assets" line
 - Appreciating lines curve up, depreciating lines curve down and flatten at 0

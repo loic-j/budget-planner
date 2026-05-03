@@ -31,7 +31,7 @@ Cards are clickable: Revenue → `/revenues`, Expenses → `/expenses`, Net → 
 
 ### NetWorthChart — `apps/web/src/components/dashboard/NetWorthChart.tsx`
 
-- `@nivo/line` — single bold line: `netWorth` over full projection period
+- `LineChart (@mui/x-charts)` — single bold line: `netWorth` over full projection period
 - X axis: years, Y axis: currency
 - Hover tooltip: date + net worth + breakdown (cash / assets / debt)
 - Time range toggle: `10yr | 20yr | 30yr | Full` — persisted in `localStorage`
@@ -39,13 +39,13 @@ Cards are clickable: Revenue → `/revenues`, Expenses → `/expenses`, Net → 
 
 ### CashFlowChart — `apps/web/src/components/dashboard/CashFlowChart.tsx`
 
-- `@nivo/bar` — grouped bars per year (current + next 4 years by default)
+- `BarChart (@mui/x-charts)` — grouped bars per year (current + next 4 years by default)
 - Two bars per year: Revenue (green) + Expenses (red/orange)
 - Hover tooltip: year + values
 
 ### ExpenseBreakdownChart — `apps/web/src/components/dashboard/ExpenseBreakdownChart.tsx`
 
-- `@nivo/pie` — one slice per top-6 expense category + "Other"
+- `PieChart (@mui/x-charts)` — one slice per top-6 expense category + "Other"
 - Values: monthly average from today's projection
 - Click slice → navigates to `/budgets/:id/expenses`
 - Legend below chart

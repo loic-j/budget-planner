@@ -31,25 +31,25 @@ Changing any filter updates URL query params + re-slices projection data (no API
 
 ### 1. NetWorthChart — `apps/web/src/components/projections/NetWorthChart.tsx`
 
-- `@nivo/line` — lines: Net Worth (bold), Assets, Cumulative Savings, Total Debt
+- `LineChart (@mui/x-charts)` — lines: Net Worth (bold), Assets, Cumulative Savings, Total Debt
 - Milestone annotations: vertical dashed lines + labels for retirement ages, loan payoff dates, child births
 - Full width, height 280px
 
 ### 2. CashFlowChart — `apps/web/src/components/projections/CashFlowChart.tsx`
 
-- `@nivo/bar` — grouped bars per year: Revenue (green) + Expenses (red)
+- `BarChart (@mui/x-charts)` — grouped bars per year: Revenue (green) + Expenses (red)
 - Toggle: yearly | monthly granularity
 - Stacked variant: expense bars broken down by category
 
 ### 3. CumulativeSavingsChart — `apps/web/src/components/projections/CumulativeSavingsChart.tsx`
 
-- `@nivo/line` — reuse from `SavingsBalanceChart` (Task 18) or extract shared component
+- `LineChart (@mui/x-charts)` — reuse from `SavingsBalanceChart` (Task 18) or extract shared component
 - Target markers + "Goal reached" annotations
 
 ### 4. PersonAgeTimeline — `apps/web/src/components/projections/PersonAgeTimeline.tsx`
 
 - Horizontal bar per person spanning their life within the projection window
-- Built with `@nivo/bar` (horizontal) or custom SVG/MUI Box rendering
+- Built with `BarChart (@mui/x-charts)` (horizontal) or custom SVG/MUI Box rendering
 - Bar shows age label every 5 years
 - Planned children: dotted bar segment before birth date, solid after
 - Milestone markers on bars:
@@ -61,7 +61,7 @@ Changing any filter updates URL query params + re-slices projection data (no API
 
 ### 5. ExpenseBreakdownChart — `apps/web/src/components/projections/ExpenseBreakdownChart.tsx`
 
-- `@nivo/bar` stacked — X axis: years, stacked by category
+- `BarChart (@mui/x-charts)` stacked — X axis: years, stacked by category
 - Toggle: yearly total | monthly average
 
 ### 6. RevenueBreakdownChart — `apps/web/src/components/projections/RevenueBreakdownChart.tsx`
@@ -86,7 +86,7 @@ Mobile: filter drawer button → charts stacked full width → data tables.
 2. Build `NetWorthChart` with milestone annotations
 3. Build `CashFlowChart` with granularity toggle
 4. Extract/reuse `CumulativeSavingsChart`
-5. Build `PersonAgeTimeline` — hardest component; consider custom SVG if `@nivo/bar` horizontal is too constrained
+5. Build `PersonAgeTimeline` — hardest component; consider custom SVG if `BarChart (@mui/x-charts)` horizontal is too constrained
 6. Build `ExpenseBreakdownChart` and `RevenueBreakdownChart`
 7. Build `ProjectionDataTables`
 8. Build `ProjectionsPage` composing everything with filter wiring
@@ -104,5 +104,5 @@ Mobile: filter drawer button → charts stacked full width → data tables.
 >
 > 1. Set **Status** to `IN_PROGRESS` at the start of work
 > 2. Set **Status** to `DONE` when complete
-> 3. Create `implementation.md` documenting: filter implementation (URL params vs state), PersonAgeTimeline rendering approach (Nivo vs custom SVG), milestone marker logic, any shared chart components extracted
+> 3. Create `implementation.md` documenting: filter implementation (URL params vs state), PersonAgeTimeline rendering approach (MUI X Charts vs custom SVG), milestone marker logic, any shared chart components extracted
 > 4. Run `pnpm lint:fix && pnpm typecheck` before marking DONE — start dev server and verify all 6 charts render, filters work, and person age timeline shows correct ages with milestone markers

@@ -14,7 +14,7 @@ Full analytical view — all charts, person age timeline, and data tables in one
 │         │  Filters: [Person ▾]  [Category ▾]  [Jan 2025–2055 ▾]│
 │         │                                                        │
 │         │  ┌──────────────────────────────────────────────────┐ │
-│         │  │  NET WORTH OVER TIME              (@nivo/line)   │ │
+│         │  │  NET WORTH OVER TIME          (@mui/x-charts)    │ │
 │         │  │                                                  │ │
 │         │  │  €1M  ─┤                              ╭──────   │ │
 │         │  │  €800k─┤                         ╭────╯         │ │
@@ -28,7 +28,7 @@ Full analytical view — all charts, person age timeline, and data tables in one
 │         │                                                        │
 │         │  ┌─────────────────────────┐ ┌───────────────────────┐│
 │         │  │ MONTHLY CASH FLOW       │ │ CUMULATIVE SAVINGS    ││
-│         │  │ (@nivo/bar)             │ │ (@nivo/line)          ││
+│         │  │ (@mui/x-charts BarChart)│ │ (@mui/x-charts LineChart)││
 │         │  │                         │ │                       ││
 │         │  │ ▓▓▓░░ ▓▓▓░░ ▓▓▓░░ ▓▓▓░ │ │       ╭───────────    ││
 │         │  │ 2025  2030  2035  2040  │ │  ─────╯               ││
@@ -48,7 +48,7 @@ Full analytical view — all charts, person age timeline, and data tables in one
 │         │                                                        │
 │         │  ┌─────────────────────────┐ ┌───────────────────────┐│
 │         │  │ EXPENSE BREAKDOWN       │ │ REVENUE BREAKDOWN     ││
-│         │  │ (@nivo/bar stacked)     │ │ (@nivo/bar stacked)   ││
+│         │  │ (@mui/x-charts stacked) │ │ (@mui/x-charts stacked)││
 │         │  │                         │ │                       ││
 │         │  │ ████ ████ ████ ████     │ │ ████ ████ ████ ████  ││
 │         │  │ 2025 2030 2035 2040     │ │ 2025 2030 2035 2040  ││
@@ -79,17 +79,17 @@ Charts stack vertically, full width. Filters collapse into a single `[Filters �
 ├──────────────────────────┤
 │ ┌──────────────────────┐ │
 │ │ NET WORTH            │ │
-│ │ @nivo/line           │ │
+│ │ @mui/x-charts        │ │
 │ │ height: 220px        │ │
 │ └──────────────────────┘ │
 │ ┌──────────────────────┐ │
 │ │ MONTHLY CASH FLOW    │ │
-│ │ @nivo/bar            │ │
+│ │ @mui/x-charts        │ │
 │ │ height: 180px        │ │
 │ └──────────────────────┘ │
 │ ┌──────────────────────┐ │
 │ │ CUMULATIVE SAVINGS   │ │
-│ │ @nivo/line           │ │
+│ │ @mui/x-charts        │ │
 │ │ height: 180px        │ │
 │ └──────────────────────┘ │
 │ ┌──────────────────────┐ │
@@ -99,12 +99,12 @@ Charts stack vertically, full width. Filters collapse into a single `[Filters �
 │ └──────────────────────┘ │
 │ ┌──────────────────────┐ │
 │ │ EXPENSE BREAKDOWN    │ │
-│ │ @nivo/bar stacked    │ │
+│ │ @mui/x-charts        │ │
 │ │ height: 180px        │ │
 │ └──────────────────────┘ │
 │ ┌──────────────────────┐ │
 │ │ REVENUE BREAKDOWN    │ │
-│ │ @nivo/bar stacked    │ │
+│ │ @mui/x-charts        │ │
 │ │ height: 180px        │ │
 │ └──────────────────────┘ │
 │ ┌──────────────────────┐ │
@@ -133,28 +133,28 @@ Filters stored in URL query params — shareable and bookmarkable.
 
 ## Charts
 
-### 1. Net Worth Over Time — `@nivo/line`
+### 1. Net Worth Over Time — `LineChart (@mui/x-charts)`
 
 - Lines: Net Worth (bold), Assets, Cumulative Savings, Total Debt
 - Formula: `net_worth(T) = cash(T) + assets(T) − debt(T)`
 - Hover: full breakdown tooltip
 - Milestone annotations: vertical dashed lines for retirement ages, loan payoff dates, child births
 
-### 2. Monthly Cash Flow — `@nivo/bar`
+### 2. Monthly Cash Flow — `BarChart (@mui/x-charts)`
 
 - Grouped bars per year (one bar = annual average monthly revenue, one = annual average monthly expense)
 - Toggle between yearly and monthly granularity
 - Color: revenue green, expenses red
 - Stacked variant: expense bars broken down by category
 
-### 3. Cumulative Savings — `@nivo/line`
+### 3. Cumulative Savings — `LineChart (@mui/x-charts)`
 
 - Starts at `initial_saving`
 - One line per saving entry + total
 - Target markers (horizontal dashed lines) for entries with `target_amount`
 - Shows date each target is reached
 
-### 4. Person Age Timeline — custom `@nivo/bar` (horizontal)
+### 4. Person Age Timeline — custom `BarChart (@mui/x-charts)` (horizontal)
 
 - One horizontal bar per person, spanning `start_date` to `end_date`
 - Bar shows age label at each year tick: Jane age 40 at 2025, 50 at 2035...
@@ -165,13 +165,13 @@ Filters stored in URL query params — shareable and bookmarkable.
   - Retirement (adult at retirement age if set)
 - Hovering a bar position shows: person name, age at that date, active revenues/expenses tied to them at that date
 
-### 5. Expense Breakdown — `@nivo/bar` stacked
+### 5. Expense Breakdown — `BarChart (@mui/x-charts)` stacked
 
 - X axis: years
 - Each bar stacked by expense category
 - Toggle: yearly total vs monthly average
 
-### 6. Revenue Breakdown — `@nivo/bar` stacked
+### 6. Revenue Breakdown — `BarChart (@mui/x-charts)` stacked
 
 - Same structure as expense breakdown
 - Optionally split by person

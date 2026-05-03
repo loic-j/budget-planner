@@ -6,7 +6,7 @@
 
 ## Description
 
-Build the revenues screen with a real-time Nivo chart and an inline-editable DataGrid. Simpler than expenses — no sub-types. Chart can display lines per person when revenues are person-linked. Documented in `docs/screens/07-revenues.md`.
+Build the revenues screen with a real-time MUI X Charts line chart and an inline-editable DataGrid. Simpler than expenses — no sub-types. Chart can display lines per person when revenues are person-linked. Documented in `docs/screens/07-revenues.md`.
 
 ## What to build
 
@@ -20,7 +20,7 @@ Same pattern as `ExpensesPage`:
 
 ### RevenueProjectionChart — `apps/web/src/components/revenues/RevenueProjectionChart.tsx`
 
-- `@nivo/line` responsive chart
+- `LineChart (@mui/x-charts)` responsive chart
 - Lines: one per person (for person-linked revenues) + "Other" (unlinked) + bold "Total"
 - Selector `[▾]`: "Monthly total" | "Cumulative" | "By category" | "By person"
 - If retirement ages set on persons: vertical dashed line at retirement year with label

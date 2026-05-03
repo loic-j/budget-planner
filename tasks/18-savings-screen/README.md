@@ -16,7 +16,7 @@ Same draft-state pattern as Revenues/Expenses pages.
 
 ### SavingsBalanceChart — `apps/web/src/components/savings/SavingsBalanceChart.tsx`
 
-- `@nivo/line` chart — cumulative balance (not monthly contributions)
+- `LineChart (@mui/x-charts)` chart — cumulative balance (not monthly contributions)
 - Starts at `initial_saving` value from budget metadata
 - One line per saving entry + bold "Total"
 - **Target markers**: for each saving with `targetAmount`, draw a horizontal dashed reference line at that value; annotate the x-axis point where the line is crossed with "Goal reached: MMM YYYY"

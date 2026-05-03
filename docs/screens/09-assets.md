@@ -12,7 +12,7 @@ Real-time chart showing asset values over time + inline-editable DataGrid.
 │ SIDEBAR │  Assets                                                │
 │         │                                                        │
 │         │  ┌──────────────────────────────────────────────────┐ │
-│         │  │  ASSET VALUE CHART          (@nivo/line)   [▾]   │ │
+│         │  │  ASSET VALUE CHART        (@mui/x-charts)   [▾]   │ │
 │         │  │                                                  │ │
 │         │  │  €600k ─┤                         ╭─────────    │ │
 │         │  │  €400k ─┤  house ────────────────╯ invest.      │ │
@@ -43,7 +43,7 @@ Real-time chart showing asset values over time + inline-editable DataGrid.
 │ [≡]  Assets         [👤] │
 ├──────────────────────────┤
 │ ┌──────────────────────┐ │
-│ │  CHART (@nivo/line)  │ │
+│ │  CHART (@mui/x-charts)  │ │
 │ │  [asset value lines] │ │
 │ │  height: 200px       │ │
 │ └──────────────────────┘ │
@@ -79,7 +79,7 @@ Real-time chart showing asset values over time + inline-editable DataGrid.
 
 ## Features
 
-### Chart — `@nivo/line`
+### Chart — `LineChart (@mui/x-charts)`
 
 - X axis: years from `start_date` to `end_date`
 - Y axis: asset value in budget currency
@@ -148,5 +148,5 @@ Assets use a drawer form (not inline DataGrid row) on both desktop and mobile, b
 
 - **Loan link indicator** — show a small badge on assets linked to a `LoanDetail`; hovering reveals remaining loan balance and payoff date
 - **Revaluation history** — allow user to log manual revaluations (e.g. after a property appraisal); chart switches from pure formula to piecewise actuals + forecast
-- **Asset allocation donut** — small `@nivo/pie` alongside the chart showing current % split by asset type (Real estate / Investments / Vehicles / Other)
+- **Asset allocation donut** — small `PieChart (@mui/x-charts)` alongside the chart showing current % split by asset type (Real estate / Investments / Vehicles / Other)
 - **Benchmark overlay** — toggle to overlay a market index benchmark (e.g. S&P 500 historical average 7%) on investment assets for comparison

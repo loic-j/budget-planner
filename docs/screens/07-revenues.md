@@ -12,7 +12,7 @@ Real-time chart + inline-editable DataGrid.
 │ SIDEBAR │  Revenues                                              │
 │         │                                                        │
 │         │  ┌──────────────────────────────────────────────────┐ │
-│         │  │  REVENUE PROJECTION CHART   (@nivo/line)   [▾]   │ │
+│         │  │  REVENUE PROJECTION CHART  (@mui/x-charts)  [▾]   │ │
 │         │  │                                                  │ │
 │         │  │  €8 000 ─┤                    ╭──────────        │ │
 │         │  │  €6 000 ─┤         ╭──────────╯                  │ │
@@ -43,7 +43,7 @@ Real-time chart + inline-editable DataGrid.
 │ [≡]  Revenues       [👤] │
 ├──────────────────────────┤
 │ ┌──────────────────────┐ │
-│ │  CHART (@nivo/line)  │ │
+│ │  CHART (@mui/x-charts)  │ │
 │ │  [line chart]        │ │
 │ │  height: 200px       │ │
 │ └──────────────────────┘ │
@@ -73,7 +73,7 @@ Real-time chart + inline-editable DataGrid.
 
 ## Features
 
-### Chart — `@nivo/line`
+### Chart — `LineChart (@mui/x-charts)`
 
 - X axis: years from `start_date` to `end_date`
 - Y axis: monthly revenue amount in budget currency
