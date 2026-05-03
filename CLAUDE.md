@@ -128,8 +128,11 @@ Full reference: @docs/development/code-conventions.md
 
 ## Frontend Theme Quick Reference
 
+**Full design system:** @docs/design-system.md — MUI theme config, color tokens, component patterns, and live HTML examples in `./design/`.
+
 - Font: **Inter** (400/500/600 weights via @fontsource/inter)
-- Dark mode: MUI `colorSchemes.dark`
+- Primary color: **Teal `#009688`** — not the MUI default blue
+- Dark mode only: bg `#121212`, paper `#1e1e1e`
 - Forms: React Hook Form + Zod (`zodResolver`)
 - Always use theme tokens, never hardcode colors:
 
@@ -137,8 +140,16 @@ Full reference: @docs/development/code-conventions.md
 // ✅
 <Box sx={{ bgcolor: 'background.paper', color: 'text.primary' }} />
 // ❌
-<Box sx={{ bgcolor: '#ffffff' }} />
+<Box sx={{ bgcolor: '#1e1e1e', color: '#fff' }} />
 ```
+
+Key visual rules from the design system:
+
+- Positive monetary values → `color: 'success.main'`
+- Negative monetary values → `color: 'error.main'`
+- Unsaved/dirty DataGrid rows → 3px left border `warning.main`
+- Active sidebar item → 3px left border `primary.main` + `primary-a12` bg tint
+- Numbers in tables → `fontVariantNumeric: 'tabular-nums'`
 
 ---
 
@@ -206,6 +217,7 @@ docker compose down   # Stop services
 8. ❌ `.toJSON()` workarounds → ✅ return typed objects
 9. ❌ **Skip lint/typecheck** → ✅ **always run after code changes**
 10. ❌ **Leave processes running** → ✅ **stop all servers when done**
+11. ❌ Deviate from design system → ✅ follow @docs/design-system.md (teal primary, dark tokens, component patterns)
 
 ---
 
