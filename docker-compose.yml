@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: budget-planner-db
+    environment:
+      POSTGRES_USER: budget_user
+      POSTGRES_PASSWORD: budget_pass
+      POSTGRES_DB: budget_planner
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U budget_user']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: budget-planner-jaeger
+    ports:
+      - '16687:16686'
+      - '4319:4318'
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+
+  app:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: budget-planner-app
+    environment:
+      DATABASE_URL: postgresql://budget_user:budget_pass@postgres:5432/budget_planner
+      PORT: 3000
+      NODE_ENV: production
+      FRONTEND_URL: http://localhost:8080
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-local-dev-secret-change-for-production}
+      BETTER_AUTH_URL: http://localhost:8080
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318/v1/traces
+      LOG_LEVEL: info
+    ports:
+      - '8080:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

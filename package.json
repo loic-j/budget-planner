@@ -1,0 +1,38 @@
+{
+  "name": "budget-planner",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "dev:api": "pnpm --filter @app/api dev",
+    "dev:web": "pnpm --filter @app/web dev",
+    "build": "pnpm -r build",
+    "build:prod": "pnpm --filter @app/web build && pnpm --filter @app/api build",
+    "docker:up": "docker compose up --build -d",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f app",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix && prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\"",
+    "db:migrate": "pnpm --filter @app/api db:migrate",
+    "db:studio": "pnpm --filter @app/api db:studio",
+    "db:seed": "pnpm --filter @app/api db:seed",
+    "db:reset": "pnpm --filter @app/api db:reset",
+    "kill:api": "sh -c 'for pid in $(pgrep -f vite 2>/dev/null); do cwd=$(readlink /proc/$pid/cwd 2>/dev/null); case $cwd in *apps/api) kill $pid;; esac; done; exit 0'",
+    "kill:web": "sh -c 'for pid in $(pgrep -f vite 2>/dev/null); do cwd=$(readlink /proc/$pid/cwd 2>/dev/null); case $cwd in *apps/web) kill $pid;; esac; done; exit 0'",
+    "kill": "pnpm kill:api && pnpm kill:web"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.18.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.3",
+    "typescript": "5.6.3"
+  }
+}

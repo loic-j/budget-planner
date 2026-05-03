@@ -1,0 +1,50 @@
+{
+  "name": "@app/api",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset --force"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.12.0",
+    "@hono/vite-dev-server": "^0.14.0",
+    "@hono/zod-openapi": "^1.2.4",
+    "@hono/zod-validator": "^0.7.6",
+    "@opentelemetry/api": "^1.9.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.52.1",
+    "@opentelemetry/instrumentation": "^0.52.1",
+    "@opentelemetry/instrumentation-http": "^0.52.1",
+    "@opentelemetry/resources": "^1.25.1",
+    "@opentelemetry/sdk-node": "^0.52.1",
+    "@opentelemetry/semantic-conventions": "^1.25.1",
+    "@prisma/client": "^5.18.0",
+    "@prisma/instrumentation": "^5.18.0",
+    "@scalar/hono-api-reference": "^0.10.5",
+    "better-auth": "^1.0.7",
+    "hono": "^4.5.8",
+    "pino": "^9.3.2",
+    "pino-http": "^10.2.0",
+    "pino-pretty": "^11.2.2",
+    "reflect-metadata": "^0.2.2",
+    "tsyringe": "^4.8.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.4.1",
+    "prisma": "^5.18.0",
+    "tsx": "^4.21.0",
+    "typescript": "5.6.3",
+    "vite": "^5.4.2",
+    "vitest": "^2.0.5"
+  }
+}

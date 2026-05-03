@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+*.env.local
+.DS_Store
+*.log
+pnpm-debug.log*
+.pnpm-store/
+apps/api/public/
+coverage/
+playwright-report/
+test-results/
