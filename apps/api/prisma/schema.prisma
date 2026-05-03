@@ -10,19 +10,20 @@ datasource db {
 // ─── Better Auth models ───────────────────────────────────────────────────────
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
+  id            String   @id @default(cuid())
+  email         String   @unique
   name          String?
-  emailVerified Boolean   @default(false)
+  emailVerified Boolean  @default(false)
   image         String?
-  role          Role      @default(USER)
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @updatedAt
+  role          Role     @default(USER)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  sessions      Session[]
-  accounts      Account[]
-  budgets       Budget[]
-  budgetMembers BudgetMember[]
+  sessions       Session[]
+  accounts       Account[]
+  budgets        Budget[]
+  budgetMembers  BudgetMember[]
+  createdInvites BudgetInvite[]
 }
 
 model Session {
@@ -32,8 +33,8 @@ model Session {
   token     String   @unique
   ipAddress String?
   userAgent String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -48,8 +49,8 @@ model Account {
   idToken      String?
   expiresAt    DateTime?
   password     String?
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -59,35 +60,210 @@ model Verification {
   identifier String
   value      String
   expiresAt  DateTime
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
 
-// ─── Budget Planner models ────────────────────────────────────────────────────
+// ─── Budget ───────────────────────────────────────────────────────────────────
 
 model Budget {
-  id          String   @id @default(cuid())
-  name        String
-  description String?
-  ownerId     String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  id              String   @id @default(cuid())
+  name            String
+  description     String?
+  ownerId         String
+  start_date      DateTime
+  end_date        DateTime
+  currency        String   @default("EUR")
+  initial_saving  Decimal  @default(0) @db.Decimal(15, 2)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
 
-  owner   User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  members BudgetMember[]
+  owner      User           @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  members    BudgetMember[]
+  invites    BudgetInvite[]
+  persons    Person[]
+  categories Category[]
+  expenses   Expense[]
+  revenues   Revenue[]
+  savings    Saving[]
+  assets     Asset[]
 }
 
 model BudgetMember {
-  id         String   @id @default(cuid())
-  budgetId   String
-  userId     String
-  role       BudgetRole @default(VIEWER)
-  joined_at  DateTime @default(now())
+  id        String     @id @default(cuid())
+  budgetId  String
+  userId    String
+  role      BudgetRole @default(VIEWER)
+  joined_at DateTime   @default(now())
 
   budget Budget @relation(fields: [budgetId], references: [id], onDelete: Cascade)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([budgetId, userId])
+}
+
+model BudgetInvite {
+  id         String     @id @default(cuid())
+  budgetId   String
+  token      String     @unique
+  role       BudgetRole
+  createdBy  String
+  expires_at DateTime?
+  max_uses   Int?
+  use_count  Int        @default(0)
+  created_at DateTime   @default(now())
+
+  budget  Budget @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  creator User   @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+}
+
+// ─── Persons ──────────────────────────────────────────────────────────────────
+
+model Person {
+  id          String     @id @default(cuid())
+  budgetId    String
+  type        PersonType
+  name        String
+  sex         Sex
+  dob         DateTime?
+  planned_dob DateTime?
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  budget   Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  expenses Expense[]
+  revenues Revenue[]
+  savings  Saving[]
+}
+
+// ─── Categories ───────────────────────────────────────────────────────────────
+
+model Category {
+  id         String       @id @default(cuid())
+  budgetId   String
+  type       CategoryType
+  name       String
+  icon       String
+  is_preset  Boolean      @default(false)
+  created_at DateTime     @default(now())
+
+  budget   Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  expenses Expense[]
+  revenues Revenue[]
+  savings  Saving[]
+}
+
+// ─── Expenses ─────────────────────────────────────────────────────────────────
+
+model Expense {
+  id              String      @id @default(cuid())
+  budgetId        String
+  type            ExpenseType
+  name            String
+  categoryId      String?
+  personId        String?
+  amount          Decimal     @db.Decimal(15, 2)
+  frequency       Frequency
+  frequency_value Int?
+  start_date      DateTime?
+  end_date        DateTime?
+  created_at      DateTime    @default(now())
+  updated_at      DateTime    @updatedAt
+
+  budget     Budget      @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category   Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  person     Person?     @relation(fields: [personId], references: [id], onDelete: SetNull)
+  loanDetail LoanDetail?
+}
+
+model LoanDetail {
+  id              String   @id @default(cuid())
+  expenseId       String   @unique
+  loan_type       LoanType
+  total_amount    Decimal  @db.Decimal(15, 2)
+  interest_rate   Decimal  @db.Decimal(6, 3)
+  duration_months Int
+  monthly_payment Decimal  @db.Decimal(15, 2)
+  loan_start_date DateTime
+
+  expense  Expense       @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+  payments LoanPayment[]
+  asset    Asset?
+}
+
+model LoanPayment {
+  id                String   @id @default(cuid())
+  loanDetailId      String
+  payment_number    Int
+  payment_date      DateTime
+  amount            Decimal  @db.Decimal(15, 2)
+  principal_amount  Decimal  @db.Decimal(15, 2)
+  interest_amount   Decimal  @db.Decimal(15, 2)
+  remaining_balance Decimal  @db.Decimal(15, 2)
+  created_at        DateTime @default(now())
+
+  loanDetail LoanDetail @relation(fields: [loanDetailId], references: [id], onDelete: Cascade)
+}
+
+// ─── Revenues ─────────────────────────────────────────────────────────────────
+
+model Revenue {
+  id              String    @id @default(cuid())
+  budgetId        String
+  name            String
+  categoryId      String?
+  personId        String?
+  amount          Decimal   @db.Decimal(15, 2)
+  frequency       Frequency
+  frequency_value Int?
+  start_date      DateTime?
+  end_date        DateTime?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  budget   Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  person   Person?   @relation(fields: [personId], references: [id], onDelete: SetNull)
+}
+
+// ─── Savings ──────────────────────────────────────────────────────────────────
+
+model Saving {
+  id              String    @id @default(cuid())
+  budgetId        String
+  name            String
+  categoryId      String?
+  personId        String?
+  amount          Decimal   @db.Decimal(15, 2)
+  frequency       Frequency
+  frequency_value Int?
+  start_date      DateTime?
+  end_date        DateTime?
+  target_amount   Decimal?  @db.Decimal(15, 2)
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+
+  budget   Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  person   Person?   @relation(fields: [personId], references: [id], onDelete: SetNull)
+}
+
+// ─── Assets ───────────────────────────────────────────────────────────────────
+
+model Asset {
+  id                 String    @id @default(cuid())
+  budgetId           String
+  loanDetailId       String?   @unique
+  type               AssetType
+  name               String
+  current_value      Decimal   @db.Decimal(15, 2)
+  acquisition_date   DateTime
+  annual_growth_rate Decimal   @db.Decimal(6, 3)
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+
+  budget     Budget      @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  loanDetail LoanDetail? @relation(fields: [loanDetailId], references: [id], onDelete: SetNull)
 }
 
 // ─── Enums ────────────────────────────────────────────────────────────────────
@@ -101,4 +277,49 @@ enum BudgetRole {
   OWNER
   EDITOR
   VIEWER
+}
+
+enum PersonType {
+  ADULT
+  CHILD
+}
+
+enum Sex {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum CategoryType {
+  EXPENSE
+  REVENUE
+  SAVING
+}
+
+enum ExpenseType {
+  LOAN
+  REGULAR
+}
+
+enum LoanType {
+  MORTGAGE
+  CAR_LOAN
+  PERSONAL
+  STUDENT
+  OTHER
+}
+
+enum Frequency {
+  ONE_TIME
+  MONTHLY
+  YEARLY
+  EVERY_X_MONTHS
+  EVERY_X_YEARS
+}
+
+enum AssetType {
+  REAL_ESTATE
+  INVESTMENT
+  VEHICLE
+  OTHER
 }

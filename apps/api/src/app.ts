@@ -2,14 +2,22 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { Scalar } from '@scalar/hono-api-reference';
 import { pinoLogger } from 'hono-pino';
+import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import { logger } from './config/logger.js';
+import { prisma } from './config/di.container.js';
+import { createAuthInstance } from './config/auth.js';
 import { createHelloController } from './controllers/hello/HelloController.js';
+import { DomainError } from './infrastructure/errors/DomainError.js';
+import type { AppEnv } from './types/hono.js';
 
 export function createApp() {
-  const app = new OpenAPIHono();
+  const auth = createAuthInstance(prisma);
+
+  const app = new OpenAPIHono<AppEnv>();
 
   const allowedOrigins = [
     process.env.FRONTEND_URL,
+    process.env.BETTER_AUTH_URL,
     'http://localhost:5173',
     'http://localhost:3000',
   ].filter(Boolean) as string[];
@@ -29,6 +37,9 @@ export function createApp() {
 
   app.get('/health', (c) => c.json({ status: 'ok' }));
 
+  // Better Auth — handles all /api/auth/* endpoints
+  app.on(['GET', 'POST'], '/api/auth/*', (c) => auth.handler(c.req.raw));
+
   const routes = app.route('/api', createHelloController());
 
   app.doc('/api/openapi.json', {
@@ -39,6 +50,9 @@ export function createApp() {
   app.get('/api/docs', Scalar({ url: '/api/openapi.json', theme: 'default' }));
 
   app.onError((err, c) => {
+    if (err instanceof DomainError) {
+      return c.json({ error: err.message, code: err.code }, err.statusCode as ContentfulStatusCode);
+    }
     logger.error({ err }, 'Unhandled error');
     return c.json({ error: 'Internal server error' }, 500);
   });

@@ -1,0 +1,45 @@
+- generic [ref=e30]:
+  - generic [ref=e31]:
+    - heading "Budget Planner" [level=1] [ref=e32]
+    - paragraph [ref=e33]: Create your account
+  - generic [ref=e34]:
+    - generic [ref=e35]:
+      - generic [ref=e78]: Full name
+      - generic [ref=e36]:
+        - textbox "Full name" [ref=e37]: Test User E2E
+        - group:
+          - generic: Full name
+    - generic [ref=e38]:
+      - generic [ref=e79]: Email address
+      - generic [ref=e39]:
+        - textbox "Email address" [ref=e40]: e2e-test@example.com
+        - group:
+          - generic: Email address
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - generic [ref=e69]: Password
+        - generic [ref=e43]:
+          - textbox "Password" [ref=e44]: Password1!
+          - button "Show password" [ref=e46] [cursor=pointer]:
+            - img [ref=e47]
+          - group:
+            - generic: Password
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - img [ref=e70]
+          - generic [ref=e53]: 8+ chars
+        - generic [ref=e54]:
+          - img [ref=e72]
+          - generic [ref=e57]: Uppercase
+        - generic [ref=e58]:
+          - img [ref=e74]
+          - generic [ref=e61]: Number
+        - generic [ref=e62]:
+          - img [ref=e76]
+          - generic [ref=e65]: Special char
+    - paragraph [ref=e80]: Registration failed
+    - button "Create account" [ref=e66] [cursor=pointer]: Create account
+    - paragraph [ref=e67]:
+      - text: Already have an account?
+      - link "Sign in" [ref=e68] [cursor=pointer]:
+        - /url: /login

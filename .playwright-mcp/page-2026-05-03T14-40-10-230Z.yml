@@ -1,0 +1,13 @@
+- generic [ref=e82]:
+  - generic [ref=e83]:
+    - heading "Check your email" [level=1] [ref=e84]
+    - paragraph
+  - generic [ref=e85]:
+    - img [ref=e86]
+    - paragraph [ref=e88]: We sent a verification link to
+    - paragraph [ref=e89]: e2e-test@example.com
+    - button "Resend email" [ref=e90] [cursor=pointer]
+    - paragraph [ref=e91]:
+      - text: Wrong email?
+      - link "Sign in again" [ref=e92] [cursor=pointer]:
+        - /url: /login
