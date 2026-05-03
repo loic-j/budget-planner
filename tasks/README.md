@@ -50,3 +50,4 @@ Full project breakdown. Each folder contains a `README.md` with task details and
 | [20](./20-dashboard-screen/)       | Dashboard screen                      | `TODO` | 13, 12     |
 | [21](./21-projections-screen/)     | Projections screen                    | `TODO` | 13, 12     |
 | [22](./22-members-screen/)         | Members screen                        | `TODO` | 13, 05     |
+| [23](./23-user-profile/)           | User profile screen                   | `TODO` | 03, 13     |
