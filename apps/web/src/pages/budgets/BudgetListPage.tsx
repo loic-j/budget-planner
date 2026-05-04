@@ -227,7 +227,7 @@ export default function BudgetListPage() {
                     boxShadow: 1,
                   }}
                 >
-                  <CardActionArea sx={{ p: 0 }}>
+                  <CardActionArea sx={{ p: 0 }} onClick={() => navigate(`/budgets/${budget.id}`)}>
                     <CardContent>
                       <Typography variant="h5" noWrap gutterBottom>
                         {budget.name}

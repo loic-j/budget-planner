@@ -8,6 +8,7 @@ const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
 const EmailVerificationPage = lazy(() => import('@/pages/auth/EmailVerificationPage'));
 const InviteAcceptPage = lazy(() => import('@/pages/budgets/InviteAcceptPage'));
 const BudgetListPage = lazy(() => import('@/pages/budgets/BudgetListPage'));
+const BudgetDetailPage = lazy(() => import('@/pages/budgets/BudgetDetailPage'));
 
 function PageLoader() {
   return (
@@ -39,7 +40,7 @@ export const router: ReturnType<typeof createBrowserRouter> = createBrowserRoute
     element: <AuthGuard>{withSuspense(<BudgetListPage />)}</AuthGuard>,
   },
   {
-    path: '/budgets/:id/*',
-    element: <AuthGuard>{withSuspense(<BudgetListPage />)}</AuthGuard>,
+    path: '/budgets/:id',
+    element: <AuthGuard>{withSuspense(<BudgetDetailPage />)}</AuthGuard>,
   },
 ]);
