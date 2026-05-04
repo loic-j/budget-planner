@@ -427,7 +427,7 @@ export default function BudgetDetailPage() {
       </Box>
 
       {/* Content */}
-      <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
+      <Box sx={{ maxWidth: 1200, mx: 'auto', p: 3 }}>
         {tab === 0 && id && <MembersTab budgetId={id} />}
         {tab === 2 && id && budget && <ExpensesTab budgetId={id} budget={budget} />}
       </Box>
