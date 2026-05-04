@@ -24,6 +24,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { signOut } from '@/lib/auth';
+import { ExpensesTab } from './ExpensesTab.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -420,7 +421,7 @@ export default function BudgetDetailPage() {
         <Tabs value={tab} onChange={(_, v) => setTab(v as number)} sx={{ px: 3 }}>
           <Tab label="Members" />
           <Tab label="Dashboard" disabled />
-          <Tab label="Expenses" disabled />
+          <Tab label="Expenses" />
           <Tab label="Settings" disabled />
         </Tabs>
       </Box>
@@ -428,6 +429,7 @@ export default function BudgetDetailPage() {
       {/* Content */}
       <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
         {tab === 0 && id && <MembersTab budgetId={id} />}
+        {tab === 2 && id && budget && <ExpensesTab budgetId={id} budget={budget} />}
       </Box>
     </Box>
   );
