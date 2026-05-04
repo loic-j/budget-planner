@@ -29,7 +29,7 @@ function withSuspense(element: React.ReactNode) {
   return <Suspense fallback={<PageLoader />}>{element}</Suspense>;
 }
 
-export const router = createBrowserRouter([
+export const router: ReturnType<typeof createBrowserRouter> = createBrowserRouter([
   { path: '/login', element: withSuspense(<LoginPage />) },
   { path: '/register', element: withSuspense(<RegisterPage />) },
   { path: '/verify-email', element: withSuspense(<EmailVerificationPage />) },

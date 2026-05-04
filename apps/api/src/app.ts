@@ -7,6 +7,8 @@ import { logger } from './config/logger.js';
 import { prisma } from './config/di.container.js';
 import { createAuthInstance } from './config/auth.js';
 import { createHelloController } from './controllers/hello/HelloController.js';
+import { createBudgetController } from './controllers/budget/BudgetController.js';
+import { createAuthMiddleware } from './middleware/auth.middleware.js';
 import { DomainError } from './infrastructure/errors/DomainError.js';
 import type { AppEnv } from './types/hono.js';
 
@@ -40,7 +42,11 @@ export function createApp() {
   // Better Auth — handles all /api/auth/* endpoints
   app.on(['GET', 'POST'], '/api/auth/*', (c) => auth.handler(c.req.raw));
 
-  const routes = app.route('/api', createHelloController());
+  const authMiddleware = createAuthMiddleware(auth);
+
+  const routes = app
+    .route('/api', createHelloController())
+    .route('/api/budgets', createBudgetController(authMiddleware));
 
   app.doc('/api/openapi.json', {
     openapi: '3.1.0',

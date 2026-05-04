@@ -1,11 +1,8 @@
-import type { AuthInstance } from '../config/auth.js';
-
-export type BetterAuthUser = AuthInstance['$Infer']['Session']['user'];
-export type BetterAuthSession = AuthInstance['$Infer']['Session']['session'];
+import type { User, Session } from 'better-auth';
 
 export type AppEnv = {
   Variables: {
-    user: BetterAuthUser;
-    session: BetterAuthSession;
+    user: User & { role?: string | null };
+    session: Session;
   };
 };

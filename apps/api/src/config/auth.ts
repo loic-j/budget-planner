@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { bearer } from 'better-auth/plugins';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 import { PrismaClient } from '@prisma/client';
 
@@ -20,6 +21,7 @@ export function createAuthInstance(prisma: PrismaClient) {
       'http://localhost:5173',
       'http://localhost:3000',
     ].filter(Boolean) as string[],
+    plugins: [bearer()],
     user: {
       additionalFields: {
         role: {
