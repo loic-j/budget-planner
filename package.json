@@ -24,9 +24,13 @@
     "db:reset": "pnpm --filter @app/api db:reset",
     "kill:api": "sh -c 'for pid in $(pgrep -f vite 2>/dev/null); do cwd=$(readlink /proc/$pid/cwd 2>/dev/null); case $cwd in *apps/api) kill $pid;; esac; done; exit 0'",
     "kill:web": "sh -c 'for pid in $(pgrep -f vite 2>/dev/null); do cwd=$(readlink /proc/$pid/cwd 2>/dev/null); case $cwd in *apps/web) kill $pid;; esac; done; exit 0'",
-    "kill": "pnpm kill:api && pnpm kill:web"
+    "kill": "pnpm kill:api && pnpm kill:web",
+    "test:e2e": "pnpm db:reset && pnpm db:seed && playwright test --config e2e/playwright.config.ts",
+    "test:e2e:headed": "pnpm db:reset && pnpm db:seed && playwright test --config e2e/playwright.config.ts --headed",
+    "test:e2e:report": "playwright show-report e2e/playwright-report"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@prisma/client": "^5.18.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",

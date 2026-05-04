@@ -11,7 +11,7 @@ Personal finance planning app where users model revenues, expenses, assets, and 
 - **Auth:** Better Auth
 - **API Documentation:** OpenAPI 3.1 with Scalar UI
 - **Monorepo:** pnpm workspaces
-- **Testing:** Vitest
+- **Testing:** Vitest (unit/integration), Playwright (E2E)
 - **Observability:** Pino (logging), OpenTelemetry + Jaeger (tracing)
 
 **Documentation:** See @docs/README.md for full doc index.
@@ -72,8 +72,71 @@ Fix all TypeScript errors before proceeding. Never leave type errors unresolved.
 ### 3. Run Tests Before Completing Tasks
 
 ```bash
-pnpm test
+pnpm test          # Unit + integration tests (Vitest)
+pnpm test:e2e      # E2E tests (Playwright) — resets DB, seeds, runs all specs
 ```
+
+---
+
+## E2E Tests (Playwright)
+
+### Overview
+
+E2E tests live in `e2e/` and use Playwright. They test full user flows through the real UI — login, navigation, CRUD operations, error states.
+
+- **Sequential only** — `workers: 1`, no concurrency. Tests share DB state and depend on each other.
+- **DB reset before each run** — `pnpm test:e2e` runs `pnpm db:reset && pnpm db:seed` first.
+- **Servers auto-started** — Playwright starts `dev:api` and `dev:web` automatically if not running.
+
+### Commands
+
+```bash
+pnpm test:e2e           # Reset DB + seed + run all specs (headless)
+pnpm test:e2e:headed    # Same but with browser visible (debugging)
+pnpm test:e2e:report    # Open last run's HTML report
+```
+
+### Directory Structure
+
+```
+e2e/
+  playwright.config.ts      # Config: workers=1, webServer, baseURL
+  helpers/
+    auth.ts                 # loginAs(page, user) helper
+    seed-data.ts            # SEED constants (mirrors apps/api/prisma/seed.ts)
+  specs/
+    auth.spec.ts            # Auth flows (login, register, sign out)
+    budget-list.spec.ts     # Budget list page
+    budget-detail.spec.ts   # Budget detail, members tab, invite flows
+```
+
+### Seed Data
+
+`apps/api/prisma/seed.ts` creates:
+
+- **owner** — `seed@budget-planner.test` / `Seed1234!` — owns Seed Budget
+- **member** — `member@budget-planner.test` / `Seed1234!` — VIEWER on Seed Budget
+- **Seed Budget** — EUR budget with one active invite token (`seed-invite-editor`)
+
+`e2e/helpers/seed-data.ts` exports `SEED` constants with the same values for use in tests.
+
+### Policy for New Screens
+
+When adding a new screen or feature:
+
+1. **Update seed data** if the new screen needs existing data to test against — add to `apps/api/prisma/seed.ts` and mirror in `e2e/helpers/seed-data.ts`.
+2. **Add a new spec file** `e2e/specs/<screen-name>.spec.ts` covering:
+   - Happy path (golden path)
+   - Validation/error cases
+   - Navigation transitions in/out of the screen
+3. **Re-run** `pnpm test:e2e` and fix all failures before marking the task done.
+
+### Common Pitfalls
+
+- **MUI Password label** — use `getByLabel('Password', { exact: true })` to avoid matching the eye-toggle button's `aria-label`.
+- **MUI button accessible names** — icon buttons inherit title text; use `{ exact: true }` on role queries to avoid false matches.
+- **Async data loading** — wait for visible elements before counting (e.g., wait for first copy button before counting invite rows).
+- **Shared DB state** — tests run sequentially and accumulate state. Avoid assertions that break when DB has more rows than the seed.
 
 ---
 
@@ -221,6 +284,6 @@ docker compose down   # Stop services
 
 ---
 
-**Last Updated:** 2026-05-03
-**Phase:** POC — Hello World end-to-end (backend + frontend wired)
-**Next:** Authentication flows, budget CRUD
+**Last Updated:** 2026-05-04
+**Phase:** Auth + Budget CRUD + Members/Invites complete
+**Next:** Expenses, Revenues, Savings screens

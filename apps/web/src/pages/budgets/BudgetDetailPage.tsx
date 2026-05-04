@@ -403,7 +403,7 @@ export default function BudgetDetailPage() {
           gap: 2,
         }}
       >
-        <IconButton size="small" onClick={() => navigate('/')}>
+        <IconButton size="small" aria-label="Back" onClick={() => navigate('/')}>
           <ArrowBackIcon />
         </IconButton>
         <AccountBalanceWalletIcon sx={{ color: 'primary.main' }} />
