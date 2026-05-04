@@ -363,6 +363,7 @@ export default function BudgetListPage() {
               render={({ field }) => (
                 <TextField
                   {...field}
+                  onChange={(e) => field.onChange((e.target as HTMLInputElement).valueAsNumber)}
                   label="Initial savings"
                   type="number"
                   fullWidth
