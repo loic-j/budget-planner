@@ -8,6 +8,9 @@ import { PrismaBudgetMemberRepository } from '../infrastructure/database/reposit
 import { PrismaBudgetInviteRepository } from '../infrastructure/database/repositories/PrismaBudgetInviteRepository.js';
 import { PrismaPersonRepository } from '../infrastructure/database/repositories/PrismaPersonRepository.js';
 import { PrismaCategoryRepository } from '../infrastructure/database/repositories/PrismaCategoryRepository.js';
+import { PrismaExpenseRepository } from '../infrastructure/database/repositories/PrismaExpenseRepository.js';
+import { PrismaLoanDetailRepository } from '../infrastructure/database/repositories/PrismaLoanDetailRepository.js';
+import { PrismaLoanPaymentRepository } from '../infrastructure/database/repositories/PrismaLoanPaymentRepository.js';
 
 const prisma = createPrismaClient();
 container.registerInstance(PrismaClient, prisma);
@@ -17,5 +20,8 @@ container.register('IBudgetMemberRepository', { useClass: PrismaBudgetMemberRepo
 container.register('IBudgetInviteRepository', { useClass: PrismaBudgetInviteRepository });
 container.register('IPersonRepository', { useClass: PrismaPersonRepository });
 container.register('ICategoryRepository', { useClass: PrismaCategoryRepository });
+container.register('IExpenseRepository', { useClass: PrismaExpenseRepository });
+container.register('ILoanDetailRepository', { useClass: PrismaLoanDetailRepository });
+container.register('ILoanPaymentRepository', { useClass: PrismaLoanPaymentRepository });
 
 export { container, prisma };

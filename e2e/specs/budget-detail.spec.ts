@@ -98,7 +98,7 @@ test.describe('Budget Detail – Members Tab', () => {
 
   test('revoking an invite removes it from the list', async ({ page }) => {
     // First create an invite to have something to revoke predictably
-    const copyLocator = await waitForInviteList(page);
+    await waitForInviteList(page);
 
     await page.getByRole('button', { name: 'Invite', exact: true }).click();
     await Promise.all([
