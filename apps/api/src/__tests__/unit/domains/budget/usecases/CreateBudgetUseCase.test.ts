@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { CreateBudgetUseCase } from '../../../../../domains/budget/usecases/CreateBudgetUseCase.js';
 import type { IBudgetRepository } from '../../../../../domains/budget/repositories/IBudgetRepository.js';
 import { Budget } from '../../../../../domains/budget/entities/Budget.js';
+import { SeedPresetCategoriesUseCase } from '../../../../../domains/categories/usecases/SeedPresetCategoriesUseCase.js';
 
 const now = new Date();
 const mockBudget = new Budget('b1', 'My Budget', 'u1', now, now, 'EUR', 0, now, now);
@@ -16,11 +17,15 @@ const mockRepo: IBudgetRepository = {
   delete: vi.fn(),
 };
 
+const mockSeedCategories = {
+  execute: vi.fn().mockResolvedValue(undefined),
+} as unknown as SeedPresetCategoriesUseCase;
+
 describe('CreateBudgetUseCase', () => {
   beforeEach(() => vi.clearAllMocks());
 
   it('calls repo.create with correct data and returns budget', async () => {
-    const useCase = new CreateBudgetUseCase(mockRepo);
+    const useCase = new CreateBudgetUseCase(mockRepo, mockSeedCategories);
     const result = await useCase.execute({
       name: 'My Budget',
       startDate: '2026-01-01T00:00:00.000Z',
@@ -39,7 +44,7 @@ describe('CreateBudgetUseCase', () => {
   });
 
   it('passes description when provided', async () => {
-    const useCase = new CreateBudgetUseCase(mockRepo);
+    const useCase = new CreateBudgetUseCase(mockRepo, mockSeedCategories);
     await useCase.execute({
       name: 'X',
       startDate: '2026-01-01T00:00:00.000Z',

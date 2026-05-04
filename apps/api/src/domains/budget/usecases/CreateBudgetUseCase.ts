@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 import type { Budget } from '../entities/Budget.js';
 import type { IBudgetRepository, CreateBudgetData } from '../repositories/IBudgetRepository.js';
+import { SeedPresetCategoriesUseCase } from '../../categories/usecases/SeedPresetCategoriesUseCase.js';
 
 export interface CreateBudgetInput {
   name: string;
@@ -14,7 +15,10 @@ export interface CreateBudgetInput {
 
 @injectable()
 export class CreateBudgetUseCase {
-  constructor(@inject('IBudgetRepository') private repo: IBudgetRepository) {}
+  constructor(
+    @inject('IBudgetRepository') private repo: IBudgetRepository,
+    @inject(SeedPresetCategoriesUseCase) private seedCategories: SeedPresetCategoriesUseCase
+  ) {}
 
   async execute(input: CreateBudgetInput): Promise<Budget> {
     const data: CreateBudgetData = {
@@ -27,7 +31,8 @@ export class CreateBudgetUseCase {
       ownerId: input.ownerId,
     };
 
-    // TODO: call SeedPresetCategoriesUseCase after creating budget (Task 07)
-    return this.repo.create(data);
+    const budget = await this.repo.create(data);
+    await this.seedCategories.execute(budget.id);
+    return budget;
   }
 }

@@ -11,6 +11,7 @@ import { createInviteController } from '../../controllers/invite/InviteControlle
 import { PrismaBudgetRepository } from '../../infrastructure/database/repositories/PrismaBudgetRepository.js';
 import { PrismaBudgetMemberRepository } from '../../infrastructure/database/repositories/PrismaBudgetMemberRepository.js';
 import { PrismaBudgetInviteRepository } from '../../infrastructure/database/repositories/PrismaBudgetInviteRepository.js';
+import { PrismaCategoryRepository } from '../../infrastructure/database/repositories/PrismaCategoryRepository.js';
 import { container } from 'tsyringe';
 import { DomainError } from '../../infrastructure/errors/DomainError.js';
 import type { AppEnv } from '../../types/hono.js';
@@ -54,6 +55,7 @@ beforeAll(async () => {
   container.register('IBudgetRepository', { useClass: PrismaBudgetRepository });
   container.register('IBudgetMemberRepository', { useClass: PrismaBudgetMemberRepository });
   container.register('IBudgetInviteRepository', { useClass: PrismaBudgetInviteRepository });
+  container.register('ICategoryRepository', { useClass: PrismaCategoryRepository });
 
   const authInstance = createAuthInstance(prisma);
   app = buildApp(authInstance);
