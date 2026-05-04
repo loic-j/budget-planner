@@ -13,6 +13,7 @@ import { createInviteController } from './controllers/invite/InviteController.js
 import { createPersonController } from './controllers/person/PersonController.js';
 import { createCategoryController } from './controllers/category/CategoryController.js';
 import { createExpenseController } from './controllers/expense/ExpenseController.js';
+import { createRevenueController } from './controllers/revenue/RevenueController.js';
 import { createAuthMiddleware } from './middleware/auth.middleware.js';
 import { DomainError } from './infrastructure/errors/DomainError.js';
 import type { AppEnv } from './types/hono.js';
@@ -56,7 +57,8 @@ export function createApp() {
     .route('/api/invite', createInviteController(authMiddleware))
     .route('/api/budgets', createPersonController(authMiddleware))
     .route('/api/budgets', createCategoryController(authMiddleware))
-    .route('/api/budgets', createExpenseController(authMiddleware));
+    .route('/api/budgets', createExpenseController(authMiddleware))
+    .route('/api/budgets', createRevenueController(authMiddleware));
 
   app.doc('/api/openapi.json', {
     openapi: '3.1.0',

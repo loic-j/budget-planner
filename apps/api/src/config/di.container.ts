@@ -11,6 +11,7 @@ import { PrismaCategoryRepository } from '../infrastructure/database/repositorie
 import { PrismaExpenseRepository } from '../infrastructure/database/repositories/PrismaExpenseRepository.js';
 import { PrismaLoanDetailRepository } from '../infrastructure/database/repositories/PrismaLoanDetailRepository.js';
 import { PrismaLoanPaymentRepository } from '../infrastructure/database/repositories/PrismaLoanPaymentRepository.js';
+import { PrismaRevenueRepository } from '../infrastructure/database/repositories/PrismaRevenueRepository.js';
 
 const prisma = createPrismaClient();
 container.registerInstance(PrismaClient, prisma);
@@ -23,5 +24,6 @@ container.register('ICategoryRepository', { useClass: PrismaCategoryRepository }
 container.register('IExpenseRepository', { useClass: PrismaExpenseRepository });
 container.register('ILoanDetailRepository', { useClass: PrismaLoanDetailRepository });
 container.register('ILoanPaymentRepository', { useClass: PrismaLoanPaymentRepository });
+container.register('IRevenueRepository', { useClass: PrismaRevenueRepository });
 
 export { container, prisma };
