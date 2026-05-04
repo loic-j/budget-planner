@@ -15,6 +15,7 @@ import { createCategoryController } from './controllers/category/CategoryControl
 import { createExpenseController } from './controllers/expense/ExpenseController.js';
 import { createRevenueController } from './controllers/revenue/RevenueController.js';
 import { createSavingController } from './controllers/saving/SavingController.js';
+import { createAssetController } from './controllers/asset/AssetController.js';
 import { createAuthMiddleware } from './middleware/auth.middleware.js';
 import { DomainError } from './infrastructure/errors/DomainError.js';
 import type { AppEnv } from './types/hono.js';
@@ -60,7 +61,8 @@ export function createApp() {
     .route('/api/budgets', createCategoryController(authMiddleware))
     .route('/api/budgets', createExpenseController(authMiddleware))
     .route('/api/budgets', createRevenueController(authMiddleware))
-    .route('/api/budgets', createSavingController(authMiddleware));
+    .route('/api/budgets', createSavingController(authMiddleware))
+    .route('/api/budgets', createAssetController(authMiddleware));
 
   app.doc('/api/openapi.json', {
     openapi: '3.1.0',

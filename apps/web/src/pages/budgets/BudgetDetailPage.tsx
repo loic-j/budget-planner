@@ -25,7 +25,9 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { signOut } from '@/lib/auth';
 import { ExpensesTab } from './ExpensesTab.js';
+import { RevenuesTab } from './RevenuesTab.js';
 import { SavingsTab } from './SavingsTab.js';
+import { AssetsTab } from './AssetsTab.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -423,7 +425,9 @@ export default function BudgetDetailPage() {
           <Tab label="Members" />
           <Tab label="Dashboard" disabled />
           <Tab label="Expenses" />
+          <Tab label="Revenues" />
           <Tab label="Savings" />
+          <Tab label="Assets" />
           <Tab label="Settings" disabled />
         </Tabs>
       </Box>
@@ -432,7 +436,9 @@ export default function BudgetDetailPage() {
       <Box sx={{ maxWidth: 1200, mx: 'auto', p: 3 }}>
         {tab === 0 && id && <MembersTab budgetId={id} />}
         {tab === 2 && id && budget && <ExpensesTab budgetId={id} budget={budget} />}
-        {tab === 3 && id && budget && <SavingsTab budgetId={id} budget={budget} />}
+        {tab === 3 && id && budget && <RevenuesTab budgetId={id} budget={budget} />}
+        {tab === 4 && id && budget && <SavingsTab budgetId={id} budget={budget} />}
+        {tab === 5 && id && budget && <AssetsTab budgetId={id} budget={budget} />}
       </Box>
     </Box>
   );
