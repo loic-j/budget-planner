@@ -8,10 +8,12 @@ import {
   Skeleton,
   Tooltip,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutlined';
@@ -97,7 +99,7 @@ function SidebarNavItem({
   );
 }
 
-function SidebarContent({ collapsed }: { collapsed: boolean }) {
+function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   const { budget } = useBudget();
   const navigate = useNavigate();
 
@@ -184,13 +186,56 @@ function SidebarContent({ collapsed }: { collapsed: boolean }) {
           )}
         </Box>
       </Tooltip>
+
+      <Divider />
+
+      {/* Collapse / expand row */}
+      <Tooltip title={collapsed ? 'Expand sidebar' : ''} placement="right">
+        <Box
+          onClick={onToggle}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1.5,
+            px: collapsed ? 0 : 2,
+            py: 1.25,
+            cursor: 'pointer',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            color: 'text.disabled',
+            '&:hover': { bgcolor: 'rgba(255,255,255,0.05)', color: 'text.secondary' },
+          }}
+        >
+          {collapsed ? (
+            <KeyboardDoubleArrowRightIcon fontSize="small" />
+          ) : (
+            <>
+              <KeyboardDoubleArrowLeftIcon fontSize="small" />
+              <Typography variant="caption">Collapse</Typography>
+            </>
+          )}
+        </Box>
+      </Tooltip>
     </>
   );
 }
 
 function BudgetLayoutInner() {
-  const [collapsed, setCollapsed] = useState(false);
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
+  const [collapsed, setCollapsed] = useState(() => {
+    const stored = localStorage.getItem('sidebar-collapsed');
+    if (stored !== null) return isSmall && stored === 'true';
+    return isSmall;
+  });
   const { loading } = useBudget();
+
+  function toggleCollapsed() {
+    setCollapsed((c) => {
+      const next = !c;
+      localStorage.setItem('sidebar-collapsed', String(next));
+      return next;
+    });
+  }
   const w = collapsed ? SIDEBAR_COLLAPSED_W : SIDEBAR_W;
 
   if (loading) {
@@ -225,37 +270,7 @@ function BudgetLayoutInner() {
           boxShadow: 2,
         }}
       >
-        <SidebarContent collapsed={collapsed} />
-
-        {/* Collapse toggle */}
-        <Box
-          sx={{
-            position: 'absolute',
-            right: -12,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 101,
-          }}
-        >
-          <IconButton
-            size="small"
-            onClick={() => setCollapsed((c) => !c)}
-            sx={{
-              bgcolor: 'background.paper',
-              border: '1px solid',
-              borderColor: 'divider',
-              width: 24,
-              height: 24,
-              '&:hover': { bgcolor: 'background.paper' },
-            }}
-          >
-            {collapsed ? (
-              <ChevronRightIcon sx={{ fontSize: 14 }} />
-            ) : (
-              <ChevronLeftIcon sx={{ fontSize: 14 }} />
-            )}
-          </IconButton>
-        </Box>
+        <SidebarContent collapsed={collapsed} onToggle={toggleCollapsed} />
       </Box>
 
       {/* Main content */}

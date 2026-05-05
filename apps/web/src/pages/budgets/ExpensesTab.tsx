@@ -7,7 +7,7 @@ declare module '@mui/x-data-grid' {
     onSave: () => void;
     dirty: boolean;
     saving: boolean;
-    onAddCategory: () => void;
+    onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
   }
 }
 import {
@@ -16,10 +16,6 @@ import {
   Chip,
   CircularProgress,
   Collapse,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   Divider,
   Drawer,
   FormControl,
@@ -34,6 +30,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { CategoryManager } from '@/components/CategoryManager';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -44,6 +41,7 @@ import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
 import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
+import { ChartCategoryFilter } from '@/components/charts/ChartCategoryFilter';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
@@ -250,7 +248,7 @@ interface ToolbarProps {
   onSave: () => void;
   dirty: boolean;
   saving: boolean;
-  onAddCategory: () => void;
+  onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 function RegularToolbar(props: ToolbarProps) {
@@ -260,8 +258,13 @@ function RegularToolbar(props: ToolbarProps) {
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
         Add row
       </Button>
-      <Button size="small" startIcon={<AddIcon />} onClick={onAddCategory} color="inherit">
-        Category
+      <Button
+        size="small"
+        startIcon={<AddIcon />}
+        onClick={(e) => onAddCategory(e as React.MouseEvent<HTMLElement>)}
+        color="inherit"
+      >
+        Categories
       </Button>
       <Button
         size="small"
@@ -584,13 +587,12 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
   const [expandedLoanId, setExpandedLoanId] = useState<string | null>(null);
 
   const [snack, setSnack] = useState<string | null>(null);
-  const [catDialogOpen, setCatDialogOpen] = useState(false);
-  const [newCatName, setNewCatName] = useState('');
-  const [savingCat, setSavingCat] = useState(false);
+  const [catAnchorEl, setCatAnchorEl] = useState<HTMLElement | null>(null);
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
   const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+  const [selectedChartCategories, setSelectedChartCategories] = useState<Set<string>>(new Set());
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -732,25 +734,6 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     }
   }, [rows, dirtyIds, deletedIds, budgetId, loadData]);
 
-  async function handleCreateCategory() {
-    setSavingCat(true);
-    try {
-      await apiFetch(`/api/budgets/${budgetId}/categories`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'EXPENSE', name: newCatName.trim(), icon: 'other' }),
-      });
-      const catList = await apiFetch(`/api/budgets/${budgetId}/categories`);
-      setCategories((catList as Category[]).filter((c) => c.type === 'EXPENSE'));
-      setNewCatName('');
-      setCatDialogOpen(false);
-    } catch (e) {
-      setSnack('Failed to create category: ' + (e as Error).message);
-    } finally {
-      setSavingCat(false);
-    }
-  }
-
   // Ctrl+S to save
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -788,9 +771,19 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     return [...draftRegular, ...expenses.filter((e) => e.type === 'LOAN')];
   }, [debouncedRows, expenses]);
 
+  const hasUncategorized = useMemo(() => chartExpenses.some((e) => !e.categoryId), [chartExpenses]);
+
+  const filteredChartExpenses = useMemo(
+    () =>
+      selectedChartCategories.size === 0
+        ? chartExpenses
+        : chartExpenses.filter((e) => selectedChartCategories.has(e.categoryId ?? '')),
+    [chartExpenses, selectedChartCategories]
+  );
+
   const chartData = useMemo(
-    () => computeChartData(chartExpenses, budget.startDate, budget.endDate),
-    [chartExpenses, budget.startDate, budget.endDate]
+    () => computeChartData(filteredChartExpenses, budget.startDate, budget.endDate),
+    [filteredChartExpenses, budget.startDate, budget.endDate]
   );
 
   const displayChart = useMemo(() => {
@@ -957,9 +950,15 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
             overflow: 'hidden',
           }}
         >
-          <Box sx={{ px: 3, pt: 2 }}>
+          <Box sx={{ px: 3, pt: 2, pb: 1 }}>
             <Typography variant="h6">Monthly expense projection</Typography>
           </Box>
+          <ChartCategoryFilter
+            categories={categories}
+            selected={selectedChartCategories}
+            hasUncategorized={hasUncategorized}
+            onChange={setSelectedChartCategories}
+          />
           <LineChart
             height={260}
             series={[
@@ -1023,7 +1022,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
                 onSave: saveAll,
                 dirty: hasDraft,
                 saving,
-                onAddCategory: () => setCatDialogOpen(true),
+                onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
               },
             }}
             autoHeight
@@ -1059,7 +1058,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
                 onSave: saveAll,
                 dirty: hasDraft,
                 saving,
-                onAddCategory: () => setCatDialogOpen(true),
+                onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
               },
             }}
             autoHeight
@@ -1184,36 +1183,14 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         onCreated={loadData}
       />
 
-      {/* ── Create category dialog ── */}
-      <Dialog open={catDialogOpen} onClose={() => setCatDialogOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>New expense category</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            label="Category name"
-            value={newCatName}
-            onChange={(e) => setNewCatName(e.target.value)}
-            fullWidth
-            size="small"
-            sx={{ mt: 1 }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && newCatName.trim()) handleCreateCategory();
-            }}
-          />
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button variant="text" onClick={() => setCatDialogOpen(false)}>
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!newCatName.trim() || savingCat}
-            onClick={handleCreateCategory}
-          >
-            {savingCat ? 'Creating…' : 'Create'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <CategoryManager
+        anchorEl={catAnchorEl}
+        onClose={() => setCatAnchorEl(null)}
+        budgetId={budgetId}
+        categoryType="EXPENSE"
+        categories={categories}
+        onCategoryChange={loadData}
+      />
 
       <Snackbar
         open={!!snack}

@@ -191,11 +191,12 @@ Full reference: @docs/development/code-conventions.md
 
 ## Charts & Time Series — Mandatory Rules
 
-**Every chart/graph/time series MUST include all three of the following:**
+**Every chart/graph/time series MUST include all four of the following:**
 
 1. **Date range filter** — From/To month pickers initialised from `budget.startDate`/`budget.endDate`
 2. **Brush zoom** — Range `Slider` below the chart acting as a visual scrubber
 3. **Granularity toggle** — Month / Year toggle to aggregate data
+4. **Category filter** — Multi-select chip group when the data has a `categoryId` field (Expenses, Revenues, Savings)
 
 Use the shared `ChartRangeBrush` component for all three:
 
@@ -228,6 +229,38 @@ const displayChart = useMemo(() => {
   onGranularityChange={setChartGranularity}
 />
 ```
+
+Use `ChartCategoryFilter` for charts with categorized data:
+
+```tsx
+import { ChartCategoryFilter } from '@/components/charts/ChartCategoryFilter';
+
+// State
+const [selectedChartCategories, setSelectedChartCategories] = useState<Set<string>>(new Set());
+
+// Derive from source data (before chartData memo)
+const hasUncategorized = useMemo(() => items.some((x) => !x.categoryId), [items]);
+const filteredItems = useMemo(
+  () =>
+    selectedChartCategories.size === 0
+      ? items
+      : items.filter((x) => selectedChartCategories.has(x.categoryId ?? '')),
+  [items, selectedChartCategories]
+);
+// pass filteredItems into computeChartData(...)
+
+// Render: place between chart title and <LineChart>
+<ChartCategoryFilter
+  budgetId={budgetId}
+  categories={categories} // already loaded in the tab
+  selected={selectedChartCategories}
+  hasUncategorized={hasUncategorized}
+  onChange={setSelectedChartCategories}
+  onCategoryChange={loadData} // reload categories after rename/delete
+/>;
+```
+
+Empty `selected` Set = show all. Selecting one or more = show only those categories.
 
 **Aggregation rules for yearly mode:**
 

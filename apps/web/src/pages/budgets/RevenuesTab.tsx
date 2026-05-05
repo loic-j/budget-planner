@@ -6,24 +6,12 @@ declare module '@mui/x-data-grid' {
     onSave: () => void;
     dirty: boolean;
     saving: boolean;
-    onAddCategory: () => void;
+    onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
   }
 }
 
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Snackbar,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, CircularProgress, Snackbar, Tab, Tabs, Typography } from '@mui/material';
+import { CategoryManager } from '@/components/CategoryManager';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -34,6 +22,7 @@ import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
 import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
+import { ChartCategoryFilter } from '@/components/charts/ChartCategoryFilter';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
@@ -223,7 +212,7 @@ interface ToolbarProps {
   onSave: () => void;
   dirty: boolean;
   saving: boolean;
-  onAddCategory: () => void;
+  onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 function RevenuesToolbar(props: ToolbarProps) {
@@ -233,8 +222,13 @@ function RevenuesToolbar(props: ToolbarProps) {
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
         Add row
       </Button>
-      <Button size="small" startIcon={<AddIcon />} onClick={onAddCategory} color="inherit">
-        Category
+      <Button
+        size="small"
+        startIcon={<AddIcon />}
+        onClick={(e) => onAddCategory(e as React.MouseEvent<HTMLElement>)}
+        color="inherit"
+      >
+        Categories
       </Button>
       <Button
         size="small"
@@ -271,13 +265,12 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
   const [saving, setSaving] = useState(false);
 
   const [snack, setSnack] = useState<string | null>(null);
-  const [catDialogOpen, setCatDialogOpen] = useState(false);
-  const [newCatName, setNewCatName] = useState('');
-  const [savingCat, setSavingCat] = useState(false);
+  const [catAnchorEl, setCatAnchorEl] = useState<HTMLElement | null>(null);
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
   const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+  const [selectedChartCategories, setSelectedChartCategories] = useState<Set<string>>(new Set());
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -418,25 +411,6 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
     }
   }, [rows, dirtyIds, deletedIds, budgetId, loadData]);
 
-  async function handleCreateCategory() {
-    setSavingCat(true);
-    try {
-      await apiFetch(`/api/budgets/${budgetId}/categories`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'REVENUE', name: newCatName.trim(), icon: 'other' }),
-      });
-      const catList = await apiFetch(`/api/budgets/${budgetId}/categories`);
-      setCategories((catList as Category[]).filter((c) => c.type === 'REVENUE'));
-      setNewCatName('');
-      setCatDialogOpen(false);
-    } catch (e) {
-      setSnack('Failed to create category: ' + (e as Error).message);
-    } finally {
-      setSavingCat(false);
-    }
-  }
-
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -471,9 +445,19 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
     [debouncedRows]
   );
 
+  const hasUncategorized = useMemo(() => chartRevenues.some((r) => !r.categoryId), [chartRevenues]);
+
+  const filteredChartRevenues = useMemo(
+    () =>
+      selectedChartCategories.size === 0
+        ? chartRevenues
+        : chartRevenues.filter((r) => selectedChartCategories.has(r.categoryId ?? '')),
+    [chartRevenues, selectedChartCategories]
+  );
+
   const chartData = useMemo(
-    () => computeChartData(chartRevenues, persons, budget.startDate, budget.endDate),
-    [chartRevenues, persons, budget.startDate, budget.endDate]
+    () => computeChartData(filteredChartRevenues, persons, budget.startDate, budget.endDate),
+    [filteredChartRevenues, persons, budget.startDate, budget.endDate]
   );
 
   const displayChart = useMemo(() => {
@@ -690,9 +674,15 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             overflow: 'hidden',
           }}
         >
-          <Box sx={{ px: 3, pt: 2 }}>
+          <Box sx={{ px: 3, pt: 2, pb: 1 }}>
             <Typography variant="h6">Revenue projection</Typography>
           </Box>
+          <ChartCategoryFilter
+            categories={categories}
+            selected={selectedChartCategories}
+            hasUncategorized={hasUncategorized}
+            onChange={setSelectedChartCategories}
+          />
           <LineChart
             height={260}
             series={chartSeries}
@@ -751,7 +741,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
                 onSave: saveAll,
                 dirty: hasDraft,
                 saving,
-                onAddCategory: () => setCatDialogOpen(true),
+                onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
               },
             }}
             autoHeight
@@ -791,36 +781,14 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
         </Box>
       )}
 
-      {/* ── Create category dialog ── */}
-      <Dialog open={catDialogOpen} onClose={() => setCatDialogOpen(false)} maxWidth="xs" fullWidth>
-        <DialogTitle>New revenue category</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            label="Category name"
-            value={newCatName}
-            onChange={(e) => setNewCatName(e.target.value)}
-            fullWidth
-            size="small"
-            sx={{ mt: 1 }}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && newCatName.trim()) handleCreateCategory();
-            }}
-          />
-        </DialogContent>
-        <DialogActions sx={{ px: 3, pb: 2 }}>
-          <Button variant="text" onClick={() => setCatDialogOpen(false)}>
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            disabled={!newCatName.trim() || savingCat}
-            onClick={handleCreateCategory}
-          >
-            {savingCat ? 'Creating…' : 'Create'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <CategoryManager
+        anchorEl={catAnchorEl}
+        onClose={() => setCatAnchorEl(null)}
+        budgetId={budgetId}
+        categoryType="REVENUE"
+        categories={categories}
+        onCategoryChange={loadData}
+      />
 
       <Snackbar
         open={!!snack}
