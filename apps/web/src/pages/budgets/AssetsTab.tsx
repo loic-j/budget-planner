@@ -22,6 +22,8 @@ import {
 import { DataGrid } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
+import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
@@ -289,6 +291,10 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
   const [deleting, setDeleting] = useState(false);
   const [snack, setSnack] = useState<string | null>(null);
 
+  const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
+  const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -335,19 +341,53 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
     [assets, budget.startDate, budget.endDate]
   );
 
+  const displayChart = useMemo(() => {
+    const filtered = chartData.labels
+      .map((l, i) => ({ l, i }))
+      .filter(({ l }) => l >= chartStart && l <= chartEnd);
+    if (chartGranularity === 'monthly') {
+      const seriesData: Record<string, number[]> = {};
+      for (const k of Object.keys(chartData.seriesData)) {
+        seriesData[k] = filtered.map(({ i }) => chartData.seriesData[k][i]);
+      }
+      return {
+        labels: filtered.map(({ l }) => l),
+        seriesData,
+        total: filtered.map(({ i }) => chartData.total[i]),
+      };
+    }
+    const byYear: Record<string, Record<string, number> & { _total: number }> = {};
+    filtered.forEach(({ l, i }) => {
+      const yr = l.slice(0, 4);
+      if (!byYear[yr]) {
+        byYear[yr] = { _total: 0 };
+        for (const k of Object.keys(chartData.seriesData)) byYear[yr][k] = 0;
+      }
+      for (const k of Object.keys(chartData.seriesData))
+        byYear[yr][k] = chartData.seriesData[k][i] ?? 0; // take last per year
+      byYear[yr]._total = chartData.total[i]; // take last per year
+    });
+    const years = Object.keys(byYear).sort();
+    const seriesData: Record<string, number[]> = {};
+    for (const k of Object.keys(chartData.seriesData)) {
+      seriesData[k] = years.map((yr) => byYear[yr][k] ?? 0);
+    }
+    return { labels: years, seriesData, total: years.map((yr) => byYear[yr]._total) };
+  }, [chartData, chartStart, chartEnd, chartGranularity]);
+
   const chartSeries = useMemo(
     () => [
       ...assets.map((a) => ({
-        data: chartData.seriesData[a.id] ?? [],
+        data: displayChart.seriesData[a.id] ?? [],
         label: a.name,
         color: ASSET_TYPE_COLORS[a.type],
       })),
-      { data: chartData.total, label: 'Total', color: '#ffffff' },
+      { data: displayChart.total, label: 'Total', color: '#ffffff' },
     ],
-    [assets, chartData]
+    [assets, displayChart]
   );
 
-  const tickInterval = Math.max(1, Math.floor(chartData.labels.length / 8));
+  const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
 
   const today = new Date();
   const endDate = new Date(budget.endDate);
@@ -534,11 +574,23 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
             series={chartSeries}
             xAxis={[
               {
-                data: chartData.labels,
+                data: displayChart.labels,
                 scaleType: 'band',
                 tickInterval: (_v: unknown, i: number) => i % tickInterval === 0,
               },
             ]}
+          />
+          <ChartRangeBrush
+            minMonth={budget.startDate.slice(0, 7)}
+            maxMonth={budget.endDate.slice(0, 7)}
+            startMonth={chartStart}
+            endMonth={chartEnd}
+            granularity={chartGranularity}
+            onRangeChange={(s, e) => {
+              setChartStart(s);
+              setChartEnd(e);
+            }}
+            onGranularityChange={setChartGranularity}
           />
         </Box>
       )}

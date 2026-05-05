@@ -189,6 +189,53 @@ Full reference: @docs/development/code-conventions.md
 
 ---
 
+## Charts & Time Series — Mandatory Rules
+
+**Every chart/graph/time series MUST include all three of the following:**
+
+1. **Date range filter** — From/To month pickers initialised from `budget.startDate`/`budget.endDate`
+2. **Brush zoom** — Range `Slider` below the chart acting as a visual scrubber
+3. **Granularity toggle** — Month / Year toggle to aggregate data
+
+Use the shared `ChartRangeBrush` component for all three:
+
+```tsx
+import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
+import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
+
+// State (in the chart's parent component)
+const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
+const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
+const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+
+// Filter + aggregate (inline useMemo per chart)
+const displayChart = useMemo(() => {
+  const filtered = chartData.labels.map((l, i) => ({ l, i })).filter(({ l }) => l >= chartStart && l <= chartEnd);
+  if (chartGranularity === 'monthly') return { labels: filtered.map(({ l }) => l), series: filtered.map(({ i }) => data[i]) };
+  // yearly: group by label.slice(0,4), sum flows, take last value for balances
+  ...
+}, [chartData, chartStart, chartEnd, chartGranularity]);
+
+// Render: place ChartRangeBrush directly below the chart, inside the same Box
+<LineChart ... />
+<ChartRangeBrush
+  minMonth={budget.startDate.slice(0, 7)}
+  maxMonth={budget.endDate.slice(0, 7)}
+  startMonth={chartStart}
+  endMonth={chartEnd}
+  granularity={chartGranularity}
+  onRangeChange={(s, e) => { setChartStart(s); setChartEnd(e); }}
+  onGranularityChange={setChartGranularity}
+/>
+```
+
+**Aggregation rules for yearly mode:**
+
+- Cash flows (`revenue`, `expense`, `savingContribution`, `monthly`) → **sum** per year
+- Balances/stocks (`netWorth`, `cashBalance`, `savingsBalance`, `assetValue`, `cumulative`) → **last value** per year
+
+---
+
 ## Frontend Theme Quick Reference
 
 **Full design system:** @docs/design-system.md — MUI theme config, color tokens, component patterns, and live HTML examples in `./design/`.

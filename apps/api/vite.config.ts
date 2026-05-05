@@ -11,6 +11,7 @@ export default defineConfig({
     noExternal: ['hono-pino'],
   },
   server: {
+    host: true,
     port: 3000,
   },
   build: {

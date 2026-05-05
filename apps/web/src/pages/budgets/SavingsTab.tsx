@@ -30,6 +30,8 @@ import {
 } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
+import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
@@ -248,6 +250,10 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
   const [newCatName, setNewCatName] = useState('');
   const [savingCat, setSavingCat] = useState(false);
 
+  const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
+  const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -432,6 +438,32 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
     [chartSavings, budget.startDate, budget.endDate]
   );
 
+  const displayChart = useMemo(() => {
+    const filtered = chartData.labels
+      .map((l, i) => ({ l, i }))
+      .filter(({ l }) => l >= chartStart && l <= chartEnd);
+    if (chartGranularity === 'monthly') {
+      return {
+        labels: filtered.map(({ l }) => l),
+        monthly: filtered.map(({ i }) => chartData.monthly[i]),
+        cumulative: filtered.map(({ i }) => chartData.cumulative[i]),
+      };
+    }
+    const byYear: Record<string, { monthly: number; cumulative: number }> = {};
+    filtered.forEach(({ l, i }) => {
+      const yr = l.slice(0, 4);
+      if (!byYear[yr]) byYear[yr] = { monthly: 0, cumulative: 0 };
+      byYear[yr].monthly += chartData.monthly[i];
+      byYear[yr].cumulative = chartData.cumulative[i]; // take last value per year
+    });
+    const years = Object.keys(byYear).sort();
+    return {
+      labels: years,
+      monthly: years.map((yr) => byYear[yr].monthly),
+      cumulative: years.map((yr) => byYear[yr].cumulative),
+    };
+  }, [chartData, chartStart, chartEnd, chartGranularity]);
+
   const catOptions = useMemo(
     () => [{ value: '', label: '—' }, ...categories.map((c) => ({ value: c.id, label: c.name }))],
     [categories]
@@ -510,7 +542,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
   );
 
   const hasDraft = dirtyIds.size > 0 || deletedIds.size > 0;
-  const tickInterval = Math.max(1, Math.floor(chartData.labels.length / 8));
+  const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
 
   // Summary stat: total monthly savings
   const totalMonthly = useMemo(
@@ -597,16 +629,28 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           <LineChart
             height={260}
             series={[
-              { data: chartData.monthly, label: 'Monthly', color: '#42a5f5' },
-              { data: chartData.cumulative, label: 'Cumulative', color: '#009688' },
+              { data: displayChart.monthly, label: 'Monthly', color: '#42a5f5' },
+              { data: displayChart.cumulative, label: 'Cumulative', color: '#009688' },
             ]}
             xAxis={[
               {
-                data: chartData.labels,
+                data: displayChart.labels,
                 scaleType: 'band',
                 tickInterval: (_v: unknown, i: number) => i % tickInterval === 0,
               },
             ]}
+          />
+          <ChartRangeBrush
+            minMonth={budget.startDate.slice(0, 7)}
+            maxMonth={budget.endDate.slice(0, 7)}
+            startMonth={chartStart}
+            endMonth={chartEnd}
+            granularity={chartGranularity}
+            onRangeChange={(s, e) => {
+              setChartStart(s);
+              setChartEnd(e);
+            }}
+            onGranularityChange={setChartGranularity}
           />
         </Box>
       )}

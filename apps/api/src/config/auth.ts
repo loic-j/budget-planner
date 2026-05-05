@@ -20,6 +20,9 @@ export function createAuthInstance(prisma: PrismaClient) {
       process.env.BETTER_AUTH_URL,
       'http://localhost:5173',
       'http://localhost:3000',
+      ...(process.env.EXTRA_TRUSTED_ORIGINS
+        ? process.env.EXTRA_TRUSTED_ORIGINS.split(',').map((o) => o.trim())
+        : []),
     ].filter(Boolean) as string[],
     plugins: [bearer()],
     user: {

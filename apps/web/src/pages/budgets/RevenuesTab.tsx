@@ -32,6 +32,8 @@ import {
 } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
+import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
@@ -273,6 +275,10 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
   const [newCatName, setNewCatName] = useState('');
   const [savingCat, setSavingCat] = useState(false);
 
+  const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
+  const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -470,6 +476,40 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
     [chartRevenues, persons, budget.startDate, budget.endDate]
   );
 
+  const displayChart = useMemo(() => {
+    const filtered = chartData.labels
+      .map((l, i) => ({ l, i }))
+      .filter(({ l }) => l >= chartStart && l <= chartEnd);
+    if (chartGranularity === 'monthly') {
+      const seriesData: Record<string, number[]> = {};
+      for (const k of Object.keys(chartData.seriesData)) {
+        seriesData[k] = filtered.map(({ i }) => chartData.seriesData[k][i]);
+      }
+      return {
+        labels: filtered.map(({ l }) => l),
+        seriesData,
+        total: filtered.map(({ i }) => chartData.total[i]),
+      };
+    }
+    const byYear: Record<string, Record<string, number> & { _total: number }> = {};
+    filtered.forEach(({ l, i }) => {
+      const yr = l.slice(0, 4);
+      if (!byYear[yr]) {
+        byYear[yr] = { _total: 0 };
+        for (const k of Object.keys(chartData.seriesData)) byYear[yr][k] = 0;
+      }
+      for (const k of Object.keys(chartData.seriesData))
+        byYear[yr][k] += chartData.seriesData[k][i] ?? 0;
+      byYear[yr]._total += chartData.total[i];
+    });
+    const years = Object.keys(byYear).sort();
+    const seriesData: Record<string, number[]> = {};
+    for (const k of Object.keys(chartData.seriesData)) {
+      seriesData[k] = years.map((yr) => byYear[yr][k] ?? 0);
+    }
+    return { labels: years, seriesData, total: years.map((yr) => byYear[yr]._total) };
+  }, [chartData, chartStart, chartEnd, chartGranularity]);
+
   const catOptions = useMemo(
     () => [{ value: '', label: '—' }, ...categories.map((c) => ({ value: c.id, label: c.name }))],
     [categories]
@@ -569,13 +609,13 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
   const recurringRows = rows.filter((r) => r.frequency !== 'ONE_TIME');
   const oneTimeRows = rows.filter((r) => r.frequency === 'ONE_TIME');
   const hasDraft = dirtyIds.size > 0 || deletedIds.size > 0;
-  const tickInterval = Math.max(1, Math.floor(chartData.labels.length / 8));
+  const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
 
   // Build chart series: one per person + "Other" + "Total"
   const chartSeries = useMemo(() => {
     const series = [];
     persons.forEach((p, i) => {
-      const data = chartData.seriesData[p.id];
+      const data = displayChart.seriesData[p.id];
       if (data && data.some((v) => v > 0)) {
         series.push({
           data,
@@ -584,13 +624,13 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
         });
       }
     });
-    const otherData = chartData.seriesData['_other'];
+    const otherData = displayChart.seriesData['_other'];
     if (otherData && otherData.some((v) => v > 0)) {
       series.push({ data: otherData, label: 'Other', color: '#90a4ae' });
     }
-    series.push({ data: chartData.total, label: 'Total', color: '#009688' });
+    series.push({ data: displayChart.total, label: 'Total', color: '#009688' });
     return series;
-  }, [chartData, persons]);
+  }, [displayChart, persons]);
 
   const totalMonthly = useMemo(
     () => rows.reduce((sum, r) => sum + (r.frequency === 'MONTHLY' ? r.amount : 0), 0),
@@ -658,11 +698,23 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             series={chartSeries}
             xAxis={[
               {
-                data: chartData.labels,
+                data: displayChart.labels,
                 scaleType: 'band',
                 tickInterval: (_v: unknown, i: number) => i % tickInterval === 0,
               },
             ]}
+          />
+          <ChartRangeBrush
+            minMonth={budget.startDate.slice(0, 7)}
+            maxMonth={budget.endDate.slice(0, 7)}
+            startMonth={chartStart}
+            endMonth={chartEnd}
+            granularity={chartGranularity}
+            onRangeChange={(s, e) => {
+              setChartStart(s);
+              setChartEnd(e);
+            }}
+            onGranularityChange={setChartGranularity}
           />
         </Box>
       )}

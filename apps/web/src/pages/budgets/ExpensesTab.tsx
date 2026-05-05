@@ -42,6 +42,8 @@ import {
 } from '@mui/x-data-grid';
 import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
+import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
+import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
@@ -586,6 +588,10 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
   const [newCatName, setNewCatName] = useState('');
   const [savingCat, setSavingCat] = useState(false);
 
+  const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
+  const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -787,6 +793,35 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     [chartExpenses, budget.startDate, budget.endDate]
   );
 
+  const displayChart = useMemo(() => {
+    const filtered = chartData.labels
+      .map((l, i) => ({ l, i }))
+      .filter(({ l }) => l >= chartStart && l <= chartEnd);
+    if (chartGranularity === 'monthly') {
+      return {
+        labels: filtered.map(({ l }) => l),
+        regular: filtered.map(({ i }) => chartData.regular[i]),
+        loans: filtered.map(({ i }) => chartData.loans[i]),
+        total: filtered.map(({ i }) => chartData.total[i]),
+      };
+    }
+    const byYear: Record<string, { regular: number; loans: number; total: number }> = {};
+    filtered.forEach(({ l, i }) => {
+      const yr = l.slice(0, 4);
+      if (!byYear[yr]) byYear[yr] = { regular: 0, loans: 0, total: 0 };
+      byYear[yr].regular += chartData.regular[i];
+      byYear[yr].loans += chartData.loans[i];
+      byYear[yr].total += chartData.total[i];
+    });
+    const years = Object.keys(byYear).sort();
+    return {
+      labels: years,
+      regular: years.map((yr) => byYear[yr].regular),
+      loans: years.map((yr) => byYear[yr].loans),
+      total: years.map((yr) => byYear[yr].total),
+    };
+  }, [chartData, chartStart, chartEnd, chartGranularity]);
+
   const catOptions = useMemo(
     () => [{ value: '', label: '—' }, ...categories.map((c) => ({ value: c.id, label: c.name }))],
     [categories]
@@ -899,7 +934,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
   const recurringRows = rows.filter((r) => r.frequency !== 'ONE_TIME');
   const oneTimeRows = rows.filter((r) => r.frequency === 'ONE_TIME');
   const hasDraft = dirtyIds.size > 0 || deletedIds.size > 0;
-  const tickInterval = Math.max(1, Math.floor(chartData.labels.length / 8));
+  const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
 
   if (loading)
     return (
@@ -928,17 +963,29 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           <LineChart
             height={260}
             series={[
-              { data: chartData.regular, label: 'Recurring', color: '#42a5f5' },
-              { data: chartData.loans, label: 'Loans', color: '#ef5350' },
-              { data: chartData.total, label: 'Total', color: '#009688' },
+              { data: displayChart.regular, label: 'Recurring', color: '#42a5f5' },
+              { data: displayChart.loans, label: 'Loans', color: '#ef5350' },
+              { data: displayChart.total, label: 'Total', color: '#009688' },
             ]}
             xAxis={[
               {
-                data: chartData.labels,
+                data: displayChart.labels,
                 scaleType: 'band',
                 tickInterval: (_v: unknown, i: number) => i % tickInterval === 0,
               },
             ]}
+          />
+          <ChartRangeBrush
+            minMonth={budget.startDate.slice(0, 7)}
+            maxMonth={budget.endDate.slice(0, 7)}
+            startMonth={chartStart}
+            endMonth={chartEnd}
+            granularity={chartGranularity}
+            onRangeChange={(s, e) => {
+              setChartStart(s);
+              setChartEnd(e);
+            }}
+            onGranularityChange={setChartGranularity}
           />
         </Box>
       )}

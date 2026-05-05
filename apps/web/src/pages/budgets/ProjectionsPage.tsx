@@ -1,16 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import {
-  Box,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { useBudget } from '@/contexts/BudgetContext';
+import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
+import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
 
 interface ProjectionPoint {
   date: string;
@@ -36,26 +30,54 @@ interface ProjectionResponse {
   persons: PersonAgePoint[];
 }
 
-type Granularity = 'monthly' | 'yearly';
+function aggregatePtsYearly(pts: ProjectionPoint[]): ProjectionPoint[] {
+  const byYear: Record<string, ProjectionPoint> = {};
+  for (const pt of pts) {
+    const yr = pt.date.slice(0, 4);
+    if (!byYear[yr]) {
+      byYear[yr] = { ...pt, date: `${yr}-01-01T00:00:00.000Z` };
+    } else {
+      byYear[yr].revenue += pt.revenue;
+      byYear[yr].expense += pt.expense;
+      byYear[yr].savingContribution += pt.savingContribution;
+      byYear[yr].assetValue = pt.assetValue;
+      byYear[yr].loanBalance = pt.loanBalance;
+      byYear[yr].cashBalance = pt.cashBalance;
+      byYear[yr].savingsBalance = pt.savingsBalance;
+      byYear[yr].netWorth = pt.netWorth;
+    }
+  }
+  return Object.keys(byYear)
+    .sort()
+    .map((yr) => byYear[yr]);
+}
 
 export default function ProjectionsPage() {
   const { id } = useParams<{ id: string }>();
-  useBudget();
-  const [granularity, setGranularity] = useState<Granularity>('monthly');
+  const { budget } = useBudget();
+  const [granularity, setGranularity] = useState<ChartGranularity>('monthly');
   const [projection, setProjection] = useState<ProjectionResponse | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const [chartStart, setChartStart] = useState(() => budget?.startDate.slice(0, 7) ?? '');
+  const [chartEnd, setChartEnd] = useState(() => budget?.endDate.slice(0, 7) ?? '');
 
   useEffect(() => {
     if (!id) return;
     setLoading(true);
-    fetch(`/api/budgets/${id}/projection?granularity=${granularity}`, { credentials: 'include' })
+    // always fetch monthly from API; we aggregate client-side
+    fetch(`/api/budgets/${id}/projection?granularity=monthly`, { credentials: 'include' })
       .then((r) => r.json())
       .then((d) => setProjection(d as ProjectionResponse))
       .finally(() => setLoading(false));
-  }, [id, granularity]);
+  }, [id]);
 
-  const { labels, netWorthSeries, cashSeries, savingsSeries, assetSeries } = useMemo(() => {
-    const pts = projection?.points ?? [];
+  const displayData = useMemo(() => {
+    let pts = projection?.points ?? [];
+    if (chartStart) pts = pts.filter((p) => p.date.slice(0, 7) >= chartStart);
+    if (chartEnd) pts = pts.filter((p) => p.date.slice(0, 7) <= chartEnd);
+    if (granularity === 'yearly') pts = aggregatePtsYearly(pts);
+
     const formatLabel = (dateStr: string) =>
       granularity === 'yearly'
         ? new Date(dateStr).getFullYear().toString()
@@ -67,28 +89,19 @@ export default function ProjectionsPage() {
       cashSeries: pts.map((p) => p.cashBalance),
       savingsSeries: pts.map((p) => p.savingsBalance),
       assetSeries: pts.map((p) => p.assetValue),
+      count: pts.length,
     };
-  }, [projection, granularity]);
+  }, [projection, chartStart, chartEnd, granularity]);
 
   const persons = projection?.persons ?? [];
-  const pts = projection?.points ?? [];
+
+  const tickInterval = Math.max(1, Math.floor(displayData.labels.length / 8));
 
   return (
     <Box sx={{ p: 3 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
-        <Typography variant="h4">Projections</Typography>
-        <FormControl size="small" sx={{ minWidth: 140 }}>
-          <InputLabel>Granularity</InputLabel>
-          <Select
-            label="Granularity"
-            value={granularity}
-            onChange={(e) => setGranularity(e.target.value as Granularity)}
-          >
-            <MenuItem value="monthly">Monthly</MenuItem>
-            <MenuItem value="yearly">Yearly</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Projections
+      </Typography>
 
       {loading ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
@@ -103,33 +116,54 @@ export default function ProjectionsPage() {
               border: '1px solid',
               borderColor: 'divider',
               borderRadius: 2,
-              p: 3,
               mb: 3,
+              overflow: 'hidden',
             }}
           >
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Net Worth Breakdown
-            </Typography>
-            {pts.length > 0 ? (
-              <LineChart
-                height={320}
-                xAxis={[
-                  {
-                    scaleType: 'band',
-                    data: labels,
-                    tickInterval: granularity === 'monthly' ? (_, i) => i % 3 === 0 : undefined,
-                  },
-                ]}
-                series={[
-                  { data: netWorthSeries, label: 'Net Worth', color: '#009688', area: true },
-                  { data: cashSeries, label: 'Cash Balance', color: '#42a5f5' },
-                  { data: savingsSeries, label: 'Savings', color: '#66bb6a' },
-                  { data: assetSeries, label: 'Assets', color: '#ffa726' },
-                ]}
-                margin={{ top: 10, right: 20, bottom: 40, left: 80 }}
-              />
+            <Box sx={{ p: 3, pb: 0 }}>
+              <Typography variant="h6">Net Worth Breakdown</Typography>
+            </Box>
+            {displayData.count > 0 ? (
+              <>
+                <LineChart
+                  height={320}
+                  xAxis={[
+                    {
+                      scaleType: 'band',
+                      data: displayData.labels,
+                      tickInterval: (_, i) => i % tickInterval === 0,
+                    },
+                  ]}
+                  series={[
+                    {
+                      data: displayData.netWorthSeries,
+                      label: 'Net Worth',
+                      color: '#009688',
+                      area: true,
+                    },
+                    { data: displayData.cashSeries, label: 'Cash Balance', color: '#42a5f5' },
+                    { data: displayData.savingsSeries, label: 'Savings', color: '#66bb6a' },
+                    { data: displayData.assetSeries, label: 'Assets', color: '#ffa726' },
+                  ]}
+                  margin={{ top: 10, right: 20, bottom: 40, left: 80 }}
+                />
+                <ChartRangeBrush
+                  minMonth={budget?.startDate.slice(0, 7) ?? chartStart}
+                  maxMonth={budget?.endDate.slice(0, 7) ?? chartEnd}
+                  startMonth={chartStart}
+                  endMonth={chartEnd}
+                  granularity={granularity}
+                  onRangeChange={(s, e) => {
+                    setChartStart(s);
+                    setChartEnd(e);
+                  }}
+                  onGranularityChange={setGranularity}
+                />
+              </>
             ) : (
-              <Typography color="text.secondary">No projection data.</Typography>
+              <Box sx={{ p: 3, pt: 1 }}>
+                <Typography color="text.secondary">No projection data.</Typography>
+              </Box>
             )}
           </Box>
 
