@@ -7,6 +7,7 @@ declare module '@mui/x-data-grid' {
     onSave: () => void;
     dirty: boolean;
     saving: boolean;
+    onAddCategory: () => void;
   }
 }
 import {
@@ -15,6 +16,10 @@ import {
   Chip,
   CircularProgress,
   Collapse,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Drawer,
   FormControl,
@@ -206,8 +211,7 @@ function computeChartData(expenses: Expense[], startDate: string, endDate: strin
   return { labels, regular, loans, total: regular.map((r, i) => r + loans[i]) };
 }
 
-const FREQUENCY_OPTIONS = [
-  { value: 'ONE_TIME', label: 'One-time' },
+const RECURRING_FREQUENCY_OPTIONS = [
   { value: 'MONTHLY', label: 'Monthly' },
   { value: 'YEARLY', label: 'Yearly' },
   { value: 'EVERY_X_MONTHS', label: 'Every X months' },
@@ -244,15 +248,18 @@ interface ToolbarProps {
   onSave: () => void;
   dirty: boolean;
   saving: boolean;
+  onAddCategory: () => void;
 }
 
 function RegularToolbar(props: ToolbarProps) {
-  // slotProps passes extra keys — extract what we need
-  const { onAdd, onSave, dirty, saving } = props;
+  const { onAdd, onSave, dirty, saving, onAddCategory } = props;
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
         Add row
+      </Button>
+      <Button size="small" startIcon={<AddIcon />} onClick={onAddCategory} color="inherit">
+        Category
       </Button>
       <Button
         size="small"
@@ -575,6 +582,9 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
   const [expandedLoanId, setExpandedLoanId] = useState<string | null>(null);
 
   const [snack, setSnack] = useState<string | null>(null);
+  const [catDialogOpen, setCatDialogOpen] = useState(false);
+  const [newCatName, setNewCatName] = useState('');
+  const [savingCat, setSavingCat] = useState(false);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -617,6 +627,24 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
       personId: '',
       amount: 0,
       frequency: 'MONTHLY',
+      frequencyValue: null,
+      startDate: null,
+      endDate: null,
+    };
+    setRows((prev) => [...prev, newRow]);
+    setDirtyIds((prev) => new Set([...prev, id]));
+  }
+
+  function addOneTimeRow() {
+    const id = `new_${Date.now()}`;
+    const newRow: RegRow = {
+      id,
+      isNew: true,
+      name: 'New expense',
+      categoryId: '',
+      personId: '',
+      amount: 0,
+      frequency: 'ONE_TIME',
       frequencyValue: null,
       startDate: null,
       endDate: null,
@@ -698,6 +726,25 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     }
   }, [rows, dirtyIds, deletedIds, budgetId, loadData]);
 
+  async function handleCreateCategory() {
+    setSavingCat(true);
+    try {
+      await apiFetch(`/api/budgets/${budgetId}/categories`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'EXPENSE', name: newCatName.trim(), icon: 'other' }),
+      });
+      const catList = await apiFetch(`/api/budgets/${budgetId}/categories`);
+      setCategories((catList as Category[]).filter((c) => c.type === 'EXPENSE'));
+      setNewCatName('');
+      setCatDialogOpen(false);
+    } catch (e) {
+      setSnack('Failed to create category: ' + (e as Error).message);
+    } finally {
+      setSavingCat(false);
+    }
+  }
+
   // Ctrl+S to save
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -774,14 +821,14 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         editable: true,
         width: 150,
         type: 'singleSelect',
-        valueOptions: FREQUENCY_OPTIONS,
+        valueOptions: RECURRING_FREQUENCY_OPTIONS,
       },
       {
         field: 'frequencyValue',
-        headerName: 'Freq. ×',
+        headerName: 'Every N',
         editable: true,
         type: 'number',
-        width: 80,
+        width: 90,
       },
       {
         field: 'personId',
@@ -811,7 +858,48 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     [catOptions, personOptions]
   );
 
+  const oneTimeColumns: GridColDef<RegRow>[] = useMemo(
+    () => [
+      { field: 'name', headerName: 'Name', editable: true, flex: 1, minWidth: 140 },
+      {
+        field: 'categoryId',
+        headerName: 'Category',
+        editable: true,
+        width: 150,
+        type: 'singleSelect',
+        valueOptions: catOptions,
+      },
+      { field: 'amount', headerName: 'Amount', editable: true, type: 'number', width: 100 },
+      {
+        field: 'personId',
+        headerName: 'Person',
+        editable: true,
+        width: 130,
+        type: 'singleSelect',
+        valueOptions: personOptions,
+      },
+      { field: 'startDate', headerName: 'Date', editable: true, type: 'date', width: 130 },
+      {
+        field: 'actions',
+        type: 'actions',
+        width: 50,
+        getActions: ({ id }) => [
+          <GridActionsCellItem
+            key="del"
+            icon={<DeleteOutlineIcon />}
+            label="Delete"
+            onClick={() => deleteRow(id as string)}
+            color="error"
+          />,
+        ],
+      },
+    ],
+    [catOptions, personOptions]
+  );
+
   const loanExpenses = expenses.filter((e) => e.type === 'LOAN');
+  const recurringRows = rows.filter((r) => r.frequency !== 'ONE_TIME');
+  const oneTimeRows = rows.filter((r) => r.frequency === 'ONE_TIME');
   const hasDraft = dirtyIds.size > 0 || deletedIds.size > 0;
   const tickInterval = Math.max(1, Math.floor(chartData.labels.length / 8));
 
@@ -842,7 +930,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           <LineChart
             height={260}
             series={[
-              { data: chartData.regular, label: 'Regular', color: '#42a5f5' },
+              { data: chartData.regular, label: 'Recurring', color: '#42a5f5' },
               { data: chartData.loans, label: 'Loans', color: '#ef5350' },
               { data: chartData.total, label: 'Total', color: '#009688' },
             ]}
@@ -857,13 +945,14 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         </Box>
       )}
 
-      {/* ── Sub-tabs: Regular / Loans ── */}
+      {/* ── Sub-tabs: Recurring / One-time / Loans ── */}
       <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v as number)} sx={{ mb: 2 }}>
-        <Tab label={`Regular (${rows.length})`} />
+        <Tab label={`Recurring (${recurringRows.length})`} />
+        <Tab label={`One-time (${oneTimeRows.length})`} />
         <Tab label={`Loans (${loanExpenses.length})`} />
       </Tabs>
 
-      {/* ── Regular expenses DataGrid ── */}
+      {/* ── Recurring expenses DataGrid ── */}
       {activeTab === 0 && (
         <Box
           sx={{
@@ -875,7 +964,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           }}
         >
           <DataGrid
-            rows={rows}
+            rows={recurringRows}
             columns={columns}
             editMode="cell"
             processRowUpdate={processRowUpdate}
@@ -883,7 +972,48 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
             getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
             slots={{ toolbar: RegularToolbar }}
             slotProps={{
-              toolbar: { onAdd: addRow, onSave: saveAll, dirty: hasDraft, saving },
+              toolbar: {
+                onAdd: addRow,
+                onSave: saveAll,
+                dirty: hasDraft,
+                saving,
+                onAddCategory: () => setCatDialogOpen(true),
+              },
+            }}
+            autoHeight
+            disableRowSelectionOnClick
+            sx={{ border: 'none' }}
+          />
+        </Box>
+      )}
+
+      {/* ── One-time expenses DataGrid ── */}
+      {activeTab === 1 && (
+        <Box
+          sx={{
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: 2,
+            overflow: 'hidden',
+            '& .row-dirty': { borderLeft: '3px solid', borderLeftColor: 'warning.main' },
+          }}
+        >
+          <DataGrid
+            rows={oneTimeRows}
+            columns={oneTimeColumns}
+            editMode="cell"
+            processRowUpdate={processRowUpdate}
+            onProcessRowUpdateError={(e) => setSnack((e as Error).message)}
+            getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
+            slots={{ toolbar: RegularToolbar }}
+            slotProps={{
+              toolbar: {
+                onAdd: addOneTimeRow,
+                onSave: saveAll,
+                dirty: hasDraft,
+                saving,
+                onAddCategory: () => setCatDialogOpen(true),
+              },
             }}
             autoHeight
             disableRowSelectionOnClick
@@ -893,7 +1023,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
       )}
 
       {/* ── Loans section ── */}
-      {activeTab === 1 && (
+      {activeTab === 2 && (
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
             <Button
@@ -1006,6 +1136,37 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         currency={budget.currency}
         onCreated={loadData}
       />
+
+      {/* ── Create category dialog ── */}
+      <Dialog open={catDialogOpen} onClose={() => setCatDialogOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>New expense category</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            label="Category name"
+            value={newCatName}
+            onChange={(e) => setNewCatName(e.target.value)}
+            fullWidth
+            size="small"
+            sx={{ mt: 1 }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && newCatName.trim()) handleCreateCategory();
+            }}
+          />
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button variant="text" onClick={() => setCatDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            disabled={!newCatName.trim() || savingCat}
+            onClick={handleCreateCategory}
+          >
+            {savingCat ? 'Creating…' : 'Create'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Snackbar
         open={!!snack}

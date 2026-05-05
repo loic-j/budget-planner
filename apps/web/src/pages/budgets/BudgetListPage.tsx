@@ -90,7 +90,7 @@ export default function BudgetListPage() {
       description: '',
       currency: 'EUR',
       startDate: new Date().toISOString().slice(0, 10),
-      endDate: new Date(new Date().getFullYear() + 1, 11, 31).toISOString().slice(0, 10),
+      endDate: new Date(new Date().getFullYear() + 50, 11, 31).toISOString().slice(0, 10),
       initialSaving: 0,
     },
   });

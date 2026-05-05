@@ -6,10 +6,22 @@ declare module '@mui/x-data-grid' {
     onSave: () => void;
     dirty: boolean;
     saving: boolean;
+    onAddCategory: () => void;
   }
 }
 
-import { Box, Button, CircularProgress, Snackbar, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Snackbar,
+  TextField,
+  Typography,
+} from '@mui/material';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -185,14 +197,18 @@ interface ToolbarProps {
   onSave: () => void;
   dirty: boolean;
   saving: boolean;
+  onAddCategory: () => void;
 }
 
 function SavingsToolbar(props: ToolbarProps) {
-  const { onAdd, onSave, dirty, saving } = props;
+  const { onAdd, onSave, dirty, saving, onAddCategory } = props;
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
         Add row
+      </Button>
+      <Button size="small" startIcon={<AddIcon />} onClick={onAddCategory} color="inherit">
+        Category
       </Button>
       <Button
         size="small"
@@ -228,6 +244,9 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
   const [saving, setSaving] = useState(false);
 
   const [snack, setSnack] = useState<string | null>(null);
+  const [catDialogOpen, setCatDialogOpen] = useState(false);
+  const [newCatName, setNewCatName] = useState('');
+  const [savingCat, setSavingCat] = useState(false);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -352,6 +371,25 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
       setSaving(false);
     }
   }, [rows, dirtyIds, deletedIds, budgetId, loadData]);
+
+  async function handleCreateCategory() {
+    setSavingCat(true);
+    try {
+      await apiFetch(`/api/budgets/${budgetId}/categories`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'SAVING', name: newCatName.trim(), icon: 'other' }),
+      });
+      const catList = await apiFetch(`/api/budgets/${budgetId}/categories`);
+      setCategories((catList as Category[]).filter((c) => c.type === 'SAVING'));
+      setNewCatName('');
+      setCatDialogOpen(false);
+    } catch (e) {
+      setSnack('Failed to create category: ' + (e as Error).message);
+    } finally {
+      setSavingCat(false);
+    }
+  }
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -593,13 +631,50 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
           slots={{ toolbar: SavingsToolbar }}
           slotProps={{
-            toolbar: { onAdd: addRow, onSave: saveAll, dirty: hasDraft, saving },
+            toolbar: {
+              onAdd: addRow,
+              onSave: saveAll,
+              dirty: hasDraft,
+              saving,
+              onAddCategory: () => setCatDialogOpen(true),
+            },
           }}
           autoHeight
           disableRowSelectionOnClick
           sx={{ border: 'none' }}
         />
       </Box>
+
+      {/* ── Create category dialog ── */}
+      <Dialog open={catDialogOpen} onClose={() => setCatDialogOpen(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>New saving category</DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            label="Category name"
+            value={newCatName}
+            onChange={(e) => setNewCatName(e.target.value)}
+            fullWidth
+            size="small"
+            sx={{ mt: 1 }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && newCatName.trim()) handleCreateCategory();
+            }}
+          />
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button variant="text" onClick={() => setCatDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            disabled={!newCatName.trim() || savingCat}
+            onClick={handleCreateCategory}
+          >
+            {savingCat ? 'Creating…' : 'Create'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <Snackbar
         open={!!snack}
