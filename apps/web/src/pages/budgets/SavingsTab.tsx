@@ -76,7 +76,26 @@ async function apiFetch(path: string, init?: RequestInit) {
   const res = await fetch(path, { credentials: 'include', ...init });
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new Error((body as { error?: string }).error ?? `HTTP ${res.status}`);
+    const err = (body as Record<string, unknown>).error;
+    let message: string;
+    if (typeof err === 'string') {
+      message = err;
+    } else if (err && typeof err === 'object') {
+      const raw = (err as Record<string, unknown>).message;
+      if (typeof raw === 'string') {
+        try {
+          const issues = JSON.parse(raw) as Array<{ message?: string }>;
+          message = issues[0]?.message ?? raw;
+        } catch {
+          message = raw;
+        }
+      } else {
+        message = `HTTP ${res.status}`;
+      }
+    } else {
+      message = `HTTP ${res.status}`;
+    }
+    throw new Error(message);
   }
   if (res.status === 204) return null;
   return res.json();
@@ -278,6 +297,12 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
     try {
       const newRows = rows.filter((r) => r.isNew && dirtyIds.has(r.id));
       const dirtyRows = rows.filter((r) => !r.isNew && dirtyIds.has(r.id));
+
+      if ([...newRows, ...dirtyRows].some((r) => !(r.amount > 0))) {
+        setSnack('Amount must be greater than 0');
+        setSaving(false);
+        return;
+      }
 
       await Promise.all([
         ...newRows.map((r) =>

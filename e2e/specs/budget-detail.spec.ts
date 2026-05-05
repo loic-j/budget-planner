@@ -7,6 +7,12 @@ async function navigateToSeedBudget(page: import('@playwright/test').Page) {
   await expect(page).toHaveURL(/\/budgets\/.+/);
 }
 
+async function navigateToMembers(page: import('@playwright/test').Page) {
+  await navigateToSeedBudget(page);
+  await page.getByRole('link', { name: 'Members' }).click();
+  await expect(page).toHaveURL(/\/budgets\/.+\/members/);
+}
+
 // Wait until the invite list section has loaded (at least 1 copy button visible)
 async function waitForInviteList(page: import('@playwright/test').Page) {
   const copyLocator = page
@@ -22,25 +28,25 @@ test.describe('Budget Detail', () => {
     await navigateToSeedBudget(page);
   });
 
-  test('shows the budget name in the header', async ({ page }) => {
+  test('shows the budget name in the sidebar', async ({ page }) => {
     await expect(page.getByText(SEED.budget.name)).toBeVisible();
   });
 
-  test('back button navigates to budget list', async ({ page }) => {
-    await page.getByRole('button', { name: 'Back' }).click();
+  test('back button (All budgets) navigates to budget list', async ({ page }) => {
+    await page.getByRole('button', { name: 'All budgets' }).click();
     await expect(page).toHaveURL('/');
     await expect(page.getByText('My Budgets')).toBeVisible();
   });
 
-  test('Members tab is visible and active by default', async ({ page }) => {
-    await expect(page.getByRole('tab', { name: 'Members' })).toBeVisible();
+  test('Members nav link is visible in sidebar', async ({ page }) => {
+    await expect(page.getByRole('link', { name: 'Members' })).toBeVisible();
   });
 });
 
 test.describe('Budget Detail – Members Tab', () => {
   test.beforeEach(async ({ page }) => {
     await loginAs(page, SEED.owner);
-    await navigateToSeedBudget(page);
+    await navigateToMembers(page);
   });
 
   test('shows seed owner as OWNER', async ({ page }) => {
@@ -63,26 +69,23 @@ test.describe('Budget Detail – Members Tab', () => {
     await page.getByLabel('Password', { exact: true }).fill(SEED.member.password);
     await page.getByRole('button', { name: 'Sign in' }).click();
     await expect(page).toHaveURL('/');
-    await navigateToSeedBudget(page);
+    await navigateToMembers(page);
     await expect(page.getByRole('button', { name: 'Invite', exact: true })).not.toBeVisible();
   });
 
   test('invite links section is shown with at least the seed invite', async ({ page }) => {
     await expect(page.getByText('Invite links')).toBeVisible();
-    // At least one copy button must be present (seed invite)
     const copyLocator = await waitForInviteList(page);
     expect(await copyLocator.count()).toBeGreaterThan(0);
   });
 
   test('creating an invite adds a new row to the invite list', async ({ page }) => {
-    // Wait for invite list to load and capture baseline count
     const copyLocator = await waitForInviteList(page);
     const before = await copyLocator.count();
 
     await page.getByRole('button', { name: 'Invite', exact: true }).click();
     await expect(page.getByRole('dialog')).toBeVisible();
 
-    // Wait for API to respond then check count increased
     await Promise.all([
       page.waitForResponse((r) => r.url().includes('/invites') && r.request().method() === 'POST'),
       page.getByRole('button', { name: 'Create link' }).click(),
@@ -97,7 +100,6 @@ test.describe('Budget Detail – Members Tab', () => {
   });
 
   test('revoking an invite removes it from the list', async ({ page }) => {
-    // First create an invite to have something to revoke predictably
     await waitForInviteList(page);
 
     await page.getByRole('button', { name: 'Invite', exact: true }).click();
@@ -107,13 +109,11 @@ test.describe('Budget Detail – Members Tab', () => {
     ]);
     await expect(page.getByRole('dialog')).not.toBeVisible();
 
-    // Scope to revoke-invite buttons only (title="Revoke invite"), not member-removal buttons
     const deleteLocator = page.getByRole('button', { name: 'Revoke invite' });
     await expect(deleteLocator.first()).toBeVisible({ timeout: 10_000 });
     const count = await deleteLocator.count();
     expect(count).toBeGreaterThan(0);
 
-    // Revoke the first invite (newest, since list is desc) to avoid revoking the seed invite
     await Promise.all([
       page.waitForResponse(
         (r) => r.url().includes('/invites') && r.request().method() === 'DELETE'

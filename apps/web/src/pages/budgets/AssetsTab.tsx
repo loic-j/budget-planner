@@ -189,7 +189,8 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
     }
   }
 
-  const canSave = !!name && !!currentValue && !!acquisitionDate && annualGrowthRate !== '';
+  const canSave =
+    !!name && parseFloat(currentValue) > 0 && !!acquisitionDate && annualGrowthRate !== '';
   const growthRate = parseFloat(annualGrowthRate) || 0;
 
   return (
