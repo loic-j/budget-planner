@@ -221,7 +221,7 @@ interface RevenuesTabProps {
 }
 
 export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
-  const [revenues, setRevenues] = useState<Revenue[]>([]);
+  const [revenues, setRevenues] = useState<Revenue[]>([]); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [categories, setCategories] = useState<Category[]>([]);
   const [persons, setPersons] = useState<Person[]>([]);
   const [loading, setLoading] = useState(true);

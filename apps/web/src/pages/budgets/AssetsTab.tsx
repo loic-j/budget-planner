@@ -455,15 +455,13 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         ),
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [endDate.getFullYear()]
+    [endDate.getFullYear()] // eslint-disable-line
   );
 
   // Summary
   const totalToday = useMemo(
     () => assets.reduce((sum, a) => sum + assetValueAt(a, today), 0),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [assets]
+    [assets] // eslint-disable-line
   );
 
   if (loading)

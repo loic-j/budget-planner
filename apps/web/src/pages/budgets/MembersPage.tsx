@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -14,30 +14,11 @@ import {
   MenuItem,
   Select,
   Snackbar,
-  Tab,
-  Tabs,
   Typography,
 } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import AddIcon from '@mui/icons-material/Add';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { signOut } from '@/lib/auth';
-import { ExpensesTab } from './ExpensesTab.js';
-import { RevenuesTab } from './RevenuesTab.js';
-import { SavingsTab } from './SavingsTab.js';
-import { AssetsTab } from './AssetsTab.js';
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-interface Budget {
-  id: string;
-  name: string;
-  currency: string;
-  startDate: string;
-  endDate: string;
-}
 
 interface Member {
   id: string;
@@ -60,8 +41,6 @@ interface Invite {
   isMaxUsesReached: boolean;
 }
 
-// ─── Shared fetch ─────────────────────────────────────────────────────────────
-
 async function apiFetch(path: string, init?: RequestInit) {
   const res = await fetch(path, { credentials: 'include', ...init });
   if (!res.ok) {
@@ -71,8 +50,6 @@ async function apiFetch(path: string, init?: RequestInit) {
   if (res.status === 204) return null;
   return res.json();
 }
-
-// ─── Role chip ────────────────────────────────────────────────────────────────
 
 function RoleChip({ role }: { role: string }) {
   const color = role === 'OWNER' ? 'primary' : role === 'EDITOR' ? 'info' : 'default';
@@ -86,9 +63,8 @@ function RoleChip({ role }: { role: string }) {
   );
 }
 
-// ─── Members tab ─────────────────────────────────────────────────────────────
-
-function MembersTab({ budgetId }: { budgetId: string }) {
+export default function MembersPage() {
+  const { id: budgetId } = useParams<{ id: string }>();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<Invite[]>([]);
   const [loading, setLoading] = useState(true);
@@ -100,6 +76,7 @@ function MembersTab({ budgetId }: { budgetId: string }) {
   const [snack, setSnack] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    if (!budgetId) return;
     setLoading(true);
     try {
       const [me, memberList] = await Promise.all([
@@ -142,9 +119,7 @@ function MembersTab({ budgetId }: { budgetId: string }) {
   }
 
   async function handleRevokeInvite(inviteId: string) {
-    await apiFetch(`/api/budgets/${budgetId}/invites/${inviteId}`, {
-      method: 'DELETE',
-    });
+    await apiFetch(`/api/budgets/${budgetId}/invites/${inviteId}`, { method: 'DELETE' });
     await load();
   }
 
@@ -158,9 +133,7 @@ function MembersTab({ budgetId }: { budgetId: string }) {
   }
 
   async function handleRemoveMember(userId: string) {
-    await apiFetch(`/api/budgets/${budgetId}/members/${userId}`, {
-      method: 'DELETE',
-    });
+    await apiFetch(`/api/budgets/${budgetId}/members/${userId}`, { method: 'DELETE' });
     await load();
   }
 
@@ -179,8 +152,7 @@ function MembersTab({ budgetId }: { budgetId: string }) {
   }
 
   return (
-    <Box>
-      {/* Members list */}
+    <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
         <Typography variant="h5">Members</Typography>
         {myRole === 'OWNER' && (
@@ -207,15 +179,7 @@ function MembersTab({ budgetId }: { budgetId: string }) {
         {members.map((member, i) => (
           <Box key={member.userId}>
             {i > 0 && <Divider />}
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                px: 2,
-                py: 1.5,
-                gap: 2,
-              }}
-            >
+            <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Typography variant="body2" noWrap>
                   {member.userName ?? member.userEmail}
@@ -259,7 +223,6 @@ function MembersTab({ budgetId }: { budgetId: string }) {
         ))}
       </Box>
 
-      {/* Invite links (OWNER only) */}
       {myRole === 'OWNER' && (
         <>
           <Typography variant="h5" sx={{ mb: 2 }}>
@@ -326,7 +289,6 @@ function MembersTab({ budgetId }: { budgetId: string }) {
         </>
       )}
 
-      {/* Create invite dialog */}
       <Dialog
         open={inviteDialogOpen}
         onClose={() => setInviteDialogOpen(false)}
@@ -368,78 +330,6 @@ function MembersTab({ budgetId }: { budgetId: string }) {
         message={snack}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
-    </Box>
-  );
-}
-
-// ─── Main page ────────────────────────────────────────────────────────────────
-
-export default function BudgetDetailPage() {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const [budget, setBudget] = useState<Budget | null>(null);
-  const [tab, setTab] = useState(0);
-
-  useEffect(() => {
-    if (!id) return;
-    apiFetch(`/api/budgets/${id}`)
-      .then((data) => setBudget(data as Budget))
-      .catch(() => navigate('/'));
-  }, [id, navigate]);
-
-  async function handleSignOut() {
-    await signOut();
-    navigate('/login');
-  }
-
-  return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Header */}
-      <Box
-        sx={{
-          px: 3,
-          py: 2,
-          bgcolor: 'background.paper',
-          borderBottom: '1px solid',
-          borderColor: 'divider',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 2,
-        }}
-      >
-        <IconButton size="small" aria-label="Back" onClick={() => navigate('/')}>
-          <ArrowBackIcon />
-        </IconButton>
-        <AccountBalanceWalletIcon sx={{ color: 'primary.main' }} />
-        <Typography variant="h5" sx={{ flex: 1 }} noWrap>
-          {budget?.name ?? '…'}
-        </Typography>
-        <Button variant="text" size="small" onClick={handleSignOut}>
-          Sign out
-        </Button>
-      </Box>
-
-      {/* Tabs */}
-      <Box sx={{ borderBottom: '1px solid', borderColor: 'divider', bgcolor: 'background.paper' }}>
-        <Tabs value={tab} onChange={(_, v) => setTab(v as number)} sx={{ px: 3 }}>
-          <Tab label="Members" />
-          <Tab label="Dashboard" disabled />
-          <Tab label="Expenses" />
-          <Tab label="Revenues" />
-          <Tab label="Savings" />
-          <Tab label="Assets" />
-          <Tab label="Settings" disabled />
-        </Tabs>
-      </Box>
-
-      {/* Content */}
-      <Box sx={{ maxWidth: 1200, mx: 'auto', p: 3 }}>
-        {tab === 0 && id && <MembersTab budgetId={id} />}
-        {tab === 2 && id && budget && <ExpensesTab budgetId={id} budget={budget} />}
-        {tab === 3 && id && budget && <RevenuesTab budgetId={id} budget={budget} />}
-        {tab === 4 && id && budget && <SavingsTab budgetId={id} budget={budget} />}
-        {tab === 5 && id && budget && <AssetsTab budgetId={id} budget={budget} />}
-      </Box>
     </Box>
   );
 }

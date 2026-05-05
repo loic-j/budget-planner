@@ -2,7 +2,7 @@
 
 ## Status
 
-`IN_PROGRESS`
+`DONE`
 
 ## Description
 
@@ -75,7 +75,7 @@ export function createAuthMiddleware(auth: AuthInstance) { ... }
 
 > When working on this task:
 >
-> 1. Set **Status** to `IN_PROGRESS` at the start of work
+> 1. Set **Status** to `DONE` at the start of work
 > 2. Set **Status** to `DONE` when complete
 > 3. Create `implementation.md` documenting: packages installed, files created, how to test auth manually
 > 4. Run `pnpm lint:fix && pnpm typecheck` before marking DONE

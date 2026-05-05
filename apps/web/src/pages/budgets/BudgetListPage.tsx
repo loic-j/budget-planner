@@ -21,6 +21,7 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { signOut } from '@/lib/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -165,9 +166,19 @@ export default function BudgetListPage() {
           <AccountBalanceWalletIcon sx={{ color: 'primary.main' }} />
           Budget Planner
         </Typography>
-        <Button variant="text" size="small" onClick={handleSignOut}>
-          Sign out
-        </Button>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button
+            variant="text"
+            size="small"
+            startIcon={<AccountCircleIcon />}
+            onClick={() => navigate('/profile')}
+          >
+            Profile
+          </Button>
+          <Button variant="text" size="small" onClick={handleSignOut}>
+            Sign out
+          </Button>
+        </Box>
       </Box>
 
       {/* Content */}
