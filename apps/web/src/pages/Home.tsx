@@ -37,7 +37,7 @@ export default function Home() {
           gap: 3,
         }}
       >
-        <Typography variant="h3" fontWeight={600}>
+        <Typography variant="h3" sx={{ fontWeight: 600 }}>
           Budget Planner
         </Typography>
         <Typography variant="body1" color="text.secondary">

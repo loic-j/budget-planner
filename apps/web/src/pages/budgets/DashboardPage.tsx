@@ -57,8 +57,7 @@ function StatCard({
       <Typography
         variant="overline"
         color="text.secondary"
-        display="block"
-        sx={{ mb: 0.5, lineHeight: 1.4 }}
+        sx={{ display: 'block', mb: 0.5, lineHeight: 1.4 }}
       >
         {label}
       </Typography>

@@ -44,7 +44,7 @@ import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import CloseIcon from '@mui/icons-material/Close';
@@ -409,7 +409,7 @@ function AddLoanDrawer({
           type="date"
           fullWidth
           size="small"
-          InputLabelProps={{ shrink: true }}
+          slotProps={{ inputLabel: { shrink: true } }}
         />
 
         {persons.length > 0 && (
@@ -847,10 +847,9 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         getActions: ({ id }) => [
           <GridActionsCellItem
             key="del"
-            icon={<DeleteOutlineIcon />}
+            icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
             label="Delete"
             onClick={() => deleteRow(id as string)}
-            color="error"
           />,
         ],
       },
@@ -886,10 +885,9 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         getActions: ({ id }) => [
           <GridActionsCellItem
             key="del"
-            icon={<DeleteOutlineIcon />}
+            icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
             label="Delete"
             onClick={() => deleteRow(id as string)}
-            color="error"
           />,
         ],
       },
@@ -970,6 +968,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
             processRowUpdate={processRowUpdate}
             onProcessRowUpdateError={(e) => setSnack((e as Error).message)}
             getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
+            showToolbar
             slots={{ toolbar: RegularToolbar }}
             slotProps={{
               toolbar: {
@@ -1005,6 +1004,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
             processRowUpdate={processRowUpdate}
             onProcessRowUpdateError={(e) => setSnack((e as Error).message)}
             getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
+            showToolbar
             slots={{ toolbar: RegularToolbar }}
             slotProps={{
               toolbar: {
@@ -1066,7 +1066,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
                   >
                     <Box sx={{ flex: 1, minWidth: 0 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-                        <Typography variant="body2" fontWeight={500} noWrap>
+                        <Typography variant="body2" sx={{ fontWeight: 500 }} noWrap>
                           {loan.name}
                         </Typography>
                         {loan.loanDetail && (

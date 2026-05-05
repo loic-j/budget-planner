@@ -52,7 +52,7 @@ export default function EmailVerificationPage() {
         </Typography>
 
         {email && (
-          <Typography variant="body1" fontWeight={600} align="center">
+          <Typography variant="body1" sx={{ fontWeight: 600 }} align="center">
             {email}
           </Typography>
         )}

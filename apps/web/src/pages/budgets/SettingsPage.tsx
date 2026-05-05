@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import { useBudget } from '@/contexts/BudgetContext';
 
 interface BudgetFormState {
@@ -237,7 +237,7 @@ export default function SettingsPage() {
             type="date"
             size="small"
             fullWidth
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
             value={form.startDate}
             onChange={(e) => setForm((f) => ({ ...f, startDate: e.target.value }))}
           />
@@ -246,7 +246,7 @@ export default function SettingsPage() {
             type="date"
             size="small"
             fullWidth
-            InputLabelProps={{ shrink: true }}
+            slotProps={{ inputLabel: { shrink: true } }}
             value={form.endDate}
             onChange={(e) => setForm((f) => ({ ...f, endDate: e.target.value }))}
           />
@@ -298,7 +298,7 @@ export default function SettingsPage() {
               {i > 0 && <Divider />}
               <Box sx={{ display: 'flex', alignItems: 'center', px: 2, py: 1.5, gap: 2 }}>
                 <Box sx={{ flex: 1 }}>
-                  <Typography variant="body2" fontWeight={500}>
+                  <Typography variant="body2" sx={{ fontWeight: 500 }}>
                     {p.name}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
@@ -376,7 +376,7 @@ export default function SettingsPage() {
               type="date"
               size="small"
               fullWidth
-              InputLabelProps={{ shrink: true }}
+              slotProps={{ inputLabel: { shrink: true } }}
               value={personForm.dob}
               onChange={(e) => setPersonForm((f) => ({ ...f, dob: e.target.value }))}
             />
@@ -389,7 +389,7 @@ export default function SettingsPage() {
                 type="date"
                 size="small"
                 fullWidth
-                InputLabelProps={{ shrink: true }}
+                slotProps={{ inputLabel: { shrink: true } }}
                 value={personForm.dob}
                 onChange={(e) =>
                   setPersonForm((f) => ({ ...f, dob: e.target.value, plannedDob: '' }))
@@ -400,7 +400,7 @@ export default function SettingsPage() {
                 type="date"
                 size="small"
                 fullWidth
-                InputLabelProps={{ shrink: true }}
+                slotProps={{ inputLabel: { shrink: true } }}
                 value={personForm.plannedDob}
                 onChange={(e) =>
                   setPersonForm((f) => ({ ...f, plannedDob: e.target.value, dob: '' }))

@@ -34,7 +34,7 @@ import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
 import AddIcon from '@mui/icons-material/Add';
 import SaveIcon from '@mui/icons-material/Save';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -518,10 +518,9 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
         getActions: ({ id }) => [
           <GridActionsCellItem
             key="del"
-            icon={<DeleteOutlineIcon />}
+            icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
             label="Delete"
             onClick={() => deleteRow(id as string)}
-            color="error"
           />,
         ],
       },
@@ -557,10 +556,9 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
         getActions: ({ id }) => [
           <GridActionsCellItem
             key="del"
-            icon={<DeleteOutlineIcon />}
+            icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
             label="Delete"
             onClick={() => deleteRow(id as string)}
-            color="error"
           />,
         ],
       },
@@ -693,6 +691,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             processRowUpdate={processRowUpdate}
             onProcessRowUpdateError={(e) => setSnack((e as Error).message)}
             getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
+            showToolbar
             slots={{ toolbar: RevenuesToolbar }}
             slotProps={{
               toolbar: {
@@ -728,6 +727,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             processRowUpdate={processRowUpdate}
             onProcessRowUpdateError={(e) => setSnack((e as Error).message)}
             getRowClassName={(p) => (dirtyIds.has(p.id as string) ? 'row-dirty' : '')}
+            showToolbar
             slots={{ toolbar: RevenuesToolbar }}
             slotProps={{
               toolbar: { onAdd: addOneTimeRow, onSave: saveAll, dirty: hasDraft, saving },

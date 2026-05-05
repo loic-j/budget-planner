@@ -228,7 +228,7 @@ export default function BudgetListPage() {
         {!loading && budgets.length > 0 && (
           <Grid container spacing={2}>
             {budgets.map((budget) => (
-              <Grid item xs={12} sm={6} md={4} key={budget.id}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={budget.id}>
                 <Card
                   sx={{
                     bgcolor: 'background.paper',
@@ -346,7 +346,7 @@ export default function BudgetListPage() {
                     label="Start date"
                     type="date"
                     fullWidth
-                    InputLabelProps={{ shrink: true }}
+                    slotProps={{ inputLabel: { shrink: true } }}
                     error={!!errors.startDate}
                     helperText={errors.startDate?.message}
                   />
@@ -361,7 +361,7 @@ export default function BudgetListPage() {
                     label="End date"
                     type="date"
                     fullWidth
-                    InputLabelProps={{ shrink: true }}
+                    slotProps={{ inputLabel: { shrink: true } }}
                     error={!!errors.endDate}
                     helperText={errors.endDate?.message}
                   />
@@ -378,7 +378,7 @@ export default function BudgetListPage() {
                   label="Initial savings"
                   type="number"
                   fullWidth
-                  inputProps={{ min: 0 }}
+                  slotProps={{ htmlInput: { min: 0 } }}
                   error={!!errors.initialSaving}
                   helperText={errors.initialSaving?.message ?? 'Starting savings balance'}
                 />

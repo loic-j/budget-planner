@@ -14,8 +14,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlined';
 import SavingsIcon from '@mui/icons-material/Savings';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import PeopleIcon from '@mui/icons-material/People';
@@ -88,7 +88,7 @@ function SidebarNavItem({
       >
         {item.icon}
         {!collapsed && (
-          <Typography variant="body2" fontWeight={500} noWrap>
+          <Typography variant="body2" sx={{ fontWeight: 500 }} noWrap>
             {item.label}
           </Typography>
         )}
@@ -127,7 +127,7 @@ function SidebarContent({ collapsed }: { collapsed: boolean }) {
           </IconButton>
         </Tooltip>
         {!collapsed && (
-          <Typography variant="body2" fontWeight={600} noWrap sx={{ flex: 1 }}>
+          <Typography variant="body2" sx={{ fontWeight: 600, flex: 1 }} noWrap>
             {budget?.name ?? <Skeleton width={120} />}
           </Typography>
         )}

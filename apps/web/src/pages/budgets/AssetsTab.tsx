@@ -24,7 +24,7 @@ import type { GridColDef } from '@mui/x-data-grid';
 import { LineChart } from '@mui/x-charts/LineChart';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -238,7 +238,7 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
           type="date"
           fullWidth
           size="small"
-          InputLabelProps={{ shrink: true }}
+          slotProps={{ inputLabel: { shrink: true } }}
         />
 
         <Box>
