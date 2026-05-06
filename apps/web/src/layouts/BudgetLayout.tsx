@@ -15,7 +15,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutlined';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlined';
 import SavingsIcon from '@mui/icons-material/Savings';
@@ -37,7 +36,6 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { label: 'Dashboard', path: 'dashboard', icon: <DashboardIcon fontSize="small" /> },
-  { label: 'Projections', path: 'projections', icon: <TrendingUpIcon fontSize="small" /> },
   { label: 'Expenses', path: 'expenses', icon: <RemoveCircleOutlineIcon fontSize="small" /> },
   { label: 'Revenues', path: 'revenues', icon: <AddCircleOutlineIcon fontSize="small" /> },
   { label: 'Savings', path: 'savings', icon: <SavingsIcon fontSize="small" /> },

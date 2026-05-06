@@ -254,7 +254,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
-  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('yearly');
   const [selectedChartCategories, setSelectedChartCategories] = useState<Set<string>>(new Set());
 
   const loadData = useCallback(async () => {
@@ -505,7 +505,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
       },
       {
         field: 'frequencyValue',
-        headerName: 'Freq. ×',
+        headerName: 'Every N',
         editable: true,
         type: 'number',
         width: 80,

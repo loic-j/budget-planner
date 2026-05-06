@@ -10,7 +10,6 @@ const EmailVerificationPage = lazy(() => import('@/pages/auth/EmailVerificationP
 const InviteAcceptPage = lazy(() => import('@/pages/budgets/InviteAcceptPage'));
 const BudgetListPage = lazy(() => import('@/pages/budgets/BudgetListPage'));
 const DashboardPage = lazy(() => import('@/pages/budgets/DashboardPage'));
-const ProjectionsPage = lazy(() => import('@/pages/budgets/ProjectionsPage'));
 const ExpensesPage = lazy(() => import('@/pages/budgets/ExpensesPage'));
 const RevenuesPage = lazy(() => import('@/pages/budgets/RevenuesPage'));
 const SavingsPage = lazy(() => import('@/pages/budgets/SavingsPage'));
@@ -62,7 +61,6 @@ export const router: ReturnType<typeof createBrowserRouter> = createBrowserRoute
     children: [
       { index: true, element: <Navigate to="dashboard" replace /> },
       { path: 'dashboard', element: withSuspense(<DashboardPage />) },
-      { path: 'projections', element: withSuspense(<ProjectionsPage />) },
       { path: 'expenses', element: withSuspense(<ExpensesPage />) },
       { path: 'revenues', element: withSuspense(<RevenuesPage />) },
       { path: 'savings', element: withSuspense(<SavingsPage />) },

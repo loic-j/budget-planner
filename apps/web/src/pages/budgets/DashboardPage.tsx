@@ -19,8 +19,16 @@ interface ProjectionPoint {
   netWorth: number;
 }
 
+interface PersonAgePoint {
+  personId: string;
+  name: string;
+  type: 'ADULT' | 'CHILD';
+  ageByYear: Record<string, number | null>;
+}
+
 interface ProjectionResponse {
   points: ProjectionPoint[];
+  persons: PersonAgePoint[];
 }
 
 function fmt(value: number, currency: string) {
@@ -75,7 +83,6 @@ function aggregatePtsYearly(pts: ProjectionPoint[]): ProjectionPoint[] {
     if (!byYear[yr]) {
       byYear[yr] = { ...pt, date: `${yr}-01-01T00:00:00.000Z` };
     } else {
-      // flows: sum; balances: take last
       byYear[yr].revenue += pt.revenue;
       byYear[yr].expense += pt.expense;
       byYear[yr].savingContribution += pt.savingContribution;
@@ -99,7 +106,7 @@ export default function DashboardPage() {
 
   const [chartStart, setChartStart] = useState(() => budget?.startDate.slice(0, 7) ?? '');
   const [chartEnd, setChartEnd] = useState(() => budget?.endDate.slice(0, 7) ?? '');
-  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('yearly');
 
   useEffect(() => {
     if (!id) return;
@@ -148,6 +155,7 @@ export default function DashboardPage() {
   const netCashFlow = monthlyRevenue - monthlyExpense - (firstPt?.savingContribution ?? 0);
   const finalNetWorth = lastPt?.netWorth ?? 0;
 
+  const persons = projection?.persons ?? [];
   const tickInterval = Math.max(1, Math.floor(displayData.labels.length / 8));
 
   return (
@@ -238,6 +246,7 @@ export default function DashboardPage() {
           border: '1px solid',
           borderColor: 'divider',
           borderRadius: 2,
+          mb: 3,
           overflow: 'hidden',
         }}
       >
@@ -280,6 +289,102 @@ export default function DashboardPage() {
           </Box>
         )}
       </Box>
+
+      {/* Person age table */}
+      {persons.length > 0 && (
+        <Box
+          sx={{
+            bgcolor: 'background.paper',
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: 2,
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx={{ px: 3, pt: 2, pb: 1 }}>
+            <Typography variant="h6">Person Ages by Year</Typography>
+          </Box>
+          <Box sx={{ overflowX: 'auto', px: 3, pb: 3 }}>
+            <Box component="table" sx={{ borderCollapse: 'collapse', width: '100%', fontSize: 13 }}>
+              <thead>
+                <tr>
+                  <Box
+                    component="th"
+                    sx={{
+                      textAlign: 'left',
+                      p: '8px 12px',
+                      color: 'text.secondary',
+                      fontWeight: 600,
+                      borderBottom: '1px solid',
+                      borderColor: 'divider',
+                      bgcolor: '#2a2a2a',
+                    }}
+                  >
+                    Person
+                  </Box>
+                  {Object.keys(persons[0]?.ageByYear ?? {}).map((yr) => (
+                    <Box
+                      component="th"
+                      key={yr}
+                      sx={{
+                        textAlign: 'center',
+                        p: '8px 12px',
+                        color: 'text.secondary',
+                        fontWeight: 600,
+                        borderBottom: '1px solid',
+                        borderColor: 'divider',
+                        bgcolor: '#2a2a2a',
+                      }}
+                    >
+                      {yr}
+                    </Box>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {persons.map((p) => (
+                  <tr key={p.personId}>
+                    <Box
+                      component="td"
+                      sx={{
+                        p: '8px 12px',
+                        borderBottom: '1px solid',
+                        borderColor: 'divider',
+                        fontWeight: 500,
+                      }}
+                    >
+                      {p.name}
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ ml: 1, textTransform: 'lowercase' }}
+                      >
+                        {p.type}
+                      </Typography>
+                    </Box>
+                    {Object.values(p.ageByYear).map((age, i) => (
+                      <Box
+                        component="td"
+                        key={i}
+                        sx={{
+                          textAlign: 'center',
+                          p: '8px 12px',
+                          borderBottom: '1px solid',
+                          borderColor: 'divider',
+                          color: age === null ? 'text.disabled' : 'text.primary',
+                          fontVariantNumeric: 'tabular-nums',
+                        }}
+                      >
+                        {age === null ? '—' : age}
+                      </Box>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </Box>
+          </Box>
+        </Box>
+      )}
     </Box>
   );
 }

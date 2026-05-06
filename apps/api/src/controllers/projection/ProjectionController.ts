@@ -27,6 +27,8 @@ const projectionRoute = createRoute({
       granularity: z.enum(['monthly', 'yearly']).optional(),
       from: z.string().optional(),
       to: z.string().optional(),
+      personIds: z.string().optional(),
+      categoryIds: z.string().optional(),
     }),
   },
   responses: {
@@ -45,7 +47,7 @@ export function createProjectionController(authMiddleware: MiddlewareHandler) {
 
   app.openapi(projectionRoute, async (c) => {
     const { id } = c.req.valid('param');
-    const { granularity = 'monthly', from, to } = c.req.valid('query');
+    const { granularity = 'monthly', from, to, personIds, categoryIds } = c.req.valid('query');
     const userId = c.get('user').id;
 
     const memberRepo = container.resolve<IBudgetMemberRepository>('IBudgetMemberRepository');
@@ -67,9 +69,30 @@ export function createProjectionController(authMiddleware: MiddlewareHandler) {
       container.resolve<IPersonRepository>('IPersonRepository').findByBudget(id),
     ]);
 
-    // Fetch loan payments for each loan expense
+    const personIdSet = personIds ? new Set(personIds.split(',')) : null;
+    const categoryIdSet = categoryIds ? new Set(categoryIds.split(',')) : null;
+
+    const filteredRevenues = revenues.filter(
+      (r) =>
+        (!personIdSet || personIdSet.has(r.personId ?? '')) &&
+        (!categoryIdSet || categoryIdSet.has(r.categoryId ?? ''))
+    );
+    const filteredSavings = savings.filter(
+      (s) =>
+        (!personIdSet || personIdSet.has(s.personId ?? '')) &&
+        (!categoryIdSet || categoryIdSet.has(s.categoryId ?? ''))
+    );
+    const filteredExpenses = expenses.filter((e) => {
+      const personOk = !personIdSet || personIdSet.has(e.personId ?? '');
+      // Loan expenses have no categoryId — only person filter applies
+      const categoryOk =
+        e.type === 'LOAN' || !categoryIdSet || categoryIdSet.has(e.categoryId ?? '');
+      return personOk && categoryOk;
+    });
+
+    // Fetch loan payments for each filtered loan expense
     const loanPaymentRepo = container.resolve<ILoanPaymentRepository>('ILoanPaymentRepository');
-    const loanExpenses = expenses.filter((e) => e.type === 'LOAN' && e.loanDetail);
+    const loanExpenses = filteredExpenses.filter((e) => e.type === 'LOAN' && e.loanDetail);
     const paymentArrays = await Promise.all(
       loanExpenses.map((e) => loanPaymentRepo.findByLoan(e.loanDetail!.id))
     );
@@ -80,9 +103,9 @@ export function createProjectionController(authMiddleware: MiddlewareHandler) {
       startDate,
       endDate,
       initialSaving: budget.initialSaving,
-      expenses,
-      revenues,
-      savings,
+      expenses: filteredExpenses,
+      revenues: filteredRevenues,
+      savings: filteredSavings,
       assets,
       persons,
       loanPayments,

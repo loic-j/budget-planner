@@ -293,7 +293,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
-  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('yearly');
 
   const loadData = useCallback(async () => {
     setLoading(true);

@@ -379,8 +379,12 @@ function AddLoanDrawer({
         />
 
         <FormControl fullWidth size="small">
-          <InputLabel>Loan type</InputLabel>
-          <Select value={loanType} label="Loan type" onChange={(e) => setLoanType(e.target.value)}>
+          <InputLabel>Loan category</InputLabel>
+          <Select
+            value={loanType}
+            label="Loan category"
+            onChange={(e) => setLoanType(e.target.value)}
+          >
             {Object.entries(LOAN_TYPE_LABELS).map(([v, l]) => (
               <MenuItem key={v} value={v}>
                 {l}
@@ -599,7 +603,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
-  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('monthly');
+  const [chartGranularity, setChartGranularity] = useState<ChartGranularity>('yearly');
   const [selectedChartCategories, setSelectedChartCategories] = useState<Set<string>>(new Set());
 
   const loadData = useCallback(async () => {
