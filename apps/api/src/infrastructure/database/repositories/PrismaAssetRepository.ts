@@ -37,6 +37,8 @@ export class PrismaAssetRepository implements IAssetRepository {
         acquisition_date: data.acquisitionDate,
         annual_growth_rate: data.annualGrowthRate,
         loanDetailId: data.loanDetailId,
+        sourceRevenueId: data.sourceRevenueId,
+        sourceExpenseId: data.sourceExpenseId,
       },
     });
     return this.toDomain(row);
@@ -53,6 +55,8 @@ export class PrismaAssetRepository implements IAssetRepository {
           ...(data.acquisitionDate !== undefined && { acquisition_date: data.acquisitionDate }),
           ...(data.annualGrowthRate !== undefined && { annual_growth_rate: data.annualGrowthRate }),
           ...(data.loanDetailId !== undefined && { loanDetailId: data.loanDetailId }),
+          ...(data.sourceRevenueId !== undefined && { sourceRevenueId: data.sourceRevenueId }),
+          ...(data.sourceExpenseId !== undefined && { sourceExpenseId: data.sourceExpenseId }),
         },
       });
       return this.toDomain(row);
@@ -76,7 +80,9 @@ export class PrismaAssetRepository implements IAssetRepository {
       Number(row.annual_growth_rate),
       row.created_at,
       row.updated_at,
-      row.loanDetailId
+      row.loanDetailId,
+      row.sourceRevenueId,
+      row.sourceExpenseId
     );
   }
 }

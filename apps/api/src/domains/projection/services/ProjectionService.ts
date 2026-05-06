@@ -46,8 +46,14 @@ export class ProjectionService {
       paymentsByLoan.set(p.loanDetailId, list);
     }
 
+    // Revenues linked as asset sources are in-kind transfers — skip from cash flow
+    const assetSourceRevenueIds = new Set(
+      assets.map((a) => a.sourceRevenueId).filter((id): id is string => id !== null)
+    );
+
     const loanExpenses = expenses.filter((e) => e.type === 'LOAN' && e.loanDetail);
     const regularExpenses = expenses.filter((e) => e.type === 'REGULAR');
+    const cashRevenues = revenues.filter((r) => !assetSourceRevenueIds.has(r.id));
 
     const points: ProjectionPoint[] = [];
     let cashBalance = initialSaving;
@@ -61,9 +67,9 @@ export class ProjectionService {
     while (y < ey || (y === ey && m <= em)) {
       const date = new Date(y, m, 1);
 
-      // Revenue
+      // Revenue (in-kind/asset-source revenues excluded)
       let revenue = 0;
-      for (const r of revenues) {
+      for (const r of cashRevenues) {
         revenue += monthlyAmount(
           {
             frequency: r.frequency,

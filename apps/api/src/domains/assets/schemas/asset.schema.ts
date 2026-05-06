@@ -9,6 +9,8 @@ export const createAssetSchema = z.object({
   acquisitionDate: z.string().datetime(),
   annualGrowthRate: z.number(),
   loanDetailId: z.string().optional(),
+  sourceRevenueId: z.string().optional(),
+  sourceExpenseId: z.string().optional(),
 });
 
 export const updateAssetSchema = z.object({
@@ -18,6 +20,8 @@ export const updateAssetSchema = z.object({
   acquisitionDate: z.string().datetime().optional(),
   annualGrowthRate: z.number().optional(),
   loanDetailId: z.string().nullable().optional(),
+  sourceRevenueId: z.string().nullable().optional(),
+  sourceExpenseId: z.string().nullable().optional(),
 });
 
 export const assetResponseSchema = z.object({
@@ -29,6 +33,8 @@ export const assetResponseSchema = z.object({
   acquisitionDate: z.string(),
   annualGrowthRate: z.number(),
   loanDetailId: z.string().nullable(),
+  sourceRevenueId: z.string().nullable(),
+  sourceExpenseId: z.string().nullable(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });

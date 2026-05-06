@@ -206,7 +206,21 @@
     "appreciates": "Appreciates {{rate}}% / year",
     "depreciates": "Depreciates {{rate}}% / year",
     "noChange": "No change in value",
-    "count": "{{count}} asset(s)"
+    "count": "{{count}} asset(s)",
+    "sourceTitle": "How was this acquired?",
+    "sourceLabel": "Financial source",
+    "source": {
+      "none": "No source linked",
+      "revenue": "Revenue (gift / inheritance)",
+      "expense": "Expense (cash purchase)",
+      "loan": "Loan (financed)"
+    },
+    "sourceWarning": "No financial source linked. This asset value will appear without a corresponding cash flow in the projection.",
+    "sourceRevenuePick": "Select revenue",
+    "sourceRevenueHint": "This revenue is treated as an in-kind transfer — it will NOT add to your cash balance (the value goes directly to this asset).",
+    "sourceExpensePick": "Select expense",
+    "sourceExpenseHint": "The selected expense already reduces your cash balance. This link is informational.",
+    "sourceLoanInfo": "Loan financing is managed through the Expenses tab. Create a loan expense there and it will link automatically."
   },
   "members": {
     "title": "Members",

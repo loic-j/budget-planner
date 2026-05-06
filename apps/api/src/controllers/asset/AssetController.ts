@@ -28,6 +28,8 @@ function toAssetResponse(a: Asset) {
     acquisitionDate: a.acquisitionDate.toISOString(),
     annualGrowthRate: a.annualGrowthRate,
     loanDetailId: a.loanDetailId,
+    sourceRevenueId: a.sourceRevenueId,
+    sourceExpenseId: a.sourceExpenseId,
     createdAt: a.createdAt.toISOString(),
     updatedAt: a.updatedAt.toISOString(),
   };
@@ -123,6 +125,8 @@ export function createAssetController(authMiddleware: MiddlewareHandler) {
       acquisitionDate: new Date(body.acquisitionDate),
       annualGrowthRate: body.annualGrowthRate,
       loanDetailId: body.loanDetailId,
+      sourceRevenueId: body.sourceRevenueId,
+      sourceExpenseId: body.sourceExpenseId,
     });
     return c.json(toAssetResponse(asset), 201);
   });
@@ -139,6 +143,8 @@ export function createAssetController(authMiddleware: MiddlewareHandler) {
       acquisitionDate: body.acquisitionDate ? new Date(body.acquisitionDate) : undefined,
       annualGrowthRate: body.annualGrowthRate,
       loanDetailId: body.loanDetailId,
+      sourceRevenueId: body.sourceRevenueId,
+      sourceExpenseId: body.sourceExpenseId,
     });
     return c.json(toAssetResponse(asset), 200);
   });

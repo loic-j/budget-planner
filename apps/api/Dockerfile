@@ -1,0 +1,78 @@
+# ---- Build stage ----
+FROM node:22-alpine AS builder
+
+RUN corepack enable && corepack prepare pnpm@9.0.0 --activate && npm install -g esbuild
+RUN apk add --no-cache openssl
+
+WORKDIR /app
+
+# Copy workspace manifests
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml tsconfig.base.json ./
+COPY apps/api/package.json ./apps/api/
+COPY apps/web/package.json ./apps/web/
+
+# Install all deps (including devDeps: prisma CLI, typescript, vite, etc.)
+RUN pnpm install --frozen-lockfile
+
+# Copy source
+COPY apps/api ./apps/api
+COPY apps/web ./apps/web
+
+# Generate Prisma client for Linux (Alpine)
+RUN pnpm --filter @app/api exec prisma generate
+
+# Build web app — outputs to apps/api/public (via vite.config outDir)
+RUN pnpm --filter @app/web exec vite build
+
+# Bundle server.ts with esbuild:
+#   --bundle       : inline all local source into one file
+#   --packages=external : keep npm packages as external imports (resolved from node_modules at runtime)
+#   --platform=node: handle Node.js built-ins correctly
+RUN cd apps/api && esbuild src/server.ts \
+    --bundle \
+    --packages=external \
+    --platform=node \
+    --format=esm \
+    --target=esnext \
+    --outfile=dist/server.js
+
+# ---- Production stage ----
+FROM node:22-alpine AS runner
+
+RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+# Install openssl so Prisma detects the right binary target (Alpine uses OpenSSL 3)
+RUN apk add --no-cache openssl
+# Install prisma CLI globally for migrations at startup
+RUN npm install -g prisma@5.22.0
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Copy workspace manifests
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY apps/api/package.json ./apps/api/
+
+# Install production deps only
+RUN pnpm install --frozen-lockfile --prod
+
+# Copy bundled server entry
+COPY --from=builder /app/apps/api/dist/server.js ./apps/api/dist/server.js
+
+# Copy built frontend static files
+COPY --from=builder /app/apps/api/public ./apps/api/public
+
+# Copy generated Prisma client (Alpine-compatible binary from builder stage)
+COPY --from=builder \
+     /app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma \
+     /app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma
+
+# Copy Prisma schema (needed for migrate deploy)
+COPY apps/api/prisma ./apps/api/prisma
+
+WORKDIR /app/apps/api
+
+EXPOSE 3000
+
+# Apply migrations then start server
+CMD ["sh", "-c", "prisma migrate deploy --schema=prisma/schema.prisma && node dist/server.js"]

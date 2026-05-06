@@ -7,6 +7,8 @@ export interface CreateAssetData {
   acquisitionDate: Date;
   annualGrowthRate: number;
   loanDetailId?: string;
+  sourceRevenueId?: string;
+  sourceExpenseId?: string;
 }
 
 export interface UpdateAssetData {
@@ -16,6 +18,8 @@ export interface UpdateAssetData {
   acquisitionDate?: Date;
   annualGrowthRate?: number;
   loanDetailId?: string | null;
+  sourceRevenueId?: string | null;
+  sourceExpenseId?: string | null;
 }
 
 export interface IAssetRepository {

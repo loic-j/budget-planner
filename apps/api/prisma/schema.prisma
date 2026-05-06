@@ -171,10 +171,11 @@ model Expense {
   created_at      DateTime    @default(now())
   updated_at      DateTime    @updatedAt
 
-  budget     Budget      @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  category   Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  person     Person?     @relation(fields: [personId], references: [id], onDelete: SetNull)
-  loanDetail LoanDetail?
+  budget       Budget      @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category     Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  person       Person?     @relation(fields: [personId], references: [id], onDelete: SetNull)
+  loanDetail   LoanDetail?
+  sourceAssets Asset[]
 }
 
 model LoanDetail {
@@ -222,9 +223,10 @@ model Revenue {
   created_at      DateTime  @default(now())
   updated_at      DateTime  @updatedAt
 
-  budget   Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
-  person   Person?   @relation(fields: [personId], references: [id], onDelete: SetNull)
+  budget       Budget    @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  category     Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  person       Person?   @relation(fields: [personId], references: [id], onDelete: SetNull)
+  sourceAssets Asset[]
 }
 
 // ─── Savings ──────────────────────────────────────────────────────────────────
@@ -255,6 +257,8 @@ model Asset {
   id                 String    @id @default(cuid())
   budgetId           String
   loanDetailId       String?   @unique
+  sourceRevenueId    String?
+  sourceExpenseId    String?
   type               AssetType
   name               String
   current_value      Decimal   @db.Decimal(15, 2)
@@ -263,8 +267,10 @@ model Asset {
   created_at         DateTime  @default(now())
   updated_at         DateTime  @updatedAt
 
-  budget     Budget      @relation(fields: [budgetId], references: [id], onDelete: Cascade)
-  loanDetail LoanDetail? @relation(fields: [loanDetailId], references: [id], onDelete: SetNull)
+  budget        Budget      @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+  loanDetail    LoanDetail? @relation(fields: [loanDetailId], references: [id], onDelete: SetNull)
+  sourceRevenue Revenue?    @relation(fields: [sourceRevenueId], references: [id], onDelete: SetNull)
+  sourceExpense Expense?    @relation(fields: [sourceExpenseId], references: [id], onDelete: SetNull)
 }
 
 // ─── Enums ────────────────────────────────────────────────────────────────────

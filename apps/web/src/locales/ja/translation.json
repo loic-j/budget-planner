@@ -206,7 +206,21 @@
     "appreciates": "年間 {{rate}}% 上昇",
     "depreciates": "年間 {{rate}}% 下落",
     "noChange": "価値の変化なし",
-    "count": "{{count}} 件の資産"
+    "count": "{{count}} 件の資産",
+    "sourceTitle": "取得方法",
+    "sourceLabel": "資金源",
+    "source": {
+      "none": "資金源なし",
+      "revenue": "収入（贈与・相続）",
+      "expense": "支出（現金購入）",
+      "loan": "ローン（融資）"
+    },
+    "sourceWarning": "資金源が未設定です。この資産はキャッシュフローと連動しません。",
+    "sourceRevenuePick": "収入を選択",
+    "sourceRevenueHint": "この収入は現物移転として扱われます。現金残高には加算されず、資産価値として計上されます。",
+    "sourceExpensePick": "支出を選択",
+    "sourceExpenseHint": "選択した支出はすでに現金残高から差し引かれています。このリンクは参考情報です。",
+    "sourceLoanInfo": "ローンによる資産取得は「支出」タブで管理します。そちらでローン支出を作成すると自動的に連携されます。"
   },
   "members": {
     "title": "メンバー",

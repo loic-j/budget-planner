@@ -27,26 +27,25 @@ services:
     environment:
       - COLLECTOR_OTLP_ENABLED=true
 
-  # app:
-  #   build:
-  #     context: .
-  #     dockerfile: apps/api/Dockerfile
-  #   container_name: budget-planner-app
-  #   environment:
-  #     DATABASE_URL: postgresql://budget_user:budget_pass@postgres:5432/budget_planner
-  #     PORT: 3000
-  #     NODE_ENV: production
-  #     FRONTEND_URL: http://localhost:8080
-  #     BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-local-dev-secret-change-for-production}
-  #     BETTER_AUTH_URL: http://localhost:8080
-  #     OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318/v1/traces
-  #     LOG_LEVEL: info
-  #   ports:
-  #     - '8080:3000'
-  #   depends_on:
-  #     postgres:
-  #       condition: service_healthy
-  #   restart: unless-stopped
+  app:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: budget-planner-app
+    environment:
+      DATABASE_URL: postgresql://budget_user:budget_pass@postgres:5432/budget_planner
+      NODE_ENV: production
+      FRONTEND_URL: http://localhost:8080
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:-local-dev-secret-change-for-production}
+      BETTER_AUTH_URL: http://localhost:8080
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger:4318/v1/traces
+      LOG_LEVEL: info
+    ports:
+      - '8080:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
 volumes:
   postgres_data:

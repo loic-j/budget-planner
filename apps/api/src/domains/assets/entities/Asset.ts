@@ -11,10 +11,13 @@ export class Asset {
     public readonly annualGrowthRate: number,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
-    public readonly loanDetailId: string | null = null
+    public readonly loanDetailId: string | null = null,
+    public readonly sourceRevenueId: string | null = null,
+    public readonly sourceExpenseId: string | null = null
   ) {}
 
   valueAt(date: Date): number {
+    if (date < this.acquisitionDate) return 0;
     const factor = 1 + this.annualGrowthRate / 100;
     if (factor <= 0) return 0;
     const msPerYear = 1000 * 60 * 60 * 24 * 365.25;

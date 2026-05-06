@@ -206,7 +206,21 @@
     "appreciates": "S'apprécie de {{rate}}% / an",
     "depreciates": "Se déprécie de {{rate}}% / an",
     "noChange": "Valeur stable",
-    "count": "{{count}} actif(s)"
+    "count": "{{count}} actif(s)",
+    "sourceTitle": "Comment cet actif a-t-il été acquis ?",
+    "sourceLabel": "Source financière",
+    "source": {
+      "none": "Aucune source liée",
+      "revenue": "Revenu (don / héritage)",
+      "expense": "Dépense (achat comptant)",
+      "loan": "Emprunt (financement)"
+    },
+    "sourceWarning": "Aucune source financière liée. Cet actif apparaîtra sans flux de trésorerie correspondant dans la projection.",
+    "sourceRevenuePick": "Sélectionner un revenu",
+    "sourceRevenueHint": "Ce revenu est traité comme un transfert en nature — il ne s'ajoute PAS au solde de trésorerie (la valeur va directement à cet actif).",
+    "sourceExpensePick": "Sélectionner une dépense",
+    "sourceExpenseHint": "La dépense sélectionnée réduit déjà votre solde de trésorerie. Ce lien est informatif.",
+    "sourceLoanInfo": "Le financement par emprunt est géré dans l'onglet Dépenses. Créez une dépense de type emprunt là-bas et elle sera liée automatiquement."
   },
   "members": {
     "title": "Membres",

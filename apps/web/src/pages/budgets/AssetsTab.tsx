@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  Alert,
   Box,
   Button,
   Chip,
@@ -41,6 +42,7 @@ interface Budget {
 }
 
 type AssetType = 'REAL_ESTATE' | 'INVESTMENT' | 'VEHICLE' | 'OTHER';
+type SourceType = 'none' | 'revenue' | 'expense' | 'loan';
 
 interface Asset {
   id: string;
@@ -51,6 +53,19 @@ interface Asset {
   acquisitionDate: string;
   annualGrowthRate: number;
   loanDetailId: string | null;
+  sourceRevenueId: string | null;
+  sourceExpenseId: string | null;
+}
+
+interface Revenue {
+  id: string;
+  name: string;
+}
+
+interface Expense {
+  id: string;
+  name: string;
+  type: string;
 }
 
 // ─── API helper ───────────────────────────────────────────────────────────────
@@ -70,9 +85,11 @@ async function apiFetch(path: string, init?: RequestInit) {
 const MS_PER_YEAR = 1000 * 60 * 60 * 24 * 365.25;
 
 function assetValueAt(asset: Asset, date: Date): number {
+  const acquisition = new Date(asset.acquisitionDate);
+  if (date < acquisition) return 0;
   const factor = 1 + asset.annualGrowthRate / 100;
   if (factor <= 0) return 0;
-  const years = (date.getTime() - new Date(asset.acquisitionDate).getTime()) / MS_PER_YEAR;
+  const years = (date.getTime() - acquisition.getTime()) / MS_PER_YEAR;
   return Math.max(0, asset.currentValue * Math.pow(factor, years));
 }
 
@@ -125,16 +142,32 @@ interface DrawerProps {
   budgetId: string;
   currency: string;
   editAsset: Asset | null;
+  revenues: Revenue[];
+  expenses: Expense[];
   onSaved: () => void;
 }
 
-function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: DrawerProps) {
+const SOURCE_TYPES: SourceType[] = ['none', 'revenue', 'expense', 'loan'];
+
+function AssetDrawer({
+  open,
+  onClose,
+  budgetId,
+  currency,
+  editAsset,
+  revenues,
+  expenses,
+  onSaved,
+}: DrawerProps) {
   const { t } = useTranslation();
   const [type, setType] = useState<AssetType>('REAL_ESTATE');
   const [name, setName] = useState('');
   const [currentValue, setCurrentValue] = useState('');
   const [acquisitionDate, setAcquisitionDate] = useState('');
   const [annualGrowthRate, setAnnualGrowthRate] = useState('');
+  const [sourceType, setSourceType] = useState<SourceType>('none');
+  const [sourceRevenueId, setSourceRevenueId] = useState<string>('');
+  const [sourceExpenseId, setSourceExpenseId] = useState<string>('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -145,12 +178,32 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
       setCurrentValue(String(editAsset.currentValue));
       setAcquisitionDate(editAsset.acquisitionDate.slice(0, 10));
       setAnnualGrowthRate(String(editAsset.annualGrowthRate));
+      if (editAsset.sourceRevenueId) {
+        setSourceType('revenue');
+        setSourceRevenueId(editAsset.sourceRevenueId);
+        setSourceExpenseId('');
+      } else if (editAsset.sourceExpenseId) {
+        setSourceType('expense');
+        setSourceExpenseId(editAsset.sourceExpenseId);
+        setSourceRevenueId('');
+      } else if (editAsset.loanDetailId) {
+        setSourceType('loan');
+        setSourceRevenueId('');
+        setSourceExpenseId('');
+      } else {
+        setSourceType('none');
+        setSourceRevenueId('');
+        setSourceExpenseId('');
+      }
     } else {
       setType('REAL_ESTATE');
       setName('');
       setCurrentValue('');
       setAcquisitionDate('');
       setAnnualGrowthRate('0');
+      setSourceType('none');
+      setSourceRevenueId('');
+      setSourceExpenseId('');
     }
     setError('');
   }, [editAsset, open]);
@@ -159,12 +212,14 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
     setSaving(true);
     setError('');
     try {
-      const body = {
+      const body: Record<string, unknown> = {
         type,
         name,
         currentValue: parseFloat(currentValue),
         acquisitionDate: new Date(acquisitionDate).toISOString(),
         annualGrowthRate: parseFloat(annualGrowthRate),
+        sourceRevenueId: sourceType === 'revenue' ? sourceRevenueId || null : null,
+        sourceExpenseId: sourceType === 'expense' ? sourceExpenseId || null : null,
       };
       if (editAsset) {
         await apiFetch(`/api/budgets/${budgetId}/assets/${editAsset.id}`, {
@@ -188,13 +243,15 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
     }
   }
 
+  const cashExpenses = useMemo(() => expenses.filter((e) => e.type !== 'LOAN'), [expenses]);
+
   const canSave =
     !!name && parseFloat(currentValue) > 0 && !!acquisitionDate && annualGrowthRate !== '';
   const growthRate = parseFloat(annualGrowthRate) || 0;
 
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
-      <Box sx={{ width: 360, p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+      <Box sx={{ width: 380, p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Typography variant="h5">
             {editAsset ? t('assets.editAsset') : t('assets.addAsset')}
@@ -264,6 +321,84 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
           />
         </Box>
 
+        <Divider />
+
+        {/* ── Financial source ── */}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+          <Typography variant="h6">{t('assets.sourceTitle')}</Typography>
+
+          <FormControl fullWidth size="small">
+            <InputLabel>{t('assets.sourceLabel')}</InputLabel>
+            <Select
+              value={sourceType}
+              label={t('assets.sourceLabel')}
+              onChange={(e) => setSourceType(e.target.value as SourceType)}
+            >
+              {SOURCE_TYPES.map((v) => (
+                <MenuItem key={v} value={v}>
+                  {t(`assets.source.${v}`)}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {sourceType === 'none' && (
+            <Alert severity="warning" sx={{ fontSize: 13 }}>
+              {t('assets.sourceWarning')}
+            </Alert>
+          )}
+
+          {sourceType === 'revenue' && (
+            <>
+              <FormControl fullWidth size="small">
+                <InputLabel>{t('assets.sourceRevenuePick')}</InputLabel>
+                <Select
+                  value={sourceRevenueId}
+                  label={t('assets.sourceRevenuePick')}
+                  onChange={(e) => setSourceRevenueId(e.target.value)}
+                >
+                  {revenues.map((r) => (
+                    <MenuItem key={r.id} value={r.id}>
+                      {r.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Alert severity="info" sx={{ fontSize: 13 }}>
+                {t('assets.sourceRevenueHint')}
+              </Alert>
+            </>
+          )}
+
+          {sourceType === 'expense' && (
+            <>
+              <FormControl fullWidth size="small">
+                <InputLabel>{t('assets.sourceExpensePick')}</InputLabel>
+                <Select
+                  value={sourceExpenseId}
+                  label={t('assets.sourceExpensePick')}
+                  onChange={(e) => setSourceExpenseId(e.target.value)}
+                >
+                  {cashExpenses.map((e) => (
+                    <MenuItem key={e.id} value={e.id}>
+                      {e.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Alert severity="info" sx={{ fontSize: 13 }}>
+                {t('assets.sourceExpenseHint')}
+              </Alert>
+            </>
+          )}
+
+          {sourceType === 'loan' && (
+            <Alert severity="info" sx={{ fontSize: 13 }}>
+              {t('assets.sourceLoanInfo')}
+            </Alert>
+          )}
+        </Box>
+
         {error && (
           <Typography color="error.main" variant="body2">
             {error}
@@ -294,6 +429,8 @@ interface AssetsTabProps {
 export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
   const { t } = useTranslation();
   const [assets, setAssets] = useState<Asset[]>([]);
+  const [revenues, setRevenues] = useState<Revenue[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editAsset, setEditAsset] = useState<Asset | null>(null);
@@ -308,8 +445,14 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const list = (await apiFetch(`/api/budgets/${budgetId}/assets`)) as Asset[];
+      const [list, revList, expList] = await Promise.all([
+        apiFetch(`/api/budgets/${budgetId}/assets`) as Promise<Asset[]>,
+        apiFetch(`/api/budgets/${budgetId}/revenues`) as Promise<Revenue[]>,
+        apiFetch(`/api/budgets/${budgetId}/expenses`) as Promise<Expense[]>,
+      ]);
       setAssets(list);
+      setRevenues(revList);
+      setExpenses(expList);
     } catch {
       // ignore
     } finally {
@@ -646,6 +789,8 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         budgetId={budgetId}
         currency={budget.currency}
         editAsset={editAsset}
+        revenues={revenues}
+        expenses={expenses}
         onSaved={() => {
           loadData();
           setSnack(editAsset ? t('assets.updated') : t('assets.added'));
