@@ -5,6 +5,7 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import { useBudget } from '@/contexts/BudgetContext';
 import { ChartRangeBrush } from '@/components/charts/ChartRangeBrush';
 import type { ChartGranularity } from '@/components/charts/ChartRangeBrush';
+import { ChartCategoryFilter } from '@/components/charts/ChartCategoryFilter';
 
 interface ProjectionPoint {
   date: string;
@@ -61,6 +62,7 @@ export default function ProjectionsPage() {
 
   const [chartStart, setChartStart] = useState(() => budget?.startDate.slice(0, 7) ?? '');
   const [chartEnd, setChartEnd] = useState(() => budget?.endDate.slice(0, 7) ?? '');
+  const [selectedPersons, setSelectedPersons] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!id) return;
@@ -94,6 +96,12 @@ export default function ProjectionsPage() {
   }, [projection, chartStart, chartEnd, granularity]);
 
   const persons = projection?.persons ?? [];
+
+  const filteredPersons = useMemo(
+    () =>
+      selectedPersons.size === 0 ? persons : persons.filter((p) => selectedPersons.has(p.personId)),
+    [persons, selectedPersons]
+  );
 
   const tickInterval = Math.max(1, Math.floor(displayData.labels.length / 8));
 
@@ -175,13 +183,21 @@ export default function ProjectionsPage() {
                 border: '1px solid',
                 borderColor: 'divider',
                 borderRadius: 2,
-                p: 3,
+                overflow: 'hidden',
               }}
             >
-              <Typography variant="h6" sx={{ mb: 2 }}>
-                Person Ages by Year
-              </Typography>
-              <Box sx={{ overflowX: 'auto' }}>
+              <Box sx={{ px: 3, pt: 2, pb: 1 }}>
+                <Typography variant="h6">Person Ages by Year</Typography>
+              </Box>
+              <ChartCategoryFilter
+                label="Persons"
+                unassignedLabel=""
+                categories={persons.map((p) => ({ id: p.personId, name: p.name }))}
+                selected={selectedPersons}
+                hasUncategorized={false}
+                onChange={setSelectedPersons}
+              />
+              <Box sx={{ overflowX: 'auto', px: 3, pb: 3 }}>
                 <Box
                   component="table"
                   sx={{ borderCollapse: 'collapse', width: '100%', fontSize: 13 }}
@@ -222,7 +238,7 @@ export default function ProjectionsPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {persons.map((p) => (
+                    {filteredPersons.map((p) => (
                       <tr key={p.personId}>
                         <Box
                           component="td"

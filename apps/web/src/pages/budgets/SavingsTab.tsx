@@ -7,11 +7,13 @@ declare module '@mui/x-data-grid' {
     dirty: boolean;
     saving: boolean;
     onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
+    onManagePersons: () => void;
   }
 }
 
 import { Box, Button, CircularProgress, Snackbar, Typography } from '@mui/material';
 import { CategoryManager } from '@/components/CategoryManager';
+import { PersonManager } from '@/components/PersonManager';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -191,10 +193,11 @@ interface ToolbarProps {
   dirty: boolean;
   saving: boolean;
   onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
+  onManagePersons: () => void;
 }
 
 function SavingsToolbar(props: ToolbarProps) {
-  const { onAdd, onSave, dirty, saving, onAddCategory } = props;
+  const { onAdd, onSave, dirty, saving, onAddCategory, onManagePersons } = props;
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
@@ -207,6 +210,9 @@ function SavingsToolbar(props: ToolbarProps) {
         color="inherit"
       >
         Categories
+      </Button>
+      <Button size="small" color="inherit" onClick={onManagePersons}>
+        Persons
       </Button>
       <Button
         size="small"
@@ -243,6 +249,8 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
 
   const [snack, setSnack] = useState<string | null>(null);
   const [catAnchorEl, setCatAnchorEl] = useState<HTMLElement | null>(null);
+  const [personManagerOpen, setPersonManagerOpen] = useState(false);
+  const [selectedPersons, setSelectedPersons] = useState<Set<string>>(new Set());
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
@@ -410,6 +418,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
   );
 
   const hasUncategorized = useMemo(() => chartSavings.some((s) => !s.categoryId), [chartSavings]);
+  const hasUnassignedPerson = useMemo(() => chartSavings.some((s) => !s.personId), [chartSavings]);
 
   const filteredChartSavings = useMemo(
     () =>
@@ -419,9 +428,17 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
     [chartSavings, selectedChartCategories]
   );
 
+  const filteredByPerson = useMemo(
+    () =>
+      selectedPersons.size === 0
+        ? filteredChartSavings
+        : filteredChartSavings.filter((s) => selectedPersons.has(s.personId ?? '')),
+    [filteredChartSavings, selectedPersons]
+  );
+
   const chartData = useMemo(
-    () => computeChartData(filteredChartSavings, budget.startDate, budget.endDate),
-    [filteredChartSavings, budget.startDate, budget.endDate]
+    () => computeChartData(filteredByPerson, budget.startDate, budget.endDate),
+    [filteredByPerson, budget.startDate, budget.endDate]
   );
 
   const displayChart = useMemo(() => {
@@ -618,6 +635,14 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
             hasUncategorized={hasUncategorized}
             onChange={setSelectedChartCategories}
           />
+          <ChartCategoryFilter
+            label="Persons"
+            unassignedLabel="No person"
+            categories={persons}
+            selected={selectedPersons}
+            hasUncategorized={hasUnassignedPerson}
+            onChange={setSelectedPersons}
+          />
           <LineChart
             height={260}
             series={[
@@ -673,6 +698,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
               dirty: hasDraft,
               saving,
               onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
+              onManagePersons: () => setPersonManagerOpen(true),
             },
           }}
           autoHeight
@@ -688,6 +714,12 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
         categoryType="SAVING"
         categories={categories}
         onCategoryChange={loadData}
+      />
+      <PersonManager
+        open={personManagerOpen}
+        onClose={() => setPersonManagerOpen(false)}
+        budgetId={budgetId}
+        onPersonChange={loadData}
       />
 
       <Snackbar

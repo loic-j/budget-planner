@@ -7,11 +7,13 @@ declare module '@mui/x-data-grid' {
     dirty: boolean;
     saving: boolean;
     onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
+    onManagePersons: () => void;
   }
 }
 
 import { Box, Button, CircularProgress, Snackbar, Tab, Tabs, Typography } from '@mui/material';
 import { CategoryManager } from '@/components/CategoryManager';
+import { PersonManager } from '@/components/PersonManager';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -213,10 +215,11 @@ interface ToolbarProps {
   dirty: boolean;
   saving: boolean;
   onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
+  onManagePersons: () => void;
 }
 
 function RevenuesToolbar(props: ToolbarProps) {
-  const { onAdd, onSave, dirty, saving, onAddCategory } = props;
+  const { onAdd, onSave, dirty, saving, onAddCategory, onManagePersons } = props;
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
@@ -229,6 +232,9 @@ function RevenuesToolbar(props: ToolbarProps) {
         color="inherit"
       >
         Categories
+      </Button>
+      <Button size="small" onClick={onManagePersons} color="inherit">
+        Persons
       </Button>
       <Button
         size="small"
@@ -266,6 +272,8 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
 
   const [snack, setSnack] = useState<string | null>(null);
   const [catAnchorEl, setCatAnchorEl] = useState<HTMLElement | null>(null);
+  const [personManagerOpen, setPersonManagerOpen] = useState(false);
+  const [selectedPersons, setSelectedPersons] = useState<Set<string>>(new Set());
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
@@ -455,9 +463,22 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
     [chartRevenues, selectedChartCategories]
   );
 
+  const hasUnassignedPerson = useMemo(
+    () => chartRevenues.some((r) => !r.personId),
+    [chartRevenues]
+  );
+
+  const filteredByPerson = useMemo(
+    () =>
+      selectedPersons.size === 0
+        ? filteredChartRevenues
+        : filteredChartRevenues.filter((r) => selectedPersons.has(r.personId ?? '')),
+    [filteredChartRevenues, selectedPersons]
+  );
+
   const chartData = useMemo(
-    () => computeChartData(filteredChartRevenues, persons, budget.startDate, budget.endDate),
-    [filteredChartRevenues, persons, budget.startDate, budget.endDate]
+    () => computeChartData(filteredByPerson, persons, budget.startDate, budget.endDate),
+    [filteredByPerson, persons, budget.startDate, budget.endDate]
   );
 
   const displayChart = useMemo(() => {
@@ -683,6 +704,14 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             hasUncategorized={hasUncategorized}
             onChange={setSelectedChartCategories}
           />
+          <ChartCategoryFilter
+            label="Persons"
+            unassignedLabel="No person"
+            categories={persons}
+            selected={selectedPersons}
+            hasUncategorized={hasUnassignedPerson}
+            onChange={setSelectedPersons}
+          />
           <LineChart
             height={260}
             series={chartSeries}
@@ -742,6 +771,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
                 dirty: hasDraft,
                 saving,
                 onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
+                onManagePersons: () => setPersonManagerOpen(true),
               },
             }}
             autoHeight
@@ -772,7 +802,14 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             showToolbar
             slots={{ toolbar: RevenuesToolbar }}
             slotProps={{
-              toolbar: { onAdd: addOneTimeRow, onSave: saveAll, dirty: hasDraft, saving },
+              toolbar: {
+                onAdd: addOneTimeRow,
+                onSave: saveAll,
+                dirty: hasDraft,
+                saving,
+                onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
+                onManagePersons: () => setPersonManagerOpen(true),
+              },
             }}
             autoHeight
             disableRowSelectionOnClick
@@ -788,6 +825,12 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
         categoryType="REVENUE"
         categories={categories}
         onCategoryChange={loadData}
+      />
+      <PersonManager
+        open={personManagerOpen}
+        onClose={() => setPersonManagerOpen(false)}
+        budgetId={budgetId}
+        onPersonChange={loadData}
       />
 
       <Snackbar

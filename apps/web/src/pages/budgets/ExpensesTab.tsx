@@ -8,6 +8,7 @@ declare module '@mui/x-data-grid' {
     dirty: boolean;
     saving: boolean;
     onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
+    onManagePersons: () => void;
   }
 }
 import {
@@ -31,6 +32,7 @@ import {
   Typography,
 } from '@mui/material';
 import { CategoryManager } from '@/components/CategoryManager';
+import { PersonManager } from '@/components/PersonManager';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -249,10 +251,11 @@ interface ToolbarProps {
   dirty: boolean;
   saving: boolean;
   onAddCategory: (e: React.MouseEvent<HTMLElement>) => void;
+  onManagePersons: () => void;
 }
 
 function RegularToolbar(props: ToolbarProps) {
-  const { onAdd, onSave, dirty, saving, onAddCategory } = props;
+  const { onAdd, onSave, dirty, saving, onAddCategory, onManagePersons } = props;
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
@@ -265,6 +268,9 @@ function RegularToolbar(props: ToolbarProps) {
         color="inherit"
       >
         Categories
+      </Button>
+      <Button size="small" onClick={onManagePersons} color="inherit">
+        Persons
       </Button>
       <Button
         size="small"
@@ -588,6 +594,8 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
 
   const [snack, setSnack] = useState<string | null>(null);
   const [catAnchorEl, setCatAnchorEl] = useState<HTMLElement | null>(null);
+  const [personManagerOpen, setPersonManagerOpen] = useState(false);
+  const [selectedPersons, setSelectedPersons] = useState<Set<string>>(new Set());
 
   const [chartStart, setChartStart] = useState(() => budget.startDate.slice(0, 7));
   const [chartEnd, setChartEnd] = useState(() => budget.endDate.slice(0, 7));
@@ -781,9 +789,22 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     [chartExpenses, selectedChartCategories]
   );
 
+  const hasUnassignedPerson = useMemo(
+    () => chartExpenses.some((e) => !e.personId),
+    [chartExpenses]
+  );
+
+  const filteredByPerson = useMemo(
+    () =>
+      selectedPersons.size === 0
+        ? filteredChartExpenses
+        : filteredChartExpenses.filter((e) => selectedPersons.has(e.personId ?? '')),
+    [filteredChartExpenses, selectedPersons]
+  );
+
   const chartData = useMemo(
-    () => computeChartData(filteredChartExpenses, budget.startDate, budget.endDate),
-    [filteredChartExpenses, budget.startDate, budget.endDate]
+    () => computeChartData(filteredByPerson, budget.startDate, budget.endDate),
+    [filteredByPerson, budget.startDate, budget.endDate]
   );
 
   const displayChart = useMemo(() => {
@@ -959,6 +980,14 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
             hasUncategorized={hasUncategorized}
             onChange={setSelectedChartCategories}
           />
+          <ChartCategoryFilter
+            label="Persons"
+            unassignedLabel="No person"
+            categories={persons}
+            selected={selectedPersons}
+            hasUncategorized={hasUnassignedPerson}
+            onChange={setSelectedPersons}
+          />
           <LineChart
             height={260}
             series={[
@@ -1023,6 +1052,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
                 dirty: hasDraft,
                 saving,
                 onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
+                onManagePersons: () => setPersonManagerOpen(true),
               },
             }}
             autoHeight
@@ -1059,6 +1089,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
                 dirty: hasDraft,
                 saving,
                 onAddCategory: (e) => setCatAnchorEl(e.currentTarget),
+                onManagePersons: () => setPersonManagerOpen(true),
               },
             }}
             autoHeight
@@ -1190,6 +1221,12 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
         categoryType="EXPENSE"
         categories={categories}
         onCategoryChange={loadData}
+      />
+      <PersonManager
+        open={personManagerOpen}
+        onClose={() => setPersonManagerOpen(false)}
+        budgetId={budgetId}
+        onPersonChange={loadData}
       />
 
       <Snackbar

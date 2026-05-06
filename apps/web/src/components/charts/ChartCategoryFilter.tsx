@@ -10,13 +10,22 @@ interface Category {
 }
 
 interface Props {
+  label?: string;
+  unassignedLabel?: string;
   categories: Category[];
   selected: Set<string>;
   hasUncategorized: boolean;
   onChange: (s: Set<string>) => void;
 }
 
-export function ChartCategoryFilter({ categories, selected, hasUncategorized, onChange }: Props) {
+export function ChartCategoryFilter({
+  label = 'Categories',
+  unassignedLabel = 'Uncategorized',
+  categories,
+  selected,
+  hasUncategorized,
+  onChange,
+}: Props) {
   const [open, setOpen] = useState(false);
 
   if (categories.length === 0 && !hasUncategorized) return null;
@@ -45,7 +54,7 @@ export function ChartCategoryFilter({ categories, selected, hasUncategorized, on
       >
         <FilterListIcon sx={{ fontSize: 14, color: 'text.secondary' }} />
         <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
-          Categories
+          {label}
         </Typography>
         {!open && selected.size > 0 && (
           <Chip
@@ -86,7 +95,7 @@ export function ChartCategoryFilter({ categories, selected, hasUncategorized, on
           ))}
           {hasUncategorized && (
             <Chip
-              label="Uncategorized"
+              label={unassignedLabel}
               size="small"
               variant={selected.has('') ? 'filled' : 'outlined'}
               color={selected.has('') ? 'primary' : 'default'}
