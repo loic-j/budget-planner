@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -52,10 +53,11 @@ async function apiFetch(path: string, init?: RequestInit) {
 }
 
 function RoleChip({ role }: { role: string }) {
+  const { t } = useTranslation();
   const color = role === 'OWNER' ? 'primary' : role === 'EDITOR' ? 'info' : 'default';
   return (
     <Chip
-      label={role}
+      label={t(`role.${role}`)}
       color={color as 'primary' | 'info' | 'default'}
       size="small"
       sx={{ height: 20, fontSize: 11, fontWeight: 600 }}
@@ -64,6 +66,7 @@ function RoleChip({ role }: { role: string }) {
 }
 
 export default function MembersPage() {
+  const { t } = useTranslation();
   const { id: budgetId } = useParams<{ id: string }>();
   const [members, setMembers] = useState<Member[]>([]);
   const [invites, setInvites] = useState<Invite[]>([]);
@@ -140,7 +143,7 @@ export default function MembersPage() {
   function copyInviteLink(token: string) {
     const url = `${window.location.origin}/invite/${token}`;
     navigator.clipboard.writeText(url);
-    setSnack('Invite link copied!');
+    setSnack(t('members.copied'));
   }
 
   if (loading) {
@@ -154,7 +157,7 @@ export default function MembersPage() {
   return (
     <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-        <Typography variant="h5">Members</Typography>
+        <Typography variant="h5">{t('members.title')}</Typography>
         {myRole === 'OWNER' && (
           <Button
             variant="contained"
@@ -162,7 +165,7 @@ export default function MembersPage() {
             startIcon={<AddIcon />}
             onClick={() => setInviteDialogOpen(true)}
           >
-            Invite
+            {t('members.invite')}
           </Button>
         )}
       </Box>
@@ -201,8 +204,8 @@ export default function MembersPage() {
                   }
                   sx={{ fontSize: 12, height: 28, minWidth: 90 }}
                 >
-                  <MenuItem value="EDITOR">EDITOR</MenuItem>
-                  <MenuItem value="VIEWER">VIEWER</MenuItem>
+                  <MenuItem value="EDITOR">{t('role.EDITOR')}</MenuItem>
+                  <MenuItem value="VIEWER">{t('role.VIEWER')}</MenuItem>
                 </Select>
               ) : (
                 <RoleChip role={member.role} />
@@ -213,7 +216,7 @@ export default function MembersPage() {
                   size="small"
                   color="error"
                   onClick={() => handleRemoveMember(member.userId)}
-                  title="Remove member"
+                  title={t('members.removeMember')}
                 >
                   <DeleteOutlineIcon fontSize="small" />
                 </IconButton>
@@ -226,12 +229,12 @@ export default function MembersPage() {
       {myRole === 'OWNER' && (
         <>
           <Typography variant="h5" sx={{ mb: 2 }}>
-            Invite links
+            {t('members.inviteLinks')}
           </Typography>
 
           {invites.length === 0 ? (
             <Typography color="text.secondary" variant="body2">
-              No active invite links.
+              {t('members.noActiveInvites')}
             </Typography>
           ) : (
             <Box
@@ -251,7 +254,7 @@ export default function MembersPage() {
                         <RoleChip role={invite.role} />
                         {(invite.isExpired || invite.isMaxUsesReached) && (
                           <Chip
-                            label="Exhausted"
+                            label={t('members.exhausted')}
                             size="small"
                             color="error"
                             sx={{ height: 20, fontSize: 11 }}
@@ -259,17 +262,17 @@ export default function MembersPage() {
                         )}
                       </Box>
                       <Typography variant="caption" color="text.secondary">
-                        Used {invite.useCount}
-                        {invite.maxUses ? `/${invite.maxUses}` : ''} times
+                        {t('members.usedTimes', { count: invite.useCount })}
+                        {invite.maxUses ? `/${invite.maxUses}` : ''}
                         {invite.expiresAt
-                          ? ` · Expires ${new Date(invite.expiresAt).toLocaleDateString()}`
+                          ? ` · ${t('members.expires')} ${new Date(invite.expiresAt).toLocaleDateString()}`
                           : ''}
                       </Typography>
                     </Box>
                     <IconButton
                       size="small"
                       onClick={() => copyInviteLink(invite.token)}
-                      title="Copy invite link"
+                      title={t('members.copyInviteLink')}
                     >
                       <ContentCopyIcon fontSize="small" />
                     </IconButton>
@@ -277,7 +280,7 @@ export default function MembersPage() {
                       size="small"
                       color="error"
                       onClick={() => handleRevokeInvite(invite.id)}
-                      title="Revoke invite"
+                      title={t('members.revokeInvite')}
                     >
                       <DeleteOutlineIcon fontSize="small" />
                     </IconButton>
@@ -296,11 +299,11 @@ export default function MembersPage() {
         fullWidth
       >
         <DialogTitle sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
-          Create invite link
+          {t('members.createInvite')}
         </DialogTitle>
         <DialogContent sx={{ pt: 3 }}>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Anyone with this link can join the budget with the selected role.
+            {t('members.inviteDesc')}
           </Typography>
           <Select
             fullWidth
@@ -308,17 +311,17 @@ export default function MembersPage() {
             value={inviteRole}
             onChange={(e) => setInviteRole(e.target.value as 'EDITOR' | 'VIEWER')}
           >
-            <MenuItem value="EDITOR">EDITOR — can view and edit</MenuItem>
-            <MenuItem value="VIEWER">VIEWER — read only</MenuItem>
+            <MenuItem value="EDITOR">{t('members.editorDesc')}</MenuItem>
+            <MenuItem value="VIEWER">{t('members.viewerDesc')}</MenuItem>
           </Select>
         </DialogContent>
         <Divider />
         <DialogActions sx={{ px: 3, py: 2, gap: 1 }}>
           <Button variant="text" onClick={() => setInviteDialogOpen(false)} disabled={creating}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button variant="contained" onClick={handleCreateInvite} disabled={creating}>
-            {creating ? <CircularProgress size={20} /> : 'Create link'}
+            {creating ? <CircularProgress size={20} /> : t('members.createLink')}
           </Button>
         </DialogActions>
       </Dialog>

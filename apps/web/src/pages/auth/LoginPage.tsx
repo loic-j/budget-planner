@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -25,6 +26,7 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export default function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +70,7 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthCard title="Budget Planner" subtitle="Plan your financial life">
+    <AuthCard title="Budget Planner" subtitle={t('auth.subtitle')}>
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -81,7 +83,7 @@ export default function LoginPage() {
           render={({ field }) => (
             <TextField
               {...field}
-              label="Email address"
+              label={t('auth.email')}
               type="email"
               fullWidth
               autoComplete="email"
@@ -97,7 +99,7 @@ export default function LoginPage() {
           render={({ field }) => (
             <TextField
               {...field}
-              label="Password"
+              label={t('auth.password')}
               type={showPassword ? 'text' : 'password'}
               fullWidth
               autoComplete="current-password"
@@ -141,12 +143,12 @@ export default function LoginPage() {
           disabled={isSubmitting}
           sx={{ mt: 1 }}
         >
-          {isSubmitting ? 'Signing in…' : 'Sign in'}
+          {isSubmitting ? t('auth.signingIn') : t('auth.signIn')}
         </Button>
 
         {forgotSent ? (
           <Typography variant="body2" color="success.main" align="center">
-            Password reset email sent. Check your inbox.
+            {t('auth.resetSent')}
           </Typography>
         ) : (
           <Link
@@ -156,20 +158,20 @@ export default function LoginPage() {
             onClick={handleForgotPassword}
             sx={{ alignSelf: 'flex-start', color: 'text.secondary' }}
           >
-            Forgot password?
+            {t('auth.forgotPassword')}
           </Link>
         )}
 
         <Divider sx={{ my: 1 }}>
           <Typography variant="caption" color="text.secondary">
-            or
+            {t('auth.or')}
           </Typography>
         </Divider>
 
         <Typography variant="body2" align="center" color="text.secondary">
-          New here?{' '}
+          {t('auth.noAccount')}{' '}
           <Link component={RouterLink} to="/register" color="primary">
-            Create an account
+            {t('auth.createAccount')}
           </Link>
         </Typography>
       </Box>

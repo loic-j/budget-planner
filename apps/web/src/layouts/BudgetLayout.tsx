@@ -22,8 +22,10 @@ import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useTranslation } from 'react-i18next';
 import { signOut } from '@/lib/auth';
 import { BudgetProvider, useBudget } from '@/contexts/BudgetContext';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 const SIDEBAR_W = 220;
 const SIDEBAR_COLLAPSED_W = 56;
@@ -34,17 +36,17 @@ interface NavItem {
   icon: React.ReactNode;
 }
 
-const NAV_ITEMS: NavItem[] = [
-  { label: 'Dashboard', path: 'dashboard', icon: <DashboardIcon fontSize="small" /> },
-  { label: 'Expenses', path: 'expenses', icon: <RemoveCircleOutlineIcon fontSize="small" /> },
-  { label: 'Revenues', path: 'revenues', icon: <AddCircleOutlineIcon fontSize="small" /> },
-  { label: 'Savings', path: 'savings', icon: <SavingsIcon fontSize="small" /> },
-  { label: 'Assets', path: 'assets', icon: <BusinessCenterIcon fontSize="small" /> },
+const NAV_PATHS = [
+  { key: 'nav.dashboard', path: 'dashboard', icon: <DashboardIcon fontSize="small" /> },
+  { key: 'nav.expenses', path: 'expenses', icon: <RemoveCircleOutlineIcon fontSize="small" /> },
+  { key: 'nav.revenues', path: 'revenues', icon: <AddCircleOutlineIcon fontSize="small" /> },
+  { key: 'nav.savings', path: 'savings', icon: <SavingsIcon fontSize="small" /> },
+  { key: 'nav.assets', path: 'assets', icon: <BusinessCenterIcon fontSize="small" /> },
 ];
 
-const BOTTOM_NAV_ITEMS: NavItem[] = [
-  { label: 'Members', path: 'members', icon: <PeopleIcon fontSize="small" /> },
-  { label: 'Settings', path: 'settings', icon: <SettingsIcon fontSize="small" /> },
+const BOTTOM_NAV_PATHS = [
+  { key: 'nav.members', path: 'members', icon: <PeopleIcon fontSize="small" /> },
+  { key: 'nav.settings', path: 'settings', icon: <SettingsIcon fontSize="small" /> },
 ];
 
 function SidebarNavItem({
@@ -100,6 +102,10 @@ function SidebarNavItem({
 function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   const { budget } = useBudget();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const navItems: NavItem[] = NAV_PATHS.map((p) => ({ ...p, label: t(p.key) }));
+  const bottomItems: NavItem[] = BOTTOM_NAV_PATHS.map((p) => ({ ...p, label: t(p.key) }));
 
   async function handleSignOut() {
     await signOut();
@@ -121,7 +127,7 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
           minHeight: 56,
         }}
       >
-        <Tooltip title="All budgets" placement="right">
+        <Tooltip title={t('nav.allBudgets')} placement="right">
           <IconButton size="small" onClick={() => navigate('/')} sx={{ flexShrink: 0 }}>
             <ArrowBackIcon fontSize="small" />
           </IconButton>
@@ -135,7 +141,7 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
 
       {/* Main nav */}
       <Box sx={{ flex: 1, pt: 1 }}>
-        {NAV_ITEMS.map((item) => (
+        {navItems.map((item) => (
           <SidebarNavItem
             key={item.path}
             item={item}
@@ -149,7 +155,7 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
 
       {/* Bottom nav */}
       <Box sx={{ pt: 1, pb: 1 }}>
-        {BOTTOM_NAV_ITEMS.map((item) => (
+        {bottomItems.map((item) => (
           <SidebarNavItem
             key={item.path}
             item={item}
@@ -161,8 +167,13 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
 
       <Divider />
 
+      {/* Language switcher */}
+      <LanguageSwitcher collapsed={collapsed} />
+
+      <Divider />
+
       {/* User footer */}
-      <Tooltip title={collapsed ? 'Sign out' : ''} placement="right">
+      <Tooltip title={collapsed ? t('nav.signOut') : ''} placement="right">
         <Box
           onClick={handleSignOut}
           sx={{
@@ -179,7 +190,7 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
           <AccountCircleIcon fontSize="small" sx={{ color: 'text.secondary', flexShrink: 0 }} />
           {!collapsed && (
             <Typography variant="caption" color="text.secondary" noWrap>
-              Sign out
+              {t('nav.signOut')}
             </Typography>
           )}
         </Box>
@@ -188,7 +199,7 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
       <Divider />
 
       {/* Collapse / expand row */}
-      <Tooltip title={collapsed ? 'Expand sidebar' : ''} placement="right">
+      <Tooltip title={collapsed ? t('nav.collapse') : ''} placement="right">
         <Box
           onClick={onToggle}
           sx={{
@@ -208,7 +219,7 @@ function SidebarContent({ collapsed, onToggle }: { collapsed: boolean; onToggle:
           ) : (
             <>
               <KeyboardDoubleArrowLeftIcon fontSize="small" />
-              <Typography variant="caption">Collapse</Typography>
+              <Typography variant="caption">{t('nav.collapse')}</Typography>
             </>
           )}
         </Box>

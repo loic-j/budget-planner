@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Augment DataGrid's slot props so custom toolbar props type-check correctly
 declare module '@mui/x-data-grid' {
@@ -213,20 +214,8 @@ function computeChartData(expenses: Expense[], startDate: string, endDate: strin
   return { labels, regular, loans, total: regular.map((r, i) => r + loans[i]) };
 }
 
-const RECURRING_FREQUENCY_OPTIONS = [
-  { value: 'MONTHLY', label: 'Monthly' },
-  { value: 'YEARLY', label: 'Yearly' },
-  { value: 'EVERY_X_MONTHS', label: 'Every X months' },
-  { value: 'EVERY_X_YEARS', label: 'Every X years' },
-];
-
-const LOAN_TYPE_LABELS: Record<string, string> = {
-  MORTGAGE: 'Mortgage',
-  CAR_LOAN: 'Car loan',
-  PERSONAL: 'Personal',
-  STUDENT: 'Student',
-  OTHER: 'Other',
-};
+const RECURRING_FREQUENCY_KEYS = ['MONTHLY', 'YEARLY', 'EVERY_X_MONTHS', 'EVERY_X_YEARS'] as const;
+const LOAN_TYPE_KEYS = ['MORTGAGE', 'CAR_LOAN', 'PERSONAL', 'STUDENT', 'OTHER'] as const;
 
 function expenseToRow(e: Expense): RegRow {
   return {
@@ -256,10 +245,11 @@ interface ToolbarProps {
 
 function RegularToolbar(props: ToolbarProps) {
   const { onAdd, onSave, dirty, saving, onAddCategory, onManagePersons } = props;
+  const { t } = useTranslation();
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
-        Add row
+        {t('common.addRow')}
       </Button>
       <Button
         size="small"
@@ -267,10 +257,10 @@ function RegularToolbar(props: ToolbarProps) {
         onClick={(e) => onAddCategory(e as React.MouseEvent<HTMLElement>)}
         color="inherit"
       >
-        Categories
+        {t('common.categories')}
       </Button>
       <Button size="small" onClick={onManagePersons} color="inherit">
-        Persons
+        {t('common.persons')}
       </Button>
       <Button
         size="small"
@@ -279,7 +269,7 @@ function RegularToolbar(props: ToolbarProps) {
         onClick={onSave}
         disabled={!dirty || saving}
       >
-        Save all
+        {t('common.saveAll')}
       </Button>
       <Box sx={{ flex: 1 }} />
       <GridToolbarExport />
@@ -306,6 +296,7 @@ function AddLoanDrawer({
   currency,
   onCreated,
 }: AddLoanDrawerProps) {
+  const { t } = useTranslation();
   const [name, setName] = useState('');
   const [loanType, setLoanType] = useState('MORTGAGE');
   const [totalAmount, setTotalAmount] = useState('');
@@ -364,14 +355,14 @@ function AddLoanDrawer({
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box sx={{ width: 380, p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography variant="h5">Add loan</Typography>
+          <Typography variant="h5">{t('expenses.addLoan')}</Typography>
           <IconButton size="small" onClick={onClose}>
             <CloseIcon />
           </IconButton>
         </Box>
 
         <TextField
-          label="Name"
+          label={t('common.name')}
           value={name}
           onChange={(e) => setName(e.target.value)}
           fullWidth
@@ -379,22 +370,22 @@ function AddLoanDrawer({
         />
 
         <FormControl fullWidth size="small">
-          <InputLabel>Loan category</InputLabel>
+          <InputLabel>{t('expenses.loanCategory')}</InputLabel>
           <Select
             value={loanType}
-            label="Loan category"
+            label={t('expenses.loanCategory')}
             onChange={(e) => setLoanType(e.target.value)}
           >
-            {Object.entries(LOAN_TYPE_LABELS).map(([v, l]) => (
+            {LOAN_TYPE_KEYS.map((v) => (
               <MenuItem key={v} value={v}>
-                {l}
+                {t(`loanType.${v}`)}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
 
         <TextField
-          label={`Total amount (${currency})`}
+          label={t('expenses.totalAmount', { currency })}
           value={totalAmount}
           onChange={(e) => setTotalAmount(e.target.value)}
           type="number"
@@ -402,7 +393,7 @@ function AddLoanDrawer({
           size="small"
         />
         <TextField
-          label="Annual interest rate (%)"
+          label={t('expenses.interestRate')}
           value={interestRate}
           onChange={(e) => setInterestRate(e.target.value)}
           type="number"
@@ -410,7 +401,7 @@ function AddLoanDrawer({
           size="small"
         />
         <TextField
-          label="Duration (months)"
+          label={t('expenses.durationMonths')}
           value={durationMonths}
           onChange={(e) => setDurationMonths(e.target.value)}
           type="number"
@@ -418,7 +409,7 @@ function AddLoanDrawer({
           size="small"
         />
         <TextField
-          label="Start date"
+          label={t('common.start')}
           value={loanStartDate}
           onChange={(e) => setLoanStartDate(e.target.value)}
           type="date"
@@ -429,10 +420,10 @@ function AddLoanDrawer({
 
         {persons.length > 0 && (
           <FormControl fullWidth size="small">
-            <InputLabel>Person (optional)</InputLabel>
+            <InputLabel>{t('expenses.personOptional')}</InputLabel>
             <Select
               value={personId}
-              label="Person (optional)"
+              label={t('expenses.personOptional')}
               onChange={(e) => setPersonId(e.target.value)}
             >
               <MenuItem value="">—</MenuItem>
@@ -457,7 +448,7 @@ function AddLoanDrawer({
             }}
           >
             <Typography variant="caption" color="text.secondary">
-              Monthly payment
+              {t('expenses.monthlyPayment')}
             </Typography>
             <Typography
               variant="h4"
@@ -485,7 +476,7 @@ function AddLoanDrawer({
           disabled={saving || !canCreate}
           fullWidth
         >
-          {saving ? <CircularProgress size={20} /> : 'Create loan'}
+          {saving ? <CircularProgress size={20} /> : t('expenses.addLoan')}
         </Button>
       </Box>
     </Drawer>
@@ -495,6 +486,7 @@ function AddLoanDrawer({
 // ─── LoanAmortizationPanel ────────────────────────────────────────────────────
 
 function LoanAmortizationPanel({ budgetId, expenseId }: { budgetId: string; expenseId: string }) {
+  const { t } = useTranslation();
   const [schedule, setSchedule] = useState<LoanPayment[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
@@ -533,12 +525,12 @@ function LoanAmortizationPanel({ budgetId, expenseId }: { budgetId: string; expe
       >
         <thead>
           <tr>
-            <th>#</th>
-            <th>Date</th>
-            <th style={{ textAlign: 'right' }}>Payment</th>
-            <th style={{ textAlign: 'right' }}>Principal</th>
-            <th style={{ textAlign: 'right' }}>Interest</th>
-            <th style={{ textAlign: 'right' }}>Balance</th>
+            <th>{t('expenses.paymentNo')}</th>
+            <th>{t('common.date')}</th>
+            <th style={{ textAlign: 'right' }}>{t('expenses.monthly')}</th>
+            <th style={{ textAlign: 'right' }}>{t('expenses.principal')}</th>
+            <th style={{ textAlign: 'right' }}>{t('expenses.interest')}</th>
+            <th style={{ textAlign: 'right' }}>{t('expenses.balance')}</th>
           </tr>
         </thead>
         <tbody>
@@ -580,6 +572,7 @@ interface ExpensesTabProps {
 }
 
 export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
+  const { t } = useTranslation();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [persons, setPersons] = useState<Person[]>([]);
@@ -693,7 +686,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
       const dirtyRows = rows.filter((r) => !r.isNew && dirtyIds.has(r.id));
 
       if ([...newRows, ...dirtyRows].some((r) => !(r.amount > 0))) {
-        setSnack('Amount must be greater than 0');
+        setSnack(t('errors.amountRequired'));
         setSaving(false);
         return;
       }
@@ -738,9 +731,9 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
       ]);
 
       await loadData();
-      setSnack('Saved');
+      setSnack(t('common.saved'));
     } catch (e) {
-      setSnack('Save failed: ' + (e as Error).message);
+      setSnack(t('errors.saveFailed', { message: (e as Error).message }));
     } finally {
       setSaving(false);
     }
@@ -850,12 +843,17 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
     [persons]
   );
 
+  const freqOptions = useMemo(
+    () => RECURRING_FREQUENCY_KEYS.map((v) => ({ value: v, label: t(`freq.${v}`) })),
+    [t]
+  );
+
   const columns: GridColDef<RegRow>[] = useMemo(
     () => [
-      { field: 'name', headerName: 'Name', editable: true, flex: 1, minWidth: 140 },
+      { field: 'name', headerName: t('common.name'), editable: true, flex: 1, minWidth: 140 },
       {
         field: 'categoryId',
-        headerName: 'Category',
+        headerName: t('common.category'),
         editable: true,
         width: 150,
         type: 'singleSelect',
@@ -863,36 +861,42 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
       },
       {
         field: 'amount',
-        headerName: 'Amount',
+        headerName: t('common.amount'),
         editable: true,
         type: 'number',
         width: 100,
       },
       {
         field: 'frequency',
-        headerName: 'Frequency',
+        headerName: t('common.frequency'),
         editable: true,
         width: 150,
         type: 'singleSelect',
-        valueOptions: RECURRING_FREQUENCY_OPTIONS,
+        valueOptions: freqOptions,
       },
       {
         field: 'frequencyValue',
-        headerName: 'Every N',
+        headerName: t('common.everyN'),
         editable: true,
         type: 'number',
         width: 90,
       },
       {
         field: 'personId',
-        headerName: 'Person',
+        headerName: t('common.person'),
         editable: true,
         width: 130,
         type: 'singleSelect',
         valueOptions: personOptions,
       },
-      { field: 'startDate', headerName: 'Start', editable: true, type: 'date', width: 120 },
-      { field: 'endDate', headerName: 'End', editable: true, type: 'date', width: 120 },
+      {
+        field: 'startDate',
+        headerName: t('common.start'),
+        editable: true,
+        type: 'date',
+        width: 120,
+      },
+      { field: 'endDate', headerName: t('common.end'), editable: true, type: 'date', width: 120 },
       {
         field: 'actions',
         type: 'actions',
@@ -901,36 +905,48 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           <GridActionsCellItem
             key="del"
             icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
-            label="Delete"
+            label={t('common.delete')}
             onClick={() => deleteRow(id as string)}
           />,
         ],
       },
     ],
-    [catOptions, personOptions]
+    [catOptions, personOptions, freqOptions, t]
   );
 
   const oneTimeColumns: GridColDef<RegRow>[] = useMemo(
     () => [
-      { field: 'name', headerName: 'Name', editable: true, flex: 1, minWidth: 140 },
+      { field: 'name', headerName: t('common.name'), editable: true, flex: 1, minWidth: 140 },
       {
         field: 'categoryId',
-        headerName: 'Category',
+        headerName: t('common.category'),
         editable: true,
         width: 150,
         type: 'singleSelect',
         valueOptions: catOptions,
       },
-      { field: 'amount', headerName: 'Amount', editable: true, type: 'number', width: 100 },
+      {
+        field: 'amount',
+        headerName: t('common.amount'),
+        editable: true,
+        type: 'number',
+        width: 100,
+      },
       {
         field: 'personId',
-        headerName: 'Person',
+        headerName: t('common.person'),
         editable: true,
         width: 130,
         type: 'singleSelect',
         valueOptions: personOptions,
       },
-      { field: 'startDate', headerName: 'Date', editable: true, type: 'date', width: 130 },
+      {
+        field: 'startDate',
+        headerName: t('common.date'),
+        editable: true,
+        type: 'date',
+        width: 130,
+      },
       {
         field: 'actions',
         type: 'actions',
@@ -939,13 +955,13 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           <GridActionsCellItem
             key="del"
             icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
-            label="Delete"
+            label={t('common.delete')}
             onClick={() => deleteRow(id as string)}
           />,
         ],
       },
     ],
-    [catOptions, personOptions]
+    [catOptions, personOptions, t]
   );
 
   const loanExpenses = expenses.filter((e) => e.type === 'LOAN');
@@ -976,7 +992,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           }}
         >
           <Box sx={{ px: 3, pt: 2, pb: 1 }}>
-            <Typography variant="h6">Monthly expense projection</Typography>
+            <Typography variant="h6">{t('expenses.chartTitle')}</Typography>
           </Box>
           <ChartCategoryFilter
             categories={categories}
@@ -985,8 +1001,8 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
             onChange={setSelectedChartCategories}
           />
           <ChartCategoryFilter
-            label="Persons"
-            unassignedLabel="No person"
+            label={t('chart.persons')}
+            unassignedLabel={t('common.noPerson')}
             categories={persons}
             selected={selectedPersons}
             hasUncategorized={hasUnassignedPerson}
@@ -995,9 +1011,13 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
           <LineChart
             height={260}
             series={[
-              { data: displayChart.regular, label: 'Recurring', color: '#42a5f5' },
-              { data: displayChart.loans, label: 'Loans', color: '#ef5350' },
-              { data: displayChart.total, label: 'Total', color: '#009688' },
+              {
+                data: displayChart.regular,
+                label: t('expenses.seriesRecurring'),
+                color: '#42a5f5',
+              },
+              { data: displayChart.loans, label: t('expenses.seriesLoans'), color: '#ef5350' },
+              { data: displayChart.total, label: t('expenses.seriesTotal'), color: '#009688' },
             ]}
             xAxis={[
               {
@@ -1024,9 +1044,9 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
 
       {/* ── Sub-tabs: Recurring / One-time / Loans ── */}
       <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v as number)} sx={{ mb: 2 }}>
-        <Tab label={`Recurring (${recurringRows.length})`} />
-        <Tab label={`One-time (${oneTimeRows.length})`} />
-        <Tab label={`Loans (${loanExpenses.length})`} />
+        <Tab label={`${t('expenses.recurring')} (${recurringRows.length})`} />
+        <Tab label={`${t('expenses.oneTime')} (${oneTimeRows.length})`} />
+        <Tab label={`${t('expenses.loans')} (${loanExpenses.length})`} />
       </Tabs>
 
       {/* ── Recurring expenses DataGrid ── */}
@@ -1113,13 +1133,13 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
               startIcon={<AddIcon />}
               onClick={() => setLoanDrawerOpen(true)}
             >
-              Add loan
+              {t('expenses.addLoan')}
             </Button>
           </Box>
 
           {loanExpenses.length === 0 ? (
             <Typography color="text.secondary" variant="body2" sx={{ py: 4, textAlign: 'center' }}>
-              No loans yet. Click "Add loan" to create one.
+              {t('expenses.noLoans')}
             </Typography>
           ) : (
             <Box
@@ -1152,9 +1172,7 @@ export function ExpensesTab({ budgetId, budget }: ExpensesTabProps) {
                         </Typography>
                         {loan.loanDetail && (
                           <Chip
-                            label={
-                              LOAN_TYPE_LABELS[loan.loanDetail.loanType] ?? loan.loanDetail.loanType
-                            }
+                            label={t(`loanType.${loan.loanDetail.loanType}`)}
                             size="small"
                             sx={{ height: 20, fontSize: 11 }}
                           />

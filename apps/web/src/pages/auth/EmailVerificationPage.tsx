@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, Link, Typography } from '@mui/material';
 import { MarkEmailUnread } from '@mui/icons-material';
 import { Link as RouterLink, useLocation, useSearchParams } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { AuthCard } from '@/components/auth/AuthCard';
 const RESEND_COOLDOWN = 60;
 
 export default function EmailVerificationPage() {
+  const { t } = useTranslation();
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
@@ -43,12 +45,12 @@ export default function EmailVerificationPage() {
   };
 
   return (
-    <AuthCard title="Check your email" subtitle="">
+    <AuthCard title={t('auth.verifyEmailTitle')} subtitle="">
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
         <MarkEmailUnread sx={{ fontSize: 56, color: 'primary.main', mb: 1 }} />
 
         <Typography variant="body1" align="center" color="text.secondary">
-          We sent a verification link to
+          {t('auth.verifyEmailSentTo')}
         </Typography>
 
         {email && (
@@ -59,7 +61,7 @@ export default function EmailVerificationPage() {
 
         {resendSuccess && (
           <Typography variant="body2" color="success.main" align="center">
-            Verification email resent. Check your inbox.
+            {t('auth.verifyEmailResent')}
           </Typography>
         )}
 
@@ -76,13 +78,15 @@ export default function EmailVerificationPage() {
           disabled={cooldown > 0}
           sx={{ mt: 1 }}
         >
-          {cooldown > 0 ? `Resend email (${cooldown}s)` : 'Resend email'}
+          {cooldown > 0
+            ? t('auth.resendEmailCooldown', { seconds: cooldown })
+            : t('auth.resendEmail')}
         </Button>
 
         <Typography variant="body2" color="text.secondary" align="center">
-          Wrong email?{' '}
+          {t('auth.wrongEmail')}{' '}
           <Link component={RouterLink} to="/login" color="primary">
-            Sign in again
+            {t('auth.signInAgain')}
           </Link>
         </Typography>
       </Box>

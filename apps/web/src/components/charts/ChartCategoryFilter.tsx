@@ -1,4 +1,5 @@
 import { Box, Chip, Collapse, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
@@ -19,13 +20,16 @@ interface Props {
 }
 
 export function ChartCategoryFilter({
-  label = 'Categories',
-  unassignedLabel = 'Uncategorized',
+  label,
+  unassignedLabel,
   categories,
   selected,
   hasUncategorized,
   onChange,
 }: Props) {
+  const { t } = useTranslation();
+  const resolvedLabel = label ?? t('common.categories');
+  const resolvedUnassignedLabel = unassignedLabel ?? t('common.uncategorized');
   const [open, setOpen] = useState(false);
 
   if (categories.length === 0 && !hasUncategorized) return null;
@@ -54,11 +58,11 @@ export function ChartCategoryFilter({
       >
         <FilterListIcon sx={{ fontSize: 14, color: 'text.secondary' }} />
         <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
-          {label}
+          {resolvedLabel}
         </Typography>
         {!open && selected.size > 0 && (
           <Chip
-            label={`${selected.size} active`}
+            label={t('chart.activeFilters', { count: selected.size })}
             size="small"
             color="primary"
             sx={{ height: 18, fontSize: 10, ml: 0.25 }}
@@ -75,7 +79,7 @@ export function ChartCategoryFilter({
       <Collapse in={open}>
         <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', px: 3, pt: 0.5, pb: 1.5 }}>
           <Chip
-            label="All"
+            label={t('common.all')}
             size="small"
             variant={selected.size === 0 ? 'filled' : 'outlined'}
             color={selected.size === 0 ? 'primary' : 'default'}
@@ -95,7 +99,7 @@ export function ChartCategoryFilter({
           ))}
           {hasUncategorized && (
             <Chip
-              label={unassignedLabel}
+              label={resolvedUnassignedLabel}
               size="small"
               variant={selected.has('') ? 'filled' : 'outlined'}
               color={selected.has('') ? 'primary' : 'default'}

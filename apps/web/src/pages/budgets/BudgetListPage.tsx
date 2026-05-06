@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -70,6 +71,7 @@ function formatDateRange(start: string, end: string) {
 }
 
 export default function BudgetListPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [loading, setLoading] = useState(true);
@@ -173,10 +175,10 @@ export default function BudgetListPage() {
             startIcon={<AccountCircleIcon />}
             onClick={() => navigate('/profile')}
           >
-            Profile
+            {t('budgetList.profile')}
           </Button>
           <Button variant="text" size="small" onClick={handleSignOut}>
-            Sign out
+            {t('budgetList.signOut')}
           </Button>
         </Box>
       </Box>
@@ -184,9 +186,9 @@ export default function BudgetListPage() {
       {/* Content */}
       <Box sx={{ maxWidth: 960, mx: 'auto', p: 3 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
-          <Typography variant="h4">My Budgets</Typography>
+          <Typography variant="h4">{t('budgetList.title')}</Typography>
           <Button variant="contained" startIcon={<AddIcon />} onClick={openDialog}>
-            New budget
+            {t('budgetList.newBudget')}
           </Button>
         </Box>
 
@@ -214,13 +216,11 @@ export default function BudgetListPage() {
           >
             <AccountBalanceWalletIcon sx={{ fontSize: 56, color: 'text.disabled' }} />
             <Typography variant="h5" color="text.secondary">
-              No budgets yet
+              {t('budgetList.noBudgets')}
             </Typography>
-            <Typography color="text.disabled">
-              Create your first budget to start planning your finances.
-            </Typography>
+            <Typography color="text.disabled">{t('budgetList.noBudgetsHint')}</Typography>
             <Button variant="contained" startIcon={<AddIcon />} onClick={openDialog} sx={{ mt: 1 }}>
-              Create first budget
+              {t('budgetList.createFirst')}
             </Button>
           </Box>
         )}
@@ -276,7 +276,10 @@ export default function BudgetListPage() {
                           variant="body2"
                           sx={{ mt: 1, color: 'success.main', fontVariantNumeric: 'tabular-nums' }}
                         >
-                          Savings: {budget.initialSaving.toLocaleString()} {budget.currency}
+                          {t('budgetList.savingsDisplay', {
+                            amount: budget.initialSaving.toLocaleString(),
+                            currency: budget.currency,
+                          })}
                         </Typography>
                       )}
                     </CardContent>
@@ -291,7 +294,7 @@ export default function BudgetListPage() {
       {/* Create Dialog */}
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
-          New Budget
+          {t('budgetList.newBudgetTitle')}
         </DialogTitle>
         <form onSubmit={handleSubmit(onCreate)}>
           <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 3 }}>
@@ -301,7 +304,7 @@ export default function BudgetListPage() {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  label="Budget name"
+                  label={t('budgetList.budgetName')}
                   fullWidth
                   error={!!errors.name}
                   helperText={errors.name?.message}
@@ -313,7 +316,13 @@ export default function BudgetListPage() {
               name="description"
               control={control}
               render={({ field }) => (
-                <TextField {...field} label="Description (optional)" fullWidth multiline rows={2} />
+                <TextField
+                  {...field}
+                  label={t('budgetList.description')}
+                  fullWidth
+                  multiline
+                  rows={2}
+                />
               )}
             />
             <Controller
@@ -323,7 +332,7 @@ export default function BudgetListPage() {
                 <TextField
                   {...field}
                   select
-                  label="Currency"
+                  label={t('common.currency')}
                   fullWidth
                   error={!!errors.currency}
                   helperText={errors.currency?.message}
@@ -343,7 +352,7 @@ export default function BudgetListPage() {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Start date"
+                    label={t('budgetList.startDate')}
                     type="date"
                     fullWidth
                     slotProps={{ inputLabel: { shrink: true } }}
@@ -358,7 +367,7 @@ export default function BudgetListPage() {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="End date"
+                    label={t('budgetList.endDate')}
                     type="date"
                     fullWidth
                     slotProps={{ inputLabel: { shrink: true } }}
@@ -375,12 +384,12 @@ export default function BudgetListPage() {
                 <TextField
                   {...field}
                   onChange={(e) => field.onChange((e.target as HTMLInputElement).valueAsNumber)}
-                  label="Initial savings"
+                  label={t('budgetList.initialSaving')}
                   type="number"
                   fullWidth
                   slotProps={{ htmlInput: { min: 0 } }}
                   error={!!errors.initialSaving}
-                  helperText={errors.initialSaving?.message ?? 'Starting savings balance'}
+                  helperText={errors.initialSaving?.message ?? t('budgetList.initialSavingHint')}
                 />
               )}
             />
@@ -388,10 +397,10 @@ export default function BudgetListPage() {
           <Divider />
           <DialogActions sx={{ px: 3, py: 2, gap: 1 }}>
             <Button variant="text" onClick={() => setDialogOpen(false)} disabled={saving}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button variant="contained" type="submit" disabled={saving}>
-              {saving ? <CircularProgress size={20} /> : 'Create'}
+              {saving ? <CircularProgress size={20} /> : t('budgetList.create')}
             </Button>
           </DialogActions>
         </form>

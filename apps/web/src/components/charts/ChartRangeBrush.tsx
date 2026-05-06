@@ -1,4 +1,5 @@
 import { Box, Slider, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export type ChartGranularity = 'monthly' | 'yearly';
 
@@ -32,6 +33,7 @@ export function ChartRangeBrush({
   onRangeChange,
   onGranularityChange,
 }: Props) {
+  const { t } = useTranslation();
   const minNum = toMonthNum(minMonth);
   const maxNum = toMonthNum(maxMonth);
   const startNum = toMonthNum(startMonth);
@@ -47,17 +49,17 @@ export function ChartRangeBrush({
           size="small"
         >
           <ToggleButton value="monthly" sx={{ px: 1.5, py: 0.25, fontSize: 12 }}>
-            Month
+            {t('granularity.monthly')}
           </ToggleButton>
           <ToggleButton value="yearly" sx={{ px: 1.5, py: 0.25, fontSize: 12 }}>
-            Year
+            {t('granularity.yearly')}
           </ToggleButton>
         </ToggleButtonGroup>
         <Box sx={{ flex: 1 }} />
         <TextField
           type="month"
           size="small"
-          label="From"
+          label={t('common.from')}
           value={startMonth}
           onChange={(e) => e.target.value && onRangeChange(e.target.value, endMonth)}
           slotProps={{ htmlInput: { min: minMonth, max: endMonth } }}
@@ -66,7 +68,7 @@ export function ChartRangeBrush({
         <TextField
           type="month"
           size="small"
-          label="To"
+          label={t('common.to')}
           value={endMonth}
           onChange={(e) => e.target.value && onRangeChange(startMonth, e.target.value)}
           slotProps={{ htmlInput: { min: startMonth, max: maxMonth } }}

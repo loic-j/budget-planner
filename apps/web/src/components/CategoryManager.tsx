@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   CircularProgress,
@@ -44,6 +45,7 @@ export function CategoryManager({
   categories,
   onCategoryChange,
 }: Props) {
+  const { t } = useTranslation();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState('');
   const [newName, setNewName] = useState('');
@@ -116,7 +118,7 @@ export function CategoryManager({
     >
       <Box sx={{ px: 2, pt: 1.5, pb: 1 }}>
         <Typography variant="overline" color="text.secondary" sx={{ fontSize: 11 }}>
-          Categories
+          {t('categoryMgr.title')}
         </Typography>
       </Box>
 
@@ -129,7 +131,7 @@ export function CategoryManager({
             color="text.disabled"
             sx={{ px: 2, py: 2, textAlign: 'center' }}
           >
-            No categories yet
+            {t('categoryMgr.noCategories')}
           </Typography>
         )}
         {categories.map((cat) => (
@@ -184,12 +186,12 @@ export function CategoryManager({
                   className="cat-actions"
                   sx={{ display: 'flex', opacity: 0, transition: 'opacity 0.15s' }}
                 >
-                  <Tooltip title="Rename" placement="top">
+                  <Tooltip title={t('categoryMgr.rename')} placement="top">
                     <IconButton size="small" onClick={() => startEdit(cat)}>
                       <EditIcon sx={{ fontSize: 14 }} />
                     </IconButton>
                   </Tooltip>
-                  <Tooltip title="Delete" placement="top">
+                  <Tooltip title={t('common.delete')} placement="top">
                     <IconButton
                       size="small"
                       disabled={busyId === cat.id}
@@ -216,7 +218,7 @@ export function CategoryManager({
       <Box sx={{ px: 1.5, py: 1, display: 'flex', gap: 0.5, alignItems: 'center' }}>
         <TextField
           size="small"
-          placeholder="New category…"
+          placeholder={t('categoryMgr.placeholder')}
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           onKeyDown={(e) => {
@@ -225,7 +227,7 @@ export function CategoryManager({
           sx={{ flex: 1 }}
           slotProps={{ htmlInput: { style: { fontSize: 13, padding: '4px 8px' } } }}
         />
-        <Tooltip title="Add" placement="top">
+        <Tooltip title={t('common.add')} placement="top">
           <span>
             <IconButton
               size="small"

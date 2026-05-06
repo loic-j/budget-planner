@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { useBudget } from '@/contexts/BudgetContext';
@@ -99,6 +100,7 @@ function aggregatePtsYearly(pts: ProjectionPoint[]): ProjectionPoint[] {
 }
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { budget } = useBudget();
   const [projection, setProjection] = useState<ProjectionResponse | null>(null);
@@ -161,21 +163,29 @@ export default function DashboardPage() {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        Dashboard
+        {t('dashboard.title')}
       </Typography>
 
       {/* Stat cards */}
       <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mb: 4 }}>
-        <StatCard label="Monthly Revenue" value={monthlyRevenue} currency={budget.currency} />
-        <StatCard label="Monthly Expenses" value={monthlyExpense} currency={budget.currency} />
         <StatCard
-          label="Net Cash Flow / mo"
+          label={t('dashboard.monthlyRevenue')}
+          value={monthlyRevenue}
+          currency={budget.currency}
+        />
+        <StatCard
+          label={t('dashboard.monthlyExpenses')}
+          value={monthlyExpense}
+          currency={budget.currency}
+        />
+        <StatCard
+          label={t('dashboard.netCashFlow')}
           value={netCashFlow}
           currency={budget.currency}
           positive
         />
         <StatCard
-          label="Final Net Worth"
+          label={t('dashboard.finalNetWorth')}
           value={finalNetWorth}
           currency={budget.currency}
           positive
@@ -194,7 +204,7 @@ export default function DashboardPage() {
         }}
       >
         <Box sx={{ p: 3, pb: 0 }}>
-          <Typography variant="h6">Net Worth Over Time</Typography>
+          <Typography variant="h6">{t('dashboard.netWorthOverTime')}</Typography>
         </Box>
         {displayData.count > 0 ? (
           <>
@@ -210,12 +220,16 @@ export default function DashboardPage() {
               series={[
                 {
                   data: displayData.netWorthSeries,
-                  label: 'Net Worth',
+                  label: t('dashboard.netWorth'),
                   color: '#009688',
                   area: true,
                 },
-                { data: displayData.cashSeries, label: 'Cash', color: '#42a5f5' },
-                { data: displayData.savingsSeries, label: 'Savings', color: '#66bb6a' },
+                { data: displayData.cashSeries, label: t('dashboard.cash'), color: '#42a5f5' },
+                {
+                  data: displayData.savingsSeries,
+                  label: t('dashboard.savings'),
+                  color: '#66bb6a',
+                },
               ]}
               margin={{ top: 10, right: 20, bottom: 40, left: 70 }}
             />
@@ -234,7 +248,7 @@ export default function DashboardPage() {
           </>
         ) : (
           <Box sx={{ p: 3, pt: 1 }}>
-            <Typography color="text.secondary">No data yet.</Typography>
+            <Typography color="text.secondary">{t('common.noDataYet')}</Typography>
           </Box>
         )}
       </Box>
@@ -251,7 +265,7 @@ export default function DashboardPage() {
         }}
       >
         <Box sx={{ p: 3, pb: 0 }}>
-          <Typography variant="h6">Monthly Cash Flow</Typography>
+          <Typography variant="h6">{t('dashboard.monthlyCashFlow')}</Typography>
         </Box>
         {displayData.count > 0 ? (
           <>
@@ -265,8 +279,16 @@ export default function DashboardPage() {
                 },
               ]}
               series={[
-                { data: displayData.revenueSeries, label: 'Revenue', color: '#66bb6a' },
-                { data: displayData.expenseSeries, label: 'Expenses', color: '#ef5350' },
+                {
+                  data: displayData.revenueSeries,
+                  label: t('dashboard.revenue'),
+                  color: '#66bb6a',
+                },
+                {
+                  data: displayData.expenseSeries,
+                  label: t('dashboard.expenses'),
+                  color: '#ef5350',
+                },
               ]}
               margin={{ top: 10, right: 20, bottom: 40, left: 70 }}
             />
@@ -285,7 +307,7 @@ export default function DashboardPage() {
           </>
         ) : (
           <Box sx={{ p: 3, pt: 1 }}>
-            <Typography color="text.secondary">No data yet.</Typography>
+            <Typography color="text.secondary">{t('common.noDataYet')}</Typography>
           </Box>
         )}
       </Box>
@@ -302,7 +324,7 @@ export default function DashboardPage() {
           }}
         >
           <Box sx={{ px: 3, pt: 2, pb: 1 }}>
-            <Typography variant="h6">Person Ages by Year</Typography>
+            <Typography variant="h6">{t('dashboard.personAgesByYear')}</Typography>
           </Box>
           <Box sx={{ overflowX: 'auto', px: 3, pb: 3 }}>
             <Box component="table" sx={{ borderCollapse: 'collapse', width: '100%', fontSize: 13 }}>
@@ -320,7 +342,7 @@ export default function DashboardPage() {
                       bgcolor: '#2a2a2a',
                     }}
                   >
-                    Person
+                    {t('common.person')}
                   </Box>
                   {Object.keys(persons[0]?.ageByYear ?? {}).map((yr) => (
                     <Box
@@ -359,7 +381,7 @@ export default function DashboardPage() {
                         color="text.secondary"
                         sx={{ ml: 1, textTransform: 'lowercase' }}
                       >
-                        {p.type}
+                        {t(`personType.${p.type}`)}
                       </Typography>
                     </Box>
                     {Object.values(p.ageByYear).map((age, i) => (

@@ -39,6 +39,7 @@ Full-stack TypeScript monorepo (pnpm workspaces). Backend and frontend share typ
 | Charts     | MUI X Charts             | ^7.x            | `@mui/x-charts` — LineChart, BarChart, PieChart — auto-syncs MUI theme and dark mode, no manual color wiring |
 | Data Grid  | MUI X DataGrid           | ^7.x            | `@mui/x-data-grid` free tier — inline row editing for bulk expense/revenue entry                             |
 | API Client | Hono RPC (`hono/client`) | same as backend | End-to-end type safety, no code-gen                                                                          |
+| i18n       | react-i18next + i18next  | ^15.x           | EN/JA/FR; language persisted in `localStorage` (`i18n-lang`); translations in `src/locales/{en,ja,fr}/`      |
 
 ---
 

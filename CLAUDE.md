@@ -13,6 +13,7 @@ Personal finance planning app where users model revenues, expenses, assets, and 
 - **Monorepo:** pnpm workspaces
 - **Testing:** Vitest (unit/integration), Playwright (E2E)
 - **Observability:** Pino (logging), OpenTelemetry + Jaeger (tracing)
+- **i18n:** react-i18next — English (default), Japanese, French; language saved in `localStorage` (`i18n-lang`)
 
 **Documentation:** See @docs/README.md for full doc index.
 
@@ -363,6 +364,57 @@ When the user says "do next task" or similar, **always pair an API task with its
 
 ---
 
+## Multilingual (i18n)
+
+The app supports **English** (default), **Japanese**, and **French** via `react-i18next`.
+
+- Translation files: `apps/web/src/locales/{en,ja,fr}/translation.json`
+- Language detection order: `localStorage` (`i18n-lang`) → browser navigator
+- i18n initialized in `apps/web/src/i18n.ts`, imported once in `main.tsx`
+
+### Rules for new UI strings
+
+1. **Never hardcode UI text** — always use `t('key')` from `useTranslation()`
+2. **Sub-components** defined outside a parent must call `useTranslation()` themselves
+3. **Static label arrays** (e.g. `singleSelect` valueOptions for DataGrid) must be computed inside `useMemo` with `t` in the dependency array so they update on language change:
+   ```ts
+   const FREQ_KEYS = ['MONTHLY', 'YEARLY'] as const;
+   const freqOptions = useMemo(
+     () => FREQ_KEYS.map((v) => ({ value: v, label: t(`freq.${v}`) })),
+     [t]
+   );
+   ```
+4. **Preset category names** — use the `useCatName` hook (`apps/web/src/hooks/useCatName.ts`) which translates via `t('cat.{type_lower}.{icon}')` with fallback to `cat.name`
+5. **Add keys to all three locale files** (en, ja, fr) when adding new translatable strings
+
+### Key translation namespaces
+
+| Namespace      | Usage                                          |
+| -------------- | ---------------------------------------------- |
+| `common.*`     | Shared labels (Save, Cancel, Delete…)          |
+| `nav.*`        | Sidebar navigation                             |
+| `auth.*`       | Login, register, verify email pages            |
+| `invite.*`     | Invite accept page                             |
+| `profile.*`    | User profile page                              |
+| `budgetList.*` | Budget list page                               |
+| `settings.*`   | Budget settings + people management            |
+| `expenses.*`   | Expenses tab                                   |
+| `revenues.*`   | Revenues tab                                   |
+| `savings.*`    | Savings tab                                    |
+| `assets.*`     | Assets tab                                     |
+| `members.*`    | Members page                                   |
+| `dashboard.*`  | Dashboard page                                 |
+| `cat.*`        | Preset category names (expense/revenue/saving) |
+| `freq.*`       | Frequency enum labels                          |
+| `loanType.*`   | Loan type enum labels                          |
+| `assetType.*`  | Asset type enum labels                         |
+| `personType.*` | Person type enum labels                        |
+| `sex.*`        | Sex enum labels                                |
+| `role.*`       | Budget role labels                             |
+| `errors.*`     | Error messages with interpolation              |
+
+---
+
 ## What NOT to Do
 
 1. ❌ Prisma directly in use cases → ✅ repository pattern
@@ -379,6 +431,6 @@ When the user says "do next task" or similar, **always pair an API task with its
 
 ---
 
-**Last Updated:** 2026-05-04
-**Phase:** Auth + Budget CRUD + Members/Invites complete
+**Last Updated:** 2026-05-06
+**Phase:** Auth + Budget CRUD + Members/Invites + Full i18n (EN/JA/FR) complete
 **Next:** Expenses, Revenues, Savings screens

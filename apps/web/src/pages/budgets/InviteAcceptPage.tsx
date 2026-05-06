@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined';
@@ -29,6 +30,7 @@ type State =
   | { phase: 'error'; message: string };
 
 export default function InviteAcceptPage() {
+  const { t } = useTranslation();
   const { token } = useParams<{ token: string }>();
   const navigate = useNavigate();
   const [state, setState] = useState<State>({ phase: 'loading' });
@@ -39,10 +41,7 @@ export default function InviteAcceptPage() {
       .then((data: unknown) => {
         const preview = data as InvitePreview;
         if (!preview.isValid) {
-          setState({
-            phase: 'invalid',
-            reason: 'This invite link has expired or reached its usage limit.',
-          });
+          setState({ phase: 'invalid', reason: t('invite.expiredReason') });
         } else {
           setState({ phase: 'preview', preview });
         }
@@ -50,15 +49,12 @@ export default function InviteAcceptPage() {
       .catch((e: Error) => {
         const msg = e.message.toLowerCase();
         if (msg.includes('404') || msg.includes('not found')) {
-          setState({
-            phase: 'invalid',
-            reason: 'This invite link is invalid or has been revoked.',
-          });
+          setState({ phase: 'invalid', reason: t('invite.invalidReason') });
         } else {
           setState({ phase: 'error', message: e.message });
         }
       });
-  }, [token]);
+  }, [token, t]);
 
   async function handleAccept() {
     if (!token) return;
@@ -76,9 +72,7 @@ export default function InviteAcceptPage() {
       }
       setState({
         phase: 'error',
-        message: msg.toLowerCase().includes('already a member')
-          ? 'You are already a member of this budget.'
-          : msg,
+        message: msg.toLowerCase().includes('already a member') ? t('invite.alreadyMember') : msg,
       });
     }
   }
@@ -110,7 +104,7 @@ export default function InviteAcceptPage() {
         {state.phase === 'loading' && (
           <>
             <Typography variant="h4" gutterBottom>
-              Loading…
+              {t('common.loading')}
             </Typography>
             <CircularProgress sx={{ mt: 2 }} />
           </>
@@ -119,20 +113,21 @@ export default function InviteAcceptPage() {
         {state.phase === 'preview' && (
           <>
             <Typography variant="h4" gutterBottom>
-              You're invited!
+              {t('invite.invited')}
             </Typography>
             <Typography color="text.secondary" sx={{ mb: 3 }}>
-              Join{' '}
+              {t('invite.join')}{' '}
               <strong style={{ color: 'rgba(255,255,255,0.87)' }}>
                 {state.preview.budgetName}
               </strong>{' '}
-              as <strong style={{ color: 'rgba(255,255,255,0.87)' }}>{state.preview.role}</strong>
+              {t('invite.as')}{' '}
+              <strong style={{ color: 'rgba(255,255,255,0.87)' }}>{state.preview.role}</strong>
             </Typography>
             <Button variant="contained" fullWidth size="large" onClick={handleAccept}>
-              Accept invitation
+              {t('invite.accept')}
             </Button>
             <Button variant="text" fullWidth sx={{ mt: 1 }} onClick={() => navigate('/')}>
-              Decline
+              {t('invite.decline')}
             </Button>
           </>
         )}
@@ -140,7 +135,7 @@ export default function InviteAcceptPage() {
         {state.phase === 'accepting' && (
           <>
             <Typography variant="h4" gutterBottom>
-              Joining…
+              {t('invite.joining')}
             </Typography>
             <CircularProgress sx={{ mt: 2 }} />
           </>
@@ -150,17 +145,17 @@ export default function InviteAcceptPage() {
           <>
             <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'success.main', mb: 1 }} />
             <Typography variant="h4" gutterBottom>
-              You're in!
+              {t('invite.success')}
             </Typography>
             <Typography color="text.secondary" sx={{ mb: 3 }}>
-              You've joined the budget successfully.
+              {t('invite.successDesc')}
             </Typography>
             <Button
               variant="contained"
               fullWidth
               onClick={() => navigate(`/budgets/${state.budgetId}`)}
             >
-              Open budget
+              {t('invite.openBudget')}
             </Button>
           </>
         )}
@@ -169,13 +164,13 @@ export default function InviteAcceptPage() {
           <>
             <ErrorOutlineIcon sx={{ fontSize: 48, color: 'error.main', mb: 1 }} />
             <Typography variant="h4" gutterBottom>
-              {state.phase === 'invalid' ? 'Link unavailable' : 'Something went wrong'}
+              {state.phase === 'invalid' ? t('invite.linkUnavailable') : t('invite.errorTitle')}
             </Typography>
             <Typography color="text.secondary" sx={{ mb: 3 }}>
               {state.phase === 'invalid' ? state.reason : state.message}
             </Typography>
             <Button variant="contained" fullWidth onClick={() => navigate('/')}>
-              Go to my budgets
+              {t('invite.goToBudgets')}
             </Button>
           </>
         )}

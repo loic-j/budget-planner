@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -29,27 +30,28 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-const passwordCriteria = [
-  { label: '8+ chars', test: (v: string) => v.length >= 8 },
-  { label: 'Uppercase', test: (v: string) => /[A-Z]/.test(v) },
-  { label: 'Number', test: (v: string) => /[0-9]/.test(v) },
-  { label: 'Special char', test: (v: string) => /[^A-Za-z0-9]/.test(v) },
+const PASSWORD_TESTS = [
+  { key: 'auth.criteria8chars', test: (v: string) => v.length >= 8 },
+  { key: 'auth.criteriaUppercase', test: (v: string) => /[A-Z]/.test(v) },
+  { key: 'auth.criteriaNumber', test: (v: string) => /[0-9]/.test(v) },
+  { key: 'auth.criteriaSpecial', test: (v: string) => /[^A-Za-z0-9]/.test(v) },
 ];
 
 function PasswordStrength({ password }: { password: string }) {
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: 'flex', gap: 1.5, flexWrap: 'wrap', mt: 0.5 }}>
-      {passwordCriteria.map(({ label, test }) => {
+      {PASSWORD_TESTS.map(({ key, test }) => {
         const met = test(password);
         return (
-          <Box key={label} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <Box key={key} sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             {met ? (
               <CheckCircle sx={{ fontSize: 14, color: 'success.main' }} />
             ) : (
               <RadioButtonUnchecked sx={{ fontSize: 14, color: 'text.disabled' }} />
             )}
             <Typography variant="caption" color={met ? 'success.main' : 'text.disabled'}>
-              {label}
+              {t(key)}
             </Typography>
           </Box>
         );
@@ -59,6 +61,7 @@ function PasswordStrength({ password }: { password: string }) {
 }
 
 export default function RegisterPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -93,7 +96,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <AuthCard title="Budget Planner" subtitle="Create your account">
+    <AuthCard title="Budget Planner" subtitle={t('auth.registerSubtitle')}>
       <Box
         component="form"
         onSubmit={handleSubmit(onSubmit)}
@@ -106,7 +109,7 @@ export default function RegisterPage() {
           render={({ field }) => (
             <TextField
               {...field}
-              label="Full name"
+              label={t('auth.name')}
               fullWidth
               autoComplete="name"
               error={!!errors.name}
@@ -121,7 +124,7 @@ export default function RegisterPage() {
           render={({ field }) => (
             <TextField
               {...field}
-              label="Email address"
+              label={t('auth.email')}
               type="email"
               fullWidth
               autoComplete="email"
@@ -138,7 +141,7 @@ export default function RegisterPage() {
             <Box>
               <TextField
                 {...field}
-                label="Password"
+                label={t('auth.password')}
                 type={showPassword ? 'text' : 'password'}
                 fullWidth
                 autoComplete="new-password"
@@ -184,13 +187,13 @@ export default function RegisterPage() {
           disabled={isSubmitting}
           sx={{ mt: 1 }}
         >
-          {isSubmitting ? 'Creating account…' : 'Create account'}
+          {isSubmitting ? t('auth.creatingAccount') : t('auth.createAccount')}
         </Button>
 
         <Typography variant="body2" align="center" color="text.secondary">
-          Already have an account?{' '}
+          {t('auth.hasAccount')}{' '}
           <Link component={RouterLink} to="/login" color="primary">
-            Sign in
+            {t('auth.signIn')}
           </Link>
         </Typography>
       </Box>

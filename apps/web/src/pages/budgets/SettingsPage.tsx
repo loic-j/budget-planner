@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -61,6 +62,7 @@ function toDateInput(iso: string | null | undefined): string {
 }
 
 export default function SettingsPage() {
+  const { t } = useTranslation();
   const { id: budgetId } = useParams<{ id: string }>();
   const { budget, reload } = useBudget();
   const [form, setForm] = useState<BudgetFormState>({
@@ -121,7 +123,7 @@ export default function SettingsPage() {
         }),
       });
       reload();
-      setSnack('Budget saved');
+      setSnack(t('settings.budgetSaved'));
     } catch (e: unknown) {
       setSnack((e as Error).message);
     } finally {
@@ -206,9 +208,8 @@ export default function SettingsPage() {
 
   return (
     <Box sx={{ maxWidth: 700, mx: 'auto', p: 3 }}>
-      {/* Budget settings */}
       <Typography variant="h5" sx={{ mb: 2 }}>
-        Budget settings
+        {t('settings.budgetSettings')}
       </Typography>
 
       <Box
@@ -225,7 +226,7 @@ export default function SettingsPage() {
         }}
       >
         <TextField
-          label="Name"
+          label={t('settings.budgetName')}
           size="small"
           fullWidth
           value={form.name}
@@ -233,7 +234,7 @@ export default function SettingsPage() {
         />
         <Box sx={{ display: 'flex', gap: 2 }}>
           <TextField
-            label="Start date"
+            label={t('settings.startDate')}
             type="date"
             size="small"
             fullWidth
@@ -242,7 +243,7 @@ export default function SettingsPage() {
             onChange={(e) => setForm((f) => ({ ...f, startDate: e.target.value }))}
           />
           <TextField
-            label="End date"
+            label={t('settings.endDate')}
             type="date"
             size="small"
             fullWidth
@@ -252,7 +253,7 @@ export default function SettingsPage() {
           />
         </Box>
         <TextField
-          label="Initial saving"
+          label={t('settings.initialSaving')}
           type="number"
           size="small"
           fullWidth
@@ -261,27 +262,26 @@ export default function SettingsPage() {
         />
         <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button variant="contained" onClick={handleSaveBudget} disabled={saving}>
-            {saving ? <CircularProgress size={20} /> : 'Save'}
+            {saving ? <CircularProgress size={20} /> : t('common.save')}
           </Button>
         </Box>
       </Box>
 
-      {/* People */}
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-        <Typography variant="h5">People</Typography>
+        <Typography variant="h5">{t('settings.people')}</Typography>
         <Button
           variant="contained"
           size="small"
           startIcon={<AddIcon />}
           onClick={() => openPersonDialog()}
         >
-          Add person
+          {t('settings.addPerson')}
         </Button>
       </Box>
 
       {persons.length === 0 ? (
         <Typography color="text.secondary" variant="body2">
-          No people added yet. People can be linked to expenses, revenues, and savings.
+          {t('settings.noPeopleYet')}
         </Typography>
       ) : (
         <Box
@@ -302,10 +302,10 @@ export default function SettingsPage() {
                     {p.name}
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
-                    {p.type} · {p.sex}
-                    {p.dob ? ` · Born ${new Date(p.dob).toLocaleDateString()}` : ''}
+                    {t(`personType.${p.type}`)} · {t(`sex.${p.sex}`)}
+                    {p.dob ? ` · ${t('common.born')} ${new Date(p.dob).toLocaleDateString()}` : ''}
                     {p.plannedDob
-                      ? ` · Planned ${new Date(p.plannedDob).toLocaleDateString()}`
+                      ? ` · ${t('common.expected')} ${new Date(p.plannedDob).toLocaleDateString()}`
                       : ''}
                   </Typography>
                 </Box>
@@ -321,7 +321,6 @@ export default function SettingsPage() {
         </Box>
       )}
 
-      {/* Person dialog */}
       <Dialog
         open={personDialogOpen}
         onClose={() => setPersonDialogOpen(false)}
@@ -329,11 +328,11 @@ export default function SettingsPage() {
         fullWidth
       >
         <DialogTitle sx={{ borderBottom: '1px solid', borderColor: 'divider' }}>
-          {editingPerson ? 'Edit person' : 'Add person'}
+          {editingPerson ? t('settings.editPerson') : t('settings.addPerson')}
         </DialogTitle>
         <DialogContent sx={{ pt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <TextField
-            label="Name"
+            label={t('settings.personName')}
             size="small"
             fullWidth
             value={personForm.name}
@@ -353,26 +352,29 @@ export default function SettingsPage() {
                 }))
               }
             >
-              <MenuItem value="ADULT">Adult</MenuItem>
-              <MenuItem value="CHILD">Child</MenuItem>
+              <MenuItem value="ADULT">{t('personType.ADULT')}</MenuItem>
+              <MenuItem value="CHILD">{t('personType.CHILD')}</MenuItem>
             </Select>
             <Select
               size="small"
               fullWidth
               value={personForm.sex}
               onChange={(e) =>
-                setPersonForm((f) => ({ ...f, sex: e.target.value as 'MALE' | 'FEMALE' | 'OTHER' }))
+                setPersonForm((f) => ({
+                  ...f,
+                  sex: e.target.value as 'MALE' | 'FEMALE' | 'OTHER',
+                }))
               }
             >
-              <MenuItem value="MALE">Male</MenuItem>
-              <MenuItem value="FEMALE">Female</MenuItem>
-              <MenuItem value="OTHER">Other</MenuItem>
+              <MenuItem value="MALE">{t('sex.MALE')}</MenuItem>
+              <MenuItem value="FEMALE">{t('sex.FEMALE')}</MenuItem>
+              <MenuItem value="OTHER">{t('sex.OTHER')}</MenuItem>
             </Select>
           </Box>
 
           {personForm.type === 'ADULT' && (
             <TextField
-              label="Date of birth"
+              label={t('settings.dob')}
               type="date"
               size="small"
               fullWidth
@@ -385,7 +387,7 @@ export default function SettingsPage() {
           {personForm.type === 'CHILD' && (
             <>
               <TextField
-                label="Date of birth (if born)"
+                label={t('settings.dobIfBorn')}
                 type="date"
                 size="small"
                 fullWidth
@@ -396,7 +398,7 @@ export default function SettingsPage() {
                 }
               />
               <TextField
-                label="Planned date of birth (if not yet born)"
+                label={t('settings.plannedDob')}
                 type="date"
                 size="small"
                 fullWidth
@@ -412,26 +414,25 @@ export default function SettingsPage() {
         <Divider />
         <DialogActions sx={{ px: 3, py: 2, gap: 1 }}>
           <Button variant="text" onClick={() => setPersonDialogOpen(false)}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button variant="contained" onClick={handleSavePerson} disabled={personSaving}>
-            {personSaving ? <CircularProgress size={20} /> : 'Save'}
+            {personSaving ? <CircularProgress size={20} /> : t('common.save')}
           </Button>
         </DialogActions>
       </Dialog>
 
-      {/* Delete person confirm */}
       <Dialog open={!!deletePersonId} onClose={() => setDeletePersonId(null)} maxWidth="xs">
-        <DialogTitle>Delete person?</DialogTitle>
+        <DialogTitle>{t('settings.deletePersonTitle')}</DialogTitle>
         <DialogContent>
-          <Typography variant="body2">This will remove the person from the budget.</Typography>
+          <Typography variant="body2">{t('settings.confirmDeletePerson')}</Typography>
         </DialogContent>
         <DialogActions sx={{ px: 3, py: 2 }}>
           <Button variant="text" onClick={() => setDeletePersonId(null)}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button variant="contained" color="error" onClick={handleDeletePerson}>
-            Delete
+            {t('common.delete')}
           </Button>
         </DialogActions>
       </Dialog>

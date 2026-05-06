@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -77,11 +78,12 @@ function PersonFormFields({
   form: PersonForm;
   onChange: (f: PersonForm) => void;
 }) {
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
       <TextField
         autoFocus
-        label="Name"
+        label={t('common.name')}
         size="small"
         value={form.name}
         onChange={(e) => onChange({ ...form, name: e.target.value })}
@@ -89,10 +91,10 @@ function PersonFormFields({
       />
       <Box sx={{ display: 'flex', gap: 1 }}>
         <FormControl size="small" sx={{ flex: 1 }}>
-          <InputLabel>Type</InputLabel>
+          <InputLabel>{t('common.type')}</InputLabel>
           <Select
             value={form.type}
-            label="Type"
+            label={t('common.type')}
             onChange={(e) =>
               onChange({
                 ...form,
@@ -102,25 +104,25 @@ function PersonFormFields({
               })
             }
           >
-            <MenuItem value="ADULT">Adult</MenuItem>
-            <MenuItem value="CHILD">Child</MenuItem>
+            <MenuItem value="ADULT">{t('personType.ADULT')}</MenuItem>
+            <MenuItem value="CHILD">{t('personType.CHILD')}</MenuItem>
           </Select>
         </FormControl>
         <FormControl size="small" sx={{ flex: 1 }}>
-          <InputLabel>Sex</InputLabel>
+          <InputLabel>{t('common.sex')}</InputLabel>
           <Select
             value={form.sex}
-            label="Sex"
+            label={t('common.sex')}
             onChange={(e) => onChange({ ...form, sex: e.target.value as PersonForm['sex'] })}
           >
-            <MenuItem value="MALE">Male</MenuItem>
-            <MenuItem value="FEMALE">Female</MenuItem>
-            <MenuItem value="OTHER">Other</MenuItem>
+            <MenuItem value="MALE">{t('sex.MALE')}</MenuItem>
+            <MenuItem value="FEMALE">{t('sex.FEMALE')}</MenuItem>
+            <MenuItem value="OTHER">{t('sex.OTHER')}</MenuItem>
           </Select>
         </FormControl>
       </Box>
       <TextField
-        label={form.type === 'CHILD' ? 'Date of birth (if born)' : 'Date of birth'}
+        label={form.type === 'CHILD' ? t('settings.dobIfBorn') : t('settings.dob')}
         type="date"
         size="small"
         value={form.dob}
@@ -130,7 +132,7 @@ function PersonFormFields({
       />
       {form.type === 'CHILD' && (
         <TextField
-          label="Expected date (if planned)"
+          label={t('settings.plannedDob')}
           type="date"
           size="small"
           value={form.plannedDob}
@@ -154,6 +156,7 @@ function toApiBody(form: PersonForm) {
 }
 
 export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props) {
+  const { t } = useTranslation();
   const [persons, setPersons] = useState<Person[]>([]);
   const [loading, setLoading] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
@@ -252,7 +255,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
             minHeight: 56,
           }}
         >
-          <Typography variant="h6">Persons</Typography>
+          <Typography variant="h6">{t('personMgr.title')}</Typography>
           <IconButton size="small" onClick={onClose}>
             <CloseIcon />
           </IconButton>
@@ -266,7 +269,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
             </Box>
           ) : persons.length === 0 ? (
             <Typography variant="body2" color="text.disabled" sx={{ textAlign: 'center', py: 4 }}>
-              No persons yet
+              {t('personMgr.noPersonsYet')}
             </Typography>
           ) : (
             persons.map((p) => (
@@ -285,7 +288,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                     <PersonFormFields form={editForm} onChange={setEditForm} />
                     <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                       <Button size="small" variant="text" onClick={cancelEdit}>
-                        Cancel
+                        {t('common.cancel')}
                       </Button>
                       <Button
                         size="small"
@@ -300,7 +303,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                           )
                         }
                       >
-                        Save
+                        {t('common.save')}
                       </Button>
                     </Box>
                   </Box>
@@ -322,7 +325,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                           {p.name}
                         </Typography>
                         <Chip
-                          label={p.type === 'ADULT' ? 'Adult' : 'Child'}
+                          label={p.type === 'ADULT' ? t('personType.ADULT') : t('personType.CHILD')}
                           size="small"
                           color={p.type === 'ADULT' ? 'primary' : 'info'}
                           sx={{ height: 18, fontSize: 10 }}
@@ -333,9 +336,9 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                       </Box>
                       <Typography variant="caption" color="text.secondary">
                         {p.dob
-                          ? `Born · ${calcAge(p.dob)}`
+                          ? `${t('common.born')} · ${calcAge(p.dob)}`
                           : p.plannedDob
-                            ? `Expected ${new Date(p.plannedDob).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}`
+                            ? `${t('common.expected')} ${new Date(p.plannedDob).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}`
                             : ''}
                       </Typography>
                     </Box>
@@ -343,12 +346,12 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                       className="person-actions"
                       sx={{ display: 'flex', opacity: 0, transition: 'opacity 0.15s' }}
                     >
-                      <Tooltip title="Edit" placement="top">
+                      <Tooltip title={t('common.edit')} placement="top">
                         <IconButton size="small" onClick={() => startEdit(p)}>
                           <EditIcon sx={{ fontSize: 14 }} />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Delete" placement="top">
+                      <Tooltip title={t('common.delete')} placement="top">
                         <IconButton
                           size="small"
                           disabled={busyId === p.id}
@@ -380,7 +383,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                 color="text.secondary"
                 sx={{ fontSize: 11, lineHeight: 1 }}
               >
-                New person
+                {t('personMgr.newPerson')}
               </Typography>
               <PersonFormFields form={addForm} onChange={setAddForm} />
               <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
@@ -392,7 +395,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                     setAddForm(EMPTY_FORM);
                   }}
                 >
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
                 <Button
                   size="small"
@@ -401,7 +404,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                   onClick={handleAdd}
                   startIcon={addBusy ? <CircularProgress size={12} /> : undefined}
                 >
-                  {addBusy ? 'Adding…' : 'Add'}
+                  {addBusy ? t('common.adding') : t('common.add')}
                 </Button>
               </Box>
             </Box>
@@ -416,7 +419,7 @@ export function PersonManager({ open, onClose, budgetId, onPersonChange }: Props
                 }}
                 fullWidth
               >
-                Add person
+                {t('personMgr.addPerson')}
               </Button>
             </Box>
           )}

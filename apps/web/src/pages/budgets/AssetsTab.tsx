@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -75,18 +76,13 @@ function assetValueAt(asset: Asset, date: Date): number {
   return Math.max(0, asset.currentValue * Math.pow(factor, years));
 }
 
+const ASSET_TYPE_KEYS: AssetType[] = ['REAL_ESTATE', 'INVESTMENT', 'VEHICLE', 'OTHER'];
+
 const ASSET_TYPE_COLORS: Record<AssetType, string> = {
   REAL_ESTATE: '#009688',
   INVESTMENT: '#42a5f5',
   VEHICLE: '#ffa726',
   OTHER: '#90a4ae',
-};
-
-const ASSET_TYPE_LABELS: Record<AssetType, string> = {
-  REAL_ESTATE: 'Real estate',
-  INVESTMENT: 'Investment',
-  VEHICLE: 'Vehicle',
-  OTHER: 'Other',
 };
 
 function computeChartData(assets: Asset[], startDate: string, endDate: string) {
@@ -133,6 +129,7 @@ interface DrawerProps {
 }
 
 function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: DrawerProps) {
+  const { t } = useTranslation();
   const [type, setType] = useState<AssetType>('REAL_ESTATE');
   const [name, setName] = useState('');
   const [currentValue, setCurrentValue] = useState('');
@@ -199,25 +196,31 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box sx={{ width: 360, p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography variant="h5">{editAsset ? 'Edit asset' : 'Add asset'}</Typography>
+          <Typography variant="h5">
+            {editAsset ? t('assets.editAsset') : t('assets.addAsset')}
+          </Typography>
           <IconButton size="small" onClick={onClose}>
             <CloseIcon />
           </IconButton>
         </Box>
 
         <FormControl fullWidth size="small">
-          <InputLabel>Type</InputLabel>
-          <Select value={type} label="Type" onChange={(e) => setType(e.target.value as AssetType)}>
-            {(Object.entries(ASSET_TYPE_LABELS) as [AssetType, string][]).map(([v, l]) => (
+          <InputLabel>{t('assets.assetType')}</InputLabel>
+          <Select
+            value={type}
+            label={t('assets.assetType')}
+            onChange={(e) => setType(e.target.value as AssetType)}
+          >
+            {ASSET_TYPE_KEYS.map((v) => (
               <MenuItem key={v} value={v}>
-                {l}
+                {t(`assetType.${v}`)}
               </MenuItem>
             ))}
           </Select>
         </FormControl>
 
         <TextField
-          label="Name"
+          label={t('common.name')}
           value={name}
           onChange={(e) => setName(e.target.value)}
           fullWidth
@@ -225,7 +228,7 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
         />
 
         <TextField
-          label={`Current value (${currency})`}
+          label={t('assets.currentValue', { currency })}
           value={currentValue}
           onChange={(e) => setCurrentValue(e.target.value)}
           type="number"
@@ -234,7 +237,7 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
         />
 
         <TextField
-          label="Acquisition date"
+          label={t('assets.acquisitionDate')}
           value={acquisitionDate}
           onChange={(e) => setAcquisitionDate(e.target.value)}
           type="date"
@@ -245,7 +248,7 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
 
         <Box>
           <TextField
-            label="Annual growth rate (%)"
+            label={t('assets.growthRate')}
             value={annualGrowthRate}
             onChange={(e) => setAnnualGrowthRate(e.target.value)}
             type="number"
@@ -253,10 +256,10 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
             size="small"
             helperText={
               growthRate > 0
-                ? `Appreciates ${growthRate}% / year`
+                ? t('assets.appreciates', { rate: growthRate })
                 : growthRate < 0
-                  ? `Depreciates ${Math.abs(growthRate)}% / year`
-                  : 'No change in value'
+                  ? t('assets.depreciates', { rate: Math.abs(growthRate) })
+                  : t('assets.noChange')
             }
           />
         </Box>
@@ -268,7 +271,13 @@ function AssetDrawer({ open, onClose, budgetId, currency, editAsset, onSaved }: 
         )}
 
         <Button variant="contained" onClick={handleSave} disabled={saving || !canSave} fullWidth>
-          {saving ? <CircularProgress size={20} /> : editAsset ? 'Save changes' : 'Add asset'}
+          {saving ? (
+            <CircularProgress size={20} />
+          ) : editAsset ? (
+            t('common.save')
+          ) : (
+            t('assets.addAsset')
+          )}
         </Button>
       </Box>
     </Drawer>
@@ -283,6 +292,7 @@ interface AssetsTabProps {
 }
 
 export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
+  const { t } = useTranslation();
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loading, setLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -328,9 +338,9 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
       await apiFetch(`/api/budgets/${budgetId}/assets/${deleteTarget.id}`, { method: 'DELETE' });
       setDeleteTarget(null);
       await loadData();
-      setSnack('Asset deleted');
+      setSnack(t('assets.deleted'));
     } catch (e) {
-      setSnack('Delete failed: ' + (e as Error).message);
+      setSnack(t('errors.saveFailed', { message: (e as Error).message }));
     } finally {
       setDeleting(false);
     }
@@ -364,8 +374,8 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         for (const k of Object.keys(chartData.seriesData)) byYear[yr][k] = 0;
       }
       for (const k of Object.keys(chartData.seriesData))
-        byYear[yr][k] = chartData.seriesData[k][i] ?? 0; // take last per year
-      byYear[yr]._total = chartData.total[i]; // take last per year
+        byYear[yr][k] = chartData.seriesData[k][i] ?? 0;
+      byYear[yr]._total = chartData.total[i];
     });
     const years = Object.keys(byYear).sort();
     const seriesData: Record<string, number[]> = {};
@@ -382,9 +392,9 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         label: a.name,
         color: ASSET_TYPE_COLORS[a.type],
       })),
-      { data: displayChart.total, label: 'Total', color: '#ffffff' },
+      { data: displayChart.total, label: t('assets.totalValue'), color: '#ffffff' },
     ],
-    [assets, displayChart]
+    [assets, displayChart, t]
   );
 
   const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
@@ -394,14 +404,14 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
 
   const columns: GridColDef<Asset>[] = useMemo(
     () => [
-      { field: 'name', headerName: 'Name', flex: 1, minWidth: 140 },
+      { field: 'name', headerName: t('common.name'), flex: 1, minWidth: 140 },
       {
         field: 'type',
-        headerName: 'Type',
+        headerName: t('common.type'),
         width: 130,
         renderCell: ({ value }) => (
           <Chip
-            label={ASSET_TYPE_LABELS[value as AssetType]}
+            label={t(`assetType.${value as AssetType}`)}
             size="small"
             sx={{
               height: 20,
@@ -414,7 +424,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
       },
       {
         field: 'currentValue',
-        headerName: 'Purchase value',
+        headerName: t('assets.purchaseValue'),
         width: 140,
         type: 'number',
         valueFormatter: (v: number) =>
@@ -422,14 +432,14 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
       },
       {
         field: 'acquisitionDate',
-        headerName: 'Acquired',
+        headerName: t('assets.acquired'),
         width: 110,
         valueFormatter: (v: string) =>
           new Date(v).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }),
       },
       {
         field: 'annualGrowthRate',
-        headerName: 'Growth %',
+        headerName: t('assets.growth'),
         width: 100,
         type: 'number',
         renderCell: ({ value }) => (
@@ -447,7 +457,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
       },
       {
         field: '_valueToday',
-        headerName: 'Value today',
+        headerName: t('assets.valueToday'),
         width: 130,
         type: 'number',
         valueGetter: (_v: unknown, row: Asset) => Math.round(assetValueAt(row, today)),
@@ -467,7 +477,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
       },
       {
         field: '_valueAtEnd',
-        headerName: `Value ${endDate.getFullYear()}`,
+        headerName: t('assets.valueAt', { year: endDate.getFullYear() }),
         width: 130,
         type: 'number',
         valueGetter: (_v: unknown, row: Asset) => Math.round(assetValueAt(row, endDate)),
@@ -481,14 +491,14 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         sortable: false,
         renderCell: ({ row }) => (
           <Box sx={{ display: 'flex', gap: 0.5 }}>
-            <IconButton size="small" onClick={() => openEdit(row)} title="Edit">
+            <IconButton size="small" onClick={() => openEdit(row)} title={t('common.edit')}>
               <EditIcon fontSize="small" />
             </IconButton>
             <IconButton
               size="small"
               color="error"
               onClick={() => setDeleteTarget(row)}
-              title="Delete"
+              title={t('common.delete')}
             >
               <DeleteOutlineIcon fontSize="small" />
             </IconButton>
@@ -496,10 +506,9 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         ),
       },
     ],
-    [endDate.getFullYear()] // eslint-disable-line
+    [endDate.getFullYear(), t] // eslint-disable-line
   );
 
-  // Summary
   const totalToday = useMemo(
     () => assets.reduce((sum, a) => sum + assetValueAt(a, today), 0),
     [assets] // eslint-disable-line
@@ -528,7 +537,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
           }}
         >
           <Typography variant="overline" color="text.secondary">
-            Total assets today
+            {t('assets.totalToday')}
           </Typography>
           <Typography
             sx={{
@@ -541,7 +550,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
             {Math.round(totalToday).toLocaleString()} {budget.currency}
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            {assets.length} asset{assets.length !== 1 ? 's' : ''}
+            {t('assets.count', { count: assets.length })}
           </Typography>
         </Box>
         <Button
@@ -550,7 +559,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
           onClick={openAdd}
           sx={{ mt: 1, alignSelf: 'flex-start' }}
         >
-          Add asset
+          {t('assets.addAsset')}
         </Button>
       </Box>
 
@@ -567,7 +576,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
           }}
         >
           <Box sx={{ px: 3, pt: 2 }}>
-            <Typography variant="h6">Asset value projection</Typography>
+            <Typography variant="h6">{t('assets.chartTitle')}</Typography>
           </Box>
           <LineChart
             height={260}
@@ -608,7 +617,7 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
           }}
         >
           <Typography color="text.secondary" variant="body2">
-            No assets yet. Click "Add asset" to get started.
+            {t('common.noDataYet')}
           </Typography>
         </Box>
       ) : (
@@ -639,25 +648,25 @@ export function AssetsTab({ budgetId, budget }: AssetsTabProps) {
         editAsset={editAsset}
         onSaved={() => {
           loadData();
-          setSnack(editAsset ? 'Asset updated' : 'Asset added');
+          setSnack(editAsset ? t('assets.updated') : t('assets.added'));
         }}
       />
 
       {/* ── Delete confirm ── */}
       <Dialog open={!!deleteTarget} onClose={() => setDeleteTarget(null)} maxWidth="xs" fullWidth>
-        <DialogTitle>Delete asset</DialogTitle>
+        <DialogTitle>{t('assets.deleteAsset')}</DialogTitle>
         <DialogContent>
           <Typography>
-            Delete <strong>{deleteTarget?.name}</strong>? This cannot be undone.
+            {t('assets.deleteAsset')} <strong>{deleteTarget?.name}</strong>?
           </Typography>
         </DialogContent>
         <Divider />
         <DialogActions sx={{ px: 3, py: 2, gap: 1 }}>
           <Button variant="text" onClick={() => setDeleteTarget(null)} disabled={deleting}>
-            Cancel
+            {t('common.cancel')}
           </Button>
           <Button variant="contained" color="error" onClick={handleDelete} disabled={deleting}>
-            {deleting ? <CircularProgress size={20} /> : 'Delete'}
+            {deleting ? <CircularProgress size={20} /> : t('common.delete')}
           </Button>
         </DialogActions>
       </Dialog>

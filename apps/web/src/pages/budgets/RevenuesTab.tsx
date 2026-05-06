@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 declare module '@mui/x-data-grid' {
   interface ToolbarPropsOverrides {
@@ -141,7 +142,6 @@ function computeChartData(
   const end = new Date(endDate);
   const labels: string[] = [];
 
-  // Person series + "Other" (unlinked)
   const personIds = persons.map((p) => p.id);
   const seriesData: Record<string, number[]> = {};
   for (const pid of personIds) seriesData[pid] = [];
@@ -183,13 +183,7 @@ function computeChartData(
   return { labels, seriesData, total, persons };
 }
 
-const RECURRING_FREQUENCY_OPTIONS = [
-  { value: 'MONTHLY', label: 'Monthly' },
-  { value: 'YEARLY', label: 'Yearly' },
-  { value: 'EVERY_X_MONTHS', label: 'Every X months' },
-  { value: 'EVERY_X_YEARS', label: 'Every X years' },
-];
-
+const RECURRING_FREQUENCY_KEYS = ['MONTHLY', 'YEARLY', 'EVERY_X_MONTHS', 'EVERY_X_YEARS'] as const;
 const PERSON_COLORS = ['#42a5f5', '#ab47bc', '#26a69a', '#ffa726', '#ef5350', '#66bb6a'];
 
 function revenueToRow(r: Revenue): RevRow {
@@ -220,10 +214,11 @@ interface ToolbarProps {
 
 function RevenuesToolbar(props: ToolbarProps) {
   const { onAdd, onSave, dirty, saving, onAddCategory, onManagePersons } = props;
+  const { t } = useTranslation();
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
-        Add row
+        {t('common.addRow')}
       </Button>
       <Button
         size="small"
@@ -231,10 +226,10 @@ function RevenuesToolbar(props: ToolbarProps) {
         onClick={(e) => onAddCategory(e as React.MouseEvent<HTMLElement>)}
         color="inherit"
       >
-        Categories
+        {t('common.categories')}
       </Button>
       <Button size="small" onClick={onManagePersons} color="inherit">
-        Persons
+        {t('common.persons')}
       </Button>
       <Button
         size="small"
@@ -243,7 +238,7 @@ function RevenuesToolbar(props: ToolbarProps) {
         onClick={onSave}
         disabled={!dirty || saving}
       >
-        Save all
+        {t('common.saveAll')}
       </Button>
       <Box sx={{ flex: 1 }} />
       <GridToolbarExport />
@@ -259,6 +254,7 @@ interface RevenuesTabProps {
 }
 
 export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
+  const { t } = useTranslation();
   const [revenues, setRevenues] = useState<Revenue[]>([]); // eslint-disable-line @typescript-eslint/no-unused-vars
   const [categories, setCategories] = useState<Category[]>([]);
   const [persons, setPersons] = useState<Person[]>([]);
@@ -367,7 +363,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
       const dirtyRows = rows.filter((r) => !r.isNew && dirtyIds.has(r.id));
 
       if ([...newRows, ...dirtyRows].some((r) => !(r.amount > 0))) {
-        setSnack('Amount must be greater than 0');
+        setSnack(t('errors.amountRequired'));
         setSaving(false);
         return;
       }
@@ -411,13 +407,13 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
       ]);
 
       await loadData();
-      setSnack('Saved');
+      setSnack(t('common.saved'));
     } catch (e) {
-      setSnack('Save failed: ' + (e as Error).message);
+      setSnack(t('errors.saveFailed', { message: (e as Error).message }));
     } finally {
       setSaving(false);
     }
-  }, [rows, dirtyIds, deletedIds, budgetId, loadData]);
+  }, [rows, dirtyIds, deletedIds, budgetId, loadData, t]);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -433,8 +429,8 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
 
   const [debouncedRows, setDebouncedRows] = useState<RevRow[]>([]);
   useEffect(() => {
-    const t = setTimeout(() => setDebouncedRows(rows), 300);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setDebouncedRows(rows), 300);
+    return () => clearTimeout(timer);
   }, [rows]);
 
   const chartRevenues = useMemo(
@@ -525,37 +521,60 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
     [persons]
   );
 
+  const freqOptions = useMemo(
+    () => RECURRING_FREQUENCY_KEYS.map((v) => ({ value: v, label: t(`freq.${v}`) })),
+    [t]
+  );
+
   const columns: GridColDef<RevRow>[] = useMemo(
     () => [
-      { field: 'name', headerName: 'Name', editable: true, flex: 1, minWidth: 140 },
+      { field: 'name', headerName: t('common.name'), editable: true, flex: 1, minWidth: 140 },
       {
         field: 'categoryId',
-        headerName: 'Category',
+        headerName: t('common.category'),
         editable: true,
         width: 150,
         type: 'singleSelect',
         valueOptions: catOptions,
       },
-      { field: 'amount', headerName: 'Amount', editable: true, type: 'number', width: 110 },
+      {
+        field: 'amount',
+        headerName: t('common.amount'),
+        editable: true,
+        type: 'number',
+        width: 110,
+      },
       {
         field: 'frequency',
-        headerName: 'Frequency',
+        headerName: t('common.frequency'),
         editable: true,
         width: 150,
         type: 'singleSelect',
-        valueOptions: RECURRING_FREQUENCY_OPTIONS,
+        valueOptions: freqOptions,
       },
-      { field: 'frequencyValue', headerName: 'Every N', editable: true, type: 'number', width: 90 },
+      {
+        field: 'frequencyValue',
+        headerName: t('common.everyN'),
+        editable: true,
+        type: 'number',
+        width: 90,
+      },
       {
         field: 'personId',
-        headerName: 'Person',
+        headerName: t('common.person'),
         editable: true,
         width: 130,
         type: 'singleSelect',
         valueOptions: personOptions,
       },
-      { field: 'startDate', headerName: 'Start', editable: true, type: 'date', width: 120 },
-      { field: 'endDate', headerName: 'End', editable: true, type: 'date', width: 120 },
+      {
+        field: 'startDate',
+        headerName: t('common.start'),
+        editable: true,
+        type: 'date',
+        width: 120,
+      },
+      { field: 'endDate', headerName: t('common.end'), editable: true, type: 'date', width: 120 },
       {
         field: 'actions',
         type: 'actions',
@@ -564,36 +583,48 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
           <GridActionsCellItem
             key="del"
             icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
-            label="Delete"
+            label={t('common.delete')}
             onClick={() => deleteRow(id as string)}
           />,
         ],
       },
     ],
-    [catOptions, personOptions]
+    [catOptions, personOptions, freqOptions, t]
   );
 
   const oneTimeColumns: GridColDef<RevRow>[] = useMemo(
     () => [
-      { field: 'name', headerName: 'Name', editable: true, flex: 1, minWidth: 140 },
+      { field: 'name', headerName: t('common.name'), editable: true, flex: 1, minWidth: 140 },
       {
         field: 'categoryId',
-        headerName: 'Category',
+        headerName: t('common.category'),
         editable: true,
         width: 150,
         type: 'singleSelect',
         valueOptions: catOptions,
       },
-      { field: 'amount', headerName: 'Amount', editable: true, type: 'number', width: 110 },
+      {
+        field: 'amount',
+        headerName: t('common.amount'),
+        editable: true,
+        type: 'number',
+        width: 110,
+      },
       {
         field: 'personId',
-        headerName: 'Person',
+        headerName: t('common.person'),
         editable: true,
         width: 130,
         type: 'singleSelect',
         valueOptions: personOptions,
       },
-      { field: 'startDate', headerName: 'Date', editable: true, type: 'date', width: 130 },
+      {
+        field: 'startDate',
+        headerName: t('common.date'),
+        editable: true,
+        type: 'date',
+        width: 130,
+      },
       {
         field: 'actions',
         type: 'actions',
@@ -602,13 +633,13 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
           <GridActionsCellItem
             key="del"
             icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
-            label="Delete"
+            label={t('common.delete')}
             onClick={() => deleteRow(id as string)}
           />,
         ],
       },
     ],
-    [catOptions, personOptions]
+    [catOptions, personOptions, t]
   );
 
   const recurringRows = rows.filter((r) => r.frequency !== 'ONE_TIME');
@@ -616,7 +647,6 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
   const hasDraft = dirtyIds.size > 0 || deletedIds.size > 0;
   const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
 
-  // Build chart series: one per person + "Other" + "Total"
   const chartSeries = useMemo(() => {
     const series = [];
     persons.forEach((p, i) => {
@@ -631,11 +661,11 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
     });
     const otherData = displayChart.seriesData['_other'];
     if (otherData && otherData.some((v) => v > 0)) {
-      series.push({ data: otherData, label: 'Other', color: '#90a4ae' });
+      series.push({ data: otherData, label: t('revenues.seriesOther'), color: '#90a4ae' });
     }
-    series.push({ data: displayChart.total, label: 'Total', color: '#009688' });
+    series.push({ data: displayChart.total, label: t('revenues.seriesTotal'), color: '#009688' });
     return series;
-  }, [displayChart, persons]);
+  }, [displayChart, persons, t]);
 
   const totalMonthly = useMemo(
     () => rows.reduce((sum, r) => sum + (r.frequency === 'MONTHLY' ? r.amount : 0), 0),
@@ -664,7 +694,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
           }}
         >
           <Typography variant="overline" color="text.secondary">
-            Monthly revenue
+            {t('revenues.monthlyRevenues')}
           </Typography>
           <Typography
             sx={{
@@ -696,7 +726,7 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
           }}
         >
           <Box sx={{ px: 3, pt: 2, pb: 1 }}>
-            <Typography variant="h6">Revenue projection</Typography>
+            <Typography variant="h6">{t('revenues.chartTitle')}</Typography>
           </Box>
           <ChartCategoryFilter
             categories={categories}
@@ -705,8 +735,8 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
             onChange={setSelectedChartCategories}
           />
           <ChartCategoryFilter
-            label="Persons"
-            unassignedLabel="No person"
+            label={t('chart.persons')}
+            unassignedLabel={t('common.noPerson')}
             categories={persons}
             selected={selectedPersons}
             hasUncategorized={hasUnassignedPerson}
@@ -740,8 +770,8 @@ export function RevenuesTab({ budgetId, budget }: RevenuesTabProps) {
 
       {/* ── Tabs: Recurring / One-time ── */}
       <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v as number)} sx={{ mb: 2 }}>
-        <Tab label={`Recurring (${recurringRows.length})`} />
-        <Tab label={`One-time (${oneTimeRows.length})`} />
+        <Tab label={`${t('expenses.recurring')} (${recurringRows.length})`} />
+        <Tab label={`${t('expenses.oneTime')} (${oneTimeRows.length})`} />
       </Tabs>
 
       {/* ── Recurring revenues DataGrid ── */}

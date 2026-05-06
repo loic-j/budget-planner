@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 declare module '@mui/x-data-grid' {
   interface ToolbarPropsOverrides {
@@ -161,13 +162,13 @@ function computeChartData(savings: Saving[], startDate: string, endDate: string)
   return { labels, monthly, cumulative };
 }
 
-const FREQUENCY_OPTIONS = [
-  { value: 'ONE_TIME', label: 'One-time' },
-  { value: 'MONTHLY', label: 'Monthly' },
-  { value: 'YEARLY', label: 'Yearly' },
-  { value: 'EVERY_X_MONTHS', label: 'Every X months' },
-  { value: 'EVERY_X_YEARS', label: 'Every X years' },
-];
+const FREQUENCY_KEYS = [
+  'ONE_TIME',
+  'MONTHLY',
+  'YEARLY',
+  'EVERY_X_MONTHS',
+  'EVERY_X_YEARS',
+] as const;
 
 function savingToRow(s: Saving): SavRow {
   return {
@@ -185,7 +186,7 @@ function savingToRow(s: Saving): SavRow {
   };
 }
 
-// ─── Toolbar (defined outside parent to avoid remount) ────────────────────────
+// ─── Toolbar ──────────────────────────────────────────────────────────────────
 
 interface ToolbarProps {
   onAdd: () => void;
@@ -198,10 +199,11 @@ interface ToolbarProps {
 
 function SavingsToolbar(props: ToolbarProps) {
   const { onAdd, onSave, dirty, saving, onAddCategory, onManagePersons } = props;
+  const { t } = useTranslation();
   return (
     <GridToolbarContainer sx={{ px: 2, py: 1, gap: 1 }}>
       <Button size="small" startIcon={<AddIcon />} onClick={onAdd}>
-        Add row
+        {t('common.addRow')}
       </Button>
       <Button
         size="small"
@@ -209,10 +211,10 @@ function SavingsToolbar(props: ToolbarProps) {
         onClick={(e) => onAddCategory(e as React.MouseEvent<HTMLElement>)}
         color="inherit"
       >
-        Categories
+        {t('common.categories')}
       </Button>
       <Button size="small" color="inherit" onClick={onManagePersons}>
-        Persons
+        {t('common.persons')}
       </Button>
       <Button
         size="small"
@@ -221,7 +223,7 @@ function SavingsToolbar(props: ToolbarProps) {
         onClick={onSave}
         disabled={!dirty || saving}
       >
-        Save all
+        {t('common.saveAll')}
       </Button>
       <Box sx={{ flex: 1 }} />
       <GridToolbarExport />
@@ -237,6 +239,7 @@ interface SavingsTabProps {
 }
 
 export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
+  const { t } = useTranslation();
   const [savings, setSavings] = useState<Saving[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [persons, setPersons] = useState<Person[]>([]);
@@ -327,7 +330,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
       const dirtyRows = rows.filter((r) => !r.isNew && dirtyIds.has(r.id));
 
       if ([...newRows, ...dirtyRows].some((r) => !(r.amount > 0))) {
-        setSnack('Amount must be greater than 0');
+        setSnack(t('errors.amountRequired'));
         setSaving(false);
         return;
       }
@@ -373,13 +376,13 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
       ]);
 
       await loadData();
-      setSnack('Saved');
+      setSnack(t('common.saved'));
     } catch (e) {
-      setSnack('Save failed: ' + (e as Error).message);
+      setSnack(t('errors.saveFailed', { message: (e as Error).message }));
     } finally {
       setSaving(false);
     }
-  }, [rows, dirtyIds, deletedIds, budgetId, loadData]);
+  }, [rows, dirtyIds, deletedIds, budgetId, loadData, t]);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -393,11 +396,10 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
     return () => window.removeEventListener('keydown', onKey);
   }, [dirtyIds, deletedIds, saving, saveAll]);
 
-  // Debounce row changes for chart (300ms)
   const [debouncedRows, setDebouncedRows] = useState<SavRow[]>([]);
   useEffect(() => {
-    const t = setTimeout(() => setDebouncedRows(rows), 300);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setDebouncedRows(rows), 300);
+    return () => clearTimeout(timer);
   }, [rows]);
 
   const chartSavings = useMemo(
@@ -457,7 +459,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
       const yr = l.slice(0, 4);
       if (!byYear[yr]) byYear[yr] = { monthly: 0, cumulative: 0 };
       byYear[yr].monthly += chartData.monthly[i];
-      byYear[yr].cumulative = chartData.cumulative[i]; // take last value per year
+      byYear[yr].cumulative = chartData.cumulative[i];
     });
     const years = Object.keys(byYear).sort();
     return {
@@ -477,12 +479,17 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
     [persons]
   );
 
+  const freqOptions = useMemo(
+    () => FREQUENCY_KEYS.map((v) => ({ value: v, label: t(`freq.${v}`) })),
+    [t]
+  );
+
   const columns: GridColDef<SavRow>[] = useMemo(
     () => [
-      { field: 'name', headerName: 'Name', editable: true, flex: 1, minWidth: 140 },
+      { field: 'name', headerName: t('common.name'), editable: true, flex: 1, minWidth: 140 },
       {
         field: 'categoryId',
-        headerName: 'Category',
+        headerName: t('common.category'),
         editable: true,
         width: 150,
         type: 'singleSelect',
@@ -490,43 +497,49 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
       },
       {
         field: 'amount',
-        headerName: 'Amount',
+        headerName: t('common.amount'),
         editable: true,
         type: 'number',
         width: 100,
       },
       {
         field: 'frequency',
-        headerName: 'Frequency',
+        headerName: t('common.frequency'),
         editable: true,
         width: 150,
         type: 'singleSelect',
-        valueOptions: FREQUENCY_OPTIONS,
+        valueOptions: freqOptions,
       },
       {
         field: 'frequencyValue',
-        headerName: 'Every N',
+        headerName: t('common.everyN'),
         editable: true,
         type: 'number',
         width: 80,
       },
       {
         field: 'targetAmount',
-        headerName: 'Target',
+        headerName: t('common.target'),
         editable: true,
         type: 'number',
         width: 110,
       },
       {
         field: 'personId',
-        headerName: 'Person',
+        headerName: t('common.person'),
         editable: true,
         width: 130,
         type: 'singleSelect',
         valueOptions: personOptions,
       },
-      { field: 'startDate', headerName: 'Start', editable: true, type: 'date', width: 120 },
-      { field: 'endDate', headerName: 'End', editable: true, type: 'date', width: 120 },
+      {
+        field: 'startDate',
+        headerName: t('common.start'),
+        editable: true,
+        type: 'date',
+        width: 120,
+      },
+      { field: 'endDate', headerName: t('common.end'), editable: true, type: 'date', width: 120 },
       {
         field: 'actions',
         type: 'actions',
@@ -535,25 +548,23 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           <GridActionsCellItem
             key="del"
             icon={<DeleteOutlineIcon sx={{ color: 'error.main' }} />}
-            label="Delete"
+            label={t('common.delete')}
             onClick={() => deleteRow(id as string)}
           />,
         ],
       },
     ],
-    [catOptions, personOptions]
+    [catOptions, personOptions, freqOptions, t]
   );
 
   const hasDraft = dirtyIds.size > 0 || deletedIds.size > 0;
   const tickInterval = Math.max(1, Math.floor(displayChart.labels.length / 8));
 
-  // Summary stat: total monthly savings
   const totalMonthly = useMemo(
     () => rows.reduce((sum, r) => sum + (r.frequency === 'MONTHLY' ? r.amount : 0), 0),
     [rows]
   );
 
-  // Savings count by target status
   const withTarget = savings.filter((s) => s.targetAmount != null).length;
 
   if (loading)
@@ -578,7 +589,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           }}
         >
           <Typography variant="overline" color="text.secondary">
-            Monthly savings
+            {t('savings.monthlySavings')}
           </Typography>
           <Typography
             sx={{
@@ -606,7 +617,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           }}
         >
           <Typography variant="overline" color="text.secondary">
-            Goals with target
+            {t('savings.goalsWithTarget')}
           </Typography>
           <Typography sx={{ fontSize: 24, fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>
             {withTarget} / {savings.length}
@@ -627,7 +638,7 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           }}
         >
           <Box sx={{ px: 3, pt: 2, pb: 1 }}>
-            <Typography variant="h6">Savings projection</Typography>
+            <Typography variant="h6">{t('savings.chartTitle')}</Typography>
           </Box>
           <ChartCategoryFilter
             categories={categories}
@@ -636,8 +647,8 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
             onChange={setSelectedChartCategories}
           />
           <ChartCategoryFilter
-            label="Persons"
-            unassignedLabel="No person"
+            label={t('chart.persons')}
+            unassignedLabel={t('common.noPerson')}
             categories={persons}
             selected={selectedPersons}
             hasUncategorized={hasUnassignedPerson}
@@ -646,8 +657,8 @@ export function SavingsTab({ budgetId, budget }: SavingsTabProps) {
           <LineChart
             height={260}
             series={[
-              { data: displayChart.monthly, label: 'Monthly', color: '#42a5f5' },
-              { data: displayChart.cumulative, label: 'Cumulative', color: '#009688' },
+              { data: displayChart.monthly, label: t('savings.monthly'), color: '#42a5f5' },
+              { data: displayChart.cumulative, label: t('savings.cumulative'), color: '#009688' },
             ]}
             xAxis={[
               {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Button,
@@ -15,6 +16,7 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { authClient, signOut } from '@/lib/auth';
 
 export default function UserProfilePage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { data: session, isPending } = authClient.useSession();
 
@@ -39,9 +41,9 @@ export default function UserProfilePage() {
     setSavingName(true);
     try {
       await authClient.updateUser({ name });
-      setSnack('Name updated');
+      setSnack(t('profile.nameUpdated'));
     } catch {
-      setSnack('Failed to update name');
+      setSnack(t('profile.nameUpdateFailed'));
     } finally {
       setSavingName(false);
     }
@@ -50,11 +52,11 @@ export default function UserProfilePage() {
   async function handleChangePassword() {
     setPasswordError('');
     if (newPassword !== confirmPassword) {
-      setPasswordError('Passwords do not match');
+      setPasswordError(t('profile.passwordsMismatch'));
       return;
     }
     if (newPassword.length < 8) {
-      setPasswordError('Password must be at least 8 characters');
+      setPasswordError(t('profile.passwordTooShort'));
       return;
     }
     setSavingPassword(true);
@@ -67,9 +69,9 @@ export default function UserProfilePage() {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-      setSnack('Password changed');
+      setSnack(t('profile.passwordChanged'));
     } catch {
-      setPasswordError('Current password is incorrect');
+      setPasswordError(t('profile.passwordIncorrect'));
     } finally {
       setSavingPassword(false);
     }
@@ -92,7 +94,6 @@ export default function UserProfilePage() {
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Header */}
       <Box
         sx={{
           px: 3,
@@ -113,16 +114,15 @@ export default function UserProfilePage() {
           Budget Planner
         </Typography>
         <Button variant="text" size="small" onClick={handleSignOut}>
-          Sign out
+          {t('nav.signOut')}
         </Button>
       </Box>
 
       <Box sx={{ maxWidth: 560, mx: 'auto', p: 3 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
-          Profile
+          {t('profile.title')}
         </Typography>
 
-        {/* Account info */}
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -136,18 +136,18 @@ export default function UserProfilePage() {
             gap: 2,
           }}
         >
-          <Typography variant="h6">Account information</Typography>
+          <Typography variant="h6">{t('profile.accountInfo')}</Typography>
           <TextField
-            label="Email"
+            label={t('profile.email')}
             size="small"
             fullWidth
             value={session?.user?.email ?? ''}
             disabled
-            helperText="Email cannot be changed"
+            helperText={t('profile.emailCannotChange')}
           />
           <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
             <TextField
-              label="Display name"
+              label={t('profile.displayName')}
               size="small"
               fullWidth
               value={name}
@@ -159,12 +159,11 @@ export default function UserProfilePage() {
               disabled={savingName || !name.trim()}
               sx={{ flexShrink: 0, height: 40 }}
             >
-              {savingName ? <CircularProgress size={18} /> : 'Save'}
+              {savingName ? <CircularProgress size={18} /> : t('common.save')}
             </Button>
           </Box>
         </Box>
 
-        {/* Change password */}
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -177,9 +176,9 @@ export default function UserProfilePage() {
             gap: 2,
           }}
         >
-          <Typography variant="h6">Change password</Typography>
+          <Typography variant="h6">{t('profile.changePassword')}</Typography>
           <TextField
-            label="Current password"
+            label={t('profile.currentPassword')}
             type="password"
             size="small"
             fullWidth
@@ -188,7 +187,7 @@ export default function UserProfilePage() {
           />
           <Divider />
           <TextField
-            label="New password"
+            label={t('profile.newPassword')}
             type="password"
             size="small"
             fullWidth
@@ -196,7 +195,7 @@ export default function UserProfilePage() {
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <TextField
-            label="Confirm new password"
+            label={t('profile.confirmPassword')}
             type="password"
             size="small"
             fullWidth
@@ -211,7 +210,7 @@ export default function UserProfilePage() {
               onClick={handleChangePassword}
               disabled={savingPassword || !currentPassword || !newPassword || !confirmPassword}
             >
-              {savingPassword ? <CircularProgress size={18} /> : 'Change password'}
+              {savingPassword ? <CircularProgress size={18} /> : t('profile.changePassword')}
             </Button>
           </Box>
         </Box>
