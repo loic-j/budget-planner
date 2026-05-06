@@ -183,6 +183,6 @@ Confirmation dialog warns if the person is referenced by expenses, revenues, or 
 
 ## Proposed Improvements
 
-- **Retirement age** field per adult — used in Projections screen to mark retirement milestone on charts
+- **Retirement age** field per adult — used in Dashboard charts to mark retirement milestone
 - **Life expectancy** field per adult — defines the meaningful end of projections for that person
 - **School enrollment auto-suggestion** — when a child is added, offer to pre-fill education expense categories based on planned DOB and school system milestones

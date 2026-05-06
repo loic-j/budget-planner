@@ -121,7 +121,7 @@ Clicking a card navigates to the corresponding data screen.
 
 - All charts update immediately when budget data changes in other screens
 - Net worth chart time range selector persists in `localStorage`
-- Cards are clickable: Revenue → `/expenses`, Expenses → `/expenses`, Net Cash Flow → `/projections`
+- Cards are clickable: Revenue → `/revenues`, Expenses → `/expenses`
 
 ---
 

@@ -48,6 +48,5 @@ Full project breakdown. Each folder contains a `README.md` with task details and
 | [18](./18-savings-screen/)         | Savings screen                        | `DONE` | 13, 10, 12 |
 | [19](./19-assets-screen/)          | Assets screen                         | `DONE` | 13, 11, 12 |
 | [20](./20-dashboard-screen/)       | Dashboard screen                      | `DONE` | 13, 12     |
-| [21](./21-projections-screen/)     | Projections screen                    | `DONE` | 13, 12     |
-| [22](./22-members-screen/)         | Members screen                        | `DONE` | 13, 05     |
+| [21](./21-members-screen/)         | Members screen                        | `DONE` | 13, 05     |
 | [23](./23-user-profile/)           | User profile screen                   | `DONE` | 03, 13     |

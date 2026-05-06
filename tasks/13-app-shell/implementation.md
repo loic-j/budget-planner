@@ -22,7 +22,6 @@
 ```
 /budgets/:id           → redirect to /budgets/:id/dashboard
 /budgets/:id/dashboard → DashboardPage
-/budgets/:id/projections → ProjectionsPage
 /budgets/:id/expenses  → ExpensesPage
 /budgets/:id/revenues  → RevenuesPage
 /budgets/:id/savings   → SavingsPage
@@ -36,7 +35,7 @@
 - Width: 220px expanded / 56px collapsed
 - Collapse toggle: small chevron button at mid-right edge of sidebar
 - Active nav item: teal 3px left border + `rgba(0,150,136,0.12)` bg tint
-- Nav sections: main (Dashboard, Projections, Expenses, Revenues, Savings, Assets) + bottom (Members, Settings)
+- Nav sections: main (Dashboard, Expenses, Revenues, Savings, Assets) + bottom (Members, Settings)
 - Footer: Sign out button with AccountCircleIcon
 - Budget name shown in header alongside back-arrow to budget list
 - Uses React Router `NavLink` for automatic active class detection

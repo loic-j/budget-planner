@@ -11,21 +11,20 @@
 
 ## Screen Inventory
 
-| #   | Screen             | Route                      | Doc                                              |
-| --- | ------------------ | -------------------------- | ------------------------------------------------ |
-| 1   | Login              | `/login`                   | [01-auth.md](./01-auth.md)                       |
-| 2   | Register           | `/register`                | [01-auth.md](./01-auth.md)                       |
-| 3   | Email Verification | `/verify-email`            | [01-auth.md](./01-auth.md)                       |
-| 4   | Budget List        | `/`                        | [02-budget-list.md](./02-budget-list.md)         |
-| 5   | App Shell (layout) | `/budgets/:id/*`           | [03-app-shell.md](./03-app-shell.md)             |
-| 6   | Dashboard          | `/budgets/:id`             | [04-dashboard.md](./04-dashboard.md)             |
-| 7   | Budget Settings    | `/budgets/:id/settings`    | [05-budget-settings.md](./05-budget-settings.md) |
-| 8   | Expenses           | `/budgets/:id/expenses`    | [06-expenses.md](./06-expenses.md)               |
-| 9   | Revenues           | `/budgets/:id/revenues`    | [07-revenues.md](./07-revenues.md)               |
-| 10  | Savings            | `/budgets/:id/savings`     | [08-savings.md](./08-savings.md)                 |
-| 11  | Assets             | `/budgets/:id/assets`      | [09-assets.md](./09-assets.md)                   |
-| 12  | Projections        | `/budgets/:id/projections` | [10-projections.md](./10-projections.md)         |
-| 13  | Members            | `/budgets/:id/members`     | [11-members.md](./11-members.md)                 |
+| #   | Screen             | Route                   | Doc                                              |
+| --- | ------------------ | ----------------------- | ------------------------------------------------ |
+| 1   | Login              | `/login`                | [01-auth.md](./01-auth.md)                       |
+| 2   | Register           | `/register`             | [01-auth.md](./01-auth.md)                       |
+| 3   | Email Verification | `/verify-email`         | [01-auth.md](./01-auth.md)                       |
+| 4   | Budget List        | `/`                     | [02-budget-list.md](./02-budget-list.md)         |
+| 5   | App Shell (layout) | `/budgets/:id/*`        | [03-app-shell.md](./03-app-shell.md)             |
+| 6   | Dashboard          | `/budgets/:id`          | [04-dashboard.md](./04-dashboard.md)             |
+| 7   | Budget Settings    | `/budgets/:id/settings` | [05-budget-settings.md](./05-budget-settings.md) |
+| 8   | Expenses           | `/budgets/:id/expenses` | [06-expenses.md](./06-expenses.md)               |
+| 9   | Revenues           | `/budgets/:id/revenues` | [07-revenues.md](./07-revenues.md)               |
+| 10  | Savings            | `/budgets/:id/savings`  | [08-savings.md](./08-savings.md)                 |
+| 11  | Assets             | `/budgets/:id/assets`   | [09-assets.md](./09-assets.md)                   |
+| 12  | Members            | `/budgets/:id/members`  | [11-members.md](./11-members.md)                 |
 
 ---
 
@@ -57,7 +56,6 @@
 │  Revenues ───────────────────────────── /budgets/:id/revenues  │
 │  Savings ────────────────────────────── /budgets/:id/savings   │
 │  Assets ─────────────────────────────── /budgets/:id/assets    │
-│  Projections ────────────────────────── /budgets/:id/projections│
 │  Members ────────────────────────────── /budgets/:id/members   │
 │  Settings ───────────────────────────── /budgets/:id/settings  │
 └─────────────────────────────────────────────────────────────────┘
@@ -77,7 +75,7 @@
 
 - Full-width content
 - Fixed top AppBar with budget name and hamburger menu
-- Fixed bottom navigation (5 items: Dashboard, Expenses, Revenues, Projections, More)
+- Fixed bottom navigation (5 items: Dashboard, Expenses, Revenues, Savings, More)
 - "More" opens a drawer with: Savings, Assets, Members, Settings
 - Charts stack above tables (full width, scroll down to reach table)
 

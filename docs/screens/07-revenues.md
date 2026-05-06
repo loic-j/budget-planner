@@ -103,7 +103,7 @@ Toolbar and editing behavior identical to Expenses screen — see [06-expenses.m
 When a revenue row has a `personId`:
 
 - Chart shows a separate line per person
-- Projections screen can show income per person over their lifetime
+- Dashboard can show income per person over their lifetime
 - Revenue automatically dims in projections after person's `end_date` (if set) or retirement age
 
 ---

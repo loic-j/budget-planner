@@ -28,7 +28,6 @@ Extend from Task 03. Add all budget sub-routes:
 /budgets/:id/revenues         → RevenuesPage
 /budgets/:id/savings          → SavingsPage
 /budgets/:id/assets           → AssetsPage
-/budgets/:id/projections      → ProjectionsPage
 /budgets/:id/members          → MembersPage
 ```
 
@@ -46,7 +45,7 @@ All wrapped in `<AuthGuard>` then `<AppShell>`.
 - Toggle button at top (`MenuIcon` / `ChevronLeftIcon`)
 - State persisted in `localStorage` key `sidebar_collapsed`
 - Smooth CSS transition: `transition: width 200ms ease`
-- Nav items: Dashboard, Expenses, Revenues, Savings, Assets, Projections, divider, Members, Settings
+- Nav items: Dashboard, Expenses, Revenues, Savings, Assets, divider, Members, Settings
 - Active item: `bgcolor: 'primary.main'` + left border accent
 - Collapsed: icons only + MUI `Tooltip` on hover
 - Budget switcher below logo (see below)
@@ -55,7 +54,7 @@ All wrapped in `<AuthGuard>` then `<AppShell>`.
 ### Mobile AppBar + BottomNavigation
 
 - AppBar: budget name + hamburger (opens same budget switcher as popover)
-- BottomNavigation (5 items): Dashboard, Expenses, Revenues, Projections, More
+- BottomNavigation (5 items): Dashboard, Expenses, Revenues, Savings, More
 - "More" → `Drawer` with: Savings, Assets, divider, Members, Settings
 
 ### Budget Switcher — `apps/web/src/components/layout/BudgetSwitcher.tsx`

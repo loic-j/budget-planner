@@ -353,12 +353,12 @@ docker compose down   # Stop services
 
 When the user says "do next task" or similar, **always pair an API task with its corresponding frontend screen task** so the feature can be tested end-to-end:
 
-| API task               | Frontend task                                   |
-| ---------------------- | ----------------------------------------------- |
-| 09 — Revenues API      | 17 — Revenues Screen                            |
-| 10 — Savings API       | 18 — Savings Screen                             |
-| 11 — Assets API        | 19 — Assets Screen                              |
-| 12 — Projection Engine | 20 — Dashboard Screen + 21 — Projections Screen |
+| API task               | Frontend task         |
+| ---------------------- | --------------------- |
+| 09 — Revenues API      | 17 — Revenues Screen  |
+| 10 — Savings API       | 18 — Savings Screen   |
+| 11 — Assets API        | 19 — Assets Screen    |
+| 12 — Projection Engine | 20 — Dashboard Screen |
 
 **Do both in the same session:** build the API first, then wire up the frontend screen against it. Stop and report to the user once both are working end-to-end in the browser (Playwright smoke test or manual verification).
 

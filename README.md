@@ -145,7 +145,7 @@ Full details: [docs/architecture/clean-architecture.md](docs/architecture/clean-
 
 ## Key Features
 
-- **Projections** — monthly / yearly net worth and cash flow over a configurable date range
+- **Dashboard** — monthly / yearly net worth and cash flow projections over a configurable date range
 - **Expenses** — regular recurring costs + full loan amortization (mortgage, car loan, etc.)
 - **Revenues** — income streams per person or household
 - **Savings** — contribution tracking with optional goal targets
