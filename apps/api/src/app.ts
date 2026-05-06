@@ -46,6 +46,16 @@ export function createApp() {
 
   app.use('*', pinoLogger({ pino: logger }));
 
+  // Block requests not coming through Cloudflare in production
+  if (process.env.NODE_ENV === 'production' && process.env.CF_SECRET) {
+    app.use('*', async (c, next) => {
+      if (c.req.header('x-origin-secret') !== process.env.CF_SECRET) {
+        return c.json({ error: 'Forbidden' }, 403);
+      }
+      await next();
+    });
+  }
+
   app.get('/health', (c) => c.json({ status: 'ok' }));
 
   // Better Auth — handles all /api/auth/* endpoints

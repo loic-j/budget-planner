@@ -56,6 +56,15 @@ resource "google_cloud_run_v2_service" "app" {
           }
         }
       }
+      env {
+        name = "CF_SECRET"
+        value_source {
+          secret_key_ref {
+            secret  = google_secret_manager_secret.cf_secret.secret_id
+            version = "latest"
+          }
+        }
+      }
     }
   }
 
@@ -68,6 +77,7 @@ resource "google_cloud_run_v2_service" "app" {
     google_project_service.apis,
     google_secret_manager_secret_iam_member.runtime_database_url,
     google_secret_manager_secret_iam_member.runtime_better_auth_secret,
+    google_secret_manager_secret_iam_member.runtime_cf_secret,
   ]
 }
 
