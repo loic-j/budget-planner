@@ -62,13 +62,11 @@ COPY --from=builder /app/apps/api/dist/server.js ./apps/api/dist/server.js
 # Copy built frontend static files
 COPY --from=builder /app/apps/api/public ./apps/api/public
 
-# Copy generated Prisma client (Alpine-compatible binary from builder stage)
-COPY --from=builder \
-     /app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma \
-     /app/node_modules/.pnpm/@prisma+client@5.22.0_prisma@5.22.0/node_modules/.prisma
-
-# Copy Prisma schema (needed for migrate deploy)
+# Copy Prisma schema (needed for generate + migrate deploy)
 COPY apps/api/prisma ./apps/api/prisma
+
+# Generate Prisma client in the runner environment (produces correct Alpine binary)
+RUN prisma generate --schema=apps/api/prisma/schema.prisma
 
 WORKDIR /app/apps/api
 
