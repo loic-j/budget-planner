@@ -70,7 +70,8 @@ COPY apps/api/prisma ./apps/api/prisma
 # node_modules/.prisma/client where prisma generate writes by default)
 RUN prisma generate --schema=apps/api/prisma/schema.prisma && \
     PRISMA_STORE=$(find /app/node_modules/.pnpm -maxdepth 1 -name '@prisma+client@*' -type d | head -1) && \
-    cp -rf /app/node_modules/.prisma/client "$PRISMA_STORE/node_modules/.prisma/client"
+    rm -rf "$PRISMA_STORE/node_modules/.prisma/client" && \
+    cp -r /app/node_modules/.prisma/client "$PRISMA_STORE/node_modules/.prisma/client"
 
 WORKDIR /app/apps/api
 
