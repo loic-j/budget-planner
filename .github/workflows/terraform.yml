@@ -45,6 +45,8 @@ jobs:
           TF_VAR_region: ${{ vars.TF_VAR_region }}
           TF_VAR_service_name: ${{ vars.TF_VAR_service_name }}
           TF_VAR_app_url: ${{ vars.TF_VAR_app_url }}
+          TF_VAR_cloudflare_zone_id: ${{ vars.TF_VAR_cloudflare_zone_id }}
+          TF_VAR_cloudflare_api_token: ${{ secrets.TF_VAR_CLOUDFLARE_API_TOKEN }}
 
       - name: Terraform Apply
         if: inputs.action == 'apply'
@@ -57,3 +59,5 @@ jobs:
           TF_VAR_region: ${{ vars.TF_VAR_region }}
           TF_VAR_service_name: ${{ vars.TF_VAR_service_name }}
           TF_VAR_app_url: ${{ vars.TF_VAR_app_url }}
+          TF_VAR_cloudflare_zone_id: ${{ vars.TF_VAR_cloudflare_zone_id }}
+          TF_VAR_cloudflare_api_token: ${{ secrets.TF_VAR_CLOUDFLARE_API_TOKEN }}

@@ -7,3 +7,7 @@ github_repo  = "budget-planner"
 # Leave empty on first apply.
 # After first deploy, paste the cloud_run_url output here and re-apply.
 app_url = ""
+
+# Cloudflare (set via TF_VAR env vars in CI — do not commit real values)
+cloudflare_api_token = ""
+cloudflare_zone_id   = ""

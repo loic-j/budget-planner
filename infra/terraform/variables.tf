@@ -30,3 +30,14 @@ variable "app_url" {
   type        = string
   default     = ""
 }
+
+variable "cloudflare_api_token" {
+  description = "Cloudflare API token with Zone DNS edit permission"
+  type        = string
+  sensitive   = true
+}
+
+variable "cloudflare_zone_id" {
+  description = "Cloudflare zone ID for loicj.org"
+  type        = string
+}
