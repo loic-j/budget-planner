@@ -65,8 +65,12 @@ COPY --from=builder /app/apps/api/public ./apps/api/public
 # Copy Prisma schema (needed for generate + migrate deploy)
 COPY apps/api/prisma ./apps/api/prisma
 
-# Generate Prisma client in the runner environment (produces correct Alpine binary)
-RUN prisma generate --schema=apps/api/prisma/schema.prisma
+# Generate Prisma client, then copy it into the pnpm store location that Node
+# resolves at runtime (pnpm symlinks cause a different path than the root
+# node_modules/.prisma/client where prisma generate writes by default)
+RUN prisma generate --schema=apps/api/prisma/schema.prisma && \
+    PRISMA_STORE=$(find /app/node_modules/.pnpm -maxdepth 1 -name '@prisma+client@*' -type d | head -1) && \
+    cp -rf /app/node_modules/.prisma/client "$PRISMA_STORE/node_modules/.prisma/client"
 
 WORKDIR /app/apps/api
 
