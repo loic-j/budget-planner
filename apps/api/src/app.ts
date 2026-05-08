@@ -2,6 +2,7 @@ import { OpenAPIHono } from '@hono/zod-openapi';
 import { cors } from 'hono/cors';
 import { Scalar } from '@scalar/hono-api-reference';
 import { pinoLogger } from 'hono-pino';
+import { serveStatic } from '@hono/node-server/serve-static';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import { logger } from './config/logger.js';
 import { prisma } from './config/di.container.js';
@@ -90,6 +91,11 @@ export function createApp() {
     logger.error({ err }, 'Unhandled error');
     return c.json({ error: 'Internal server error' }, 500);
   });
+
+  // Serve frontend static files — must come after all API routes
+  routes.use('*', serveStatic({ root: './public' }));
+  // SPA fallback: any unmatched route serves index.html for client-side routing
+  routes.use('*', serveStatic({ path: './public/index.html' }));
 
   return routes;
 }
