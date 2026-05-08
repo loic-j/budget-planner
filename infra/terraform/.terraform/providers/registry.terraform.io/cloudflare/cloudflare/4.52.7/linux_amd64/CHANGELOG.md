@@ -2,102 +2,102 @@
 
 BUG FIXES:
 
-* resource/cloudflare_zero_trust_access_mtls_certificate: changing `certificate` now correctly forces recreation of the resource instead of a silent no-op update
+- resource/cloudflare_zero_trust_access_mtls_certificate: changing `certificate` now correctly forces recreation of the resource instead of a silent no-op update
 
 ## 4.52.5 (September 15th, 2025)
 
 BUG FIXES:
 
-* internal/framework/service/list/resource_test.go: list items are cleared when no nested item block defined
+- internal/framework/service/list/resource_test.go: list items are cleared when no nested item block defined
 
 ## 4.52.4 (September 9th, 2025)
 
 BUG FIXES:
 
-* internal/sdkv2provider/schema_cloudflare_access_service_tokens.go: Remove ForceNew from client_id and client_secret
+- internal/sdkv2provider/schema_cloudflare_access_service_tokens.go: Remove ForceNew from client_id and client_secret
 
 ## 4.52.3 (September 8th, 2025)
 
 BUG FIXES:
 
-* internal/sdkv2provider/schema_cloudflare_access_service_tokens.go: Mark access_service_token.client_secret as computed when client_secret_version changes
+- internal/sdkv2provider/schema_cloudflare_access_service_tokens.go: Mark access_service_token.client_secret as computed when client_secret_version changes
 
 ## 4.52.2 (September 5th, 2025)
 
 ENHANCEMENTS:
 
-* internal/sdkv2provider/schema_cloudflare_access_service_tokens.go: Add graceful rotation support for client secrets
-* internal/sdkv2provider/resource_cloudflare_access_service_tokens_test.go: Add graceful rotation support for client secrets
-* internal/sdkv2provider/resource_cloudflare_access_service_tokens.go: Add graceful rotation support for client secrets
+- internal/sdkv2provider/schema_cloudflare_access_service_tokens.go: Add graceful rotation support for client secrets
+- internal/sdkv2provider/resource_cloudflare_access_service_tokens_test.go: Add graceful rotation support for client secrets
+- internal/sdkv2provider/resource_cloudflare_access_service_tokens.go: Add graceful rotation support for client secrets
 
 ## 4.52.1 (July 22th, 2025)
 
 ENHANCEMENTS:
 
-* internal/sdkv2provider/schema_cloudflare_load_balancer.go: remove "Computed" primitive from user configurable properties ([#5621](https://github.com/cloudflare/terraform-provider-cloudflare/pull/5621))
+- internal/sdkv2provider/schema_cloudflare_load_balancer.go: remove "Computed" primitive from user configurable properties ([#5621](https://github.com/cloudflare/terraform-provider-cloudflare/pull/5621))
 
 ## 4.52.0 (February 5th, 2025)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_waiting_room: add support for Turnstile fields ([#4952](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4952))
-* resource/cloudflare_zero_trust_gateway_policy: allow configuring isolate rules with BISO admin control V2 settings ([#4962](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4962))
-* resource/snippets-rules: make terraform consistent with the API and do not require "enabled" and "description" fields
-resource/snippets: use list instead of set
-resource/cloud_connector_rules: use list instead of set ([#4787](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4787))
+- resource/cloudflare_waiting_room: add support for Turnstile fields ([#4952](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4952))
+- resource/cloudflare_zero_trust_gateway_policy: allow configuring isolate rules with BISO admin control V2 settings ([#4962](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4962))
+- resource/snippets-rules: make terraform consistent with the API and do not require "enabled" and "description" fields
+  resource/snippets: use list instead of set
+  resource/cloud_connector_rules: use list instead of set ([#4787](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4787))
 
 BUG FIXES:
 
-* resource/cloudflare_device_posture_integration: fix bug where `custom_s2s` and `tanium_s2s` was not included in the type validation for s2s posture integrations. ([#4933](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4933))
+- resource/cloudflare_device_posture_integration: fix bug where `custom_s2s` and `tanium_s2s` was not included in the type validation for s2s posture integrations. ([#4933](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4933))
 
 DEPENDENCIES:
 
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.25.0 to 0.26.0 ([#4928](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4928))
-* provider: bump github.com/hashicorp/terraform-plugin-mux from 0.17.0 to 0.18.0 ([#4934](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4934))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.25.0 to 0.26.0 ([#4928](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4928))
+- provider: bump github.com/hashicorp/terraform-plugin-mux from 0.17.0 to 0.18.0 ([#4934](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4934))
 
 ## 4.51.0 (January 22nd, 2025)
 
 NOTES:
 
-* resource/cloudflare_ruleset: remove deprecated `http_request_sbfm` phase ([#4860](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4860))
+- resource/cloudflare_ruleset: remove deprecated `http_request_sbfm` phase ([#4860](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4860))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application:  add private destination fields to access application ([#4892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4892))
-* resource/cloudflare_zero_trust_gateway_policy: allow configuring resolver rules with internal DNS ([#4918](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4918))
+- resource/cloudflare_access_application: add private destination fields to access application ([#4892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4892))
+- resource/cloudflare_zero_trust_gateway_policy: allow configuring resolver rules with internal DNS ([#4918](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4918))
 
 BUG FIXES:
 
-* resource/cloudflare_api_shield_operation: fixed a bug when using variable names other than `var1 ... varN` in endpoint definitions causing these resources to be recreated when nothing has changed.
-If this affects you, after upgrading to this version, the resource has to be recreated once more to fix the state, after which the bug is fixed. ([#4894](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4894))
-* resource/cloudflare_teams_location: Fix import failures on teams locations ([#4859](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4859))
-* resource/cloudflare_zero_trust_device_posture_rule: Fix 'last_seen' not being written to the state file ([#4855](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4855))
+- resource/cloudflare_api_shield_operation: fixed a bug when using variable names other than `var1 ... varN` in endpoint definitions causing these resources to be recreated when nothing has changed.
+  If this affects you, after upgrading to this version, the resource has to be recreated once more to fix the state, after which the bug is fixed. ([#4894](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4894))
+- resource/cloudflare_teams_location: Fix import failures on teams locations ([#4859](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4859))
+- resource/cloudflare_zero_trust_device_posture_rule: Fix 'last_seen' not being written to the state file ([#4855](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4855))
 
 INTERNAL:
 
-* resource/cloudflare_api_shield_operation: migrated to the `terraform-plugin-framework`. ([#4894](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4894))
+- resource/cloudflare_api_shield_operation: migrated to the `terraform-plugin-framework`. ([#4894](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4894))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.113.0 to 0.114.0 ([#4893](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4893))
-* provider: bump github.com/go-git/go-git/v5 from 5.11.0 to 5.13.0 in /tools ([#4903](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4903))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.113.0 to 0.114.0 ([#4893](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4893))
+- provider: bump github.com/go-git/go-git/v5 from 5.11.0 to 5.13.0 in /tools ([#4903](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4903))
 
 ## 4.50.0 (January 8th, 2025)
 
 ENHANCEMENTS:
 
-* cloudflare_teams_location: support endpoints + BYOIPv6 + DNS IPv4 destinations ([#4805](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4805))
-* resource/cloudflare_zone_settings_override: Add support for `aegis` ([#4820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4820))
-* resource/cloudflare_zone_settings_override: add support for `ssl_automatic_mode` ([#4465](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4465))
+- cloudflare_teams_location: support endpoints + BYOIPv6 + DNS IPv4 destinations ([#4805](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4805))
+- resource/cloudflare_zone_settings_override: Add support for `aegis` ([#4820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4820))
+- resource/cloudflare_zone_settings_override: add support for `ssl_automatic_mode` ([#4465](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4465))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: Fix access application saas apps attributes crashing provider when no changes were made to those ([#4843](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4843))
+- resource/cloudflare_access_application: Fix access application saas apps attributes crashing provider when no changes were made to those ([#4843](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4843))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.112.0 to 0.113.0 ([#4826](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4826))
-* provider: bump golang.org/x/net from 0.33.0 to 0.34.0 ([#4837](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4837))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.112.0 to 0.113.0 ([#4826](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4826))
+- provider: bump golang.org/x/net from 0.33.0 to 0.34.0 ([#4837](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4837))
 
 ## 4.49.1 (December 25th, 2024)
 
@@ -107,1612 +107,1612 @@ No functional differences to v4.49.0. Republished to fix a bad cached asset in t
 
 NOTES:
 
-* resource/cloudflare_teams_location: remove unusable `policy_ids` attribute ([#4817](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4817))
+- resource/cloudflare_teams_location: remove unusable `policy_ids` attribute ([#4817](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4817))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_content_scanning_expression` ([#4734](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4734))
-* **New Resource:** `cloudflare_content_scanning` ([#4719](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4719))
+- **New Resource:** `cloudflare_content_scanning_expression` ([#4734](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4734))
+- **New Resource:** `cloudflare_content_scanning` ([#4719](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4719))
 
 ENHANCEMENTS:
 
-* resource/access_application: support multi-valued + Access service token authentication for SCIM provisioning to Access applications ([#4743](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4743))
+- resource/access_application: support multi-valued + Access service token authentication for SCIM provisioning to Access applications ([#4743](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4743))
 
 BUG FIXES:
 
-* resource/cloudflare_ruleset: handle when `disable_stale_while_updating` is an empty object but not nil ([#4814](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4814))
+- resource/cloudflare_ruleset: handle when `disable_stale_while_updating` is an empty object but not nil ([#4814](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4814))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.111.0 to 0.112.0 ([#4803](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4803))
-* provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.15.0 to 0.16.0 ([#4762](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4762))
-* provider: bump golang.org/x/crypto from 0.21.0 to 0.31.0 in /tools ([#4755](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4755))
-* provider: bump golang.org/x/crypto from 0.30.0 to 0.31.0 ([#4756](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4756))
-* provider: bump golang.org/x/net from 0.32.0 to 0.33.0 ([#4802](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4802))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.111.0 to 0.112.0 ([#4803](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4803))
+- provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.15.0 to 0.16.0 ([#4762](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4762))
+- provider: bump golang.org/x/crypto from 0.21.0 to 0.31.0 in /tools ([#4755](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4755))
+- provider: bump golang.org/x/crypto from 0.30.0 to 0.31.0 ([#4756](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4756))
+- provider: bump golang.org/x/net from 0.32.0 to 0.33.0 ([#4802](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4802))
 
 ## 4.48.0 (December 11th, 2024)
 
 NOTES:
 
-* resource/cloudflare_ruleset: rules must now be given an explicit `ref` to avoid their IDs changing across ruleset updates, see https://developers.cloudflare.com/terraform/troubleshooting/rule-id-changes/ ([#4697](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4697))
+- resource/cloudflare_ruleset: rules must now be given an explicit `ref` to avoid their IDs changing across ruleset updates, see https://developers.cloudflare.com/terraform/troubleshooting/rule-id-changes/ ([#4697](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4697))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_leaked_credential_check` ([#4674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4674))
-* **New Resource:** `cloudflare_leaked_credential_check_rule` ([#4676](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4676))
-* **New Resource:** `cloudflare_snippet` ([#4565](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4565))
-* **New Resource:** `cloudflare_snippet_rules` ([#4565](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4565))
+- **New Resource:** `cloudflare_leaked_credential_check` ([#4674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4674))
+- **New Resource:** `cloudflare_leaked_credential_check_rule` ([#4676](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4676))
+- **New Resource:** `cloudflare_snippet` ([#4565](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4565))
+- **New Resource:** `cloudflare_snippet_rules` ([#4565](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4565))
 
 ENHANCEMENTS:
 
-* resource/access_application: add support for destinations and domain_type ([#4661](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4661))
-* resource/access_identity_provider: document scim_config fields ([#4721](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4721))
-* resource/cloudflare_access_policy: adds support for Access infrastructure `allow_email_alias` connection rule flag ([#4665](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4665))
-* resource/cloudflare_ruleset: improve diffs when only some rules are changed ([#4697](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4697))
-* resource/cloudflare_teams_list: use PUT call to update list items ([#4737](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4737))
-* resource/cloudflare_zero_trust_access_policy: adds support for Access infrastructure `allow_email_alias` connection rule flag ([#4665](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4665))
+- resource/access_application: add support for destinations and domain_type ([#4661](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4661))
+- resource/access_identity_provider: document scim_config fields ([#4721](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4721))
+- resource/cloudflare_access_policy: adds support for Access infrastructure `allow_email_alias` connection rule flag ([#4665](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4665))
+- resource/cloudflare_ruleset: improve diffs when only some rules are changed ([#4697](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4697))
+- resource/cloudflare_teams_list: use PUT call to update list items ([#4737](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4737))
+- resource/cloudflare_zero_trust_access_policy: adds support for Access infrastructure `allow_email_alias` connection rule flag ([#4665](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4665))
 
 BUG FIXES:
 
-* resource/cloudflare_authenticated_origin_pulls: Fix issue where resources are disabled instead of being destroyed on `tf destroy` ([#4649](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4649))
-* resource/cloudflare_leaked_credential_check_rule: Fix bug in update method ([#4741](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4741))
+- resource/cloudflare_authenticated_origin_pulls: Fix issue where resources are disabled instead of being destroyed on `tf destroy` ([#4649](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4649))
+- resource/cloudflare_leaked_credential_check_rule: Fix bug in update method ([#4741](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4741))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.110.0 to 0.111.0 ([#4709](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4709))
-* provider: bump golang.org/x/net from 0.31.0 to 0.32.0 ([#4718](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4718))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.110.0 to 0.111.0 ([#4709](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4709))
+- provider: bump golang.org/x/net from 0.31.0 to 0.32.0 ([#4718](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4718))
 
 ## 4.47.0 (November 27th, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: support SCIM schema strictness setting for outbound provisioning ([#4419](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4419))
-* resource/cloudflare_access_identity_provider: Adds identity update behavior field in SCIM configuration ([#4602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4602))
-* resource/cloudflare_notification_policy: Added support for D1 in the `cloudflare_notification_policy` resource and data source. ([#4615](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4615))
-* resource/cloudflare_notification_policy: add support for `image_resizing_notification` alert type ([#4588](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4588))
-* resource/cloudflare_r2_bucket: Added support for Oceania region in location hints. ([#4660](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4660))
+- resource/cloudflare_access_application: support SCIM schema strictness setting for outbound provisioning ([#4419](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4419))
+- resource/cloudflare_access_identity_provider: Adds identity update behavior field in SCIM configuration ([#4602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4602))
+- resource/cloudflare_notification_policy: Added support for D1 in the `cloudflare_notification_policy` resource and data source. ([#4615](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4615))
+- resource/cloudflare_notification_policy: add support for `image_resizing_notification` alert type ([#4588](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4588))
+- resource/cloudflare_r2_bucket: Added support for Oceania region in location hints. ([#4660](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4660))
 
 BUG FIXES:
 
-* resource/cloudflare_logpush_job: add dlp_forensic_copies to allowed dataset values ([#4598](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4598))
-* resource/cloudflare_zero_trust_access_policy: make gsuite  parameters required ([#4597](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4597))
+- resource/cloudflare_logpush_job: add dlp_forensic_copies to allowed dataset values ([#4598](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4598))
+- resource/cloudflare_zero_trust_access_policy: make gsuite parameters required ([#4597](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4597))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.109.0 to 0.110.0 ([#4632](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4632))
-* provider: bump github.com/hashicorp/terraform-plugin-testing from 1.10.0 to 1.11.0 ([#4613](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4613))
-* provider: bump github.com/stretchr/testify from 1.9.0 to 1.10.0 ([#4663](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4663))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.109.0 to 0.110.0 ([#4632](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4632))
+- provider: bump github.com/hashicorp/terraform-plugin-testing from 1.10.0 to 1.11.0 ([#4613](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4613))
+- provider: bump github.com/stretchr/testify from 1.9.0 to 1.10.0 ([#4663](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4663))
 
 ## 4.46.0 (November 13th, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_waiting_room: add "bg-BG", "hr-HR", "cs-CZ", "da-DK", "fi-FI", "lt-LT", "ms-MY", "nb-NO", "ro-RO", "el-GR", "he-IL" "hi-IN", "hu-HU", "sr-BA", "sk-SK", "sl-SI", "sv-SE", "tl-PH", "th-TH", "uk-UA", and "vi-VN" to default_template_language field ([#4509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4509))
+- resource/cloudflare_waiting_room: add "bg-BG", "hr-HR", "cs-CZ", "da-DK", "fi-FI", "lt-LT", "ms-MY", "nb-NO", "ro-RO", "el-GR", "he-IL" "hi-IN", "hu-HU", "sr-BA", "sk-SK", "sl-SI", "sv-SE", "tl-PH", "th-TH", "uk-UA", and "vi-VN" to default_template_language field ([#4509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4509))
 
 BUG FIXES:
 
-* resource/cloudflare_certificate_pack: Fix importing existing resources issue due to 3 ignored required fields in importer ([#4544](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4544))
-* resource/cloudflare_list: Don't read list items if there are none configured ([#4511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4511))
-* resource/cloudflare_zero_trust_list: Consider `items_with_description` when updating a ZT list ([#4477](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4477))
-* resource/turnstile: Force recreate on region update ([#4496](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4496))
+- resource/cloudflare_certificate_pack: Fix importing existing resources issue due to 3 ignored required fields in importer ([#4544](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4544))
+- resource/cloudflare_list: Don't read list items if there are none configured ([#4511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4511))
+- resource/cloudflare_zero_trust_list: Consider `items_with_description` when updating a ZT list ([#4477](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4477))
+- resource/turnstile: Force recreate on region update ([#4496](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4496))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.108.0 to 0.109.0 ([#4523](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4523))
-* provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.14.0 to 0.15.0 ([#4492](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4492))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.24.0 to 0.25.0 ([#4483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4483))
-* provider: bump github.com/hashicorp/terraform-plugin-mux from 0.16.0 to 0.17.0 ([#4484](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4484))
-* provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.34.0 to 2.35.0 ([#4491](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4491))
-* provider: bump golang.org/x/net from 0.30.0 to 0.31.0 ([#4541](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4541))
-* provider: bump goreleaser/goreleaser-action from 6.0.0 to 6.1.0 ([#4531](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4531))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.108.0 to 0.109.0 ([#4523](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4523))
+- provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.14.0 to 0.15.0 ([#4492](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4492))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.24.0 to 0.25.0 ([#4483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4483))
+- provider: bump github.com/hashicorp/terraform-plugin-mux from 0.16.0 to 0.17.0 ([#4484](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4484))
+- provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.34.0 to 2.35.0 ([#4491](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4491))
+- provider: bump golang.org/x/net from 0.30.0 to 0.31.0 ([#4541](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4541))
+- provider: bump goreleaser/goreleaser-action from 6.0.0 to 6.1.0 ([#4531](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4531))
 
 ## 4.45.0 (October 30th, 2024)
 
 NOTES:
 
-* datasource/cloudflare_infrastructure_access_targets: deprecated in favour of `cloudflare_zero_trust_infrastructure_access_targets` and will be removed in the next major version. ([#4403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4403))
-* resource/cloudflare_infrastructure_access_target: deprecated in favour of `cloudflare_zero_trust_infrastructure_access_target` and will be removed in the next major version. ([#4403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4403))
+- datasource/cloudflare_infrastructure_access_targets: deprecated in favour of `cloudflare_zero_trust_infrastructure_access_targets` and will be removed in the next major version. ([#4403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4403))
+- resource/cloudflare_infrastructure_access_target: deprecated in favour of `cloudflare_zero_trust_infrastructure_access_target` and will be removed in the next major version. ([#4403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4403))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_zero_trust_infrastructure_access_target` ([#4403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4403))
+- **New Resource:** `cloudflare_zero_trust_infrastructure_access_target` ([#4403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4403))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_ruleset: add support for `zstd` compression in the `compress_response` action ([#4300](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4300))
+- resource/cloudflare_ruleset: add support for `zstd` compression in the `compress_response` action ([#4300](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4300))
 
 BUG FIXES:
 
-* resource/cloudflare_workers_cron_trigger: fix incorrectly reported deprecated resource ([#4295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4295))
-* resource/cloudflare_zero_trust_dlp_profile: Include more fields in `entry` set hash function ([#4464](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4464))
+- resource/cloudflare_workers_cron_trigger: fix incorrectly reported deprecated resource ([#4295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4295))
+- resource/cloudflare_zero_trust_dlp_profile: Include more fields in `entry` set hash function ([#4464](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4464))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.107.0 to 0.108.0 ([#4394](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4394))
-* provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.13.0 to 0.14.0 ([#4313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4313))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.107.0 to 0.108.0 ([#4394](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4394))
+- provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.13.0 to 0.14.0 ([#4313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4313))
 
 ## 4.44.0 (October 16th, 2024)
 
 NOTES:
 
-* `cloudflare_list` has been migrated to the `terraform-plugin-framework` in doing so addresses issues with the internal representation of zero values. A downside to this is that to get the full benefits, you will need to remove the resource from your Terraform state (`terraform state rm ...`) and then import the resource back into your state. ([#4228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4228))
+- `cloudflare_list` has been migrated to the `terraform-plugin-framework` in doing so addresses issues with the internal representation of zero values. A downside to this is that to get the full benefits, you will need to remove the resource from your Terraform state (`terraform state rm ...`) and then import the resource back into your state. ([#4228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4228))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_certificate_pack: Add SSL.com as valid certificate authority ([#4267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4267))
-* resource/cloudflare_device_posture_rule: Add support for SentinelOne posture check operational_state field ([#4200](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4200))
+- resource/cloudflare_certificate_pack: Add SSL.com as valid certificate authority ([#4267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4267))
+- resource/cloudflare_device_posture_rule: Add support for SentinelOne posture check operational_state field ([#4200](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4200))
 
 BUG FIXES:
 
-* resource/cloudflare_device_posture_rule: fix bug where locations were not parsed correctly for client_certificate_v2 posture rules ([#4168](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4168))
-* resource/cloudflare_teams_rule: start persisting rule settings, wo rules may not stuck in plan cycle ([#4261](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4261))
-* resource/cloudflare_zone: When changing `type` to or from `partial` the `verification_key` attribute will properly show that it will receive a new value. ([#4019](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4019))
+- resource/cloudflare_device_posture_rule: fix bug where locations were not parsed correctly for client_certificate_v2 posture rules ([#4168](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4168))
+- resource/cloudflare_teams_rule: start persisting rule settings, wo rules may not stuck in plan cycle ([#4261](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4261))
+- resource/cloudflare_zone: When changing `type` to or from `partial` the `verification_key` attribute will properly show that it will receive a new value. ([#4019](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4019))
 
 INTERNAL:
 
-* resource/cloudflare_list: migrate from SDKv2 to `terraform-plugin-framework` ([#4228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4228))
+- resource/cloudflare_list: migrate from SDKv2 to `terraform-plugin-framework` ([#4228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4228))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.106.0 to 0.107.0 ([#4251](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4251))
-* provider: bump golang.org/x/net from 0.29.0 to 0.30.0 ([#4213](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4213))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.106.0 to 0.107.0 ([#4251](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4251))
+- provider: bump golang.org/x/net from 0.29.0 to 0.30.0 ([#4213](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4213))
 
 ## 4.43.0 (September 30th, 2024)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_infrastructure_access_target` ([#4077](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4077))
+- **New Resource:** `cloudflare_infrastructure_access_target` ([#4077](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4077))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: added target contexts support for access application type infrastructure ([#4128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4128))
-* resource/cloudflare_access_policy: added infrastructure connection rule support for access policy ([#4128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4128))
-* resource/cloudflare_device_posture_integration: add support for managing `custom_s2s` third party posture provider. ([#3917](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3917))
-* resource/cloudflare_device_posture_rule: add ability to create custom_s2s posture rule ([#3917](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3917))
-* resource/cloudflare_zone_settings_override: add support for Speed Brain ([#4113](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4113))
+- resource/cloudflare_access_application: added target contexts support for access application type infrastructure ([#4128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4128))
+- resource/cloudflare_access_policy: added infrastructure connection rule support for access policy ([#4128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4128))
+- resource/cloudflare_device_posture_integration: add support for managing `custom_s2s` third party posture provider. ([#3917](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3917))
+- resource/cloudflare_device_posture_rule: add ability to create custom_s2s posture rule ([#3917](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3917))
+- resource/cloudflare_zone_settings_override: add support for Speed Brain ([#4113](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4113))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.34 to 1.27.37 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.37 to 1.27.38 ([#4127](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4127))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.32 to 1.17.35 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.35 to 1.17.36 ([#4127](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4127))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.61.2 to 1.63.1 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.63.1 to 1.63.2 ([#4127](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4127))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.5 to 1.31.0 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
-* provider: bump actions/checkout from 3 to 4 ([#4101](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4101))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.104.0 to 0.105.0 ([#4125](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4125))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.105.0 to 0.106.0 ([#4137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4137))
-* provider: bump github.com/hashicorp/terraform-plugin-framework from 1.11.0 to 1.12.0 ([#4061](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4061))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.23.0 to 0.24.0 ([#4060](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4060))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.34 to 1.27.37 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.37 to 1.27.38 ([#4127](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4127))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.32 to 1.17.35 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.35 to 1.17.36 ([#4127](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4127))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.61.2 to 1.63.1 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.63.1 to 1.63.2 ([#4127](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4127))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.5 to 1.31.0 ([#4124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4124))
+- provider: bump actions/checkout from 3 to 4 ([#4101](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4101))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.104.0 to 0.105.0 ([#4125](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4125))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.105.0 to 0.106.0 ([#4137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4137))
+- provider: bump github.com/hashicorp/terraform-plugin-framework from 1.11.0 to 1.12.0 ([#4061](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4061))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.23.0 to 0.24.0 ([#4060](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4060))
 
 ## 4.42.0 (September 18th, 2024)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_zero_trust_gateway_certificate` ([#3547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3547))
+- **New Resource:** `cloudflare_zero_trust_gateway_certificate` ([#3547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3547))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_notification_policy: add support for `image_notification` alert type ([#3981](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3981))
-* resource/cloudflare_access_group: Added description strings to all rule types ([#3792](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3792))
-* resource/cloudflare_bot_management: Add support for ai_bots_protection settings ([#3960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3960))
-* resource/cloudflare_record: remove internal references to deprecated ZoneID and ZoneName fields ([#4018](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4018))
-* resource/cloudflare_workers_script: Add support for `hyperdrive` binding type ([#3821](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3821))
-* resource/cloudflare_zone_settings_override: Add optional setting `replace_insecure_js` ([#3602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3602))
-* resource/rulesets: add cache_reserve terraform support and fix typo ([#3923](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3923))
-* resource/zero_trust_gateway_settings: Add missing disable_for_time example field ([#3931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3931))
+- resource/cloudflare_notification_policy: add support for `image_notification` alert type ([#3981](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3981))
+- resource/cloudflare_access_group: Added description strings to all rule types ([#3792](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3792))
+- resource/cloudflare_bot_management: Add support for ai_bots_protection settings ([#3960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3960))
+- resource/cloudflare_record: remove internal references to deprecated ZoneID and ZoneName fields ([#4018](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4018))
+- resource/cloudflare_workers_script: Add support for `hyperdrive` binding type ([#3821](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3821))
+- resource/cloudflare_zone_settings_override: Add optional setting `replace_insecure_js` ([#3602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3602))
+- resource/rulesets: add cache_reserve terraform support and fix typo ([#3923](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3923))
+- resource/zero_trust_gateway_settings: Add missing disable_for_time example field ([#3931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3931))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: fix the name of the new resource to use when upgrading ([#4044](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4044))
-* resource/cloudflare_access_application: reconcile access application custom attributes logic ([#3987](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3987))
-* resource/cloudflare_hyperdrive_config: fix bug when calling passing Hyperdrive config ID to update method ([#4042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4042))
+- resource/cloudflare_access_application: fix the name of the new resource to use when upgrading ([#4044](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4044))
+- resource/cloudflare_access_application: reconcile access application custom attributes logic ([#3987](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3987))
+- resource/cloudflare_hyperdrive_config: fix bug when calling passing Hyperdrive config ID to update method ([#4042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4042))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.31 to 1.27.32 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.32 to 1.27.33 ([#3901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3901))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.30 to 1.17.31 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.31 to 1.17.32 ([#3901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3901))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.61.0 to 1.61.1 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.61.1 to 1.61.2 ([#3901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3901))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.4 to 1.30.5 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
-* provider: bump github.com/aws/aws-sdk-go-v2/config from 1.27.33 to 1.27.34 in the aws group ([#4020](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4020))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.103.0 to 0.104.0 ([#3974](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3974))
-* provider: bump golang.org/x/net from 0.28.0 to 0.29.0 ([#3911](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3911))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.31 to 1.27.32 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.32 to 1.27.33 ([#3901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3901))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.30 to 1.17.31 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.31 to 1.17.32 ([#3901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3901))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.61.0 to 1.61.1 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.61.1 to 1.61.2 ([#3901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3901))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.4 to 1.30.5 ([#3892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3892))
+- provider: bump github.com/aws/aws-sdk-go-v2/config from 1.27.33 to 1.27.34 in the aws group ([#4020](https://github.com/cloudflare/terraform-provider-cloudflare/issues/4020))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.103.0 to 0.104.0 ([#3974](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3974))
+- provider: bump golang.org/x/net from 0.28.0 to 0.29.0 ([#3911](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3911))
 
 ## 4.41.0 (September 4th, 2024)
 
 NOTES:
 
-* resource/cloudflare_logpush_job: Deprecate `frequency` in favour of `max_upload_interval_seconds` ([#3745](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3745))
-* resource/cloudflare_record: remove deprecated zone_name field ([#3855](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3855))
+- resource/cloudflare_logpush_job: Deprecate `frequency` in favour of `max_upload_interval_seconds` ([#3745](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3745))
+- resource/cloudflare_record: remove deprecated zone_name field ([#3855](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3855))
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_dcv_delegation` ([#3885](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3885))
-* **New Resource:** `cloudflare_cloud_connector_rules` ([#3622](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3622))
+- **New Data Source:** `cloudflare_dcv_delegation` ([#3885](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3885))
+- **New Resource:** `cloudflare_cloud_connector_rules` ([#3622](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3622))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_device_posture_rule: Modify Tanium's eid_last_seen field to be relative instead of a timestamp value ([#3764](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3764))
-* resource/cloudflare_teams_account: Add `disable_for_time` attribute ([#3526](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3526))
-* resource/cloudflare_waiting_room: Add enabled_origin_commands field. ([#3805](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3805))
-* resource/rulesets: add "contains" support to custom cache key headers ([#3820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3820))
+- resource/cloudflare_device_posture_rule: Modify Tanium's eid_last_seen field to be relative instead of a timestamp value ([#3764](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3764))
+- resource/cloudflare_teams_account: Add `disable_for_time` attribute ([#3526](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3526))
+- resource/cloudflare_waiting_room: Add enabled_origin_commands field. ([#3805](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3805))
+- resource/rulesets: add "contains" support to custom cache key headers ([#3820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3820))
 
 BUG FIXES:
 
-* resource/cloudflare_access_mutual_tls_certificate: change associated hostnames to a set ([#3498](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3498))
-* resource/cloudflare_access_policy: Fix forcing new access policies when account id is not set through import ([#3358](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3358))
-* resource/cloudflare_record: Suppress matching ipv6 dns record ([#3888](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3888))
-* resource/cloudflare_record: handle scenarios where `content` and `value` are both being set in state and erroneously always thinking the `content` field is the source of truth ([#3776](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3776))
-* resource/cloudflare_zero_trust_access_group: Fix false deprecation warnings ([#3740](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3740))
-* resource/cloudflare_zone_settings_override: fix migration process with nil initial_settings ([#3829](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3829))
-* resource/hyperdrive_config: use hyperdrive_config id when updating resource ([#3704](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3704))
+- resource/cloudflare_access_mutual_tls_certificate: change associated hostnames to a set ([#3498](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3498))
+- resource/cloudflare_access_policy: Fix forcing new access policies when account id is not set through import ([#3358](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3358))
+- resource/cloudflare_record: Suppress matching ipv6 dns record ([#3888](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3888))
+- resource/cloudflare_record: handle scenarios where `content` and `value` are both being set in state and erroneously always thinking the `content` field is the source of truth ([#3776](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3776))
+- resource/cloudflare_zero_trust_access_group: Fix false deprecation warnings ([#3740](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3740))
+- resource/cloudflare_zone_settings_override: fix migration process with nil initial_settings ([#3829](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3829))
+- resource/hyperdrive_config: use hyperdrive_config id when updating resource ([#3704](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3704))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.27 to 1.27.31 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.27 to 1.17.30 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.58.3 to 1.60.1 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.3 to 1.30.4 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
-* provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.60.1 to 1.61.0 in the aws group ([#3823](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3823))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.101.0 to 0.102.0 ([#3713](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3713))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.102.0 to 0.103.0 ([#3824](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3824))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.27 to 1.27.31 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.27 to 1.17.30 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.58.3 to 1.60.1 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.3 to 1.30.4 ([#3801](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3801))
+- provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.60.1 to 1.61.0 in the aws group ([#3823](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3823))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.101.0 to 0.102.0 ([#3713](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3713))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.102.0 to 0.103.0 ([#3824](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3824))
 
 ## 4.40.0 (August 21st, 2024)
 
 NOTES:
 
-* resource/cloudflare_access_application: deprecated in favour of `cloudflare_zero_trust_access_application` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_ca_certificate: deprecated in favour of `cloudflare_zero_trust_access_short_lived_certificate` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_custom_page: deprecated in favour of `cloudflare_zero_trust_access_custom_page` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_group: deprecated in favour of `cloudflare_zero_trust_access_group` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_identity_provider: deprecated in favour of `cloudflare_zero_trust_access_identity_provider` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_keys_configuration: deprecated in favour of `cloudflare_zero_trust_access_key_configuration` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_mutual_tls_certificate: deprecated in favour of `cloudflare_zero_trust_access_mtls_certificate` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_mutual_tls_hostname_settings: deprecated in favour of `cloudflare_zero_trust_access_mtls_hostname_settings` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_organization: deprecated in favour of `cloudflare_zero_trust_organization` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_policy: deprecated in favour of `cloudflare_zero_trust_access_policy` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_service_token: deprecated in favour of `cloudflare_zero_trust_access_service_token` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_access_tag: deprecated in favour of `cloudflare_zero_trust_access_tag` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_device_dex_test: deprecated in favour of `cloudflare_zero_trust_dex_test` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_device_managed_networks: deprecated in favour of `cloudflare_zero_trust_device_managed_networks` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_device_policy_certificates: deprecated in favour of `cloudflare_zero_trust_device_certificates` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_device_posture_integration: deprecated in favour of `cloudflare_zero_trust_device_posture_integration` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_device_posture_rule: deprecated in favour of `cloudflare_zero_trust_device_posture_rule` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_device_settings_policy: deprecated in favour of `cloudflare_zero_trust_device_profiles` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_dlp_custom_profile: deprecated in favour of `cloudflare_zero_trust_dlp_custom_profile` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_dlp_predefined_profile: deprecated in favour of `cloudflare_zero_trust_dlp_predefined_profile` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_dlp_profile: deprecated in favour of `cloudflare_zero_trust_dlp_profile` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_fallback_domain: deprecated in favour of `cloudflare_zero_trust_local_domain_fallback` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_gre_tunnel: deprecated in favour of `cloudflare_magic_wan_gre_tunnel` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_ipsec_tunnel: deprecated in favour of `cloudflare_magic_wan_ipsec_tunnel` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_record: fix a bug that prematurely removed the ability to set the deprecated `value` field. ([#3674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3674))
-* resource/cloudflare_risk_behavior: deprecated in favour of `cloudflare_zero_trust_risk_behavior` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_split_tunnel: deprecated in favour of `cloudflare_zero_trust_split_tunnels` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_static_route: deprecated in favour of `cloudflare_magic_wan_static_route` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_teams_account: deprecated in favour of `cloudflare_zero_trust_gateway_settings` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_teams_list: deprecated in favour of `cloudflare_zero_trust_list` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_teams_location: deprecated in favour of `cloudflare_zero_trust_dns_location` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_teams_proxy_endpoint: deprecated in favour of `cloudflare_zero_trust_gateway_proxy_endpoint` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_teams_rule: deprecated in favour of `cloudflare_zero_trust_gateway_policy` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_tunnel: deprecated in favour of `cloudflare_zero_trust_tunnel_cloudflared` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_tunnel_config: deprecated in favour of `cloudflare_zero_trust_tunnel_cloudflared_config` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_tunnel_route: deprecated in favour of `cloudflare_zero_trust_tunnel_route` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_tunnel_virtual_network: deprecated in favour of `cloudflare_zero_trust_tunnel_virtual_network` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_worker_cron_trigger: deprecated in favour of `cloudflare_workers_cron_trigger` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_worker_domain: deprecated in favour of `cloudflare_workers_custom_domain` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_worker_script: deprecated in favour of `cloudflare_workers_script` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_worker_secret: deprecated in favour of `cloudflare_workers_secret` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* resource/cloudflare_workers_for_platforms_namespace: deprecated in favour of `cloudflare_workers_for_platforms_dispatch_namespace` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_application: deprecated in favour of `cloudflare_zero_trust_access_application` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_ca_certificate: deprecated in favour of `cloudflare_zero_trust_access_short_lived_certificate` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_custom_page: deprecated in favour of `cloudflare_zero_trust_access_custom_page` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_group: deprecated in favour of `cloudflare_zero_trust_access_group` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_identity_provider: deprecated in favour of `cloudflare_zero_trust_access_identity_provider` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_keys_configuration: deprecated in favour of `cloudflare_zero_trust_access_key_configuration` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_mutual_tls_certificate: deprecated in favour of `cloudflare_zero_trust_access_mtls_certificate` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_mutual_tls_hostname_settings: deprecated in favour of `cloudflare_zero_trust_access_mtls_hostname_settings` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_organization: deprecated in favour of `cloudflare_zero_trust_organization` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_policy: deprecated in favour of `cloudflare_zero_trust_access_policy` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_service_token: deprecated in favour of `cloudflare_zero_trust_access_service_token` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_access_tag: deprecated in favour of `cloudflare_zero_trust_access_tag` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_device_dex_test: deprecated in favour of `cloudflare_zero_trust_dex_test` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_device_managed_networks: deprecated in favour of `cloudflare_zero_trust_device_managed_networks` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_device_policy_certificates: deprecated in favour of `cloudflare_zero_trust_device_certificates` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_device_posture_integration: deprecated in favour of `cloudflare_zero_trust_device_posture_integration` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_device_posture_rule: deprecated in favour of `cloudflare_zero_trust_device_posture_rule` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_device_settings_policy: deprecated in favour of `cloudflare_zero_trust_device_profiles` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_dlp_custom_profile: deprecated in favour of `cloudflare_zero_trust_dlp_custom_profile` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_dlp_predefined_profile: deprecated in favour of `cloudflare_zero_trust_dlp_predefined_profile` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_dlp_profile: deprecated in favour of `cloudflare_zero_trust_dlp_profile` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_fallback_domain: deprecated in favour of `cloudflare_zero_trust_local_domain_fallback` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_gre_tunnel: deprecated in favour of `cloudflare_magic_wan_gre_tunnel` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_ipsec_tunnel: deprecated in favour of `cloudflare_magic_wan_ipsec_tunnel` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_record: fix a bug that prematurely removed the ability to set the deprecated `value` field. ([#3674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3674))
+- resource/cloudflare_risk_behavior: deprecated in favour of `cloudflare_zero_trust_risk_behavior` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_split_tunnel: deprecated in favour of `cloudflare_zero_trust_split_tunnels` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_static_route: deprecated in favour of `cloudflare_magic_wan_static_route` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_teams_account: deprecated in favour of `cloudflare_zero_trust_gateway_settings` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_teams_list: deprecated in favour of `cloudflare_zero_trust_list` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_teams_location: deprecated in favour of `cloudflare_zero_trust_dns_location` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_teams_proxy_endpoint: deprecated in favour of `cloudflare_zero_trust_gateway_proxy_endpoint` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_teams_rule: deprecated in favour of `cloudflare_zero_trust_gateway_policy` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_tunnel: deprecated in favour of `cloudflare_zero_trust_tunnel_cloudflared` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_tunnel_config: deprecated in favour of `cloudflare_zero_trust_tunnel_cloudflared_config` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_tunnel_route: deprecated in favour of `cloudflare_zero_trust_tunnel_route` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_tunnel_virtual_network: deprecated in favour of `cloudflare_zero_trust_tunnel_virtual_network` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_worker_cron_trigger: deprecated in favour of `cloudflare_workers_cron_trigger` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_worker_domain: deprecated in favour of `cloudflare_workers_custom_domain` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_worker_script: deprecated in favour of `cloudflare_workers_script` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_worker_secret: deprecated in favour of `cloudflare_workers_secret` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- resource/cloudflare_workers_for_platforms_namespace: deprecated in favour of `cloudflare_workers_for_platforms_dispatch_namespace` and will be removed in the next major version. ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_magic_wan_gre_tunnel` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_magic_wan_ipsec_tunnel` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_magic_wan_static_route` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_workers_cron_trigger` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_workers_custom_domain` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_workers_for_platforms_dispatch_namespace` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_workers_script` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_workers_secret` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_application` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_custom_page` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_group` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_identity_provider` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_key_configuration` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_mtls_certificate` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_mtls_hostname_settings` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_policy` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_service_token` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_short_lived_certificate` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_access_tag` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_device_certificates` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_device_managed_networks` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_device_posture_integration` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_device_posture_rule` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_device_profiles` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_dex_test` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_dlp_custom_profile` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_dlp_predefined_profile` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_dlp_profile` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_dns_location` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_gateway_policy` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_gateway_proxy_endpoint` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_gateway_settings` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_list` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_local_domain_fallback` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_organization` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_risk_behavior` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_risk_score_integration` ([#3563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3563))
-* **New Resource:** `cloudflare_zero_trust_split_tunnels` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_tunnel_cloudflared` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_tunnel_cloudflared_config` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_tunnel_route` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
-* **New Resource:** `cloudflare_zero_trust_tunnel_virtual_network` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_magic_wan_gre_tunnel` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_magic_wan_ipsec_tunnel` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_magic_wan_static_route` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_workers_cron_trigger` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_workers_custom_domain` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_workers_for_platforms_dispatch_namespace` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_workers_script` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_workers_secret` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_application` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_custom_page` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_group` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_identity_provider` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_key_configuration` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_mtls_certificate` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_mtls_hostname_settings` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_policy` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_service_token` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_short_lived_certificate` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_access_tag` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_device_certificates` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_device_managed_networks` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_device_posture_integration` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_device_posture_rule` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_device_profiles` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_dex_test` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_dlp_custom_profile` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_dlp_predefined_profile` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_dlp_profile` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_dns_location` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_gateway_policy` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_gateway_proxy_endpoint` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_gateway_settings` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_list` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_local_domain_fallback` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_organization` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_risk_behavior` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_risk_score_integration` ([#3563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3563))
+- **New Resource:** `cloudflare_zero_trust_split_tunnels` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_tunnel_cloudflared` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_tunnel_cloudflared_config` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_tunnel_route` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
+- **New Resource:** `cloudflare_zero_trust_tunnel_virtual_network` ([#3584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3584))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_device_posture_rule: add ability to create client_certificate_v2 posture rule ([#3512](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3512))
-* resource/cloudflare_device_settings_policy: Add tunnel_protocol field for device policies ([#3513](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3513))
+- resource/cloudflare_device_posture_rule: add ability to create client_certificate_v2 posture rule ([#3512](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3512))
+- resource/cloudflare_device_settings_policy: Add tunnel_protocol field for device policies ([#3513](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3513))
 
 BUG FIXES:
 
-* resource/cloudflare_access_policy: handle multiple okta idps in access policies ([#3579](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3579))
-* resource/cloudflare_record: refactor validation to use `ExactlyOneOf` instead of custom logic ([#3699](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3699))
+- resource/cloudflare_access_policy: handle multiple okta idps in access policies ([#3579](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3579))
+- resource/cloudflare_record: refactor validation to use `ExactlyOneOf` instead of custom logic ([#3699](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3699))
 
 DEPENDENCIES:
 
-* provider: bump github.com/hashicorp/terraform-plugin-framework from 1.10.0 to 1.11.0 ([#3575](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3575))
-* provider: bump github.com/hashicorp/terraform-plugin-testing from 1.9.0 to 1.10.0 ([#3583](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3583))
-* provider: bump golang.org/x/net from 0.27.0 to 0.28.0 ([#3576](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3576))
+- provider: bump github.com/hashicorp/terraform-plugin-framework from 1.10.0 to 1.11.0 ([#3575](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3575))
+- provider: bump github.com/hashicorp/terraform-plugin-testing from 1.9.0 to 1.10.0 ([#3583](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3583))
+- provider: bump golang.org/x/net from 0.27.0 to 0.28.0 ([#3576](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3576))
 
 ## 4.39.0 (August 7th, 2024)
 
 NOTES:
 
-* resource/cloudflare_access_policy: remove deprecation notice related to precedence ([#3556](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3556))
-* resource/cloudflare_record: `value` is now deprecated in favour of `content` ([#3509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3509))
-* resource/cloudflare_worker_cron_trigger: deprecated in favour of `cloudflare_workers_cron_trigger` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* resource/cloudflare_worker_domain: deprecated in favour of `cloudflare_workers_domain` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* resource/cloudflare_worker_route: deprecated in favour of `cloudflare_workers_route` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* resource/cloudflare_worker_script: deprecated in favour of `cloudflare_workers_script` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* resource/cloudflare_worker_secret: deprecated in favour of `cloudflare_workers_secret` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* resource/cloudflare_workers_for_platforms_namespace: deprecated in favour of `cloudflare_workers_for_platforms_dispatch_namespace` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* resource/zone_settings_override: deprecate `minify` setting and include state migration to remove from local state. You should immediately remove the configuration from the resource to prevent permadiffs. Automatic migration of user configuration can be handled with [Grit](https://docs.grit.io/cli/quickstart) by running `grit apply github.com/cloudflare/terraform-provider-cloudflare#cloudflare_zone_settings_override_remove_minify` ([#3521](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3521))
+- resource/cloudflare_access_policy: remove deprecation notice related to precedence ([#3556](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3556))
+- resource/cloudflare_record: `value` is now deprecated in favour of `content` ([#3509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3509))
+- resource/cloudflare_worker_cron_trigger: deprecated in favour of `cloudflare_workers_cron_trigger` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- resource/cloudflare_worker_domain: deprecated in favour of `cloudflare_workers_domain` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- resource/cloudflare_worker_route: deprecated in favour of `cloudflare_workers_route` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- resource/cloudflare_worker_script: deprecated in favour of `cloudflare_workers_script` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- resource/cloudflare_worker_secret: deprecated in favour of `cloudflare_workers_secret` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- resource/cloudflare_workers_for_platforms_namespace: deprecated in favour of `cloudflare_workers_for_platforms_dispatch_namespace` and will be removed in the next major version. ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- resource/zone_settings_override: deprecate `minify` setting and include state migration to remove from local state. You should immediately remove the configuration from the resource to prevent permadiffs. Automatic migration of user configuration can be handled with [Grit](https://docs.grit.io/cli/quickstart) by running `grit apply github.com/cloudflare/terraform-provider-cloudflare#cloudflare_zone_settings_override_remove_minify` ([#3521](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3521))
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_gateway_app_types` ([#3470](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3470))
-* **New Resource:** `cloudflare_workers_cron_trigger` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* **New Resource:** `cloudflare_workers_domain` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* **New Resource:** `cloudflare_workers_for_platforms_dispatch_namespace` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* **New Resource:** `cloudflare_workers_route` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* **New Resource:** `cloudflare_workers_script` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
-* **New Resource:** `cloudflare_workers_secret` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- **New Data Source:** `cloudflare_gateway_app_types` ([#3470](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3470))
+- **New Resource:** `cloudflare_workers_cron_trigger` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- **New Resource:** `cloudflare_workers_domain` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- **New Resource:** `cloudflare_workers_for_platforms_dispatch_namespace` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- **New Resource:** `cloudflare_workers_route` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- **New Resource:** `cloudflare_workers_script` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
+- **New Resource:** `cloudflare_workers_secret` ([#3500](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3500))
 
 ENHANCEMENTS:
 
-* resource/access_application: add `skip_app_launcher_login_page` flag to skip the App Launcher landing page ([#3519](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3519))
-* resource/cloudflare_device_posture_rules: added support for intune compliance_status values ([#3492](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3492))
-* resource/cloudflare_teams_rule: Add `disable_clipboard_redirection` attribute to `BISOAdminControls` ([#3511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3511))
-* resource/hyperdrive_config: Add support for creating Hyperdrive over Access configs ([#3516](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3516))
-* resource/hyperdrive_config: Add support for max_age and stale_while_revalidate in Hyperdrive Config caching settings ([#3516](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3516))
+- resource/access_application: add `skip_app_launcher_login_page` flag to skip the App Launcher landing page ([#3519](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3519))
+- resource/cloudflare_device_posture_rules: added support for intune compliance_status values ([#3492](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3492))
+- resource/cloudflare_teams_rule: Add `disable_clipboard_redirection` attribute to `BISOAdminControls` ([#3511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3511))
+- resource/hyperdrive_config: Add support for creating Hyperdrive over Access configs ([#3516](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3516))
+- resource/hyperdrive_config: Add support for max_age and stale_while_revalidate in Hyperdrive Config caching settings ([#3516](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3516))
 
 BUG FIXES:
 
-* resource/cloudflare_list_item: handle overlapping hostname `url_hostname` ([#3515](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3515))
-* resource/cloudflare_risk_behavior: fix bug where partial definition of risk behaviors resulted in a provider error ([#3463](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3463))
+- resource/cloudflare_list_item: handle overlapping hostname `url_hostname` ([#3515](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3515))
+- resource/cloudflare_risk_behavior: fix bug where partial definition of risk behaviors resulted in a provider error ([#3463](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3463))
 
 DEPENDENCIES:
 
-* provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.58.2 to 1.58.3 in the aws group ([#3557](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3557))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.100.0 to 0.101.0 ([#3540](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3540))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.99.0 to 0.100.0 ([#3499](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3499))
+- provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.58.2 to 1.58.3 in the aws group ([#3557](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3557))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.100.0 to 0.101.0 ([#3540](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3540))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.99.0 to 0.100.0 ([#3499](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3499))
 
 ## 4.38.0 (July 24th, 2024)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_gateway_categories` ([#3443](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3443))
+- **New Data Source:** `cloudflare_gateway_categories` ([#3443](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3443))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_teams_list: add support for descriptions on list items ([#3488](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3488))
-* resource/cloudflare_teams_rules: add support for `ignore_cname_category_matches` ([#3473](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3473))
+- resource/cloudflare_teams_list: add support for descriptions on list items ([#3488](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3488))
+- resource/cloudflare_teams_rules: add support for `ignore_cname_category_matches` ([#3473](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3473))
 
 BUG FIXES:
 
-* resource/cloudflare-access-application: fixes bug when updating self_hosted_domains ([#3468](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3468))
-* resource/cloudflare_access_application: Fix bug that was not cleaning the API when removing all ids from the 'policies' list ([#3469](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3469))
+- resource/cloudflare-access-application: fixes bug when updating self_hosted_domains ([#3468](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3468))
+- resource/cloudflare_access_application: Fix bug that was not cleaning the API when removing all ids from the 'policies' list ([#3469](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3469))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.24 to 1.27.25 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.25 to 1.27.27 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.24 to 1.17.25 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.25 to 1.17.27 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.58.0 to 1.58.1 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.58.1 to 1.58.2 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.1 to 1.30.2 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.2 to 1.30.3 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
-* provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.3.0 to 2.4.0 ([#3480](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3480))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.24 to 1.27.25 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.25 to 1.27.27 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.24 to 1.17.25 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.25 to 1.17.27 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.58.0 to 1.58.1 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.58.1 to 1.58.2 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.1 to 1.30.2 ([#3449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3449))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.2 to 1.30.3 ([#3483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3483))
+- provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.3.0 to 2.4.0 ([#3480](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3480))
 
 ## 4.37.0 (July 11th, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_notification_policy: Add tunnel_name filter for Magic Health Checks ([#3417](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3417))
+- resource/cloudflare_notification_policy: Add tunnel_name filter for Magic Health Checks ([#3417](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3417))
 
 BUG FIXES:
 
-* resource/cloudflare_r2_bucket: add validation to location hint to prevent invalid values from drifting ([#3441](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3441))
+- resource/cloudflare_r2_bucket: add validation to location hint to prevent invalid values from drifting ([#3441](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3441))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.21 to 1.27.22 ([#3404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3404))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.22 to 1.27.23 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.23 to 1.27.24 ([#3437](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3437))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.21 to 1.17.22 ([#3404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3404))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.22 to 1.17.23 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.23 to 1.17.24 ([#3437](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3437))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.56.1 to 1.57.0 ([#3404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3404))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.57.0 to 1.57.1 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.0 to 1.30.1 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
-* provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.57.1 to 1.58.0 in the aws group ([#3429](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3429))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.98.0 to 0.99.0 ([#3438](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3438))
-* provider: bump github.com/hashicorp/terraform-plugin-framework from 1.9.0 to 1.10.0 ([#3445](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3445))
-* provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.12.0 to 0.13.0 ([#3447](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3447))
-* provider: bump github.com/hashicorp/terraform-plugin-testing from 1.8.0 to 1.9.0 ([#3446](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3446))
-* provider: bump golang.org/x/net from 0.26.0 to 0.27.0 ([#3442](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3442))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.21 to 1.27.22 ([#3404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3404))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.22 to 1.27.23 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.23 to 1.27.24 ([#3437](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3437))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.21 to 1.17.22 ([#3404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3404))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.22 to 1.17.23 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.23 to 1.17.24 ([#3437](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3437))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.56.1 to 1.57.0 ([#3404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3404))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.57.0 to 1.57.1 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.30.0 to 1.30.1 ([#3412](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3412))
+- provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.57.1 to 1.58.0 in the aws group ([#3429](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3429))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.98.0 to 0.99.0 ([#3438](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3438))
+- provider: bump github.com/hashicorp/terraform-plugin-framework from 1.9.0 to 1.10.0 ([#3445](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3445))
+- provider: bump github.com/hashicorp/terraform-plugin-framework-validators from 0.12.0 to 0.13.0 ([#3447](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3447))
+- provider: bump github.com/hashicorp/terraform-plugin-testing from 1.8.0 to 1.9.0 ([#3446](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3446))
+- provider: bump golang.org/x/net from 0.26.0 to 0.27.0 ([#3442](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3442))
 
 ## 4.36.0 (June 26th, 2024)
 
 NOTES:
 
-* resource/zone_settings_override: deprecate `mobile_redirect` setting and include state migration to remove from local state. You should immediately remove the configuration from the resource to prevent permadiffs. ([#3337](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3337))
+- resource/zone_settings_override: deprecate `mobile_redirect` setting and include state migration to remove from local state. You should immediately remove the configuration from the resource to prevent permadiffs. ([#3337](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3337))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: Support configuring OIDC SaaS access token lifetime ([#3353](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3353))
+- resource/cloudflare_access_application: Support configuring OIDC SaaS access token lifetime ([#3353](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3353))
 
 BUG FIXES:
 
-* resource/cloudflare_list_item: fix crash when not using `type = "redirect"` due to attempting to compare `nil` ([#3368](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3368))
-* resource/cloudflare_list_item: implement exact match for IP values to prevent overlapping IP prefixes from not being found ([#3368](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3368))
+- resource/cloudflare_list_item: fix crash when not using `type = "redirect"` due to attempting to compare `nil` ([#3368](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3368))
+- resource/cloudflare_list_item: implement exact match for IP values to prevent overlapping IP prefixes from not being found ([#3368](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3368))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.18 to 1.27.19 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.19 to 1.27.20 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.20 to 1.27.21 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.18 to 1.17.19 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.19 to 1.17.20 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.20 to 1.17.21 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.55.1 to 1.55.2 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.55.2 to 1.56.0 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.56.0 to 1.56.1 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.27.2 to 1.28.0 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.28.0 to 1.29.0 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.29.0 to 1.30.0 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.97.0 to 0.98.0 ([#3365](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3365))
-* provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.2.0 to 2.3.0 ([#3363](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3363))
-* provider: bump github.com/hashicorp/go-retryablehttp from 0.7.4 to 0.7.7 in /tools ([#3395](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3395))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.18 to 1.27.19 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.19 to 1.27.20 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.20 to 1.27.21 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.18 to 1.17.19 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.19 to 1.17.20 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.20 to 1.17.21 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.55.1 to 1.55.2 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.55.2 to 1.56.0 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.56.0 to 1.56.1 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.27.2 to 1.28.0 ([#3360](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3360))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.28.0 to 1.29.0 ([#3362](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3362))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.29.0 to 1.30.0 ([#3364](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3364))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.97.0 to 0.98.0 ([#3365](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3365))
+- provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.2.0 to 2.3.0 ([#3363](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3363))
+- provider: bump github.com/hashicorp/go-retryablehttp from 0.7.4 to 0.7.7 in /tools ([#3395](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3395))
 
 ## 4.35.0 (June 12th, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: Add Hybrid and Implicit flow support to OIDC SaaS Apps ([#3324](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3324))
-* resource/cloudflare_access_organization: Fix 'name' being optional ([#3343](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3343))
-* resource/cloudflare_load_balancer_pool: Add support for virtual_network_id ([#3333](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3333))
-* resource/cloudflare_teams_account: add support for 'virtual_ip' ([#3321](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3321))
-* resource/resource_cloudflare_zone: add support for 'vanity_name_servers' ([#3315](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3315))
+- resource/cloudflare_access_application: Add Hybrid and Implicit flow support to OIDC SaaS Apps ([#3324](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3324))
+- resource/cloudflare_access_organization: Fix 'name' being optional ([#3343](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3343))
+- resource/cloudflare_load_balancer_pool: Add support for virtual_network_id ([#3333](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3333))
+- resource/cloudflare_teams_account: add support for 'virtual_ip' ([#3321](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3321))
+- resource/resource_cloudflare_zone: add support for 'vanity_name_servers' ([#3315](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3315))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: Fix bug requiring explicit account_id or zone_id ([#3352](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3352))
-* resource/cloudflare_access_application: force recreation if SaaS app `auth_type` is changed ([#3332](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3332))
-* resource/cloudflare_list_item: handle overlapping redirect `source_url` ([#3335](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3335))
-* resource/cloudflare_logpush_job: Mirror API defaults for record_delimiter to include newline ([#3334](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3334))
-* resource/cloudflare_waiting_room_event: fix panic when trying to import a resource ([#3351](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3351))
+- resource/cloudflare_access_application: Fix bug requiring explicit account_id or zone_id ([#3352](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3352))
+- resource/cloudflare_access_application: force recreation if SaaS app `auth_type` is changed ([#3332](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3332))
+- resource/cloudflare_list_item: handle overlapping redirect `source_url` ([#3335](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3335))
+- resource/cloudflare_logpush_job: Mirror API defaults for record_delimiter to include newline ([#3334](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3334))
+- resource/cloudflare_waiting_room_event: fix panic when trying to import a resource ([#3351](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3351))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.16 to 1.27.17 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.17 to 1.27.18 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.16 to 1.17.17 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.17 to 1.17.18 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.3 to 1.54.4 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.55.0 to 1.55.1 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.27.0 to 1.27.1 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.27.1 to 1.27.2 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
-* provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.54.4 to 1.55.0 in the aws group ([#3346](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3346))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.96.0 to 0.97.0 ([#3347](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3347))
-* provider: bump github.com/hashicorp/terraform-plugin-framework from 1.8.0 to 1.9.0 ([#3341](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3341))
-* provider: bump golang.org/x/net from 0.25.0 to 0.26.0 ([#3342](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3342))
-* provider: bump goreleaser/goreleaser-action from 5.1.0 to 6.0.0 ([#3345](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3345))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.16 to 1.27.17 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.17 to 1.27.18 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.16 to 1.17.17 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.17 to 1.17.18 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.3 to 1.54.4 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.55.0 to 1.55.1 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.27.0 to 1.27.1 ([#3339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3339))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.27.1 to 1.27.2 ([#3350](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3350))
+- provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.54.4 to 1.55.0 in the aws group ([#3346](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3346))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.96.0 to 0.97.0 ([#3347](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3347))
+- provider: bump github.com/hashicorp/terraform-plugin-framework from 1.8.0 to 1.9.0 ([#3341](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3341))
+- provider: bump golang.org/x/net from 0.25.0 to 0.26.0 ([#3342](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3342))
+- provider: bump goreleaser/goreleaser-action from 5.1.0 to 6.0.0 ([#3345](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3345))
 
 ## 4.34.0 (May 29th, 2024)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_risk_behavior` ([#3307](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3307))
+- **New Resource:** `cloudflare_risk_behavior` ([#3307](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3307))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: Add support for OIDC refresh tokens, allowing PKCE without client secret, custom claims, and specifying name_by_idp for custom attributes/claims ([#3306](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3306))
-* resource/cloudflare_access_application: improve validation logic for zone level reusable policies ([#3325](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3325))
-* resource/cloudflare_access_group: improve validation logic for zone level reusable policies ([#3325](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3325))
-* resource/cloudflare_ruleset: add support for `fonts` and `disable_rum` action parameters ([#3261](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3261))
+- resource/cloudflare_access_application: Add support for OIDC refresh tokens, allowing PKCE without client secret, custom claims, and specifying name_by_idp for custom attributes/claims ([#3306](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3306))
+- resource/cloudflare_access_application: improve validation logic for zone level reusable policies ([#3325](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3325))
+- resource/cloudflare_access_group: improve validation logic for zone level reusable policies ([#3325](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3325))
+- resource/cloudflare_ruleset: add support for `fonts` and `disable_rum` action parameters ([#3261](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3261))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.13 to 1.27.14 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.14 to 1.27.15 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.15 to 1.27.16 ([#3326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3326))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.13 to 1.17.14 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.14 to 1.17.15 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.15 to 1.17.16 ([#3326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3326))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.0 to 1.54.1 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.1 to 1.54.2 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.2 to 1.54.3 ([#3326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3326))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.26.1 to 1.26.2 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.26.2 to 1.27.0 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
-* provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.53.2 to 1.54.0 in the aws group ([#3308](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3308))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.95.0 to 0.96.0 ([#3322](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3322))
-* provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.33.0 to 2.34.0 ([#3316](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3316))
-* provider: bump github.com/hashicorp/terraform-plugin-testing from 1.6.0 to 1.8.0 ([#3317](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3317))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.13 to 1.27.14 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.14 to 1.27.15 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.15 to 1.27.16 ([#3326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3326))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.13 to 1.17.14 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.14 to 1.17.15 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.15 to 1.17.16 ([#3326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3326))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.0 to 1.54.1 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.1 to 1.54.2 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.54.2 to 1.54.3 ([#3326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3326))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.26.1 to 1.26.2 ([#3310](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3310))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.26.2 to 1.27.0 ([#3313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3313))
+- provider: bump github.com/aws/aws-sdk-go-v2/service/s3 from 1.53.2 to 1.54.0 in the aws group ([#3308](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3308))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.95.0 to 0.96.0 ([#3322](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3322))
+- provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.33.0 to 2.34.0 ([#3316](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3316))
+- provider: bump github.com/hashicorp/terraform-plugin-testing from 1.6.0 to 1.8.0 ([#3317](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3317))
 
 ## 4.33.0 (May 15th, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: added support for 'policies' argument ([#3288](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3288))
-* resource/cloudflare_access_policy: added support for reusable policies ([#3288](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3288))
-* resource/cloudflare_zone_settings_override: add support for NEL ([#3305](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3305))
+- resource/cloudflare_access_application: added support for 'policies' argument ([#3288](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3288))
+- resource/cloudflare_access_policy: added support for reusable policies ([#3288](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3288))
+- resource/cloudflare_zone_settings_override: add support for NEL ([#3305](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3305))
 
 BUG FIXES:
 
-* resource/cloudflare_list_item: retry list ID fetch operations for the identifiers ([#3303](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3303))
+- resource/cloudflare_list_item: retry list ID fetch operations for the identifiers ([#3303](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3303))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.11 to 1.27.12 ([#3295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3295))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.12 to 1.27.13 ([#3301](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3301))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.11 to 1.17.12 ([#3295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3295))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.12 to 1.17.13 ([#3301](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3301))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.53.1 to 1.53.2 ([#3295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3295))
-* provider: bump bflad/action-milestone-comment from 1 to 2 ([#3299](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3299))
-* provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.1.0 to 2.2.0 ([#3298](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3298))
-* provider: bump github.com/hashicorp/terraform-plugin-mux from 0.15.0 to 0.16.0 ([#3296](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3296))
-* provider: bump goreleaser/goreleaser-action from 5.0.0 to 5.1.0 ([#3302](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3302))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.11 to 1.27.12 ([#3295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3295))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.12 to 1.27.13 ([#3301](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3301))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.11 to 1.17.12 ([#3295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3295))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.12 to 1.17.13 ([#3301](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3301))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.53.1 to 1.53.2 ([#3295](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3295))
+- provider: bump bflad/action-milestone-comment from 1 to 2 ([#3299](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3299))
+- provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.1.0 to 2.2.0 ([#3298](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3298))
+- provider: bump github.com/hashicorp/terraform-plugin-mux from 0.15.0 to 0.16.0 ([#3296](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3296))
+- provider: bump goreleaser/goreleaser-action from 5.0.0 to 5.1.0 ([#3302](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3302))
 
 ## 4.32.0 (May 8th, 2024)
 
 NOTES:
 
-* resource/cloudflare_rate_limit: This resource is being deprecated in favor of the cloudflare_rulesets resource ([#3279](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3279))
+- resource/cloudflare_rate_limit: This resource is being deprecated in favor of the cloudflare_rulesets resource ([#3279](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3279))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: add support for SCIM provisioning configuration ([#3291](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3291))
-* resource/cloudflare_access_group: Add the option for email_list to be used in require, include and exclude fields ([#3247](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3247))
-* resource/cloudflare_device_posture_rules: added support for os_version_extra ([#3281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3281))
+- resource/cloudflare_access_application: add support for SCIM provisioning configuration ([#3291](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3291))
+- resource/cloudflare_access_group: Add the option for email_list to be used in require, include and exclude fields ([#3247](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3247))
+- resource/cloudflare_device_posture_rules: added support for os_version_extra ([#3281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3281))
 
 BUG FIXES:
 
-* resource/cloudflare_turnstile: Fix error handling corrupting state ([#3284](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3284))
+- resource/cloudflare_turnstile: Fix error handling corrupting state ([#3284](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3284))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.94.0 to 0.95.0 ([#3294](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3294))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.22.2 to 0.23.0 ([#3289](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3289))
-* provider: bump golang.org/x/net from 0.24.0 to 0.25.0 ([#3290](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3290))
-* provider: bump golangci/golangci-lint-action from 5 to 6 ([#3293](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3293))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.94.0 to 0.95.0 ([#3294](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3294))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.22.2 to 0.23.0 ([#3289](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3289))
+- provider: bump golang.org/x/net from 0.24.0 to 0.25.0 ([#3290](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3290))
+- provider: bump golangci/golangci-lint-action from 5 to 6 ([#3293](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3293))
 
 ## 4.31.0 (May 1st, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: added support for options_preflight_bypass ([#3267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3267))
-* resource/cloudflare_dlp_profile: Added support for `ocr_enabled` field to profiles ([#3224](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3224))
-* resource/cloudflare_notification_policy: add 'target_ip' atrribute to 'filter' nested block ([#3263](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3263))
-* resource/cloudflare_teams_account: add `custom_certificate` setting support ([#3253](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3253))
-* resource/cloudflare_teams_location: added `ecs_support` field ([#3264](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3264))
+- resource/cloudflare_access_application: added support for options_preflight_bypass ([#3267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3267))
+- resource/cloudflare_dlp_profile: Added support for `ocr_enabled` field to profiles ([#3224](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3224))
+- resource/cloudflare_notification_policy: add 'target_ip' atrribute to 'filter' nested block ([#3263](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3263))
+- resource/cloudflare_teams_account: add `custom_certificate` setting support ([#3253](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3253))
+- resource/cloudflare_teams_location: added `ecs_support` field ([#3264](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3264))
 
 BUG FIXES:
 
-* resource/cloudflare_hyperdrive_config: Fix 'HyperdriveID' not included in Update call ([#3251](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3251))
-* resource/cloudflare_managed_headers: disable header if it is deleted from terraform state ([#3260](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3260))
-* resource/cloudflare_worker_script: fix namespaced script delete trying to delete from account rather than the namespace ([#3238](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3238))
+- resource/cloudflare_hyperdrive_config: Fix 'HyperdriveID' not included in Update call ([#3251](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3251))
+- resource/cloudflare_managed_headers: disable header if it is deleted from terraform state ([#3260](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3260))
+- resource/cloudflare_worker_script: fix namespaced script delete trying to delete from account rather than the namespace ([#3238](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3238))
 
 INTERNAL:
 
-* provider: introduce a muxed client to support using cloudflare-go/v0 and cloudflare-go/v2 together ([#3262](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3262))
+- provider: introduce a muxed client to support using cloudflare-go/v0 and cloudflare-go/v2 together ([#3262](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3262))
 
 DEPENDENCIES:
 
-* provider: bump github.com/cloudflare/cloudflare-go from 0.93.0 to 0.94.0 ([#3265](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3265))
-* provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.0.0 to 2.1.0 ([#3274](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3274))
-* provider: bump github.com/hashicorp/terraform-plugin-framework from 1.5.0 to 1.8.0 ([#3255](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3255))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.21.0 to 0.22.2 ([#3254](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3254))
-* provider: bump golang.org/x/net from 0.19.0 to 0.23.0 in /tools ([#3258](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3258))
-* provider: bump golangci/golangci-lint-action from 4 to 5 ([#3271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3271))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.93.0 to 0.94.0 ([#3265](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3265))
+- provider: bump github.com/cloudflare/cloudflare-go/v2 from 2.0.0 to 2.1.0 ([#3274](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3274))
+- provider: bump github.com/hashicorp/terraform-plugin-framework from 1.5.0 to 1.8.0 ([#3255](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3255))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.21.0 to 0.22.2 ([#3254](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3254))
+- provider: bump golang.org/x/net from 0.19.0 to 0.23.0 in /tools ([#3258](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3258))
+- provider: bump golangci/golangci-lint-action from 4 to 5 ([#3271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3271))
 
 ## 4.30.0 (April 17th, 2024)
 
 ENHANCEMENTS:
 
-* cloudflare/resource_logpush_job: Add support for `page_shield_events` ([#3237](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3237))
-* resource/cloudflare_access_group: added support for common_names rule list type to allow for more than one common_name rule in a policy block ([#3229](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3229))
-* resource/cloudflare_access_policy: added support for common_names rule list type to allow for more than one common_name rule in a policy block ([#3229](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3229))
-* resource/cloudflare_ipsec_tunnel: added support for replay_protection ([#3249](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3249))
+- cloudflare/resource_logpush_job: Add support for `page_shield_events` ([#3237](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3237))
+- resource/cloudflare_access_group: added support for common_names rule list type to allow for more than one common_name rule in a policy block ([#3229](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3229))
+- resource/cloudflare_access_policy: added support for common_names rule list type to allow for more than one common_name rule in a policy block ([#3229](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3229))
+- resource/cloudflare_ipsec_tunnel: added support for replay_protection ([#3249](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3249))
 
 BUG FIXES:
 
-* resource/cloudflare_email_routing_address: Make sure schema is correctly upgraded. ([#3245](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3245))
+- resource/cloudflare_email_routing_address: Make sure schema is correctly upgraded. ([#3245](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3245))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.10 to 1.27.11 ([#3232](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3232))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.10 to 1.17.11 ([#3232](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3232))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.92.0 to 0.93.0 ([#3239](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3239))
-* provider: bump golang.org/x/net from 0.22.0 to 0.23.0 ([#3225](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3225))
-* provider: bump golang.org/x/net from 0.23.0 to 0.24.0 ([#3230](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3230))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.10 to 1.27.11 ([#3232](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3232))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.10 to 1.17.11 ([#3232](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3232))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.92.0 to 0.93.0 ([#3239](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3239))
+- provider: bump golang.org/x/net from 0.22.0 to 0.23.0 ([#3225](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3225))
+- provider: bump golang.org/x/net from 0.23.0 to 0.24.0 ([#3230](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3230))
 
 ## 4.29.0 (April 3rd, 2024)
 
 BREAKING CHANGES:
 
-* data_source/record: Remove `locked` flag which is always false ([#3220](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3220))
+- data_source/record: Remove `locked` flag which is always false ([#3220](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3220))
 
 ENHANCEMENTS:
 
-* datasource/cloudflare_tunnel: Add the option to filter deleted tunnels ([#3201](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3201))
-* resource/cloudflare_teams_rule: Add support for resolver policies ([#3198](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3198))
+- datasource/cloudflare_tunnel: Add the option to filter deleted tunnels ([#3201](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3201))
+- resource/cloudflare_teams_rule: Add support for resolver policies ([#3198](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3198))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.9 to 1.27.10 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.9 to 1.17.10 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.53.0 to 1.53.1 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.26.0 to 1.26.1 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.9 to 1.27.10 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.9 to 1.17.10 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.53.0 to 1.53.1 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.26.0 to 1.26.1 ([#3222](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3222))
 
 ## 4.28.0 (March 28th, 2024)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: adds saml_attribute_transform_jsonata` to SaaS applications ([#3187](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3187))
-* resource/cloudflare_device_posture_rule: update support for new fields for crowdstrike_s2s posture rule. ([#3216](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3216))
-* resource/cloudflare_ipsec_tunnel: Adds IPsec tunnel health_check_direction & health_check_rate parameters ([#3112](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3112))
+- resource/cloudflare_access_application: adds saml_attribute_transform_jsonata` to SaaS applications ([#3187](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3187))
+- resource/cloudflare_device_posture_rule: update support for new fields for crowdstrike_s2s posture rule. ([#3216](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3216))
+- resource/cloudflare_ipsec_tunnel: Adds IPsec tunnel health_check_direction & health_check_rate parameters ([#3112](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3112))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.8 to 1.27.9 ([#3207](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3207))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.8 to 1.17.9 ([#3207](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3207))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.90.0 to 0.91.0 ([#3208](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3208))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.91.0 to 0.92.0 ([#3218](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3218))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.8 to 1.27.9 ([#3207](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3207))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.8 to 1.17.9 ([#3207](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3207))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.90.0 to 0.91.0 ([#3208](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3208))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.91.0 to 0.92.0 ([#3218](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3218))
 
 ## 4.27.0 (March 20th, 2024)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_access_mutual_tls_hostname_settings` ([#3173](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3173))
-* **New Resource:** `cloudflare_hyperdrive_config` ([#3111](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3111))
+- **New Resource:** `cloudflare_access_mutual_tls_hostname_settings` ([#3173](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3173))
+- **New Resource:** `cloudflare_hyperdrive_config` ([#3111](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3111))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_dlp_profile: Added support for `context_awareness` field to profiles ([#3158](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3158))
-* resource/cloudflare_logpush_job: Add `output_options` parameter ([#3171](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3171))
-* resource/cloudflare_notification_policy: Implement the `airport_code` filter ([#3183](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3183))
-* resource/cloudflare_worker_script: Add `dispatch_namespace` to support uploading to a Workers for Platforms namespace ([#3154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3154))
-* resource/cloudflare_worker_script: Add `tags` to support tagging Workers for Platforms Workers ([#3154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3154))
+- resource/cloudflare_dlp_profile: Added support for `context_awareness` field to profiles ([#3158](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3158))
+- resource/cloudflare_logpush_job: Add `output_options` parameter ([#3171](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3171))
+- resource/cloudflare_notification_policy: Implement the `airport_code` filter ([#3183](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3183))
+- resource/cloudflare_worker_script: Add `dispatch_namespace` to support uploading to a Workers for Platforms namespace ([#3154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3154))
+- resource/cloudflare_worker_script: Add `tags` to support tagging Workers for Platforms Workers ([#3154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3154))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: Add Sensitive to oidc client_secret and preserve client_secret across apply ([#3168](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3168))
-* resource/cloudflare_list_item: fix id parsing for imports ([#3191](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3191))
-* resource/cloudflare_logpush_job: only set the value in state when it is defined ([#3188](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3188))
+- resource/cloudflare_access_application: Add Sensitive to oidc client_secret and preserve client_secret across apply ([#3168](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3168))
+- resource/cloudflare_list_item: fix id parsing for imports ([#3191](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3191))
+- resource/cloudflare_logpush_job: only set the value in state when it is defined ([#3188](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3188))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.6 to 1.27.7 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.7 to 1.27.8 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.6 to 1.17.7 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.7 to 1.17.8 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.3 to 1.51.4 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.4 to 1.52.0 ([#3182](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3182))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.52.0 to 1.52.1 ([#3190](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3190))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.52.1 to 1.53.0 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.2 to 1.25.3 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.3 to 1.26.0 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.89.0 to 0.90.0 ([#3178](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3178))
-* provider: bump google.golang.org/protobuf from 1.31.0 to 1.33.0 in /tools ([#3180](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3180))
-* provider: bump google.golang.org/protobuf from 1.32.0 to 1.33.0 ([#3181](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3181))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.6 to 1.27.7 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.7 to 1.27.8 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.6 to 1.17.7 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.7 to 1.17.8 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.3 to 1.51.4 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.4 to 1.52.0 ([#3182](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3182))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.52.0 to 1.52.1 ([#3190](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3190))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.52.1 to 1.53.0 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.2 to 1.25.3 ([#3172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3172))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.3 to 1.26.0 ([#3197](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3197))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.89.0 to 0.90.0 ([#3178](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3178))
+- provider: bump google.golang.org/protobuf from 1.31.0 to 1.33.0 in /tools ([#3180](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3180))
+- provider: bump google.golang.org/protobuf from 1.32.0 to 1.33.0 ([#3181](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3181))
 
 ## 4.26.0 (March 6th, 2024)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_dlp_datasets` ([#3135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3135))
+- **New Data Source:** `cloudflare_dlp_datasets` ([#3135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3135))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: adds `name_id_transform_jsonata` to SaaS applications ([#3132](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3132))
+- resource/cloudflare_access_application: adds `name_id_transform_jsonata` to SaaS applications ([#3132](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3132))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: Fix issue with sending allow_authenticate_via_warp on updates when it is not provided ([#3140](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3140))
+- resource/cloudflare_access_application: Fix issue with sending allow_authenticate_via_warp on updates when it is not provided ([#3140](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3140))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.1 to 1.27.2 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.2 to 1.27.3 ([#3138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3138))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.3 to 1.27.4 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.4 to 1.27.5 ([#3159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3159))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.5 to 1.27.6 ([#3161](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3161))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.1 to 1.17.2 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.2 to 1.17.3 ([#3138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3138))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.3 to 1.17.4 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.4 to 1.17.5 ([#3159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3159))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.5 to 1.17.6 ([#3161](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3161))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.2 to 1.50.3 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.3 to 1.51.0 ([#3138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3138))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.0 to 1.51.1 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.1 to 1.51.2 ([#3159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3159))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.2 to 1.51.3 ([#3161](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3161))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.0 to 1.25.1 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.1 to 1.25.2 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.88.0 to 0.89.0 ([#3148](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3148))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.21.0 to 0.22.0 ([#3139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3139))
-* provider: bump github.com/hashicorp/terraform-plugin-mux from 0.14.0 to 0.15.0 ([#3149](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3149))
-* provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.32.0 to 2.33.0 ([#3142](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3142))
-* provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.32.0 to 2.33.0 ([#3147](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3147))
-* provider: bump github.com/hashicorp/terraform-plugin-testing from 1.6.0 to 1.7.0 ([#3162](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3162))
-* provider: bump github.com/stretchr/testify from 1.8.4 to 1.9.0 ([#3157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3157))
-* provider: bump golang.org/x/net from 0.21.0 to 0.22.0 ([#3160](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3160))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.1 to 1.27.2 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.2 to 1.27.3 ([#3138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3138))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.3 to 1.27.4 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.4 to 1.27.5 ([#3159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3159))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.5 to 1.27.6 ([#3161](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3161))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.1 to 1.17.2 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.2 to 1.17.3 ([#3138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3138))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.3 to 1.17.4 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.4 to 1.17.5 ([#3159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3159))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.5 to 1.17.6 ([#3161](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3161))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.2 to 1.50.3 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.3 to 1.51.0 ([#3138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3138))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.0 to 1.51.1 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.1 to 1.51.2 ([#3159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3159))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.51.2 to 1.51.3 ([#3161](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3161))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.0 to 1.25.1 ([#3136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3136))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.25.1 to 1.25.2 ([#3141](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3141))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.88.0 to 0.89.0 ([#3148](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3148))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.21.0 to 0.22.0 ([#3139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3139))
+- provider: bump github.com/hashicorp/terraform-plugin-mux from 0.14.0 to 0.15.0 ([#3149](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3149))
+- provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.32.0 to 2.33.0 ([#3142](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3142))
+- provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.32.0 to 2.33.0 ([#3147](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3147))
+- provider: bump github.com/hashicorp/terraform-plugin-testing from 1.6.0 to 1.7.0 ([#3162](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3162))
+- provider: bump github.com/stretchr/testify from 1.8.4 to 1.9.0 ([#3157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3157))
+- provider: bump golang.org/x/net from 0.21.0 to 0.22.0 ([#3160](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3160))
 
 ## 4.25.0 (February 21st, 2024)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_custom_pages: Removed the `always_online` variant. This page is never generated anymore, if a requested page is unavailable in the archive the error page that would have been shown if always online wasn't enabled is shown. ([#3117](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3117))
+- resource/cloudflare_custom_pages: Removed the `always_online` variant. This page is never generated anymore, if a requested page is unavailable in the archive the error page that would have been shown if always online wasn't enabled is shown. ([#3117](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3117))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: adds oidc saas application support ([#3133](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3133))
-* resource/cloudflare_access_application: adds the ability to set allow_authenticate_via_warp. ([#3103](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3103))
-* resource/cloudflare_access_organization: adds the ability to set allow_authenticate_via_warp and warp_auth_session_duration. ([#3103](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3103))
-* resource/cloudflare_teams_account: Add support for extended e-mail matching ([#3089](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3089))
-* resource/cloudflare_teams_accounts: Added notification settings to teams antivirus settings ([#3124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3124))
-* resource/pages_project: Add `build_caching` attribute ([#3110](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3110))
+- resource/cloudflare_access_application: adds oidc saas application support ([#3133](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3133))
+- resource/cloudflare_access_application: adds the ability to set allow_authenticate_via_warp. ([#3103](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3103))
+- resource/cloudflare_access_organization: adds the ability to set allow_authenticate_via_warp and warp_auth_session_duration. ([#3103](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3103))
+- resource/cloudflare_teams_account: Add support for extended e-mail matching ([#3089](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3089))
+- resource/cloudflare_teams_accounts: Added notification settings to teams antivirus settings ([#3124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3124))
+- resource/pages_project: Add `build_caching` attribute ([#3110](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3110))
 
 BUG FIXES:
 
-* resource/cloudflare_email_routing_address: add schema migrator ([#3119](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3119))
+- resource/cloudflare_email_routing_address: add schema migrator ([#3119](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3119))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.6 to 1.27.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.0 to 1.27.1 ([#3134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3134))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.16.16 to 1.17.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
-* provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.0 to 1.17.1 ([#3134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3134))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.48.1 to 1.49.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.49.0 to 1.50.0 ([#3125](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3125))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.0 to 1.50.1 ([#3128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3128))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.1 to 1.50.2 ([#3134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3134))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.24.1 to 1.25.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.87.0 to 0.88.0 ([#3122](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3122))
-* provider: bump golang.org/x/net from 0.20.0 to 0.21.0 ([#3108](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3108))
-* provider: bump golangci/golangci-lint-action from 3 to 4 ([#3115](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3115))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.6 to 1.27.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.27.0 to 1.27.1 ([#3134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3134))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.16.16 to 1.17.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
+- provider: bump `github.com/aws/aws-sdk-go-v2/credentials` from 1.17.0 to 1.17.1 ([#3134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3134))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.48.1 to 1.49.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.49.0 to 1.50.0 ([#3125](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3125))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.0 to 1.50.1 ([#3128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3128))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.50.1 to 1.50.2 ([#3134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3134))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.24.1 to 1.25.0 ([#3118](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3118))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.87.0 to 0.88.0 ([#3122](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3122))
+- provider: bump golang.org/x/net from 0.20.0 to 0.21.0 ([#3108](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3108))
+- provider: bump golangci/golangci-lint-action from 3 to 4 ([#3115](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3115))
 
 ## 4.24.0 (February 7th, 2023)
 
 ENHANCEMENTS:
 
-* datasource/cloudflare_record: Add the option to filter by "content" ([#3084](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3084))
+- datasource/cloudflare_record: Add the option to filter by "content" ([#3084](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3084))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: leave existence error handling checks to the `Read` operation when performing imports. ([#3075](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3075))
-* resource/cloudflare_device_settings_policy: updated docs that `auto_connect` is in seconds, not in minutes ([#3080](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3080))
-* resource/cloudflare_dlp_profile: fixed plan flapping with DLP custom entries ([#3090](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3090))
-* resource/email_routing_rule: add schema migration for upgrading 4.22.0 to 4.23.0 ([#3102](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3102))
+- resource/cloudflare_access_application: leave existence error handling checks to the `Read` operation when performing imports. ([#3075](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3075))
+- resource/cloudflare_device_settings_policy: updated docs that `auto_connect` is in seconds, not in minutes ([#3080](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3080))
+- resource/cloudflare_dlp_profile: fixed plan flapping with DLP custom entries ([#3090](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3090))
+- resource/email_routing_rule: add schema migration for upgrading 4.22.0 to 4.23.0 ([#3102](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3102))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.48.0 to 1.48.1 ([#3078](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3078))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.86.0 to 0.87.0 ([#3095](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3095))
-* provider: bump github.com/google/uuid from 1.5.0 to 1.6.0 ([#3076](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3076))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.20.0 to 0.21.0 ([#3081](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3081))
-* provider: bump github.com/hashicorp/terraform-plugin-mux from 0.13.0 to 0.14.0 ([#3085](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3085))
-* provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.31.0 to 2.32.0 ([#3086](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3086))
-* provider: bump peter-evans/create-or-update-comment from 3 to 4 ([#3079](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3079))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.48.0 to 1.48.1 ([#3078](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3078))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.86.0 to 0.87.0 ([#3095](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3095))
+- provider: bump github.com/google/uuid from 1.5.0 to 1.6.0 ([#3076](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3076))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.20.0 to 0.21.0 ([#3081](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3081))
+- provider: bump github.com/hashicorp/terraform-plugin-mux from 0.13.0 to 0.14.0 ([#3085](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3085))
+- provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.31.0 to 2.32.0 ([#3086](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3086))
+- provider: bump peter-evans/create-or-update-comment from 3 to 4 ([#3079](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3079))
 
 ## 4.23.0 (January 24th, 2023)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_list_item: `include_subdomains` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
-* resource/cloudflare_list_item: `preserve_path_suffix` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
-* resource/cloudflare_list_item: `preserve_query_string` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
-* resource/cloudflare_list_item: `subpath_matching` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
+- resource/cloudflare_list_item: `include_subdomains` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
+- resource/cloudflare_list_item: `preserve_path_suffix` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
+- resource/cloudflare_list_item: `preserve_query_string` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
+- resource/cloudflare_list_item: `subpath_matching` is now a boolean value. If you previously set it to `"enabled"`, you should update your configuration to use `true` instead or if you set it to "`disabled`", you should update it to `false`. The rest will be handled by the internal state migrator. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: adds the ability to set default_relay_state on saas applications. ([#3053](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3053))
-* resource/cloudflare_email_routing_address: add ability to import ([#2977](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2977))
-* resource/cloudflare_email_routing_rule: add ability to import ([#2998](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2998))
-* resource/cloudflare_notification_policy: Implement the `affected_components` option ([#3009](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3009))
+- resource/cloudflare_access_application: adds the ability to set default_relay_state on saas applications. ([#3053](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3053))
+- resource/cloudflare_email_routing_address: add ability to import ([#2977](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2977))
+- resource/cloudflare_email_routing_rule: add ability to import ([#2998](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2998))
+- resource/cloudflare_notification_policy: Implement the `affected_components` option ([#3009](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3009))
 
 INTERNAL:
 
-* cloudflare_email_routing_rule: migrate to plugin framework ([#2998](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2998))
-* resource/cloudflare_email_routing_address: migrate to framework provider ([#2977](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2977))
-* resource/cloudflare_list_item: migrate to plugin framework. Due to this migration, we are removing some workaround field values that were previously in place to account for the known zero value issues in the underlying SDKv2. See the release notes for the end user facing changes that need to be made for the internal state migrator to handle the internals. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
+- cloudflare_email_routing_rule: migrate to plugin framework ([#2998](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2998))
+- resource/cloudflare_email_routing_address: migrate to framework provider ([#2977](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2977))
+- resource/cloudflare_list_item: migrate to plugin framework. Due to this migration, we are removing some workaround field values that were previously in place to account for the known zero value issues in the underlying SDKv2. See the release notes for the end user facing changes that need to be made for the internal state migrator to handle the internals. ([#3026](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3026))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.3 to 1.26.4 ([#3065](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3065))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.4 to 1.26.5 ([#3071](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3071))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.5 to 1.26.6 ([#3074](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3074))
-* provider: bump actions/cache from 3 to 4 ([#3067](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3067))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.85.0 to 0.86.0 ([#3066](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3066))
-* provider: bump github.com/hashicorp/terraform-plugin-framework from 1.4.2 to 1.5.0 ([#3058](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3058))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.3 to 1.26.4 ([#3065](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3065))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.4 to 1.26.5 ([#3071](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3071))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.5 to 1.26.6 ([#3074](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3074))
+- provider: bump actions/cache from 3 to 4 ([#3067](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3067))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.85.0 to 0.86.0 ([#3066](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3066))
+- provider: bump github.com/hashicorp/terraform-plugin-framework from 1.4.2 to 1.5.0 ([#3058](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3058))
 
 ## 4.22.0 (January 10th, 2024)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_worker_secret` ([#3035](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3035))
+- **New Resource:** `cloudflare_worker_secret` ([#3035](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3035))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_notification_policy: Add tunnel_id filter for tunnel_health_event policies ([#3038](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3038))
-* resource/cloudflare_worker_script: adds D1 binding support ([#2960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2960))
+- resource/cloudflare_notification_policy: Add tunnel_id filter for tunnel_health_event policies ([#3038](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3038))
+- resource/cloudflare_worker_script: adds D1 binding support ([#2960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2960))
 
 BUG FIXES:
 
-* cloudflare_notification_policy: revert `ExactlyOneOf` ([#3032](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3032))
-* resource/cloudflare_dlp_profile: Prevent misidentified changes in dlp resources ([#3044](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3044))
-* resource/cloudflare_teams_rule: changed type & validation on the notification settings url ([#3030](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3030))
-* resource/cloudflare_teams_rules: fix block_page_enabled behaviour ([#3010](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3010))
-* resource/cloudflare_turnstile_widget: Support empty list of domains ([#3046](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3046))
+- cloudflare_notification_policy: revert `ExactlyOneOf` ([#3032](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3032))
+- resource/cloudflare_dlp_profile: Prevent misidentified changes in dlp resources ([#3044](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3044))
+- resource/cloudflare_teams_rule: changed type & validation on the notification settings url ([#3030](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3030))
+- resource/cloudflare_teams_rules: fix block_page_enabled behaviour ([#3010](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3010))
+- resource/cloudflare_turnstile_widget: Support empty list of domains ([#3046](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3046))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.2 to 1.26.3 ([#3042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3042))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.7 to 1.47.8 ([#3042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3042))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.8 to 1.48.0 ([#3043](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3043))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.24.0 to 1.24.1 ([#3042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3042))
-* provider: bump github.com/cloudflare/circl from 1.3.3 to 1.3.7 ([#3047](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3047))
-* provider: bump github.com/cloudflare/circl from 1.3.3 to 1.3.7 in /tools ([#3048](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3048))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.84.0 to 0.85.0 ([#3034](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3034))
-* provider: bump github.com/go-git/go-git/v5 from 5.4.2 to 5.11.0 in /tools ([#3029](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3029))
-* provider: bump golang.org/x/net from 0.19.0 to 0.20.0 ([#3050](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3050))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.2 to 1.26.3 ([#3042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3042))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.7 to 1.47.8 ([#3042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3042))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.8 to 1.48.0 ([#3043](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3043))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.24.0 to 1.24.1 ([#3042](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3042))
+- provider: bump github.com/cloudflare/circl from 1.3.3 to 1.3.7 ([#3047](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3047))
+- provider: bump github.com/cloudflare/circl from 1.3.3 to 1.3.7 in /tools ([#3048](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3048))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.84.0 to 0.85.0 ([#3034](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3034))
+- provider: bump github.com/go-git/go-git/v5 from 5.4.2 to 5.11.0 in /tools ([#3029](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3029))
+- provider: bump golang.org/x/net from 0.19.0 to 0.20.0 ([#3050](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3050))
 
 ## 4.21.0 (December 27th, 2023)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: adds the ability to set customization fields on the app launcher application. ([#2777](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2777))
-* resource/cloudflare_access_organization: remove default value for `session_duration`. ([#2995](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2995))
-* resource/cloudflare_access_policy: remove default value for `session_duration`. ([#2995](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2995))
-* resource/cloudflare_device_posture_integration: add support for `access_client_id` and `access_client_secret` fields ([#3013](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3013))
-* resource/cloudflare_logpush_job: add support for `magic_ids_detections`. ([#2983](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2983))
-* resource/cloudflare_notification_policy: enable `selector` filter and add `traffic_anomalies_alert` as a policy alert type ([#2976](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2976))
-* resource/cloudflare_pages_project: support `standard` usage model for functions ([#2963](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2963))
-* resource/cloudflare_tunnel_config: Destroying tunnel configurations now applies an empty configuration rather than deleting the parent cloudflare_tunnel resource ([#2769](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2769))
+- resource/cloudflare_access_application: adds the ability to set customization fields on the app launcher application. ([#2777](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2777))
+- resource/cloudflare_access_organization: remove default value for `session_duration`. ([#2995](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2995))
+- resource/cloudflare_access_policy: remove default value for `session_duration`. ([#2995](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2995))
+- resource/cloudflare_device_posture_integration: add support for `access_client_id` and `access_client_secret` fields ([#3013](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3013))
+- resource/cloudflare_logpush_job: add support for `magic_ids_detections`. ([#2983](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2983))
+- resource/cloudflare_notification_policy: enable `selector` filter and add `traffic_anomalies_alert` as a policy alert type ([#2976](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2976))
+- resource/cloudflare_pages_project: support `standard` usage model for functions ([#2963](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2963))
+- resource/cloudflare_tunnel_config: Destroying tunnel configurations now applies an empty configuration rather than deleting the parent cloudflare_tunnel resource ([#2769](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2769))
 
 BUG FIXES:
 
-* resource/cloudflare_list_item: fix issue preventing usage of redirect item type ([#2975](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2975))
+- resource/cloudflare_list_item: fix issue preventing usage of redirect item type ([#2975](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2975))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.10 to 1.25.11 ([#2973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2973))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.11 to 1.25.12 ([#2987](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2987))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.12 to 1.26.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.12 to 1.26.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.5 to 1.25.8 ([#2968](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2968))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.8 to 1.25.9 ([#2969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2969))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.9 to 1.25.10 ([#2971](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2971))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.0 to 1.26.1 ([#2997](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2997))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.1 to 1.26.2 ([#3022](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3022))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.44.0 to 1.46.0 ([#2968](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2968))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.46.0 to 1.47.0 ([#2969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2969))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.0 to 1.47.1 ([#2971](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2971))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.1 to 1.47.2 ([#2973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2973))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.2 to 1.47.3 ([#2987](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2987))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.3 to 1.47.4 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.3 to 1.47.4 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.4 to 1.47.5 ([#2997](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2997))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.5 to 1.47.6 ([#3016](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3016))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.6 to 1.47.7 ([#3022](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3022))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.1 to 1.23.2 ([#2968](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2968))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.2 to 1.23.3 ([#2969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2969))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.3 to 1.23.4 ([#2971](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2971))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.4 to 1.23.5 ([#2973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2973))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.5 to 1.24.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.5 to 1.24.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
-* provider: bump actions/setup-go from 4 to 5 ([#2989](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2989))
-* provider: bump actions/stale from 8 to 9 ([#2992](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2992))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.82.0 to 0.83.0 ([#2988](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2988))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.83.0 to 0.84.0 ([#3019](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3019))
-* provider: bump github.com/google/uuid from 1.4.0 to 1.5.0 ([#3002](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3002))
-* provider: bump github.com/hashicorp/terraform-plugin-mux from 0.12.0 to 0.13.0 ([#3006](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3006))
-* provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.30.0 to 2.31.0 ([#3007](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3007))
-* provider: bump github.com/hashicorp/terraform-plugin-testing from 1.5.1 to 1.6.0 ([#2984](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2984))
-* provider: bump github/codeql-action from 2 to 3 ([#3005](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3005))
-* provider: bump golang.org/x/crypto from 0.14.0 to 0.17.0 in /tools ([#3015](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3015))
-* provider: bump golang.org/x/crypto from 0.16.0 to 0.17.0 ([#3017](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3017))
-* resource/cloudflare_teams_rule: Added support for notification settings at teams rule ([#3021](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3021))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.10 to 1.25.11 ([#2973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2973))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.11 to 1.25.12 ([#2987](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2987))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.12 to 1.26.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.12 to 1.26.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.5 to 1.25.8 ([#2968](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2968))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.8 to 1.25.9 ([#2969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2969))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.9 to 1.25.10 ([#2971](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2971))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.0 to 1.26.1 ([#2997](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2997))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.26.1 to 1.26.2 ([#3022](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3022))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.44.0 to 1.46.0 ([#2968](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2968))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.46.0 to 1.47.0 ([#2969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2969))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.0 to 1.47.1 ([#2971](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2971))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.1 to 1.47.2 ([#2973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2973))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.2 to 1.47.3 ([#2987](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2987))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.3 to 1.47.4 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.3 to 1.47.4 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.4 to 1.47.5 ([#2997](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2997))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.5 to 1.47.6 ([#3016](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3016))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.47.6 to 1.47.7 ([#3022](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3022))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.1 to 1.23.2 ([#2968](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2968))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.2 to 1.23.3 ([#2969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2969))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.3 to 1.23.4 ([#2971](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2971))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.4 to 1.23.5 ([#2973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2973))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.5 to 1.24.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.5 to 1.24.0 ([#2993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2993))
+- provider: bump actions/setup-go from 4 to 5 ([#2989](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2989))
+- provider: bump actions/stale from 8 to 9 ([#2992](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2992))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.82.0 to 0.83.0 ([#2988](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2988))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.83.0 to 0.84.0 ([#3019](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3019))
+- provider: bump github.com/google/uuid from 1.4.0 to 1.5.0 ([#3002](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3002))
+- provider: bump github.com/hashicorp/terraform-plugin-mux from 0.12.0 to 0.13.0 ([#3006](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3006))
+- provider: bump github.com/hashicorp/terraform-plugin-sdk/v2 from 2.30.0 to 2.31.0 ([#3007](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3007))
+- provider: bump github.com/hashicorp/terraform-plugin-testing from 1.5.1 to 1.6.0 ([#2984](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2984))
+- provider: bump github/codeql-action from 2 to 3 ([#3005](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3005))
+- provider: bump golang.org/x/crypto from 0.14.0 to 0.17.0 in /tools ([#3015](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3015))
+- provider: bump golang.org/x/crypto from 0.16.0 to 0.17.0 ([#3017](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3017))
+- resource/cloudflare_teams_rule: Added support for notification settings at teams rule ([#3021](https://github.com/cloudflare/terraform-provider-cloudflare/issues/3021))
 
 ## 4.20.0 (November 29th, 2023)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_origin_ca_certificate` ([#2961](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2961))
+- **New Data Source:** `cloudflare_origin_ca_certificate` ([#2961](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2961))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_email_routing_rule: `action.value` is now optional to support `drop` rules not requiring it ([#2449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2449))
-* resource/cloudflare_email_routing_rule: add action type `drop` ([#2449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2449))
-* resource/cloudflare_notification_policy: add support for `brand_protection_alert` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_notification_policy: add support for `brand_protection_digest` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_notification_policy: add support for `logo_match_alert` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_notification_policy: add support for `magic_tunnel_health_check_event` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_notification_policy: add support for `maintenance_event_notification` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_notification_policy: add support for `mtls_certificate_store_certificate_expiration_type` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_notification_policy: add support for `radar_notification` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
-* resource/cloudflare_ruleset: make rate limiting `requests_to_origin` optional with a default value of `false` to match the API behaviour ([#2954](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2954))
+- resource/cloudflare_email_routing_rule: `action.value` is now optional to support `drop` rules not requiring it ([#2449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2449))
+- resource/cloudflare_email_routing_rule: add action type `drop` ([#2449](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2449))
+- resource/cloudflare_notification_policy: add support for `brand_protection_alert` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_notification_policy: add support for `brand_protection_digest` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_notification_policy: add support for `logo_match_alert` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_notification_policy: add support for `magic_tunnel_health_check_event` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_notification_policy: add support for `maintenance_event_notification` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_notification_policy: add support for `mtls_certificate_store_certificate_expiration_type` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_notification_policy: add support for `radar_notification` alert type ([#2937](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2937))
+- resource/cloudflare_ruleset: make rate limiting `requests_to_origin` optional with a default value of `false` to match the API behaviour ([#2954](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2954))
 
 BUG FIXES:
 
-* resource/cloudflare_list_item: fix list_item for `asn` and `hostname` types ([#2951](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2951))
-* resource/cloudflare_notification_policy: Fix missing new_status filter required by tunnel_health_event policies ([#2390](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2390))
+- resource/cloudflare_list_item: fix list_item for `asn` and `hostname` types ([#2951](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2951))
+- resource/cloudflare_notification_policy: Fix missing new_status filter required by tunnel_health_event policies ([#2390](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2390))
 
 DEPENDENCIES:
 
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.1 to 1.25.3 ([#2948](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2948))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.3 to 1.25.4 ([#2953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2953))
-* provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.4 to 1.25.5 ([#2956](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2956))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.42.2 to 1.43.0 ([#2948](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2948))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.43.0 to 1.43.1 ([#2953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2953))
-* provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.43.1 to 1.44.0 ([#2956](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2956))
-* provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.0 to 1.23.1 ([#2953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2953))
-* provider: bump github.com/cloudflare/cloudflare-go from 0.81.0 to 0.82.0 ([#2957](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2957))
-* provider: bump github.com/hashicorp/terraform-plugin-go from 0.19.0 to 0.19.1 ([#2942](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2942))
-* provider: bump golang.org/x/net from 0.18.0 to 0.19.0 ([#2967](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2967))
-* provider: updates `github.com/aws/aws-sdk-go-v2/config` from 1.24.0 to 1.25.1 ([#2945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2945))
-* provider: updates `github.com/aws/aws-sdk-go-v2/service/s3` from 1.42.1 to 1.42.2 ([#2945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2945))
-* provider: updates `github.com/aws/aws-sdk-go-v2` from 1.22.2 to 1.23.0 ([#2945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2945))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.1 to 1.25.3 ([#2948](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2948))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.3 to 1.25.4 ([#2953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2953))
+- provider: bump `github.com/aws/aws-sdk-go-v2/config` from 1.25.4 to 1.25.5 ([#2956](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2956))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.42.2 to 1.43.0 ([#2948](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2948))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.43.0 to 1.43.1 ([#2953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2953))
+- provider: bump `github.com/aws/aws-sdk-go-v2/service/s3` from 1.43.1 to 1.44.0 ([#2956](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2956))
+- provider: bump `github.com/aws/aws-sdk-go-v2` from 1.23.0 to 1.23.1 ([#2953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2953))
+- provider: bump github.com/cloudflare/cloudflare-go from 0.81.0 to 0.82.0 ([#2957](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2957))
+- provider: bump github.com/hashicorp/terraform-plugin-go from 0.19.0 to 0.19.1 ([#2942](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2942))
+- provider: bump golang.org/x/net from 0.18.0 to 0.19.0 ([#2967](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2967))
+- provider: updates `github.com/aws/aws-sdk-go-v2/config` from 1.24.0 to 1.25.1 ([#2945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2945))
+- provider: updates `github.com/aws/aws-sdk-go-v2/service/s3` from 1.42.1 to 1.42.2 ([#2945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2945))
+- provider: updates `github.com/aws/aws-sdk-go-v2` from 1.22.2 to 1.23.0 ([#2945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2945))
 
 ## 4.19.0 (15th November, 2023)
 
 NOTES:
 
-* resource/cloudflare_argo: `tiered_caching` attribute is deprecated in favour of the dedicated `cloudflare_tiered_cache` resource. ([#2906](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2906))
+- resource/cloudflare_argo: `tiered_caching` attribute is deprecated in favour of the dedicated `cloudflare_tiered_cache` resource. ([#2906](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2906))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_keyless_certificate` ([#2779](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2779))
+- **New Resource:** `cloudflare_keyless_certificate` ([#2779](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2779))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_notification_policy: Add support for `incident_alert` type ([#2901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2901))
-* resource/cloudflare_zone: add support for `secondary` zone types ([#2939](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2939))
+- resource/cloudflare_notification_policy: Add support for `incident_alert` type ([#2901](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2901))
+- resource/cloudflare_zone: add support for `secondary` zone types ([#2939](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2939))
 
 BUG FIXES:
 
-* resource/cloudflare_list_item: ensure each `item` has its own ID and is not based on the latest created entry ([#2922](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2922))
+- resource/cloudflare_list_item: ensure each `item` has its own ID and is not based on the latest created entry ([#2922](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2922))
 
 INTERNAL:
 
-* provider: prevent new resources and datasources from being created with `terraform-plugin-sdk` ([#2871](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2871))
+- provider: prevent new resources and datasources from being created with `terraform-plugin-sdk` ([#2871](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2871))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/aws/aws-sdk-go-v2 from 1.21.2 to 1.22.0 ([#2899](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2899))
-* provider: bumps github.com/aws/aws-sdk-go-v2 from 1.22.0 to 1.22.1 ([#2904](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2904))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.19.1 to 1.20.0 ([#2898](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2898))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.20.0 to 1.21.0 ([#2902](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2902))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.21.0 to 1.22.0 ([#2908](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2908))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.22.0 to 1.22.1 ([#2912](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2912))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.22.1 to 1.22.2 ([#2917](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2917))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.40.2 to 1.41.0 ([#2897](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2897))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.41.0 to 1.42.0 ([#2905](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2905))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.80.0 to 0.81.0 ([#2919](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2919))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.29.0 to 2.30.0 ([#2925](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2925))
-* provider: bumps golang.org/x/net from 0.17.0 to 0.18.0 ([#2921](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2921))
-* provider: updates `github.com/aws/aws-sdk-go-v2/config` from 1.22.2 to 1.23.0 ([#2931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2931))
-* provider: updates `github.com/aws/aws-sdk-go-v2/service/s3` from 1.42.0 to 1.42.1 ([#2931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2931))
-* provider: updates `github.com/aws/aws-sdk-go-v2` from 1.22.1 to 1.22.2 ([#2931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2931))
+- provider: bumps github.com/aws/aws-sdk-go-v2 from 1.21.2 to 1.22.0 ([#2899](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2899))
+- provider: bumps github.com/aws/aws-sdk-go-v2 from 1.22.0 to 1.22.1 ([#2904](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2904))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.19.1 to 1.20.0 ([#2898](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2898))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.20.0 to 1.21.0 ([#2902](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2902))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.21.0 to 1.22.0 ([#2908](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2908))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.22.0 to 1.22.1 ([#2912](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2912))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.22.1 to 1.22.2 ([#2917](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2917))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.40.2 to 1.41.0 ([#2897](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2897))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.41.0 to 1.42.0 ([#2905](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2905))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.80.0 to 0.81.0 ([#2919](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2919))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.29.0 to 2.30.0 ([#2925](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2925))
+- provider: bumps golang.org/x/net from 0.17.0 to 0.18.0 ([#2921](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2921))
+- provider: updates `github.com/aws/aws-sdk-go-v2/config` from 1.22.2 to 1.23.0 ([#2931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2931))
+- provider: updates `github.com/aws/aws-sdk-go-v2/service/s3` from 1.42.0 to 1.42.1 ([#2931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2931))
+- provider: updates `github.com/aws/aws-sdk-go-v2` from 1.22.1 to 1.22.2 ([#2931](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2931))
 
 ## 4.18.0 (1st November, 2023)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_device_posture_rules` ([#2868](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2868))
-* **New Data Source:** `cloudflare_tunnel` ([#2866](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2866))
-* **New Data Source:** `cloudflare_tunnel_virtual_network` ([#2867](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2867))
-* **New Resource:** `cloudflare_api_shield_operation_schema_validation_settings` ([#2852](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2852))
-* **New Resource:** `cloudflare_api_shield_schema_validation_settings` ([#2841](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2841))
+- **New Data Source:** `cloudflare_device_posture_rules` ([#2868](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2868))
+- **New Data Source:** `cloudflare_tunnel` ([#2866](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2866))
+- **New Data Source:** `cloudflare_tunnel_virtual_network` ([#2867](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2867))
+- **New Resource:** `cloudflare_api_shield_operation_schema_validation_settings` ([#2852](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2852))
+- **New Resource:** `cloudflare_api_shield_schema_validation_settings` ([#2841](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2841))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_load_balancer: Add support for least_connections steering ([#2818](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2818))
-* resource/cloudflare_load_balancer_pool: Add support for least_connections origin steering ([#2818](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2818))
-* resource/cloudflare_logpush_job: add support for `casb_findings` dataset ([#2859](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2859))
-* resource/cloudflare_teams_account: Add `non_identity_browser_isolation_enabled` field ([#2878](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2878))
-* resource/cloudflare_teams_account: add support for `body_scanning` config ([#2887](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2887))
-* resource/cloudflare_workers_script: add support for `placement` config ([#2893](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2893))
+- resource/cloudflare_load_balancer: Add support for least_connections steering ([#2818](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2818))
+- resource/cloudflare_load_balancer_pool: Add support for least_connections origin steering ([#2818](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2818))
+- resource/cloudflare_logpush_job: add support for `casb_findings` dataset ([#2859](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2859))
+- resource/cloudflare_teams_account: Add `non_identity_browser_isolation_enabled` field ([#2878](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2878))
+- resource/cloudflare_teams_account: add support for `body_scanning` config ([#2887](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2887))
+- resource/cloudflare_workers_script: add support for `placement` config ([#2893](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2893))
 
 BUG FIXES:
 
-* resource/cloudflare_observatory_scheduled_test: Add missing 'asia-south1' region ([#2891](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2891))
-* resource/cloudflare_rulesets: Allow zero to not default to null for mitigation_timeout ([#2874](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2874))
+- resource/cloudflare_observatory_scheduled_test: Add missing 'asia-south1' region ([#2891](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2891))
+- resource/cloudflare_rulesets: Allow zero to not default to null for mitigation_timeout ([#2874](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2874))
 
 DEPENDENCIES:
 
-* ci: drop separate misspell installation ([#2814](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2814))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.19.0 to 1.19.1 ([#2877](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2877))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.79.0 to 0.80.0 ([#2883](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2883))
-* provider: bumps github.com/google/uuid from 1.3.1 to 1.4.0 ([#2889](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2889))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.4.1 to 1.4.2 ([#2876](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2876))
+- ci: drop separate misspell installation ([#2814](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2814))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.19.0 to 1.19.1 ([#2877](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2877))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.79.0 to 0.80.0 ([#2883](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2883))
+- provider: bumps github.com/google/uuid from 1.3.1 to 1.4.0 ([#2889](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2889))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.4.1 to 1.4.2 ([#2876](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2876))
 
 ## 4.17.0 (18th October, 2023)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_access_tag` ([#2776](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2776))
-* **New Resource:** `cloudflare_api_shield_schema` ([#2784](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2784))
-* **New Resource:** `cloudflare_d1_database` ([#2850](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2850))
-* **New Resource:** `cloudflare_observatory_scheduled_test` ([#2807](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2807))
+- **New Resource:** `cloudflare_access_tag` ([#2776](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2776))
+- **New Resource:** `cloudflare_api_shield_schema` ([#2784](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2784))
+- **New Resource:** `cloudflare_d1_database` ([#2850](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2850))
+- **New Resource:** `cloudflare_observatory_scheduled_test` ([#2807](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2807))
 
 ENHANCEMENTS:
 
-* provider: allow defining a user agent operator suffix through the schema field (`user_agent_operator_suffix`) and via the environment variable (`CLOUDFLARE_USER_AGENT_OPERATOR_SUFFIX`) ([#2831](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2831))
-* resource/cloudflare_access_application: Add idp_entity_id, public_key and sso_endpoint attributes to saas_app ([#2838](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2838))
-* resource/cloudflare_access_application: adds the ability to associate a tag with an application. ([#2776](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2776))
-* resource/cloudflare_access_organization: Add session_duration field ([#2857](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2857))
-* resource/cloudflare_access_policy: Add session_duration field ([#2857](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2857))
-* resource/cloudflare_ruleset: Add support for the use of Additional Cacheable Ports option in the Rulesets API ([#2854](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2854))
-* resource/cloudflare_teams_accounts: Add support for setting ssh encryption key in ZT settings ([#2826](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2826))
-* resource/cloudflare_zone_settings_override: Add support for `fonts` ([#2773](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2773))
+- provider: allow defining a user agent operator suffix through the schema field (`user_agent_operator_suffix`) and via the environment variable (`CLOUDFLARE_USER_AGENT_OPERATOR_SUFFIX`) ([#2831](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2831))
+- resource/cloudflare_access_application: Add idp_entity_id, public_key and sso_endpoint attributes to saas_app ([#2838](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2838))
+- resource/cloudflare_access_application: adds the ability to associate a tag with an application. ([#2776](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2776))
+- resource/cloudflare_access_organization: Add session_duration field ([#2857](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2857))
+- resource/cloudflare_access_policy: Add session_duration field ([#2857](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2857))
+- resource/cloudflare_ruleset: Add support for the use of Additional Cacheable Ports option in the Rulesets API ([#2854](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2854))
+- resource/cloudflare_teams_accounts: Add support for setting ssh encryption key in ZT settings ([#2826](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2826))
+- resource/cloudflare_zone_settings_override: Add support for `fonts` ([#2773](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2773))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: fix import of cloudflare_access_application not reading saas_app config ([#2843](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2843))
-* resource/cloudflare_access_policy: Send purpose justification settings properly on updates ([#2836](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2836))
-* resource/cloudflare_bot_management: fix fight mode not being sent to API ([#2833](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2833))
-* resource/cloudflare_pages_project: Fix 'preview_branch_includes' always showing it has changes if not provided ([#2796](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2796))
-* resource/cloudflare_ruleset: Add note that logging is only supported with the skip action ([#2851](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2851))
+- resource/cloudflare_access_application: fix import of cloudflare_access_application not reading saas_app config ([#2843](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2843))
+- resource/cloudflare_access_policy: Send purpose justification settings properly on updates ([#2836](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2836))
+- resource/cloudflare_bot_management: fix fight mode not being sent to API ([#2833](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2833))
+- resource/cloudflare_pages_project: Fix 'preview_branch_includes' always showing it has changes if not provided ([#2796](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2796))
+- resource/cloudflare_ruleset: Add note that logging is only supported with the skip action ([#2851](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2851))
 
 INTERNAL:
 
-* provider: updated user agent string to now be `terraform-provider-cloudflare/<version> <plugin> <operator suffix>` ([#2831](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2831))
+- provider: updated user agent string to now be `terraform-provider-cloudflare/<version> <plugin> <operator suffix>` ([#2831](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2831))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/aws/aws-sdk-go-v2 from 1.21.0 to 1.21.1 ([#2820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2820))
-* provider: bumps github.com/aws/aws-sdk-go-v2 from 1.21.1 to 1.21.2 ([#2847](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2847))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.43 to 1.18.44 ([#2823](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2823))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.44 to 1.18.45 ([#2846](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2846))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.45 to 1.19.0 ([#2853](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2853))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.41 to 1.13.42 ([#2821](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2821))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.40.0 to 1.40.1 ([#2822](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2822))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.78.0 to 0.79.0 ([#2832](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2832))
-* provider: bumps github.com/google/go-cmp from 0.5.9 to 0.6.0 ([#2830](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2830))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.4.0 to 1.4.1 ([#2828](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2828))
-* provider: bumps golang.org/x/net from 0.15.0 to 0.16.0 ([#2819](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2819))
-* provider: bumps golang.org/x/net from 0.16.0 to 0.17.0 ([#2829](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2829))
-* provider: bumps golang.org/x/net from 0.7.0 to 0.17.0 ([#2837](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2837))
+- provider: bumps github.com/aws/aws-sdk-go-v2 from 1.21.0 to 1.21.1 ([#2820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2820))
+- provider: bumps github.com/aws/aws-sdk-go-v2 from 1.21.1 to 1.21.2 ([#2847](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2847))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.43 to 1.18.44 ([#2823](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2823))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.44 to 1.18.45 ([#2846](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2846))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.45 to 1.19.0 ([#2853](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2853))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.41 to 1.13.42 ([#2821](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2821))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.40.0 to 1.40.1 ([#2822](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2822))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.78.0 to 0.79.0 ([#2832](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2832))
+- provider: bumps github.com/google/go-cmp from 0.5.9 to 0.6.0 ([#2830](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2830))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.4.0 to 1.4.1 ([#2828](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2828))
+- provider: bumps golang.org/x/net from 0.15.0 to 0.16.0 ([#2819](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2819))
+- provider: bumps golang.org/x/net from 0.16.0 to 0.17.0 ([#2829](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2829))
+- provider: bumps golang.org/x/net from 0.7.0 to 0.17.0 ([#2837](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2837))
 
 ## 4.16.0 (4th October, 2023)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_spectrum_application: Remove default values, make `edge_ips` parameter optional. ([#2629](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2629))
+- resource/cloudflare_spectrum_application: Remove default values, make `edge_ips` parameter optional. ([#2629](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2629))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_api_shield_operation` ([#2760](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2760))
+- **New Resource:** `cloudflare_api_shield_operation` ([#2760](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2760))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_authenticated_origin_pulls: Improve import, update documentation ([#2771](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2771))
-* resource/cloudflare_notification_policy: Add `advanced_http_alert_error` alert_type ([#2789](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2789))
-* resource/cloudflare_notification_policy: Implement the `group_by`, `where` and `actions` options ([#2789](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2789))
-* resource/cloudflare_ruleset: Add support for cache bypass by default in Edge TTL modes ([#2764](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2764))
+- resource/cloudflare_authenticated_origin_pulls: Improve import, update documentation ([#2771](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2771))
+- resource/cloudflare_notification_policy: Add `advanced_http_alert_error` alert_type ([#2789](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2789))
+- resource/cloudflare_notification_policy: Implement the `group_by`, `where` and `actions` options ([#2789](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2789))
+- resource/cloudflare_ruleset: Add support for cache bypass by default in Edge TTL modes ([#2764](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2764))
 
 BUG FIXES:
 
-* resource/cloudflare_access_identity_provider: Fix cloudflare_access_identity_provider incorrectly discards SCIM configuration secret ([#2744](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2744))
-* resource/cloudflare_notification_policy: handle manually deleted policies by removing them from state ([#2791](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2791))
-* resource/cloudflare_ruleset: ability to use exclude_origin=true in cache_key.custom_key.header without the need of specifying include or check_presence. ([#2802](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2802))
-* resource/cloudflare_ruleset: mark `requests_to_origin` required for ratelimit blocks ([#2808](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2808))
+- resource/cloudflare_access_identity_provider: Fix cloudflare_access_identity_provider incorrectly discards SCIM configuration secret ([#2744](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2744))
+- resource/cloudflare_notification_policy: handle manually deleted policies by removing them from state ([#2791](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2791))
+- resource/cloudflare_ruleset: ability to use exclude_origin=true in cache_key.custom_key.header without the need of specifying include or check_presence. ([#2802](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2802))
+- resource/cloudflare_ruleset: mark `requests_to_origin` required for ratelimit blocks ([#2808](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2808))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.40 to 1.18.41 ([#2781](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2781))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.41 to 1.18.42 ([#2792](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2792))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.42 to 1.18.43 ([#2811](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2811))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.39 to 1.13.40 ([#2793](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2793))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.40 to 1.13.41 ([#2810](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2810))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.5 to 1.39.0 ([#2782](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2782))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.39.0 to 1.40.0 ([#2795](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2795))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.77.0 to 0.78.0 ([#2797](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2797))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.40 to 1.18.41 ([#2781](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2781))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.41 to 1.18.42 ([#2792](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2792))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.42 to 1.18.43 ([#2811](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2811))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.39 to 1.13.40 ([#2793](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2793))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.40 to 1.13.41 ([#2810](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2810))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.5 to 1.39.0 ([#2782](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2782))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.39.0 to 1.40.0 ([#2795](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2795))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.77.0 to 0.78.0 ([#2797](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2797))
 
 ## 4.15.0 (20th September, 2023)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_identity_provider: Support email_claim_name, Okta authorization_server_id, and pingone ([#2765](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2765))
-* resource/cloudflare_ruleset: Add support for a new Browser Mode that allows bypass of downstream caches ([#2756](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2756))
-* resource/cloudflare_ruleset: Add support for the use of Origin Cache Control in the Rulesets API ([#2753](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2753))
-* resource/cloudflare_ruleset: Add support for the use of Proxy Read Timeout field in Rulesets API ([#2755](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2755))
+- resource/cloudflare_access_identity_provider: Support email_claim_name, Okta authorization_server_id, and pingone ([#2765](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2765))
+- resource/cloudflare_ruleset: Add support for a new Browser Mode that allows bypass of downstream caches ([#2756](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2756))
+- resource/cloudflare_ruleset: Add support for the use of Origin Cache Control in the Rulesets API ([#2753](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2753))
+- resource/cloudflare_ruleset: Add support for the use of Proxy Read Timeout field in Rulesets API ([#2755](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2755))
 
 BUG FIXES:
 
-* resource/cloudflare_list: Fix import for cloudflare_list resource ([#2663](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2663))
-* resource/cloudflare_record: Updates the cast to a pointer to match changes in the SDK ([#2763](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2763))
-* resource/pages_project: force replace when changing pages source ([#2750](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2750))
+- resource/cloudflare_list: Fix import for cloudflare_list resource ([#2663](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2663))
+- resource/cloudflare_record: Updates the cast to a pointer to match changes in the SDK ([#2763](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2763))
+- resource/pages_project: force replace when changing pages source ([#2750](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2750))
 
 DEPENDENCIES:
 
-* provider: bumps crazy-max/ghaction-import-gpg from 5 to 6 ([#2758](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2758))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.39 to 1.18.40 ([#2775](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2775))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.76.0 to 0.77.0 ([#2761](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2761))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.5 to 1.4.0 ([#2745](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2745))
-* provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.11.2 to 0.12.0 ([#2746](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2746))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.28.0 to 2.29.0 ([#2748](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2748))
-* provider: bumps goreleaser/goreleaser-action from 4.6.0 to 5.0.0 ([#2757](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2757))
+- provider: bumps crazy-max/ghaction-import-gpg from 5 to 6 ([#2758](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2758))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.39 to 1.18.40 ([#2775](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2775))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.76.0 to 0.77.0 ([#2761](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2761))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.5 to 1.4.0 ([#2745](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2745))
+- provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.11.2 to 0.12.0 ([#2746](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2746))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.28.0 to 2.29.0 ([#2748](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2748))
+- provider: bumps goreleaser/goreleaser-action from 4.6.0 to 5.0.0 ([#2757](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2757))
 
 ## 4.14.0 (6th September, 2023)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_web_analytics_rule` ([#2686](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2686))
-* **New Resource:** `cloudflare_web_analytics_site` ([#2686](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2686))
+- **New Resource:** `cloudflare_web_analytics_rule` ([#2686](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2686))
+- **New Resource:** `cloudflare_web_analytics_site` ([#2686](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2686))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: Add custom_non_identity_deny_url field ([#2721](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2721))
-* resource/cloudflare_access_group: Improve documentation for access_group usage ([#2718](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2718))
-* resource/cloudflare_load_balancer_monitor: add support for `consecutive_up` and `consecutive_down` ([#2723](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2723))
-* resource/cloudflare_total_tls: add support for importing existing resources ([#2734](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2734))
+- resource/cloudflare_access_application: Add custom_non_identity_deny_url field ([#2721](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2721))
+- resource/cloudflare_access_group: Improve documentation for access_group usage ([#2718](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2718))
+- resource/cloudflare_load_balancer_monitor: add support for `consecutive_up` and `consecutive_down` ([#2723](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2723))
+- resource/cloudflare_total_tls: add support for importing existing resources ([#2734](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2734))
 
 BUG FIXES:
 
-* resource/cloudflare_access_identity_provider: Fix access IDPs not importing config obj ([#2735](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2735))
+- resource/cloudflare_access_identity_provider: Fix access IDPs not importing config obj ([#2735](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2735))
 
 DEPENDENCIES:
 
-* provider: bumps actions/checkout from 3 to 4 ([#2736](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2736))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.36 to 1.18.37 ([#2714](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2714))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.37 to 1.18.38 ([#2731](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2731))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.38 to 1.18.39 ([#2741](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2741))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.35 to 1.13.36 ([#2732](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2732))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.36 to 1.13.37 ([#2740](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2740))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.75.0 to 0.76.0 ([#2726](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2726))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework-validators from 0.11.0 to 0.12.0 ([#2727](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2727))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.27.0 to 2.28.0 ([#2719](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2719))
-* provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.4.0 to 1.5.1 ([#2730](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2730))
-* provider: bumps golang.org/x/net from 0.14.0 to 0.15.0 ([#2739](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2739))
-* provider: bumps goreleaser/goreleaser-action from 4.4.0 to 4.6.0 ([#2742](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2742))
+- provider: bumps actions/checkout from 3 to 4 ([#2736](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2736))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.36 to 1.18.37 ([#2714](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2714))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.37 to 1.18.38 ([#2731](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2731))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.38 to 1.18.39 ([#2741](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2741))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.35 to 1.13.36 ([#2732](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2732))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.36 to 1.13.37 ([#2740](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2740))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.75.0 to 0.76.0 ([#2726](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2726))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework-validators from 0.11.0 to 0.12.0 ([#2727](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2727))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.27.0 to 2.28.0 ([#2719](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2719))
+- provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.4.0 to 1.5.1 ([#2730](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2730))
+- provider: bumps golang.org/x/net from 0.14.0 to 0.15.0 ([#2739](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2739))
+- provider: bumps goreleaser/goreleaser-action from 4.4.0 to 4.6.0 ([#2742](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2742))
 
 ## 4.13.0 (23rd August, 2023)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_user` ([#2691](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2691))
-* **New Resource:** `cloudflare_bot_management` ([#2672](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2672))
-* **New Resource:** `cloudflare_hostname_tls_setting` ([#2700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2700))
-* **New Resource:** `cloudflare_hostname_tls_setting_ciphers` ([#2700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2700))
-* **New Resource:** `cloudflare_zone_hold` ([#2671](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2671))
+- **New Data Source:** `cloudflare_user` ([#2691](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2691))
+- **New Resource:** `cloudflare_bot_management` ([#2672](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2672))
+- **New Resource:** `cloudflare_hostname_tls_setting` ([#2700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2700))
+- **New Resource:** `cloudflare_hostname_tls_setting_ciphers` ([#2700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2700))
+- **New Resource:** `cloudflare_zone_hold` ([#2671](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2671))
 
 ENHANCEMENTS:
 
-* datasource/api_token_permission_groups: Add R2 scopes ([#2687](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2687))
-* datasource/api_token_permission_groups: Convert to plugin framework ([#2687](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2687))
-* resource/cloudflare_access_application: adds support for custom saml attributes in saas access apps ([#2676](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2676))
-* resource/cloudflare_access_group: add support for AccessGroupAzureAuthContext ([#2654](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2654))
-* resource/cloudflare_access_identity_provider: add conditional_access_enabled attr ([#2654](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2654))
-* resource/cloudflare_access_service_token: add support for managing `Duration` ([#2647](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2647))
-* resource/cloudflare_device_posture_integration: update support for managing `tanium_s2s` third party posture provider. ([#2674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2674))
-* resource/cloudflare_device_posture_rule: update support for new fields for tanium_s2s posture rule. ([#2674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2674))
-* resource/cloudflare_notification_policy: Add possibility to configure Pages Alerts. ([#2694](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2694))
-* resource/cloudflare_waiting_room: Add `queueing_status_code` to the Waiting Room resource ([#2666](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2666))
-* resource/cloudflare_worker_domain: add support for `Import` operations ([#2679](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2679))
+- datasource/api_token_permission_groups: Add R2 scopes ([#2687](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2687))
+- datasource/api_token_permission_groups: Convert to plugin framework ([#2687](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2687))
+- resource/cloudflare_access_application: adds support for custom saml attributes in saas access apps ([#2676](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2676))
+- resource/cloudflare_access_group: add support for AccessGroupAzureAuthContext ([#2654](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2654))
+- resource/cloudflare_access_identity_provider: add conditional_access_enabled attr ([#2654](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2654))
+- resource/cloudflare_access_service_token: add support for managing `Duration` ([#2647](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2647))
+- resource/cloudflare_device_posture_integration: update support for managing `tanium_s2s` third party posture provider. ([#2674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2674))
+- resource/cloudflare_device_posture_rule: update support for new fields for tanium_s2s posture rule. ([#2674](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2674))
+- resource/cloudflare_notification_policy: Add possibility to configure Pages Alerts. ([#2694](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2694))
+- resource/cloudflare_waiting_room: Add `queueing_status_code` to the Waiting Room resource ([#2666](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2666))
+- resource/cloudflare_worker_domain: add support for `Import` operations ([#2679](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2679))
 
 BUG FIXES:
 
-* resource/cloudflare_access_group: Fix issue where saml rules would not read the IDP id from the API ([#2683](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2683))
-* resource/cloudflare_rulest: allow configuring an origin `Port` value without the `Host` (and vice versa) ([#2677](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2677))
+- resource/cloudflare_access_group: Fix issue where saml rules would not read the IDP id from the API ([#2683](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2683))
+- resource/cloudflare_rulest: allow configuring an origin `Port` value without the `Host` (and vice versa) ([#2677](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2677))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/aws/aws-sdk-go-v2 from 1.20.1 to 1.20.2 ([#2695](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2695))
-* provider: bumps github.com/aws/aws-sdk-go-v2 from 1.20.3 to 1.21.0 ([#2710](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2710))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.33 to 1.18.34 ([#2697](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2697))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.34 to 1.18.35 ([#2706](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2706))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.35 to 1.18.36 ([#2708](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2708))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.32 to 1.13.33 ([#2696](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2696))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.33 to 1.13.34 ([#2703](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2703))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.34 to 1.13.35 ([#2709](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2709))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.2 to 1.38.3 ([#2698](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2698))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.3 to 1.38.4 ([#2705](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2705))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.4 to 1.38.5 ([#2707](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2707))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.74.0 to 0.75.0 ([#2685](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2685))
-* provider: bumps github.com/google/uuid from 1.3.0 to 1.3.1 ([#2711](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2711))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.4 to 1.3.5 ([#2699](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2699))
-* provider: bumps goreleaser/goreleaser-action from 4.3.0 to 4.4.0 ([#2675](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2675))
+- provider: bumps github.com/aws/aws-sdk-go-v2 from 1.20.1 to 1.20.2 ([#2695](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2695))
+- provider: bumps github.com/aws/aws-sdk-go-v2 from 1.20.3 to 1.21.0 ([#2710](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2710))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.33 to 1.18.34 ([#2697](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2697))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.34 to 1.18.35 ([#2706](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2706))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.35 to 1.18.36 ([#2708](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2708))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.32 to 1.13.33 ([#2696](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2696))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.33 to 1.13.34 ([#2703](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2703))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.34 to 1.13.35 ([#2709](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2709))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.2 to 1.38.3 ([#2698](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2698))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.3 to 1.38.4 ([#2705](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2705))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.38.4 to 1.38.5 ([#2707](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2707))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.74.0 to 0.75.0 ([#2685](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2685))
+- provider: bumps github.com/google/uuid from 1.3.0 to 1.3.1 ([#2711](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2711))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.4 to 1.3.5 ([#2699](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2699))
+- provider: bumps goreleaser/goreleaser-action from 4.3.0 to 4.4.0 ([#2675](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2675))
 
 ## 4.12.0 (9th August, 2023)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_ruleset: remove `shareable_entitlement_name` per the Go library changes since it hasn't ever been controllable by users ([#2652](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2652))
+- resource/cloudflare_ruleset: remove `shareable_entitlement_name` per the Go library changes since it hasn't ever been controllable by users ([#2652](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2652))
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_zone_cache_reserve` ([#2642](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2642))
-* **New Resource:** `cloudflare_access_custom_page` ([#2643](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2643))
-* **New Resource:** `cloudflare_zone_cache_reserve` ([#2642](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2642))
+- **New Data Source:** `cloudflare_zone_cache_reserve` ([#2642](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2642))
+- **New Resource:** `cloudflare_access_custom_page` ([#2643](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2643))
+- **New Resource:** `cloudflare_zone_cache_reserve` ([#2642](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2642))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: adds the ability to associate a custom page with an application. ([#2643](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2643))
-* resource/cloudflare_access_organization: adds the ability to associate a custom page with an organization. ([#2643](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2643))
-* resource/cloudflare_notification_policy: Add support for `pages_event_alert` alert type ([#2602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2602))
-* resource/cloudflare_pages_project: Allow renaming projects without destroying and recreating ([#2602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2602))
-* resource/cloudflare_teams_account: Adds support for protocol detection feature ([#2625](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2625))
-* resource/cloudflare_user_agent_blocking_rules: add support for importing resources ([#2640](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2640))
+- resource/cloudflare_access_application: adds the ability to associate a custom page with an application. ([#2643](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2643))
+- resource/cloudflare_access_organization: adds the ability to associate a custom page with an organization. ([#2643](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2643))
+- resource/cloudflare_notification_policy: Add support for `pages_event_alert` alert type ([#2602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2602))
+- resource/cloudflare_pages_project: Allow renaming projects without destroying and recreating ([#2602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2602))
+- resource/cloudflare_teams_account: Adds support for protocol detection feature ([#2625](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2625))
+- resource/cloudflare_user_agent_blocking_rules: add support for importing resources ([#2640](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2640))
 
 BUG FIXES:
 
-* resource/cloudflare_custom_hostname: prevent infinite loop when `wait_for_ssl_pending_validation` is set if SSL status is already `active` ([#2638](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2638))
-* resource/cloudflare_load_balancer: fix full deletion of pop_pools, region_pools, country_pools on update ([#2673](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2673))
-* resource/cloudflare_load_balancer: handle inconsistent sorting bug in `schema.HashResource` resulting in resources incorrectly being updated when no changes have been made ([#2635](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2635))
-* resource/cloudflare_pages_project: `deployment_configs` are now computed ([#2602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2602))
+- resource/cloudflare_custom_hostname: prevent infinite loop when `wait_for_ssl_pending_validation` is set if SSL status is already `active` ([#2638](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2638))
+- resource/cloudflare_load_balancer: fix full deletion of pop_pools, region_pools, country_pools on update ([#2673](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2673))
+- resource/cloudflare_load_balancer: handle inconsistent sorting bug in `schema.HashResource` resulting in resources incorrectly being updated when no changes have been made ([#2635](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2635))
+- resource/cloudflare_pages_project: `deployment_configs` are now computed ([#2602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2602))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.29 to 1.18.32 ([#2651](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2651))
-* provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.32 to 1.18.33 ([#2670](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2670))
-* provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.28 to 1.13.31 ([#2648](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2648))
-* provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.37.0 to 1.38.1 ([#2650](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2650))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.73.0 to 0.74.0 ([#2652](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2652))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.3 to 1.3.4 ([#2657](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2657))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework-validators from 0.10.0 to 0.11.0 ([#2658](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2658))
-* provider: bumps golang.org/x/net from 0.12.0 to 0.13.0 ([#2646](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2646))
-* provider: bumps golang.org/x/net from 0.13.0 to 0.14.0 ([#2661](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2661))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.29 to 1.18.32 ([#2651](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2651))
+- provider: bumps github.com/aws/aws-sdk-go-v2/config from 1.18.32 to 1.18.33 ([#2670](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2670))
+- provider: bumps github.com/aws/aws-sdk-go-v2/credentials from 1.13.28 to 1.13.31 ([#2648](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2648))
+- provider: bumps github.com/aws/aws-sdk-go-v2/service/s3 from 1.37.0 to 1.38.1 ([#2650](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2650))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.73.0 to 0.74.0 ([#2652](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2652))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.3 to 1.3.4 ([#2657](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2657))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework-validators from 0.10.0 to 0.11.0 ([#2658](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2658))
+- provider: bumps golang.org/x/net from 0.12.0 to 0.13.0 ([#2646](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2646))
+- provider: bumps golang.org/x/net from 0.13.0 to 0.14.0 ([#2661](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2661))
 
 ## 4.11.0 (26th July, 2023)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_regional_tiered_cache` ([#2624](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2624))
+- **New Resource:** `cloudflare_regional_tiered_cache` ([#2624](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2624))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_device_posture_integration: add support for managing `sentinelone_s2s` third party posture provider. ([#2618](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2618))
-* resource/cloudflare_device_posture_rule: add ability to create client_certificate and sentinelone_s2s posture rule ([#2618](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2618))
-* resource/cloudflare_load_balancer: support header session affinity policy ([#2521](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2521))
-* resource/record: Allow SVCB DNS record ([#2632](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2632))
+- resource/cloudflare_device_posture_integration: add support for managing `sentinelone_s2s` third party posture provider. ([#2618](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2618))
+- resource/cloudflare_device_posture_rule: add ability to create client_certificate and sentinelone_s2s posture rule ([#2618](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2618))
+- resource/cloudflare_load_balancer: support header session affinity policy ([#2521](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2521))
+- resource/record: Allow SVCB DNS record ([#2632](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2632))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.72.0 to 0.73.0 ([#2626](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2626))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.2 to 1.3.3 ([#2627](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2627))
-* provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.11.1 to 0.11.2 ([#2616](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2616))
-* provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.3.0 to 1.4.0 ([#2631](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2631))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.72.0 to 0.73.0 ([#2626](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2626))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.2 to 1.3.3 ([#2627](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2627))
+- provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.11.1 to 0.11.2 ([#2616](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2616))
+- provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.3.0 to 1.4.0 ([#2631](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2631))
 
 ## 4.10.0 (12th July, 2023)
 
 FEATURES:
 
-* **New Data Source:** `clouflare_access_application` ([#2547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2547))
+- **New Data Source:** `clouflare_access_application` ([#2547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2547))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_ca_certificate: remove redundant `certificate_id` from `Import` requirements as it is never used ([#2547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2547))
-* resource/cloudflare_load_balancer_monitor: Add example import. ([#2572](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2572))
+- resource/cloudflare_access_ca_certificate: remove redundant `certificate_id` from `Import` requirements as it is never used ([#2547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2547))
+- resource/cloudflare_load_balancer_monitor: Add example import. ([#2572](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2572))
 
 BUG FIXES:
 
-* resource/cloudflare_load_balancer: fix import of load_balancer when rules included overrides or fixed_response ([#2571](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2571))
-* resource/cloudflare_record: fix importing of DNSKEY record types ([#2568](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2568))
-* resource/cloudflare_ruleset: Fix detection of conflicting entrypoint rulesets ([#2566](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2566))
+- resource/cloudflare_load_balancer: fix import of load_balancer when rules included overrides or fixed_response ([#2571](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2571))
+- resource/cloudflare_record: fix importing of DNSKEY record types ([#2568](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2568))
+- resource/cloudflare_ruleset: Fix detection of conflicting entrypoint rulesets ([#2566](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2566))
 
 DEPENDENCIES:
 
-* provider: bumps dependabot/fetch-metadata from 1.5.1 to 1.6.0 ([#2557](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2557))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.70.0 to 0.72.0 ([#2584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2584))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.1 to 1.3.2 ([#2563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2563))
-* provider: bumps github.com/hashicorp/terraform-plugin-go from 0.17.0 to 0.18.0 ([#2580](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2580))
-* provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.10.0 to 0.11.0 ([#2564](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2564))
-* provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.11.0 to 0.11.1 ([#2567](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2567))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.26.1 to 2.27.0 ([#2565](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2565))
-* provider: bumps golang.org/x/net from 0.11.0 to 0.12.0 ([#2589](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2589))
+- provider: bumps dependabot/fetch-metadata from 1.5.1 to 1.6.0 ([#2557](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2557))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.70.0 to 0.72.0 ([#2584](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2584))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.1 to 1.3.2 ([#2563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2563))
+- provider: bumps github.com/hashicorp/terraform-plugin-go from 0.17.0 to 0.18.0 ([#2580](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2580))
+- provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.10.0 to 0.11.0 ([#2564](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2564))
+- provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.11.0 to 0.11.1 ([#2567](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2567))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.26.1 to 2.27.0 ([#2565](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2565))
+- provider: bumps golang.org/x/net from 0.11.0 to 0.12.0 ([#2589](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2589))
 
 ## 4.9.0 (28th June, 2023)
 
 NOTES:
 
-* resource/cloudflare_pages_project: Clarify example projects resource ([#2543](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2543))
+- resource/cloudflare_pages_project: Clarify example projects resource ([#2543](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2543))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_notification_policy: Add `alert_trigger_preferences` to the filters block. ([#2535](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2535))
-* resource/cloudflare_waiting_room: Add `additional_routes` and `cookie_suffix` to the Waiting Room resource ([#2528](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2528))
+- resource/cloudflare_notification_policy: Add `alert_trigger_preferences` to the filters block. ([#2535](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2535))
+- resource/cloudflare_waiting_room: Add `additional_routes` and `cookie_suffix` to the Waiting Room resource ([#2528](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2528))
 
 BUG FIXES:
 
-* resource/cloudflare_access_ca_certificate: Fix issue with importing existing certificate as the application id was not being set. ([#2539](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2539))
-* resource/cloudflare_teams_rules: handle state correctly when `rules_setting` is empty ([#2532](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2532))
-* resource/cloudflare_tunnel_config: fix sending incorrect values for various timeouts in the origin configuration block ([#2510](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2510))
-* tunnel_config: fix nil pointers for time.Durations ([#2504](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2504))
+- resource/cloudflare_access_ca_certificate: Fix issue with importing existing certificate as the application id was not being set. ([#2539](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2539))
+- resource/cloudflare_teams_rules: handle state correctly when `rules_setting` is empty ([#2532](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2532))
+- resource/cloudflare_tunnel_config: fix sending incorrect values for various timeouts in the origin configuration block ([#2510](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2510))
+- tunnel_config: fix nil pointers for time.Durations ([#2504](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2504))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.69.0 to 0.70.0 ([#2541](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2541))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.0 to 1.3.1 ([#2529](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2529))
-* provider: bumps github.com/hashicorp/terraform-plugin-go from 0.15.0 to 0.16.0 ([#2536](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2536))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.69.0 to 0.70.0 ([#2541](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2541))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.3.0 to 1.3.1 ([#2529](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2529))
+- provider: bumps github.com/hashicorp/terraform-plugin-go from 0.15.0 to 0.16.0 ([#2536](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2536))
 
 ## 4.8.0 (14th June, 2023)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_ruleset: Prevent the rule ID, version and last updated attributes from being set ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
+- resource/cloudflare_ruleset: Prevent the rule ID, version and last updated attributes from being set ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
 
 ENHANCEMENTS:
 
-* cloudflare_pages_project: add `placement` to deployment config ([#2480](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2480))
-* resource/access_application: add support for self_hosted_domains ([#2441](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2441))
-* resource/cloudflare_custom_hostname: add support for `bundle_method` TLS configuration ([#2494](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2494))
-* resource/cloudflare_device_posture_rule: add ability to create intune and kolide s2s posture rule creation ([#2474](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2474))
-* resource/cloudflare_device_settings_policy: add `description` to device settings policy ([#2474](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2474))
-* resource/cloudflare_load_balancer: Add support for least_outstanding_requests steering ([#2472](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2472))
-* resource/cloudflare_load_balancer_pool: Add support for least_outstanding_requests origin steering ([#2472](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2472))
-* resource/cloudflare_page_rule: removes ability to set wildcards for include and exclude, provides guidance on proper values to use instead ([#2491](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2491))
-* resource/cloudflare_teams_account: add ability to set `root_ca` for ZT Accounts ([#2474](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2474))
+- cloudflare_pages_project: add `placement` to deployment config ([#2480](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2480))
+- resource/access_application: add support for self_hosted_domains ([#2441](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2441))
+- resource/cloudflare_custom_hostname: add support for `bundle_method` TLS configuration ([#2494](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2494))
+- resource/cloudflare_device_posture_rule: add ability to create intune and kolide s2s posture rule creation ([#2474](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2474))
+- resource/cloudflare_device_settings_policy: add `description` to device settings policy ([#2474](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2474))
+- resource/cloudflare_load_balancer: Add support for least_outstanding_requests steering ([#2472](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2472))
+- resource/cloudflare_load_balancer_pool: Add support for least_outstanding_requests origin steering ([#2472](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2472))
+- resource/cloudflare_page_rule: removes ability to set wildcards for include and exclude, provides guidance on proper values to use instead ([#2491](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2491))
+- resource/cloudflare_teams_account: add ability to set `root_ca` for ZT Accounts ([#2474](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2474))
 
 BUG FIXES:
 
-* cloudflare_pages_project: use user provided configuration for secrets in the state handler since the API does not return them ([#2480](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2480))
-* resource/cloudflare_certificate_pack: handle UI deletion scenarios for HTTP 404s and `status = "deleted"` responses ([#2497](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2497))
-* resource/cloudflare_custom_hostname: use user provided values for state management when the API response isn't provided ([#2494](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2494))
-* resource/cloudflare_origin_ca_certificate: mark `csr` as Required ([#2496](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2496))
-* resource/cloudflare_ruleset: Mark that the ruleset must be re-created if the shareable entitlement name attribute changes ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
-* resource/cloudflare_ruleset: Populate the rule ID, ref, version and last updated attributes in API requests and from API responses ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
-* resource/cloudflare_ruleset: Populate the shareable entitlement name attribute in API requests and from API responses ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
-* resource/cloudflare_ruleset: handle `Import` operations where the required values are missing for providing a nicer error message ([#2503](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2503))
+- cloudflare_pages_project: use user provided configuration for secrets in the state handler since the API does not return them ([#2480](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2480))
+- resource/cloudflare_certificate_pack: handle UI deletion scenarios for HTTP 404s and `status = "deleted"` responses ([#2497](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2497))
+- resource/cloudflare_custom_hostname: use user provided values for state management when the API response isn't provided ([#2494](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2494))
+- resource/cloudflare_origin_ca_certificate: mark `csr` as Required ([#2496](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2496))
+- resource/cloudflare_ruleset: Mark that the ruleset must be re-created if the shareable entitlement name attribute changes ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
+- resource/cloudflare_ruleset: Populate the rule ID, ref, version and last updated attributes in API requests and from API responses ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
+- resource/cloudflare_ruleset: Populate the shareable entitlement name attribute in API requests and from API responses ([#2511](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2511))
+- resource/cloudflare_ruleset: handle `Import` operations where the required values are missing for providing a nicer error message ([#2503](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2503))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.68.0 to 0.69.0 ([#2507](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2507))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.2.0 to 1.3.0 ([#2509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2509))
-* provider: bumps github.com/hashicorp/terraform-plugin-log from 0.8.0 to 0.9.0 ([#2489](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2489))
-* provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.2.0 to 1.3.0 ([#2524](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2524))
-* provider: bumps golang.org/x/net from 0.10.0 to 0.11.0 ([#2523](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2523))
-* provider: bumps goreleaser/goreleaser-action from 4.2.0 to 4.3.0 ([#2519](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2519))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.68.0 to 0.69.0 ([#2507](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2507))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.2.0 to 1.3.0 ([#2509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2509))
+- provider: bumps github.com/hashicorp/terraform-plugin-log from 0.8.0 to 0.9.0 ([#2489](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2489))
+- provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.2.0 to 1.3.0 ([#2524](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2524))
+- provider: bumps golang.org/x/net from 0.10.0 to 0.11.0 ([#2523](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2523))
+- provider: bumps goreleaser/goreleaser-action from 4.2.0 to 4.3.0 ([#2519](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2519))
 
 ## 4.7.1 (31st May, 2023)
 
 BUG FIXES:
 
-* resource/cloudflare_list: remove `IsIPAddress` validation that doesn't take into account CIDR notation ([#2486](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2486))
+- resource/cloudflare_list: remove `IsIPAddress` validation that doesn't take into account CIDR notation ([#2486](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2486))
 
 ## 4.7.0 (31st May, 2023)
 
 NOTES:
 
-* resource/cloudflare_filter: This resource is being deprecated in favor of the `cloudflare_rulesets` resource. See https://developers.cloudflare.com/waf/reference/migration-guides/firewall-rules-to-custom-rules/#relevant-changes-for-terraform-users for more details. ([#2442](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2442))
-* resource/cloudflare_firewall_rule: This resource is being deprecated in favor of the `cloudflare_rulesets` resource. See https://developers.cloudflare.com/waf/reference/migration-guides/firewall-rules-to-custom-rules/#relevant-changes-for-terraform-users for more details. ([#2442](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2442))
+- resource/cloudflare_filter: This resource is being deprecated in favor of the `cloudflare_rulesets` resource. See https://developers.cloudflare.com/waf/reference/migration-guides/firewall-rules-to-custom-rules/#relevant-changes-for-terraform-users for more details. ([#2442](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2442))
+- resource/cloudflare_firewall_rule: This resource is being deprecated in favor of the `cloudflare_rulesets` resource. See https://developers.cloudflare.com/waf/reference/migration-guides/firewall-rules-to-custom-rules/#relevant-changes-for-terraform-users for more details. ([#2442](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2442))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_r2_bucket` ([#2378](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2378))
+- **New Resource:** `cloudflare_r2_bucket` ([#2378](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2378))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_account: provide account ID for error handling in `resourceCloudflareAccountDelete` ([#2436](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2436))
-* resource/cloudflare_device_posture_integration: add `api_url` to `uptycs` posture integration config. ([#2468](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2468))
-* resource/cloudflare_list: add support for Hostname and ASN lists. ([#2483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2483))
-* resource/cloudflare_tunnel_config: add support for origin config on ingress rule and access ([#2477](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2477))
+- resource/cloudflare_account: provide account ID for error handling in `resourceCloudflareAccountDelete` ([#2436](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2436))
+- resource/cloudflare_device_posture_integration: add `api_url` to `uptycs` posture integration config. ([#2468](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2468))
+- resource/cloudflare_list: add support for Hostname and ASN lists. ([#2483](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2483))
+- resource/cloudflare_tunnel_config: add support for origin config on ingress rule and access ([#2477](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2477))
 
 BUG FIXES:
 
-* resource/cloudflare_logpush_job: Properly set dataset field when importing logpush jobs ([#2444](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2444))
-* resource/cloudflare_pages_project: suggest a better default value for root_dir ([#2440](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2440))
-* resource/cloudflare_ruleset: Validation of ttls for action_parameters with edge_ttl or browser_ttl mode of override_origin ([#2454](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2454))
-* resource/cloudflare_workers_kv: Fix import to properly parse the id ([#2434](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2434))
+- resource/cloudflare_logpush_job: Properly set dataset field when importing logpush jobs ([#2444](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2444))
+- resource/cloudflare_pages_project: suggest a better default value for root_dir ([#2440](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2440))
+- resource/cloudflare_ruleset: Validation of ttls for action_parameters with edge_ttl or browser_ttl mode of override_origin ([#2454](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2454))
+- resource/cloudflare_workers_kv: Fix import to properly parse the id ([#2434](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2434))
 
 DEPENDENCIES:
 
-* provider: bumps dependabot/fetch-metadata from 1.4.0 to 1.5.0 ([#2463](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2463))
-* provider: bumps dependabot/fetch-metadata from 1.5.0 to 1.5.1 ([#2469](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2469))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.67.0 to 0.68.0 ([#2466](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2466))
-* provider: bumps github.com/stretchr/testify from 1.8.2 to 1.8.3 ([#2457](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2457))
-* provider: bumps github.com/stretchr/testify from 1.8.3 to 1.8.4 ([#2484](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2484))
+- provider: bumps dependabot/fetch-metadata from 1.4.0 to 1.5.0 ([#2463](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2463))
+- provider: bumps dependabot/fetch-metadata from 1.5.0 to 1.5.1 ([#2469](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2469))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.67.0 to 0.68.0 ([#2466](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2466))
+- provider: bumps github.com/stretchr/testify from 1.8.2 to 1.8.3 ([#2457](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2457))
+- provider: bumps github.com/stretchr/testify from 1.8.3 to 1.8.4 ([#2484](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2484))
 
 ## 4.6.0 (17th May, 2023)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_ruleset: add support for `auto` compression in the `compress_response` action ([#2409](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2409))
-* resource/cloudflare_waiting_room_settings: add support for waiting room zone-level settings. ([#2419](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2419))
+- resource/cloudflare_ruleset: add support for `auto` compression in the `compress_response` action ([#2409](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2409))
+- resource/cloudflare_waiting_room_settings: add support for waiting room zone-level settings. ([#2419](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2419))
 
 BUG FIXES:
 
-* resource/cloudflare_notification_policy: Fix unexpected crashes when setting target_hostname with a filters attribute ([#2425](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2425))
-* resource/cloudflare_ruleset: allow `FromValue.PreserveQueryString` to be nullable and handled correctly ([#2414](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2414))
-* resource/cloudflare_ruleset: allow using `0` as an edge TTL value without conflicting with Go types for zeros ([#2415](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2415))
-* resource/cloudflare_turnstile_widget: align schema to match what is returned by the API and fix updating the widget ([#2413](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2413))
+- resource/cloudflare_notification_policy: Fix unexpected crashes when setting target_hostname with a filters attribute ([#2425](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2425))
+- resource/cloudflare_ruleset: allow `FromValue.PreserveQueryString` to be nullable and handled correctly ([#2414](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2414))
+- resource/cloudflare_ruleset: allow using `0` as an edge TTL value without conflicting with Go types for zeros ([#2415](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2415))
+- resource/cloudflare_turnstile_widget: align schema to match what is returned by the API and fix updating the widget ([#2413](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2413))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.66.0 to 0.67.0 ([#2429](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2429))
-* provider: bumps golang.org/x/net from 0.9.0 to 0.10.0 ([#2421](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2421))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.66.0 to 0.67.0 ([#2429](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2429))
+- provider: bumps golang.org/x/net from 0.9.0 to 0.10.0 ([#2421](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2421))
 
 ## 4.5.0 (3rd May, 2023)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_regional_hostname` ([#2396](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2396))
-* **New Resource:** `cloudflare_turnstile_widget` ([#2380](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2380))
+- **New Resource:** `cloudflare_regional_hostname` ([#2396](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2396))
+- **New Resource:** `cloudflare_turnstile_widget` ([#2380](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2380))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_device_posture_rule: Add support for `sentinelone` type. ([#2279](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2279))
-* resource/cloudflare_logpush_job: Fix schema for logpush job `dataset` field ([#2397](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2397))
-* resource/cloudflare_logpush_job: add max upload parameters ([#2394](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2394))
-* resource/cloudflare_logpush_job: add support for `device_posture_results` and `zero_trust_network_sessions`. ([#2405](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2405))
-* resource/cloudflare_notification_policy: Added support for setting Megabits per second threshold for dos alert in Cloudflare notification policy resource. ([#2404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2404))
-* resource/cloudflare_pages_project: added secrets to Pages project. Secrets are encrypted environment variables, ideal for secrets such as API tokens. See documentation here: https://developers.cloudflare.com/pages/platform/functions/bindings/#secrets ([#2399](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2399))
-* resource/cloudflare_ruleset: add support for the `compress_response` action ([#2372](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2372))
-* resource/cloudflare_ruleset: add support for the `http_response_compression` phase ([#2372](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2372))
+- resource/cloudflare_device_posture_rule: Add support for `sentinelone` type. ([#2279](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2279))
+- resource/cloudflare_logpush_job: Fix schema for logpush job `dataset` field ([#2397](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2397))
+- resource/cloudflare_logpush_job: add max upload parameters ([#2394](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2394))
+- resource/cloudflare_logpush_job: add support for `device_posture_results` and `zero_trust_network_sessions`. ([#2405](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2405))
+- resource/cloudflare_notification_policy: Added support for setting Megabits per second threshold for dos alert in Cloudflare notification policy resource. ([#2404](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2404))
+- resource/cloudflare_pages_project: added secrets to Pages project. Secrets are encrypted environment variables, ideal for secrets such as API tokens. See documentation here: https://developers.cloudflare.com/pages/platform/functions/bindings/#secrets ([#2399](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2399))
+- resource/cloudflare_ruleset: add support for the `compress_response` action ([#2372](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2372))
+- resource/cloudflare_ruleset: add support for the `http_response_compression` phase ([#2372](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2372))
 
 BUG FIXES:
 
-* resource/cloudflare_load_balancer: fixes random_steering being unset on value updates ([#2403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2403))
-* resource/cloudflare_pages_project: fixes pages project acceptance test ([#2402](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2402))
-* resource/cloudflare_ruleset: ensure custom cache keys using query parameters are defined as known values for state handling ([#2388](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2388))
+- resource/cloudflare_load_balancer: fixes random_steering being unset on value updates ([#2403](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2403))
+- resource/cloudflare_pages_project: fixes pages project acceptance test ([#2402](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2402))
+- resource/cloudflare_ruleset: ensure custom cache keys using query parameters are defined as known values for state handling ([#2388](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2388))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.65.0 to 0.66.0 ([#2398](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2398))
-* provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.9.0 to 0.10.0 ([#2395](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2395))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.65.0 to 0.66.0 ([#2398](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2398))
+- provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.9.0 to 0.10.0 ([#2395](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2395))
 
 ## 4.4.0 (19th April, 2023)
 
 NOTES:
 
-* resource/cloudflare_ruleset: introduced future deprecation warning for the `http_request_sbfm` phase. ([#2382](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2382))
+- resource/cloudflare_ruleset: introduced future deprecation warning for the `http_request_sbfm` phase. ([#2382](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2382))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_organization: Add auto_redirect_to_identity flag ([#2356](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2356))
-* resource/cloudflare_access_policy: Add isolation_required flag ([#2351](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2351))
-* resource/cloudflare_tunnel: Adds config_src parameter ([#2369](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2369))
-* resource/cloudflare_worker_script: Add `logpush` attribute ([#2375](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2375))
+- resource/cloudflare_access_organization: Add auto_redirect_to_identity flag ([#2356](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2356))
+- resource/cloudflare_access_policy: Add isolation_required flag ([#2351](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2351))
+- resource/cloudflare_tunnel: Adds config_src parameter ([#2369](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2369))
+- resource/cloudflare_worker_script: Add `logpush` attribute ([#2375](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2375))
 
 INTERNAL:
 
-* scripts/generate-changelog-entry: make error message match the executable we are expecting ([#2357](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2357))
+- scripts/generate-changelog-entry: make error message match the executable we are expecting ([#2357](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2357))
 
 DEPENDENCIES:
 
-* provider: bumps dependabot/fetch-metadata from 1.3.6 to 1.4.0 ([#2383](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2383))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.64.0 to 0.65.0 ([#2370](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2370))
-* provider: bumps golang.org/x/net from 0.8.0 to 0.9.0 ([#2359](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2359))
-* provider: bumps peter-evans/create-or-update-comment from 2 to 3 ([#2355](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2355))
+- provider: bumps dependabot/fetch-metadata from 1.3.6 to 1.4.0 ([#2383](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2383))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.64.0 to 0.65.0 ([#2370](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2370))
+- provider: bumps golang.org/x/net from 0.8.0 to 0.9.0 ([#2359](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2359))
+- provider: bumps peter-evans/create-or-update-comment from 2 to 3 ([#2355](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2355))
 
 ## 4.3.0 (5th April, 2023)
 
 NOTES:
 
-* adds support for a basic `flox` environment project ([#2345](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2345))
+- adds support for a basic `flox` environment project ([#2345](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2345))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_device_dex_tests` ([#2250](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2250))
-* **New Resource:** `cloudflare_worker_domain` ([#2339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2339))
+- **New Resource:** `cloudflare_device_dex_tests` ([#2250](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2250))
+- **New Resource:** `cloudflare_worker_domain` ([#2339](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2339))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_group: Add example of usage of Azure ([#2332](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2332))
-* resource/cloudflare_access_identity_provider: add `claims` and `scopes` fields ([#2313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2313))
-* resource/cloudflare_access_identity_provider: add ability for users to enable SCIM provisioning on their Identity Providers ([#2147](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2147))
-* resource/cloudflare_device_posture_integration: add support for managing `kolide` third party posture provider. ([#2321](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2321))
-* resource/cloudflare_device_settings_policy: use new `cloudflare.ServiceMode` type ([#2331](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2331))
-* resource/cloudflare_ruleset: enforce schema validation of conflicting cache key parameters ([#2326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2326))
-* resource/cloudflare_teams_rules: updated gateway rule action audit ssh and rule settings ([#2303](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2303))
-* resource/cloudflare_worker_script: Add `compatibility_flags` attribute ([#2324](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2324))
-* resources/device_settings_policy: add validation for possible `service_mode_v2_mode` values ([#2331](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2331))
+- resource/cloudflare_access_group: Add example of usage of Azure ([#2332](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2332))
+- resource/cloudflare_access_identity_provider: add `claims` and `scopes` fields ([#2313](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2313))
+- resource/cloudflare_access_identity_provider: add ability for users to enable SCIM provisioning on their Identity Providers ([#2147](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2147))
+- resource/cloudflare_device_posture_integration: add support for managing `kolide` third party posture provider. ([#2321](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2321))
+- resource/cloudflare_device_settings_policy: use new `cloudflare.ServiceMode` type ([#2331](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2331))
+- resource/cloudflare_ruleset: enforce schema validation of conflicting cache key parameters ([#2326](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2326))
+- resource/cloudflare_teams_rules: updated gateway rule action audit ssh and rule settings ([#2303](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2303))
+- resource/cloudflare_worker_script: Add `compatibility_flags` attribute ([#2324](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2324))
+- resources/device_settings_policy: add validation for possible `service_mode_v2_mode` values ([#2331](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2331))
 
 BUG FIXES:
 
-* datasource/cloudflare_devices: Fix cloudflare_devices data source to return devices correctly and not error ([#2348](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2348))
-* resource/cloudflare_custom_ssl: fix json sent to API when geo_restrictions are not used ([#2319](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2319))
+- datasource/cloudflare_devices: Fix cloudflare_devices data source to return devices correctly and not error ([#2348](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2348))
+- resource/cloudflare_custom_ssl: fix json sent to API when geo_restrictions are not used ([#2319](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2319))
 
 DEPENDENCIES:
 
-* provider: bumps actions/stale from 7 to 8 ([#2322](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2322))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.63.0 to 0.64.0 ([#2344](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2344))
-* provider: bumps github.com/hashicorp/terraform-plugin-go from 0.14.3 to 0.15.0 ([#2333](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2333))
-* provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.1.0 to 1.2.0 ([#2320](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2320))
+- provider: bumps actions/stale from 7 to 8 ([#2322](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2322))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.63.0 to 0.64.0 ([#2344](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2344))
+- provider: bumps github.com/hashicorp/terraform-plugin-go from 0.14.3 to 0.15.0 ([#2333](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2333))
+- provider: bumps github.com/hashicorp/terraform-plugin-testing from 1.1.0 to 1.2.0 ([#2320](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2320))
 
 ## 4.2.0 (22nd March, 2023)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_ruleset: `status` has been removed in favour of `enabled` now that the workaround for zero values is no longer required ([#2271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2271))
+- resource/cloudflare_ruleset: `status` has been removed in favour of `enabled` now that the workaround for zero values is no longer required ([#2271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2271))
 
 NOTES:
 
-* `cloudflare_ruleset` has been migrated to the `terraform-plugin-framework` in doing so addresses issues with the internal representation of zero values. A downside to this is that to get the full benefits, you will need to remove the resource from your Terraform state (`terraform state rm ...`) and then import the resource back into your state. Along with this, you will need to update any references to `status` which was the previous workaround for the `enabled` values. If you have `status = "enabled"` you will need to replace it with `enabled = true` and similar for `status = "disabled"` to be replaced with `enabled = false`. ([#2271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2271))
+- `cloudflare_ruleset` has been migrated to the `terraform-plugin-framework` in doing so addresses issues with the internal representation of zero values. A downside to this is that to get the full benefits, you will need to remove the resource from your Terraform state (`terraform state rm ...`) and then import the resource back into your state. Along with this, you will need to update any references to `status` which was the previous workaround for the `enabled` values. If you have `status = "enabled"` you will need to replace it with `enabled = true` and similar for `status = "disabled"` to be replaced with `enabled = false`. ([#2271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2271))
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_list` ([#2296](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2296))
-* **New Data Source:** `cloudflare_lists` ([#2296](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2296))
-* **New Resource:** `cloudflare_address_map` ([#2290](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2290))
-* **New Resource:** `cloudflare_list_item` ([#2304](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2304))
+- **New Data Source:** `cloudflare_list` ([#2296](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2296))
+- **New Data Source:** `cloudflare_lists` ([#2296](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2296))
+- **New Resource:** `cloudflare_address_map` ([#2290](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2290))
+- **New Resource:** `cloudflare_list_item` ([#2304](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2304))
 
 ENHANCEMENTS:
 
-* resource/access_organization: add ui_read_only_toggle_reason field ([#2175](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2175))
-* resource/cloudflare_device_posture_rule: Support `check_disks` in the `input` block schema. ([#2280](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2280))
-* resource/cloudflare_notification_policy_webhooks: ensure `url` triggers recreation, not in-place updates ([#2302](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2302))
-* resource/cloudflare_tunnel: rename references of cloudflare_argo_tunnel to cloudflare_tunnel in documentation ([#2281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2281))
-* resource/cloudflare_tunnel_config: add support for import of `cloudflare_tunnel_config` ([#2298](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2298))
-* resource/cloudflare_tunnel_config: rename references of cloudflare_argo_tunnel to cloudflare_tunnel in documentation ([#2281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2281))
-* resource/cloudflare_tunnel_route: rename references of cloudflare_argo_tunnel to cloudflare_tunnel in documentation ([#2281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2281))
-* resource/cloudflare_worker_script: Add `compatibility_date` attribute ([#2300](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2300))
+- resource/access_organization: add ui_read_only_toggle_reason field ([#2175](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2175))
+- resource/cloudflare_device_posture_rule: Support `check_disks` in the `input` block schema. ([#2280](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2280))
+- resource/cloudflare_notification_policy_webhooks: ensure `url` triggers recreation, not in-place updates ([#2302](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2302))
+- resource/cloudflare_tunnel: rename references of cloudflare_argo_tunnel to cloudflare_tunnel in documentation ([#2281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2281))
+- resource/cloudflare_tunnel_config: add support for import of `cloudflare_tunnel_config` ([#2298](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2298))
+- resource/cloudflare_tunnel_config: rename references of cloudflare_argo_tunnel to cloudflare_tunnel in documentation ([#2281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2281))
+- resource/cloudflare_tunnel_route: rename references of cloudflare_argo_tunnel to cloudflare_tunnel in documentation ([#2281](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2281))
+- resource/cloudflare_worker_script: Add `compatibility_date` attribute ([#2300](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2300))
 
 BUG FIXES:
 
-* resource/cloudflare_ruleset: support cache rules for status range >= and =< operations ([#2307](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2307))
-* resource/cloudflare_teams_account: fixes an issue where accounts that had never configured DLP payload logging would error upon reading this resource ([#2284](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2284))
+- resource/cloudflare_ruleset: support cache rules for status range >= and =< operations ([#2307](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2307))
+- resource/cloudflare_teams_account: fixes an issue where accounts that had never configured DLP payload logging would error upon reading this resource ([#2284](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2284))
 
 INTERNAL:
 
-* resource/cloudflare_ruleset: migrate from SDKv2 to `terraform-plugin-framework` ([#2271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2271))
-* test: swap SDKv2 testing harness to github.com/hashicorp/terraform-plugin-testing ([#2272](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2272))
+- resource/cloudflare_ruleset: migrate from SDKv2 to `terraform-plugin-framework` ([#2271](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2271))
+- test: swap SDKv2 testing harness to github.com/hashicorp/terraform-plugin-testing ([#2272](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2272))
 
 DEPENDENCIES:
 
-* provider: bumps actions/setup-go from 3 to 4 ([#2291](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2291))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.62.0 to 0.63.0 ([#2289](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2289))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.1.1 to 1.2.0 ([#2314](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2314))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.25.1-0.20230317190757-53a4ec42ea7e to 2.26.0 ([#2308](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2308))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.26.0 to 2.26.1 ([#2315](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2315))
+- provider: bumps actions/setup-go from 3 to 4 ([#2291](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2291))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.62.0 to 0.63.0 ([#2289](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2289))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework from 1.1.1 to 1.2.0 ([#2314](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2314))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.25.1-0.20230317190757-53a4ec42ea7e to 2.26.0 ([#2308](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2308))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.26.0 to 2.26.1 ([#2315](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2315))
 
 ## 4.1.0 (March 8th, 2023)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_cloudflare_teams_rules: Add untrusted_cert setting to teams rules settings ([#2256](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2256))
-* resource/cloudflare_teams_account: Add support for DLP payload logging public key ([#2267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2267))
-* resource/cloudflare_teams_rule: Add support for enabling DLP payload logging per-rule ([#2267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2267))
-* resource/cloudflare_waiting_room: add 'ru-RU' and 'fa-IR' to default_template_language field ([#2262](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2262))
+- resource/cloudflare_cloudflare_teams_rules: Add untrusted_cert setting to teams rules settings ([#2256](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2256))
+- resource/cloudflare_teams_account: Add support for DLP payload logging public key ([#2267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2267))
+- resource/cloudflare_teams_rule: Add support for enabling DLP payload logging per-rule ([#2267](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2267))
+- resource/cloudflare_waiting_room: add 'ru-RU' and 'fa-IR' to default_template_language field ([#2262](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2262))
 
 BUG FIXES:
 
-* resource/cloudflare_access_group: fixes an issue where Azure group rules with different identity provider ids would override each other ([#2270](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2270))
-* resource/cloudflare_notification_policy: ensure all emails are saved if multiple `email_integration` values specified ([#2248](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2248))
+- resource/cloudflare_access_group: fixes an issue where Azure group rules with different identity provider ids would override each other ([#2270](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2270))
+- resource/cloudflare_notification_policy: ensure all emails are saved if multiple `email_integration` values specified ([#2248](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2248))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.61.0 to 0.62.0 ([#2268](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2268))
-* provider: bumps github.com/stretchr/testify from 1.8.1 to 1.8.2 ([#2263](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2263))
-* provider: bumps golang.org/x/net from 0.7.0 to 0.8.0 ([#2274](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2274))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.61.0 to 0.62.0 ([#2268](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2268))
+- provider: bumps github.com/stretchr/testify from 1.8.1 to 1.8.2 ([#2263](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2263))
+- provider: bumps golang.org/x/net from 0.7.0 to 0.8.0 ([#2274](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2274))
 
 ## 4.0.0 (February 21st, 2023)
 
@@ -1722,738 +1722,738 @@ DEPENDENCIES:
 
 BREAKING CHANGES:
 
-* datasource/cloudflare_waf_groups: removed in favour of `cloudflare_rulesets` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* datasource/cloudflare_waf_packages: removed in favour of `cloudflare_rulesets` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* datasource/cloudflare_waf_rules: removed in favour of `cloudflare_rulesets` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* provider: `account_id` is no longer available as a global configuration option. Instead, use the resource specific attributes. ([#2139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2139))
-* resource/cloudflare_access_bookmark: resource has been removed in favour of configuration on `cloudflare_access_application` ([#2136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2136))
-* resource/cloudflare_access_rule: require explicit `zone_id` or `account_id` and remove implicit fallback to user level rules ([#2157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2157))
-* resource/cloudflare_account_member: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_account_member: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_argo_tunnel: resource has been renamed to `cloudflare_tunnel` ([#2135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2135))
-* resource/cloudflare_ip_list: removed in favour of `cloudflare_list` ([#2137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2137))
-* resource/cloudflare_load_balancer: Migrate session_affinity_attributes from TypeMap to TypeSet ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
-* resource/cloudflare_load_balancer: `session_affinity_attributes.drain_duration` is now `TypeInt` instead of `TypeString` ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
-* resource/cloudflare_load_balancer_monitor: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_load_balancer_monitor: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_load_balancer_pool: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_load_balancer_pool: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_spectrum_application: `edge_ip_connectivity` is now nested under `edge_ips` as `connectivity` ([#2219](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2219))
-* resource/cloudflare_spectrum_application: `edge_ips.type` is now a required field ([#2219](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2219))
-* resource/cloudflare_spectrum_application: `edge_ips` now contains nested attributes other than IP ranges. `type` and `connectivity` have been added. `edge_ips.ips` contains the static IP addresses that used to reside at `edge_ips`. ([#2219](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2219))
-* resource/cloudflare_waf_group: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_override: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_package: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_rule: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_workers_kv: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_kv: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_workers_kv_namespace: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_kv_namespace: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_workers_script: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_script: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_zone: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_zone: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- datasource/cloudflare_waf_groups: removed in favour of `cloudflare_rulesets` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- datasource/cloudflare_waf_packages: removed in favour of `cloudflare_rulesets` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- datasource/cloudflare_waf_rules: removed in favour of `cloudflare_rulesets` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- provider: `account_id` is no longer available as a global configuration option. Instead, use the resource specific attributes. ([#2139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2139))
+- resource/cloudflare_access_bookmark: resource has been removed in favour of configuration on `cloudflare_access_application` ([#2136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2136))
+- resource/cloudflare_access_rule: require explicit `zone_id` or `account_id` and remove implicit fallback to user level rules ([#2157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2157))
+- resource/cloudflare_account_member: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_account_member: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_argo_tunnel: resource has been renamed to `cloudflare_tunnel` ([#2135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2135))
+- resource/cloudflare_ip_list: removed in favour of `cloudflare_list` ([#2137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2137))
+- resource/cloudflare_load_balancer: Migrate session_affinity_attributes from TypeMap to TypeSet ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
+- resource/cloudflare_load_balancer: `session_affinity_attributes.drain_duration` is now `TypeInt` instead of `TypeString` ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
+- resource/cloudflare_load_balancer_monitor: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_load_balancer_monitor: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_load_balancer_pool: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_load_balancer_pool: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_spectrum_application: `edge_ip_connectivity` is now nested under `edge_ips` as `connectivity` ([#2219](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2219))
+- resource/cloudflare_spectrum_application: `edge_ips.type` is now a required field ([#2219](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2219))
+- resource/cloudflare_spectrum_application: `edge_ips` now contains nested attributes other than IP ranges. `type` and `connectivity` have been added. `edge_ips.ips` contains the static IP addresses that used to reside at `edge_ips`. ([#2219](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2219))
+- resource/cloudflare_waf_group: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_override: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_package: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_rule: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_workers_kv: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_kv: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_workers_kv_namespace: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_kv_namespace: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_workers_script: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_script: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_zone: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_zone: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
 
 ## 3.35.0 (February 20th, 2023)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_rulesets` ([#2220](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2220))
+- **New Data Source:** `cloudflare_rulesets` ([#2220](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2220))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_argo_tunnel: mark `tunnel_token` as sensitive ([#2231](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2231))
-* resource/cloudflare_device_settings_policy: Add new flag MS IP Exclusion for device policies ([#2236](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2236))
-* resource/cloudflare_dlp_profile: Add new `allowed_match_count` field to profiles ([#2210](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2210))
+- resource/cloudflare_argo_tunnel: mark `tunnel_token` as sensitive ([#2231](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2231))
+- resource/cloudflare_device_settings_policy: Add new flag MS IP Exclusion for device policies ([#2236](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2236))
+- resource/cloudflare_dlp_profile: Add new `allowed_match_count` field to profiles ([#2210](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2210))
 
 BUG FIXES:
 
-* resource/cloudflare_logpush_job: fixing typo in comment ([#2238](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2238))
-* resource/cloudflare_record: always send tags object which allows removal of unwanted tags ([#2205](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2205))
-* resource/cloudflare_tunnel_config: use correct notation for nested lists ([#2235](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2235))
+- resource/cloudflare_logpush_job: fixing typo in comment ([#2238](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2238))
+- resource/cloudflare_record: always send tags object which allows removal of unwanted tags ([#2205](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2205))
+- resource/cloudflare_tunnel_config: use correct notation for nested lists ([#2235](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2235))
 
 INTERNAL:
 
-* internal: bump Go version to 1.20 ([#2243](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2243))
+- internal: bump Go version to 1.20 ([#2243](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2243))
 
 DEPENDENCIES:
 
-* provider: bump golang.org/x/net to v0.7.0 ([#2245](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2245))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.60.0 to 0.61.0 ([#2240](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2240))
-* provider: bumps github.com/hashicorp/terraform-plugin-framework-validators from 0.9.0 to 0.10.0 ([#2227](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2227))
-* provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.8.0 to 0.9.0 ([#2228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2228))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.24.1 to 2.25.0 ([#2239](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2239))
-* provider: bumps golang.org/x/net from 0.6.0 to 0.7.0 ([#2241](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2241))
+- provider: bump golang.org/x/net to v0.7.0 ([#2245](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2245))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.60.0 to 0.61.0 ([#2240](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2240))
+- provider: bumps github.com/hashicorp/terraform-plugin-framework-validators from 0.9.0 to 0.10.0 ([#2227](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2227))
+- provider: bumps github.com/hashicorp/terraform-plugin-mux from 0.8.0 to 0.9.0 ([#2228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2228))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.24.1 to 2.25.0 ([#2239](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2239))
+- provider: bumps golang.org/x/net from 0.6.0 to 0.7.0 ([#2241](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2241))
 
 ## 3.34.0 (February 8th, 2023)
 
 BREAKING CHANGES:
 
-* datasource/cloudflare_waf_groups: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* datasource/cloudflare_waf_packages: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* datasource/cloudflare_waf_rules: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* provider: `account_id` is no longer available as a global configuration option. Instead, use the resource specific attributes. ([#2139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2139))
-* resource/cloudflare_access_bookmark: resource has been removed in favour of configuration on `cloudflare_access_application` ([#2136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2136))
-* resource/cloudflare_access_rule: require explicit `zone_id` or `account_id` and remove implicit fallback to user level rules ([#2157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2157))
-* resource/cloudflare_account_member: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_account_member: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_argo_tunnel: resource has been renamed to `cloudflare_tunnel` ([#2135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2135))
-* resource/cloudflare_ip_list: removed in favour of `cloudflare_list` ([#2137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2137))
-* resource/cloudflare_load_balancer: Migrate session_affinity_attributes from TypeMap to TypeSet ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
-* resource/cloudflare_load_balancer: `session_affinity_attributes.drain_duration` is now `TypeInt` instead of `TypeString` ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
-* resource/cloudflare_load_balancer_monitor: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_load_balancer_monitor: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_load_balancer_pool: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_load_balancer_pool: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_notification_policy: alert types `block_notification_review_accepted` and `workers_uptime` have been removed. ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
-* resource/cloudflare_notification_policy: alert types `g6_health_alert` has been renamed to `load_balancing_health_alert` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
-* resource/cloudflare_notification_policy: alert types `g6_pool_toggle_alert` has been renamed to `load_balancing_pool_enablement_alert` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
-* resource/cloudflare_notification_policy: alert types `scriptmonitor_alert_new_max_length_script_url` has been renamed to `scriptmonitor_alert_new_max_length_resource_url` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
-* resource/cloudflare_notification_policy: alert types `scriptmonitor_alert_new_scripts` has been renamed to `scriptmonitor_alert_new_resources` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
-* resource/cloudflare_waf_group: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_override: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_package: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_rule: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_workers_kv: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_kv: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_workers_kv_namespace: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_kv_namespace: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_workers_script: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_script: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_zone: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_zone: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- datasource/cloudflare_waf_groups: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- datasource/cloudflare_waf_packages: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- datasource/cloudflare_waf_rules: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- provider: `account_id` is no longer available as a global configuration option. Instead, use the resource specific attributes. ([#2139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2139))
+- resource/cloudflare_access_bookmark: resource has been removed in favour of configuration on `cloudflare_access_application` ([#2136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2136))
+- resource/cloudflare_access_rule: require explicit `zone_id` or `account_id` and remove implicit fallback to user level rules ([#2157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2157))
+- resource/cloudflare_account_member: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_account_member: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_argo_tunnel: resource has been renamed to `cloudflare_tunnel` ([#2135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2135))
+- resource/cloudflare_ip_list: removed in favour of `cloudflare_list` ([#2137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2137))
+- resource/cloudflare_load_balancer: Migrate session_affinity_attributes from TypeMap to TypeSet ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
+- resource/cloudflare_load_balancer: `session_affinity_attributes.drain_duration` is now `TypeInt` instead of `TypeString` ([#1959](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1959))
+- resource/cloudflare_load_balancer_monitor: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_load_balancer_monitor: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_load_balancer_pool: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_load_balancer_pool: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_notification_policy: alert types `block_notification_review_accepted` and `workers_uptime` have been removed. ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
+- resource/cloudflare_notification_policy: alert types `g6_health_alert` has been renamed to `load_balancing_health_alert` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
+- resource/cloudflare_notification_policy: alert types `g6_pool_toggle_alert` has been renamed to `load_balancing_pool_enablement_alert` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
+- resource/cloudflare_notification_policy: alert types `scriptmonitor_alert_new_max_length_script_url` has been renamed to `scriptmonitor_alert_new_max_length_resource_url` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
+- resource/cloudflare_notification_policy: alert types `scriptmonitor_alert_new_scripts` has been renamed to `scriptmonitor_alert_new_resources` ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
+- resource/cloudflare_waf_group: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_override: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_package: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_rule: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_workers_kv: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_kv: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_workers_kv_namespace: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_kv_namespace: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_workers_script: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_script: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_zone: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_zone: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_mtls_certificate` ([#2182](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2182))
-* **New Resource:** `cloudflare_queue` ([#2134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2134))
+- **New Resource:** `cloudflare_mtls_certificate` ([#2182](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2182))
+- **New Resource:** `cloudflare_queue` ([#2134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2134))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_notification_policy: alert types `block_notification_block_removed`, `fbm_dosd_attack`, `scriptmonitor_alert_new_max_length_resource_url`, `scriptmonitor_alert_new_resources`, `tunnel_health_event`, `tunnel_update_event` have been added. ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
-* resource/cloudflare_ruleset: Preserve IDs of unmodified rules when updating rulesets ([#2172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2172))
-* resource/cloudflare_ruleset: add support for `score_per_period` and `score_response_header_name` ([#2177](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2177))
-* resource/cloudflare_worker_script: add support for `queue_binding` ([#2134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2134))
+- resource/cloudflare_notification_policy: alert types `block_notification_block_removed`, `fbm_dosd_attack`, `scriptmonitor_alert_new_max_length_resource_url`, `scriptmonitor_alert_new_resources`, `tunnel_health_event`, `tunnel_update_event` have been added. ([#2215](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2215))
+- resource/cloudflare_ruleset: Preserve IDs of unmodified rules when updating rulesets ([#2172](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2172))
+- resource/cloudflare_ruleset: add support for `score_per_period` and `score_response_header_name` ([#2177](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2177))
+- resource/cloudflare_worker_script: add support for `queue_binding` ([#2134](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2134))
 
 BUG FIXES:
 
-* resource/cloudflare_account_member: allow `status` to be computed when not provided ([#2217](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2217))
-* resource/cloudflare_page_rule: fix failing page rules acceptance tests ([#2213](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2213))
-* resource/cloudflare_page_rule: make cache_key_fields optional to align with API constraints ([#2192](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2192))
-* resource/cloudflare_page_rule: remove empty cookie and header fields when applying this resource ([#2208](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2208))
-* resource/cloudflare_pages_project: changing `name` will now force recreation of the project ([#2216](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2216))
+- resource/cloudflare_account_member: allow `status` to be computed when not provided ([#2217](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2217))
+- resource/cloudflare_page_rule: fix failing page rules acceptance tests ([#2213](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2213))
+- resource/cloudflare_page_rule: make cache_key_fields optional to align with API constraints ([#2192](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2192))
+- resource/cloudflare_page_rule: remove empty cookie and header fields when applying this resource ([#2208](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2208))
+- resource/cloudflare_pages_project: changing `name` will now force recreation of the project ([#2216](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2216))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.59.0 to 0.60.0 ([#2204](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2204))
-* provider: bumps goreleaser/goreleaser-action from 4.1.0 to 4.2.0 ([#2201](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2201))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.59.0 to 0.60.0 ([#2204](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2204))
+- provider: bumps goreleaser/goreleaser-action from 4.1.0 to 4.2.0 ([#2201](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2201))
 
 ## 3.33.1 (January 25th, 2023)
 
 BUG FIXES:
 
-* provider: remove conflicting `ExactlyOneOf` schema validation from framework schema ([#2185](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2185))
+- provider: remove conflicting `ExactlyOneOf` schema validation from framework schema ([#2185](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2185))
 
 ## 3.33.0 (January 25th, 2023)
 
 BREAKING CHANGES:
 
-* datasource/cloudflare_waf_groups: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* datasource/cloudflare_waf_packages: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* datasource/cloudflare_waf_rules: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* provider: `account_id` is no longer available as a global configuration option. Instead, use the resource specific attributes. ([#2139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2139))
-* resource/cloudflare_access_bookmark: resource has been removed in favour of configuration on `cloudflare_access_application` ([#2136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2136))
-* resource/cloudflare_access_rule: require explicit `zone_id` or `account_id` and remove implicit fallback to user level rules ([#2157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2157))
-* resource/cloudflare_account_member: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_account_member: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_argo_tunnel: resource has been renamed to `cloudflare_tunnel` ([#2135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2135))
-* resource/cloudflare_ip_list: removed in favour of `cloudflare_list` ([#2137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2137))
-* resource/cloudflare_load_balancer_monitor: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_load_balancer_monitor: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_load_balancer_pool: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_load_balancer_pool: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_waf_group: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_override: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_package: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_waf_rule: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
-* resource/cloudflare_workers_kv: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_kv: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_workers_kv_namespace: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_kv_namespace: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_workers_script: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_workers_script: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
-* resource/cloudflare_zone: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
-* resource/cloudflare_zone: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- datasource/cloudflare_waf_groups: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- datasource/cloudflare_waf_packages: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- datasource/cloudflare_waf_rules: removed with no current replacement ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- provider: `account_id` is no longer available as a global configuration option. Instead, use the resource specific attributes. ([#2139](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2139))
+- resource/cloudflare_access_bookmark: resource has been removed in favour of configuration on `cloudflare_access_application` ([#2136](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2136))
+- resource/cloudflare_access_rule: require explicit `zone_id` or `account_id` and remove implicit fallback to user level rules ([#2157](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2157))
+- resource/cloudflare_account_member: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_account_member: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_argo_tunnel: resource has been renamed to `cloudflare_tunnel` ([#2135](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2135))
+- resource/cloudflare_ip_list: removed in favour of `cloudflare_list` ([#2137](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2137))
+- resource/cloudflare_load_balancer_monitor: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_load_balancer_monitor: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_load_balancer_pool: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_load_balancer_pool: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_waf_group: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_override: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_package: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_waf_rule: removed in favour of `cloudflare_ruleset` ([#2138](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2138))
+- resource/cloudflare_workers_kv: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_kv: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_workers_kv_namespace: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_kv_namespace: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_workers_script: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_workers_script: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
+- resource/cloudflare_zone: `account_id` is now required ([#2153](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2153))
+- resource/cloudflare_zone: no longer sets `client.AccountID` internally and relies on the resource provided value ([#2154](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2154))
 
 ENHANCEMENTS:
 
-* provider: mux `terraform-plugin-sdk/v2` and `terraform-plugin-framework` ([#2170](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2170))
-* resource/cloudflare_access_group: supports ip_list property. ([#2073](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2073))
-* resource/cloudflare_access_organization: add support for `user_seat_expiration_inactive_time` ([#2115](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2115))
-* resource/cloudflare_ruleset: do not let edge_ttl: default be zero ([#2143](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2143))
-* resource/cloudflare_teams_accounts: adds support for `mailto_address` and `mailto_subject` blockpage settings ([#2146](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2146))
-* resource/cloudflare_teams_rules: adds egress rule settings. ([#2159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2159))
+- provider: mux `terraform-plugin-sdk/v2` and `terraform-plugin-framework` ([#2170](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2170))
+- resource/cloudflare_access_group: supports ip_list property. ([#2073](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2073))
+- resource/cloudflare_access_organization: add support for `user_seat_expiration_inactive_time` ([#2115](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2115))
+- resource/cloudflare_ruleset: do not let edge_ttl: default be zero ([#2143](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2143))
+- resource/cloudflare_teams_accounts: adds support for `mailto_address` and `mailto_subject` blockpage settings ([#2146](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2146))
+- resource/cloudflare_teams_rules: adds egress rule settings. ([#2159](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2159))
 
 BUG FIXES:
 
-* resource/cloudflare_record: fix issue with DNS comments and tags not being set for new records ([#2148](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2148))
+- resource/cloudflare_record: fix issue with DNS comments and tags not being set for new records ([#2148](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2148))
 
 DEPENDENCIES:
 
-* provider: bumps dependabot/fetch-metadata from 1.3.5 to 1.3.6 ([#2183](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2183))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.58.1 to 0.59.0 ([#2166](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2166))
+- provider: bumps dependabot/fetch-metadata from 1.3.5 to 1.3.6 ([#2183](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2183))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.58.1 to 0.59.0 ([#2166](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2166))
 
 ## 3.32.0 (January 11th, 2023)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_device_managed_networks` ([#2126](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2126))
+- **New Resource:** `cloudflare_device_managed_networks` ([#2126](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2126))
 
 ENHANCEMENTS:
 
-* provider: `X-Auth-Email`, `X-Auth-Key`, `X-Auth-User-Service-Key` and `Authorization` values are now automatically redacted from debug logs ([#2123](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2123))
-* provider: use inbuilt cloudflare-go logger for HTTP interactions ([#2123](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2123))
-* resource/cloudflare_device_posture_rule: add ability to create crowdstrike s2s posture rule creation ([#2128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2128))
-* resource/cloudflare_origin_ca: support all authentication schemes ([#2124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2124))
-* resource/cloudflare_pages_project: adds support for `always_use_latest_compatibility_date`, `fail_open`, `service_binding` and `usage_model` ([#2083](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2083))
-* resource/cloudflare_record: add support for tags and comments. ([#2105](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2105))
+- provider: `X-Auth-Email`, `X-Auth-Key`, `X-Auth-User-Service-Key` and `Authorization` values are now automatically redacted from debug logs ([#2123](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2123))
+- provider: use inbuilt cloudflare-go logger for HTTP interactions ([#2123](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2123))
+- resource/cloudflare_device_posture_rule: add ability to create crowdstrike s2s posture rule creation ([#2128](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2128))
+- resource/cloudflare_origin_ca: support all authentication schemes ([#2124](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2124))
+- resource/cloudflare_pages_project: adds support for `always_use_latest_compatibility_date`, `fail_open`, `service_binding` and `usage_model` ([#2083](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2083))
+- resource/cloudflare_record: add support for tags and comments. ([#2105](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2105))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.57.1 to 0.58.1 ([#2122](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2122))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.57.1 to 0.58.1 ([#2122](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2122))
 
 ## 3.31.0 (December 28th, 2022)
 
 NOTES:
 
-* resource/cloudflare_worker_script: supports explicit `account_id` instead of inheriting global values ([#2102](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2102))
+- resource/cloudflare_worker_script: supports explicit `account_id` instead of inheriting global values ([#2102](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2102))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_tiered_cache` ([#2101](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2101))
+- **New Resource:** `cloudflare_tiered_cache` ([#2101](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2101))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: makes allowed_idps type to set ([#2094](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2094))
-* resource/cloudflare_custom_hostname: add support for defining custom metadata ([#2107](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2107))
+- resource/cloudflare_access_application: makes allowed_idps type to set ([#2094](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2094))
+- resource/cloudflare_custom_hostname: add support for defining custom metadata ([#2107](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2107))
 
 BUG FIXES:
 
-* resource/cloudflare_api_shield: allow for empty auth_id_characteristics ([#2091](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2091))
-* resource/cloudflare_ruleset: allow edge_ttl -> default to be optional ([#2097](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2097))
+- resource/cloudflare_api_shield: allow for empty auth_id_characteristics ([#2091](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2091))
+- resource/cloudflare_ruleset: allow edge_ttl -> default to be optional ([#2097](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2097))
 
 DEPENDENCIES:
 
-* provider: bumps actions/stale from 6 to 7 ([#2098](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2098))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.56.0 to 0.57.0 ([#2102](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2102))
+- provider: bumps actions/stale from 6 to 7 ([#2098](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2098))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.56.0 to 0.57.0 ([#2102](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2102))
 
 ## 3.30.0 (December 14th, 2022)
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_load_balancer_pools` ([#1228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1228))
-* **New Resource:** `cloudflare_url_normalization_settings` ([#1878](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1878))
+- **New Data Source:** `cloudflare_load_balancer_pools` ([#1228](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1228))
+- **New Resource:** `cloudflare_url_normalization_settings` ([#1878](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1878))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_workers_script: add support for `analytics_engine_binding` bindings ([#2051](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2051))
+- resource/cloudflare_workers_script: add support for `analytics_engine_binding` bindings ([#2051](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2051))
 
 BUG FIXES:
 
-* resource/access_application: fix issue where session_duration always showed a diff for bookmark apps ([#2076](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2076))
-* resource/cloudflare_ruleset: fix issue where SSL setting is based of security level ([#2088](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2088))
-* resource/cloudflare_split_tunnel: handle nested attribute changes and ignore ordering ([#2066](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2066))
+- resource/access_application: fix issue where session_duration always showed a diff for bookmark apps ([#2076](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2076))
+- resource/cloudflare_ruleset: fix issue where SSL setting is based of security level ([#2088](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2088))
+- resource/cloudflare_split_tunnel: handle nested attribute changes and ignore ordering ([#2066](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2066))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.55.0 to 0.56.0 ([#2075](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2075))
-* provider: bumps goreleaser/goreleaser-action from 3.2.0 to 4.1.0 ([#2087](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2087))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.55.0 to 0.56.0 ([#2075](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2075))
+- provider: bumps goreleaser/goreleaser-action from 3.2.0 to 4.1.0 ([#2087](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2087))
 
 ## 3.29.0 (November 30th, 2022)
 
 NOTES:
 
-* datasource/api_token_permission_groups: `permissions` attribute has been deprecated in favour of individual resource level attributes. ([#1960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1960))
+- datasource/api_token_permission_groups: `permissions` attribute has been deprecated in favour of individual resource level attributes. ([#1960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1960))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_device_settings_policy` ([#1926](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1926))
-* **New Resource:** `cloudflare_tunnel_config` ([#2041](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2041))
+- **New Resource:** `cloudflare_device_settings_policy` ([#1926](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1926))
+- **New Resource:** `cloudflare_tunnel_config` ([#2041](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2041))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_fallback_domain: Add creating fallback domains for device policies ([#1926](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1926))
-* resource/cloudflare_logpush_job: add support for `workers_trace_events` ([#2025](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2025))
-* resource/cloudflare_origin_ca_certificate: add logic to renew certificate and add a new flag to set if we should renew earlier ([#2048](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2048))
-* resource/cloudflare_origin_ca_certificate: trigger a replacement when `csr` is changed ([#2055](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2055))
-* resource/cloudflare_origin_ca_certificate: trigger a replacement when `validity` is changed ([#2046](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2046))
-* resource/cloudflare_pages_domain: add note about needing to make a separate `cloudflare_record`. ([#2060](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2060))
-* resource/cloudflare_pages_project: add note about linking git accounts to Cloudflare account. ([#2060](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2060))
-* resource/cloudflare_ruleset: add support for importing existing resources ([#2054](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2054))
-* resource/cloudflare_split_tunnel: Add configuring split tunnel for device policies ([#1926](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1926))
-* resource/cloudflare_workers_kv: add support for explicitly setting `account_id` on the resource ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
-* resource/cloudflare_workers_kv_namespace: add support for explicitly setting `account_id` on the resource ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
-* resource/cloudflare_workers_kv_namespace: swap internals to use new method signatures from cloudflare-go release ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
+- resource/cloudflare_fallback_domain: Add creating fallback domains for device policies ([#1926](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1926))
+- resource/cloudflare_logpush_job: add support for `workers_trace_events` ([#2025](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2025))
+- resource/cloudflare_origin_ca_certificate: add logic to renew certificate and add a new flag to set if we should renew earlier ([#2048](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2048))
+- resource/cloudflare_origin_ca_certificate: trigger a replacement when `csr` is changed ([#2055](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2055))
+- resource/cloudflare_origin_ca_certificate: trigger a replacement when `validity` is changed ([#2046](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2046))
+- resource/cloudflare_pages_domain: add note about needing to make a separate `cloudflare_record`. ([#2060](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2060))
+- resource/cloudflare_pages_project: add note about linking git accounts to Cloudflare account. ([#2060](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2060))
+- resource/cloudflare_ruleset: add support for importing existing resources ([#2054](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2054))
+- resource/cloudflare_split_tunnel: Add configuring split tunnel for device policies ([#1926](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1926))
+- resource/cloudflare_workers_kv: add support for explicitly setting `account_id` on the resource ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
+- resource/cloudflare_workers_kv_namespace: add support for explicitly setting `account_id` on the resource ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
+- resource/cloudflare_workers_kv_namespace: swap internals to use new method signatures from cloudflare-go release ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
 
 BUG FIXES:
 
-* datasource/api_token_permission_groups: add `user`, `account` and `zone` attributes to contain only those specific resource level permissions. ([#1960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1960))
-* resource/access_policy: Fix issue where only last SAML rule group was applied in
-Access policy ([#2033](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2033))
-* resource/cloudflare_account: Fix uninitialized cloudflare.Account.Settings ([#2034](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2034))
-* resource/cloudflare_custom_hostname: remove `ForceNew` on `wait_for_ssl_pending_validation` ([#2027](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2027))
-* resource/cloudflare_list: Do not reapply changes if only list order changed. ([#2063](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2063))
-* resource/cloudflare_record: Fix null MX record creation ([#2038](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2038))
-* resource/cloudflare_spectrum_application: ignore ordering of `edge_ips` ([#2032](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2032))
-* resource/cloudflare_workers_kv: `key` changes force creation of a new resource ([#2044](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2044))
+- datasource/api_token_permission_groups: add `user`, `account` and `zone` attributes to contain only those specific resource level permissions. ([#1960](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1960))
+- resource/access_policy: Fix issue where only last SAML rule group was applied in
+  Access policy ([#2033](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2033))
+- resource/cloudflare_account: Fix uninitialized cloudflare.Account.Settings ([#2034](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2034))
+- resource/cloudflare_custom_hostname: remove `ForceNew` on `wait_for_ssl_pending_validation` ([#2027](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2027))
+- resource/cloudflare_list: Do not reapply changes if only list order changed. ([#2063](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2063))
+- resource/cloudflare_record: Fix null MX record creation ([#2038](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2038))
+- resource/cloudflare_spectrum_application: ignore ordering of `edge_ips` ([#2032](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2032))
+- resource/cloudflare_workers_kv: `key` changes force creation of a new resource ([#2044](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2044))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.54.0 to 0.55.0 ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.54.0 to 0.55.0 ([#2049](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2049))
 
 ## 3.28.0 (November 16th, 2022)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_zone: add new plans for zone subscriptions ([#2023](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2023))
+- resource/cloudflare_zone: add new plans for zone subscriptions ([#2023](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2023))
 
 BUG FIXES:
 
-* resource/access_application: Fix issue where empty CORS headers state causes panics ([#2010](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2010))
+- resource/access_application: Fix issue where empty CORS headers state causes panics ([#2010](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2010))
 
 DEPENDENCIES:
 
-* provider: bumps dependabot/fetch-metadata from 1.3.4 to 1.3.5 ([#2008](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2008))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.53.0 to 0.54.0 ([#2016](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2016))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.24.0 to 2.24.1 ([#2024](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2024))
+- provider: bumps dependabot/fetch-metadata from 1.3.4 to 1.3.5 ([#2008](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2008))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.53.0 to 0.54.0 ([#2016](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2016))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.24.0 to 2.24.1 ([#2024](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2024))
 
 ## 3.27.0 (November 2nd, 2022)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_access_organization` ([#1961](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1961))
-* **New Resource:** `cloudflare_dlp_profile` ([#1984](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1984))
-* **New Resource:** `cloudflare_total_tls` ([#1979](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1979))
-* **New Resource:** `cloudflare_waiting_room_rules` ([#1957](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1957))
+- **New Resource:** `cloudflare_access_organization` ([#1961](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1961))
+- **New Resource:** `cloudflare_dlp_profile` ([#1984](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1984))
+- **New Resource:** `cloudflare_total_tls` ([#1979](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1979))
+- **New Resource:** `cloudflare_waiting_room_rules` ([#1957](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1957))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: add support for `app_launcher`, `biso`, `dash_sso` and `warp` to the schema ([#1988](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1988))
-* resource/cloudflare_load_balancer_monitor: support defining explicit `account_id` for resources ([#1986](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1986))
-* resource/cloudflare_load_balancer_pool: support defining explicit `account_id` for resources ([#1986](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1986))
-* resource/cloudflare_logpush_job: add support for "access_requests" dataset parameter ([#2001](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2001))
-* resource/cloudflare_teams_list: handle pagination for larger Team List accounts ([#1706](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1706))
-* test: use `T.Setenv` to set env vars in provider tests ([#1985](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1985))
+- resource/cloudflare_access_application: add support for `app_launcher`, `biso`, `dash_sso` and `warp` to the schema ([#1988](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1988))
+- resource/cloudflare_load_balancer_monitor: support defining explicit `account_id` for resources ([#1986](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1986))
+- resource/cloudflare_load_balancer_pool: support defining explicit `account_id` for resources ([#1986](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1986))
+- resource/cloudflare_logpush_job: add support for "access_requests" dataset parameter ([#2001](https://github.com/cloudflare/terraform-provider-cloudflare/issues/2001))
+- resource/cloudflare_teams_list: handle pagination for larger Team List accounts ([#1706](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1706))
+- test: use `T.Setenv` to set env vars in provider tests ([#1985](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1985))
 
 BUG FIXES:
 
-* resource/cloudflare_access_group: fix issue where policy groups were always showing a diff during plans ([#1983](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1983))
+- resource/cloudflare_access_group: fix issue where policy groups were always showing a diff during plans ([#1983](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1983))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.52.0 to 0.53.0 ([#1995](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1995))
-* provider: bumps github.com/stretchr/testify from 1.8.0 to 1.8.1 ([#1993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1993))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.52.0 to 0.53.0 ([#1995](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1995))
+- provider: bumps github.com/stretchr/testify from 1.8.0 to 1.8.1 ([#1993](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1993))
 
 ## 3.26.0 (October 19th, 2022)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_custom_hostname: Add `wait_for_ssl_pending_validation` attribute ([#1953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1953))
-* resource/cloudflare_device_posture_rule: Add chromeos and unique_client_id values ([#1950](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1950))
-* resource/cloudflare_load_balancer: Migrate to autogen docs, improve docs ([#1954](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1954))
-* resource/cloudflare_pages_domain: add Pages project domain importer. ([#1973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1973))
-* resource/cloudflare_ruleset: add support for overriding sensitivity levels for ruleset rules ([#1965](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1965))
+- resource/cloudflare_custom_hostname: Add `wait_for_ssl_pending_validation` attribute ([#1953](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1953))
+- resource/cloudflare_device_posture_rule: Add chromeos and unique_client_id values ([#1950](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1950))
+- resource/cloudflare_load_balancer: Migrate to autogen docs, improve docs ([#1954](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1954))
+- resource/cloudflare_pages_domain: add Pages project domain importer. ([#1973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1973))
+- resource/cloudflare_ruleset: add support for overriding sensitivity levels for ruleset rules ([#1965](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1965))
 
 BUG FIXES:
 
-* resource/cloudflare_byo_ip_prefix: set correct prefix ID for the byoip prefix during import. ([#1951](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1951))
-* resource/cloudflare_custom_ssl: check GeoRestrictions is not nil before attempting to compare it ([#1964](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1964))
-* resource/cloudflare_pages_project: add defaults to Pages project deployment config ([#1973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1973))
-* resource/cloudflare_zone_settings_override: Fetch/modify `origin_max_http_version` as a single setting. ([#1805](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1805))
+- resource/cloudflare_byo_ip_prefix: set correct prefix ID for the byoip prefix during import. ([#1951](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1951))
+- resource/cloudflare_custom_ssl: check GeoRestrictions is not nil before attempting to compare it ([#1964](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1964))
+- resource/cloudflare_pages_project: add defaults to Pages project deployment config ([#1973](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1973))
+- resource/cloudflare_zone_settings_override: Fetch/modify `origin_max_http_version` as a single setting. ([#1805](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1805))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.51.0 to 0.52.0 ([#1962](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1962))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.23.0 to 2.24.0 ([#1969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1969))
-* provider: bumps goreleaser/goreleaser-action from 3.1.0 to 3.2.0 ([#1977](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1977))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.51.0 to 0.52.0 ([#1962](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1962))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.23.0 to 2.24.0 ([#1969](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1969))
+- provider: bumps goreleaser/goreleaser-action from 3.1.0 to 3.2.0 ([#1977](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1977))
 
 ## 3.25.0 (October 5th, 2022)
 
 NOTES:
 
-* resource/device_posture_rule: update device posture rule to reflect new linux posture fields ([#1842](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1842))
+- resource/device_posture_rule: update device posture rule to reflect new linux posture fields ([#1842](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1842))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_account_member: permit setting status in terraform schema if desired ([#1920](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1920))
-* resource/cloudflare_email_routing_catch_all: switch to a dedicated scheme to allow type = "drop" ([#1947](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1947))
-* resource/cloudflare_load_balancer: Add support for adaptive_routing, location_strategy, random_steering, and zero_downtime_failover ([#1941](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1941))
-* resource/cloudflare_load_balancer: update internal method signatures to match upstream library ([#1932](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1932))
-* resource/cloudflare_load_balancer_monitor: update internal method signatures to match upstream library ([#1932](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1932))
-* resource/cloudflare_load_balancer_pool: update internal method signatures to match upstream library ([#1932](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1932))
+- resource/cloudflare_account_member: permit setting status in terraform schema if desired ([#1920](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1920))
+- resource/cloudflare_email_routing_catch_all: switch to a dedicated scheme to allow type = "drop" ([#1947](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1947))
+- resource/cloudflare_load_balancer: Add support for adaptive_routing, location_strategy, random_steering, and zero_downtime_failover ([#1941](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1941))
+- resource/cloudflare_load_balancer: update internal method signatures to match upstream library ([#1932](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1932))
+- resource/cloudflare_load_balancer_monitor: update internal method signatures to match upstream library ([#1932](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1932))
+- resource/cloudflare_load_balancer_pool: update internal method signatures to match upstream library ([#1932](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1932))
 
 BUG FIXES:
 
-* provider: allow individual setting of x-auth-service-key ([#1923](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1923))
-* provider: fix versioning injection during release builds ([#1935](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1935))
-* resource/cloudflare_byo_ip_prefix: fix `Import` to set `account_id` ([#1930](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1930))
-* resource/cloudflare_record: update Read method to pull from remote API instead of local configuration which is empty during `Import` ([#1942](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1942))
-* resource/cloudflare_zone_settings_override: Fix array manipulation bug related to single zone settings ([#1925](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1925))
+- provider: allow individual setting of x-auth-service-key ([#1923](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1923))
+- provider: fix versioning injection during release builds ([#1935](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1935))
+- resource/cloudflare_byo_ip_prefix: fix `Import` to set `account_id` ([#1930](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1930))
+- resource/cloudflare_record: update Read method to pull from remote API instead of local configuration which is empty during `Import` ([#1942](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1942))
+- resource/cloudflare_zone_settings_override: Fix array manipulation bug related to single zone settings ([#1925](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1925))
 
 DEPENDENCIES:
 
-* provider: bumps actions/stale from 5 to 6 ([#1922](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1922))
-* provider: bumps dependabot/fetch-metadata from 1.3.3 to 1.3.4 ([#1945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1945))
+- provider: bumps actions/stale from 5 to 6 ([#1922](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1922))
+- provider: bumps dependabot/fetch-metadata from 1.3.3 to 1.3.4 ([#1945](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1945))
 
 ## 3.24.0 (September 21st, 2022)
 
 NOTES:
 
-* resource/cloudflare_access_bookmark: Bookmark resource is deprecated in favor of using the `cloudflare_access_application` resource. ([#1914](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1914))
-* resource/cloudflare_email_routing_rule: Fix example resource to use correct syntax ([#1895](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1895))
-* resource/cloudflare_email_routing_rule_catch_all: Fix example resource to use correct syntax ([#1895](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1895))
+- resource/cloudflare_access_bookmark: Bookmark resource is deprecated in favor of using the `cloudflare_access_application` resource. ([#1914](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1914))
+- resource/cloudflare_email_routing_rule: Fix example resource to use correct syntax ([#1895](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1895))
+- resource/cloudflare_email_routing_rule_catch_all: Fix example resource to use correct syntax ([#1895](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1895))
 
 FEATURES:
 
-* **New Data Source:** `cloudflare_accounts` ([#1899](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1899))
-* **New Data Source:** `cloudflare_record` ([#1906](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1906))
-* **New Resource:** `cloudflare_account` ([#1902](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1902))
-* **New Resource:** `cloudflare_user_agent_blocking_rule` ([#1894](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1894))
+- **New Data Source:** `cloudflare_accounts` ([#1899](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1899))
+- **New Data Source:** `cloudflare_record` ([#1906](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1906))
+- **New Resource:** `cloudflare_account` ([#1902](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1902))
+- **New Resource:** `cloudflare_user_agent_blocking_rule` ([#1894](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1894))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_pages_project: Adds importer for pages_project ([#1886](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1886))
-* tools: add devcontainer for local development ([#1892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1892))
+- resource/cloudflare_pages_project: Adds importer for pages_project ([#1886](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1886))
+- tools: add devcontainer for local development ([#1892](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1892))
 
 BUG FIXES:
 
-* provider: allow setting `api_user_service_key` without token and/or key ([#1907](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1907))
-* resource/cloudflare_load_balancer_monitor: fix detection of headers values changing ([#1903](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1903))
-* resource/cloudflare_pages_project: fix null source on project create ([#1898](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1898))
+- provider: allow setting `api_user_service_key` without token and/or key ([#1907](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1907))
+- resource/cloudflare_load_balancer_monitor: fix detection of headers values changing ([#1903](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1903))
+- resource/cloudflare_pages_project: fix null source on project create ([#1898](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1898))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.49.0 to 0.50.0 ([#1910](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1910))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.21.0 to 2.22.0 ([#1900](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1900))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.22.0 to 2.23.0 ([#1913](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1913))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.49.0 to 0.50.0 ([#1910](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1910))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.21.0 to 2.22.0 ([#1900](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1900))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.22.0 to 2.23.0 ([#1913](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1913))
 
 ## 3.23.0 (September 7th, 2022)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_api_shield` ([#1874](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1874))
-* **New Resource:** `cloudflare_email_routing_address` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
-* **New Resource:** `cloudflare_email_routing_catch_all` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
-* **New Resource:** `cloudflare_email_routing_rules` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
-* **New Resource:** `cloudflare_email_routing_settings` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
-* **New Resource:** `cloudflare_web3_hostname` ([#1882](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1882))
+- **New Resource:** `cloudflare_api_shield` ([#1874](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1874))
+- **New Resource:** `cloudflare_email_routing_address` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
+- **New Resource:** `cloudflare_email_routing_catch_all` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
+- **New Resource:** `cloudflare_email_routing_rules` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
+- **New Resource:** `cloudflare_email_routing_settings` ([#1856](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1856))
+- **New Resource:** `cloudflare_web3_hostname` ([#1882](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1882))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_service_token: updates internals to allow in place refreshing instead of full replacement based on the `expires_at` and `min_days_for_renewal` values ([#1872](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1872))
-* resource/cloudflare_pages_domain: Adds support for Pages domains ([#1835](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1835))
-* resource/cloudflare_pages_project: Adds support for Pages Projects ([#1835](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1835))
-* resource/cloudflare_record: Add HTTPS DNS record type ([#1887](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1887))
-* resource/cloudflare_worker: provide js module option to allow service bindings ([#1865](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1865))
+- resource/cloudflare_access_service_token: updates internals to allow in place refreshing instead of full replacement based on the `expires_at` and `min_days_for_renewal` values ([#1872](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1872))
+- resource/cloudflare_pages_domain: Adds support for Pages domains ([#1835](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1835))
+- resource/cloudflare_pages_project: Adds support for Pages Projects ([#1835](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1835))
+- resource/cloudflare_record: Add HTTPS DNS record type ([#1887](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1887))
+- resource/cloudflare_worker: provide js module option to allow service bindings ([#1865](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1865))
 
 BUG FIXES:
 
-* resource/cloudflare_authenticated_origin_pulls: fix improper handling of enabled=false ([#1861](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1861))
+- resource/cloudflare_authenticated_origin_pulls: fix improper handling of enabled=false ([#1861](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1861))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.48.0 to 0.49.0 ([#1871](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1871))
-* provider: bumps github.com/golangci/golangci-lint from 1.48.0 to 1.49.0 ([#1855](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1855))
-* provider: bumps goreleaser/goreleaser-action from 3.0.0 to 3.1.0 ([#1868](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1868))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.48.0 to 0.49.0 ([#1871](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1871))
+- provider: bumps github.com/golangci/golangci-lint from 1.48.0 to 1.49.0 ([#1855](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1855))
+- provider: bumps goreleaser/goreleaser-action from 3.0.0 to 3.1.0 ([#1868](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1868))
 
 ## 3.22.0 (August 24th, 2022)
 
 NOTES:
 
-* update local setup documentation to reflect newer required Go version ([#1847](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1847))
+- update local setup documentation to reflect newer required Go version ([#1847](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1847))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_ruleset: add support for `http_config_settings` ([#1837](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1837))
-* resources/worker_script: add support for r2_bucket_binding ([#1825](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1825))
+- resource/cloudflare_ruleset: add support for `http_config_settings` ([#1837](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1837))
+- resources/worker_script: add support for r2_bucket_binding ([#1825](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1825))
 
 BUG FIXES:
 
-* resource/cloudflare_fallback_domain: fix perpetual changes due to ordering ([#1828](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1828))
-* resource/cloudflare_notification_policy: add missing alert types and filters to validation and docs ([#1830](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1830))
+- resource/cloudflare_fallback_domain: fix perpetual changes due to ordering ([#1828](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1828))
+- resource/cloudflare_notification_policy: add missing alert types and filters to validation and docs ([#1830](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1830))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.46.0 to 0.47.1 ([#1844](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1844))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.20.0 to 2.21.0 ([#1838](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1838))
-* provider: bumps github.com/hcloudflare-go from 0.47.1 to 0.48.0 ([#1848](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1848))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.46.0 to 0.47.1 ([#1844](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1844))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.20.0 to 2.21.0 ([#1838](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1838))
+- provider: bumps github.com/hcloudflare-go from 0.47.1 to 0.48.0 ([#1848](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1848))
 
 ## 3.21.0 (August 10th, 2022)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_page_rule: Removed `always_online` from page rules since this action has been decommissioned from page rules ([#1817](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1817))
+- resource/cloudflare_page_rule: Removed `always_online` from page rules since this action has been decommissioned from page rules ([#1817](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1817))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_custom_ssl: handle when remote ID changes during updates ([#1824](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1824))
-* resource/cloudflare_ruleset: add support and configuration for `serve_errors` action ([#1794](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1794))
-* resource/cloudflare_ruleset: add support for sni override in route action ([#1816](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1816))
+- resource/cloudflare_custom_ssl: handle when remote ID changes during updates ([#1824](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1824))
+- resource/cloudflare_ruleset: add support and configuration for `serve_errors` action ([#1794](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1794))
+- resource/cloudflare_ruleset: add support for sni override in route action ([#1816](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1816))
 
 BUG FIXES:
 
-* resource/cloudflare_account_member: actually use the `account_id` value ([#1823](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1823))
-* resource/cloudflare_zone_settings_override: add missing allowed value of 120 for `browser_cache_ttl` ([#1822](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1822))
+- resource/cloudflare_account_member: actually use the `account_id` value ([#1823](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1823))
+- resource/cloudflare_zone_settings_override: add missing allowed value of 120 for `browser_cache_ttl` ([#1822](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1822))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.45.0 to 0.46.0 ([#1815](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1815))
-* provider: bumps github.com/golangci/golangci-lint from 1.47.2 to 1.47.3 ([#1813](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1813))
-* provider: bumps github.com/golangci/golangci-lint from 1.47.3 to 1.48.0 ([#1820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1820))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.19.0 to 2.20.0 ([#1804](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1804))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.45.0 to 0.46.0 ([#1815](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1815))
+- provider: bumps github.com/golangci/golangci-lint from 1.47.2 to 1.47.3 ([#1813](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1813))
+- provider: bumps github.com/golangci/golangci-lint from 1.47.3 to 1.48.0 ([#1820](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1820))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.19.0 to 2.20.0 ([#1804](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1804))
 
 ## 3.20.0 (July 27th, 2022)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_healthcheck: deprecates `notification_email_addresses` and `notification_suspended` in favour of `cloudflare_notification_policy` ([#1789](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1789))
+- resource/cloudflare_healthcheck: deprecates `notification_email_addresses` and `notification_suspended` in favour of `cloudflare_notification_policy` ([#1789](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1789))
 
 NOTES:
 
-* resource/cloudflare_access_rule: this resource now supports an explicit `account_id` instead of the implied one from the client configuration. You should update your configuration to include `account_id` and remove permadiffs. ([#1790](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1790))
-* resource/cloudflare_account_member: this resource now supports an explicit `account_id` instead of the implied one from the client configuration. You should update your configuration to include `account_id` and remove permadiffs. ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
-* resource/cloudflare_certificate_pack: remove references to long-deprecated dedicated certs (replaced by `advanced`) ([#1778](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1778))
-* resource/cloudflare_rulesets: Cache Rules use cache flag instead of bypass_cache ([#1785](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1785))
-* resource/cloudflare_zone: this resource now supports an explicit `account_id` instead of the implied one from the client configuration. You should update your configuration to include `account_id` and remove permadiffs. ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
+- resource/cloudflare_access_rule: this resource now supports an explicit `account_id` instead of the implied one from the client configuration. You should update your configuration to include `account_id` and remove permadiffs. ([#1790](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1790))
+- resource/cloudflare_account_member: this resource now supports an explicit `account_id` instead of the implied one from the client configuration. You should update your configuration to include `account_id` and remove permadiffs. ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
+- resource/cloudflare_certificate_pack: remove references to long-deprecated dedicated certs (replaced by `advanced`) ([#1778](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1778))
+- resource/cloudflare_rulesets: Cache Rules use cache flag instead of bypass_cache ([#1785](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1785))
+- resource/cloudflare_zone: this resource now supports an explicit `account_id` instead of the implied one from the client configuration. You should update your configuration to include `account_id` and remove permadiffs. ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: Add support for Saas applications ([#1762](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1762))
-* resource/cloudflare_access_rule: add support for `account_id` ([#1790](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1790))
-* resource/cloudflare_account_member: add support for `account_id` ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
-* resource/cloudflare_api_token: add support for `not_before` and `expires_on` ([#1792](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1792))
-* resource/cloudflare_certificate_pack: fix some of the custom hostname docs copy ([#1778](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1778))
-* resource/cloudflare_certificate_pack: update the list of allowed certificate authorities ([#1778](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1778))
-* resource/cloudflare_load_balancer: Add support for LB country pools ([#1797](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1797))
-* resource/cloudflare_managed_headers: swap filtering to use API instead of custom logic ([#1765](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1765))
-* resource/cloudflare_ruleset: add support for `from_value` action parameter when using redirect action ([#1781](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1781))
-* resource/cloudflare_zone: add support for `account_id` ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
+- resource/cloudflare_access_application: Add support for Saas applications ([#1762](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1762))
+- resource/cloudflare_access_rule: add support for `account_id` ([#1790](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1790))
+- resource/cloudflare_account_member: add support for `account_id` ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
+- resource/cloudflare_api_token: add support for `not_before` and `expires_on` ([#1792](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1792))
+- resource/cloudflare_certificate_pack: fix some of the custom hostname docs copy ([#1778](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1778))
+- resource/cloudflare_certificate_pack: update the list of allowed certificate authorities ([#1778](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1778))
+- resource/cloudflare_load_balancer: Add support for LB country pools ([#1797](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1797))
+- resource/cloudflare_managed_headers: swap filtering to use API instead of custom logic ([#1765](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1765))
+- resource/cloudflare_ruleset: add support for `from_value` action parameter when using redirect action ([#1781](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1781))
+- resource/cloudflare_zone: add support for `account_id` ([#1767](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1767))
 
 BUG FIXES:
 
-* resource/cloudflare_waiting_room: fix default waiting room `session_duration` and `path` values ([#1766](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1766))
-* resource/cloudflare_zone_lockdown: Fix crash when logging upstream error message ([#1777](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1777))
+- resource/cloudflare_waiting_room: fix default waiting room `session_duration` and `path` values ([#1766](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1766))
+- resource/cloudflare_zone_lockdown: Fix crash when logging upstream error message ([#1777](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1777))
 
 DEPENDENCIES:
 
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.44.0 to 0.45.0 ([#1793](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1793))
-* provider: bumps github.com/golangci/golangci-lint from 1.46.2 to 1.47.0 ([#1786](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1786))
-* provider: bumps github.com/golangci/golangci-lint from 1.47.0 to 1.47.1 ([#1788](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1788))
-* provider: bumps github.com/golangci/golangci-lint from 1.47.1 to 1.47.2 ([#1795](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1795))
-* provider: bumps github.com/hashicorp/terraform-plugin-log from 0.4.1 to 0.5.0 ([#1773](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1773))
-* provider: bumps github.com/hashicorp/terraform-plugin-log from 0.5.0 to 0.6.0 ([#1780](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1780))
-* provider: bumps github.com/hashicorp/terraform-plugin-log from 0.6.0 to 0.7.0 ([#1798](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1798))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.18.0 to 2.19.0 ([#1779](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1779))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.44.0 to 0.45.0 ([#1793](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1793))
+- provider: bumps github.com/golangci/golangci-lint from 1.46.2 to 1.47.0 ([#1786](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1786))
+- provider: bumps github.com/golangci/golangci-lint from 1.47.0 to 1.47.1 ([#1788](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1788))
+- provider: bumps github.com/golangci/golangci-lint from 1.47.1 to 1.47.2 ([#1795](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1795))
+- provider: bumps github.com/hashicorp/terraform-plugin-log from 0.4.1 to 0.5.0 ([#1773](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1773))
+- provider: bumps github.com/hashicorp/terraform-plugin-log from 0.5.0 to 0.6.0 ([#1780](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1780))
+- provider: bumps github.com/hashicorp/terraform-plugin-log from 0.6.0 to 0.7.0 ([#1798](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1798))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.18.0 to 2.19.0 ([#1779](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1779))
 
 ## 3.19.0 (July 13th, 2022)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_ipsec_tunnel: add allow_null_cipher to ipsec tunnel ([#1736](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1736))
-* resource/cloudflare_record: Validate that DNS record names are non-empty ([#1740](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1740))
-* resource/cloudflare_ruleset: add support for `from_list` action parameter when using redirect action ([#1744](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1744))
-* resource/cloudflare_waiting_room: Add queueing_method field. ([#1759](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1759))
-* resource/cloudflare_workers_script: add support for `service_binding` bindings ([#1760](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1760))
-* resource/cloudflare_zone_settings_override: Add support for `origin_max_http_version` ([#1755](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1755))
+- resource/cloudflare_ipsec_tunnel: add allow_null_cipher to ipsec tunnel ([#1736](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1736))
+- resource/cloudflare_record: Validate that DNS record names are non-empty ([#1740](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1740))
+- resource/cloudflare_ruleset: add support for `from_list` action parameter when using redirect action ([#1744](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1744))
+- resource/cloudflare_waiting_room: Add queueing_method field. ([#1759](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1759))
+- resource/cloudflare_workers_script: add support for `service_binding` bindings ([#1760](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1760))
+- resource/cloudflare_zone_settings_override: Add support for `origin_max_http_version` ([#1755](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1755))
 
 BUG FIXES:
 
-* resource/cloudflare_list: fix default values for redirect list updates ([#1746](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1746))
-* resource/cloudflare_logpush_job: fix logpush job name validation regex ([#1743](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1743))
-* resource/cloudflare_tunnel_route: Fix incorrect indexing of resource data id attributes ([#1753](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1753))
+- resource/cloudflare_list: fix default values for redirect list updates ([#1746](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1746))
+- resource/cloudflare_logpush_job: fix logpush job name validation regex ([#1743](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1743))
+- resource/cloudflare_tunnel_route: Fix incorrect indexing of resource data id attributes ([#1753](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1753))
 
 DEPENDENCIES:
 
-* provider: bumps dependabot/fetch-metadata from 1.3.1 to 1.3.2 ([#1747](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1747))
-* provider: bumps dependabot/fetch-metadata from 1.3.2 to 1.3.2 ([#1748](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1748))
-* provider: bumps github.com/cloudflare/cloudflare-go from 0.43.0 to 0.44.0 ([#1757](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1757))
-* provider: bumps github.com/hashicorp/terraform-plugin-docs from 0.12.0 to 0.13.0 ([#1763](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1763))
-* provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.17.0 to 2.18.0 ([#1758](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1758))
-* provider: bumps github.com/stretchr/testify from 1.7.5 to 1.8.0 ([#1738](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1738))
+- provider: bumps dependabot/fetch-metadata from 1.3.1 to 1.3.2 ([#1747](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1747))
+- provider: bumps dependabot/fetch-metadata from 1.3.2 to 1.3.2 ([#1748](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1748))
+- provider: bumps github.com/cloudflare/cloudflare-go from 0.43.0 to 0.44.0 ([#1757](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1757))
+- provider: bumps github.com/hashicorp/terraform-plugin-docs from 0.12.0 to 0.13.0 ([#1763](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1763))
+- provider: bumps github.com/hashicorp/terraform-plugin-sdk/v2 from 2.17.0 to 2.18.0 ([#1758](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1758))
+- provider: bumps github.com/stretchr/testify from 1.7.5 to 1.8.0 ([#1738](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1738))
 
 ## 3.18.0 (June 29th, 2022)
 
 NOTES:
 
-* resource/cloudflare_ip_list: Deprecated cloudflare_ip_list in favor of cloudflare_list. ([#1700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1700))
+- resource/cloudflare_ip_list: Deprecated cloudflare_ip_list in favor of cloudflare_list. ([#1700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1700))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_managed_headers` ([#1688](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1688))
-* **New Resource:** `resource/cloudflare_list: Added support for generic list types, including redirect lists.` ([#1700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1700))
+- **New Resource:** `cloudflare_managed_headers` ([#1688](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1688))
+- **New Resource:** `resource/cloudflare_list: Added support for generic list types, including redirect lists.` ([#1700](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1700))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_logpush_job: adds support for `kind` attribute ([#1718](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1718))
-* resource/cloudflare_logpush_job: validate name attribute ([#1717](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1717))
-* resource/cloudflare_ruleset: add support for set cache settings ([#1701](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1701))
+- resource/cloudflare_logpush_job: adds support for `kind` attribute ([#1718](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1718))
+- resource/cloudflare_logpush_job: validate name attribute ([#1717](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1717))
+- resource/cloudflare_ruleset: add support for set cache settings ([#1701](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1701))
 
 BUG FIXES:
 
-* resource/cloudflare_logpush_job: Fix for optional `filter` attribute ([#1712](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1712))
-* resource/cloudflare_logpush_job: fix unmarhalling job with empty/no filter ([#1723](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1723))
-* resource/cloudflare_record: ensure trailing `.` in `value` don't cause surious diffs ([#1713](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1713))
+- resource/cloudflare_logpush_job: Fix for optional `filter` attribute ([#1712](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1712))
+- resource/cloudflare_logpush_job: fix unmarhalling job with empty/no filter ([#1723](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1723))
+- resource/cloudflare_record: ensure trailing `.` in `value` don't cause surious diffs ([#1713](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1713))
 
 ## 3.17.0 (June 15th, 2022)
 
 BREAKING CHANGES:
 
-* resource/cloudflare_ruleset: deprecates `enabled` in overridden configurations immediately in favour of `status` ([#1689](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1689))
+- resource/cloudflare_ruleset: deprecates `enabled` in overridden configurations immediately in favour of `status` ([#1689](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1689))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_tunnel_virtual_network` ([#1672](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1672))
+- **New Resource:** `cloudflare_tunnel_virtual_network` ([#1672](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1672))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_identity_provider: Add support for PKCE when creating IDPS. ([#1667](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1667))
-* resource/cloudflare_device_posture_integration: add support for managing `uptycs`, `intune` and `crowdstrike` third party posture providers. ([#1628](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1628))
-* resource/cloudflare_ipsec_tunnel: add support for `healthcheck_enabled`, `health_check_target`, `healthcheck_type`, `psk` ([#1685](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1685))
-* resource/cloudflare_logpush_job: Add `filter` field support ([#1660](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1660))
-* resource/cloudflare_tunnel_route: Add `virtual_network_id` attribute ([#1668](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1668))
+- resource/cloudflare_access_identity_provider: Add support for PKCE when creating IDPS. ([#1667](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1667))
+- resource/cloudflare_device_posture_integration: add support for managing `uptycs`, `intune` and `crowdstrike` third party posture providers. ([#1628](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1628))
+- resource/cloudflare_ipsec_tunnel: add support for `healthcheck_enabled`, `health_check_target`, `healthcheck_type`, `psk` ([#1685](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1685))
+- resource/cloudflare_logpush_job: Add `filter` field support ([#1660](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1660))
+- resource/cloudflare_tunnel_route: Add `virtual_network_id` attribute ([#1668](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1668))
 
 BUG FIXES:
 
-* resource/cloudflare_teams_rule: Fixes issue with rule precedence updates by using a generated version of precendence in API calls to reduce clashing versions ([#1663](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1663))
+- resource/cloudflare_teams_rule: Fixes issue with rule precedence updates by using a generated version of precendence in API calls to reduce clashing versions ([#1663](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1663))
 
 ## 3.16.0 (June 1st, 2022)
 
 NOTES:
 
-* provider: swap internal logging mechanism to use `tflog` ([#1638](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1638))
-* provider: updated internal package structure of repository ([#1636](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1636))
+- provider: swap internal logging mechanism to use `tflog` ([#1638](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1638))
+- provider: updated internal package structure of repository ([#1636](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1636))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_group: add support for external evaluation as a new access group rule ([#1623](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1623))
-* resource/cloudflare_argo_tunnel: add `tunnel_token` support ([#1590](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1590))
-* resource/cloudflare_logpush_job: add support for specifying `frequency` ([#1634](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1634))
-* resource/cloudflare_ruleset: add support for custom fields logging ([#1630](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1630))
-* resource/cloudflare_waiting_room: Add default_template_language field. ([#1651](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1651))
+- resource/cloudflare_access_group: add support for external evaluation as a new access group rule ([#1623](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1623))
+- resource/cloudflare_argo_tunnel: add `tunnel_token` support ([#1590](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1590))
+- resource/cloudflare_logpush_job: add support for specifying `frequency` ([#1634](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1634))
+- resource/cloudflare_ruleset: add support for custom fields logging ([#1630](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1630))
+- resource/cloudflare_waiting_room: Add default_template_language field. ([#1651](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1651))
 
 BUG FIXES:
 
-* resource/cloudflare_access_application: Fix inability to update `http_only_cookie_attribute` to false ([#1602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1602))
-* resource/cloudflare_waiting_room_event: handle time pointer for nullable struct member ([#1648](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1648))
-* resource/cloudflare_workers_kv: handle invalid id during terraform import ([#1635](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1635))
+- resource/cloudflare_access_application: Fix inability to update `http_only_cookie_attribute` to false ([#1602](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1602))
+- resource/cloudflare_waiting_room_event: handle time pointer for nullable struct member ([#1648](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1648))
+- resource/cloudflare_workers_kv: handle invalid id during terraform import ([#1635](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1635))
 
 ## 3.15.0 (May 18th, 2022)
 
 NOTES:
 
-* provider: internally swapped to using `diag.Diagnostics` for CRUD return types and using `context.Context` passed in from the provider itself instead of instantiating our own in each operation ([#1592](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1592))
+- provider: internally swapped to using `diag.Diagnostics` for CRUD return types and using `context.Context` passed in from the provider itself instead of instantiating our own in each operation ([#1592](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1592))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_device_posture_rule: Add `expiration` to device posture rule ([#1585](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1585))
-* resource/cloudflare_logpush_job: add support for managing `network_analytics_logs` ([#1627](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1627))
-* resource/cloudflare_logpush_job: allow r2 logpush destinations without ownership validation ([#1597](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1597))
-* resource/ruleset: add support for `origin` and `host_header` attributes ([#1620](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1620))
+- resource/cloudflare_device_posture_rule: Add `expiration` to device posture rule ([#1585](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1585))
+- resource/cloudflare_logpush_job: add support for managing `network_analytics_logs` ([#1627](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1627))
+- resource/cloudflare_logpush_job: allow r2 logpush destinations without ownership validation ([#1597](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1597))
+- resource/ruleset: add support for `origin` and `host_header` attributes ([#1620](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1620))
 
 BUG FIXES:
 
-* resource/cloudflare_access_rule: Fix lifecycle of access_rule update ([#1601](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1601))
-* resource/cloudflare_spectrum_application: prevent panic when configuration does not include `edge_ips.connectivity` ([#1599](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1599))
-* resource/cloudflare_teams_rule: fixed detection of deleted teams rules ([#1622](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1622))
+- resource/cloudflare_access_rule: Fix lifecycle of access_rule update ([#1601](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1601))
+- resource/cloudflare_spectrum_application: prevent panic when configuration does not include `edge_ips.connectivity` ([#1599](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1599))
+- resource/cloudflare_teams_rule: fixed detection of deleted teams rules ([#1622](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1622))
 
 ## 3.14.0 (May 4th, 2022)
 
 FEATURES:
 
-* **New Resource:** `cloudflare_tunnel_route` ([#1572](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1572))
+- **New Resource:** `cloudflare_tunnel_route` ([#1572](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1572))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_certificate_pack: add support for new option (`wait_for_active_status`) to block creation until certificate pack is active ([#1567](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1567))
-* resource/cloudflare_notification_policy: Add `slo` to notification policy filters ([#1573](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1573))
-* resource/cloudflare_teams_list: Add support for IP type ([#1550](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1550))
+- resource/cloudflare_certificate_pack: add support for new option (`wait_for_active_status`) to block creation until certificate pack is active ([#1567](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1567))
+- resource/cloudflare_notification_policy: Add `slo` to notification policy filters ([#1573](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1573))
+- resource/cloudflare_teams_list: Add support for IP type ([#1550](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1550))
 
 BUG FIXES:
 
-* cloudflare_tunnel_routes: Fix reads matching routers with larger CIDRs ([#1581](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1581))
-* resource/cloudflare_access_group: allow github access groups to be created without a list of teams ([#1589](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1589))
-* resource/cloudflare_logpush_job: make ownership challenge check for https not required ([#1588](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1588))
-* resource/cloudflare_tunnel_route: Fix importing resource ([#1580](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1580))
-* resource/cloudflare_zone: update plan identifier for professional rate plans ([#1583](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1583))
+- cloudflare_tunnel_routes: Fix reads matching routers with larger CIDRs ([#1581](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1581))
+- resource/cloudflare_access_group: allow github access groups to be created without a list of teams ([#1589](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1589))
+- resource/cloudflare_logpush_job: make ownership challenge check for https not required ([#1588](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1588))
+- resource/cloudflare_tunnel_route: Fix importing resource ([#1580](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1580))
+- resource/cloudflare_zone: update plan identifier for professional rate plans ([#1583](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1583))
 
 ## 3.13.0 (April 20th, 2022)
 
 NOTES:
 
-* resource/cloudflare_byo_ip_prefix: now requires an explicit `account_id` parameter instead of implicitly relying on `client.AccountID` ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
-* resource/cloudflare_ip_list: no longer sets `client.AccountID` internally for resources ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
-* resource/cloudflare_magic_firewall_ruleset: no longer sets `client.AccountID` internally for resources ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
-* resource/cloudflare_static_route: no longer sets `client.AccountID` internally for resources ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
-* resource/cloudflare_worker_cron_trigger: now requires an explicit `account_id` parameter instead of implicitly relying on `client.AccountID` ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
+- resource/cloudflare_byo_ip_prefix: now requires an explicit `account_id` parameter instead of implicitly relying on `client.AccountID` ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
+- resource/cloudflare_ip_list: no longer sets `client.AccountID` internally for resources ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
+- resource/cloudflare_magic_firewall_ruleset: no longer sets `client.AccountID` internally for resources ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
+- resource/cloudflare_static_route: no longer sets `client.AccountID` internally for resources ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
+- resource/cloudflare_worker_cron_trigger: now requires an explicit `account_id` parameter instead of implicitly relying on `client.AccountID` ([#1563](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1563))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_custom_pages: add support for managed_challenge action ([#1478](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1478))
-* resource/cloudflare_ruleset: add support for rule `logging` ([#1538](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1538))
+- resource/cloudflare_custom_pages: add support for managed_challenge action ([#1478](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1478))
+- resource/cloudflare_ruleset: add support for rule `logging` ([#1538](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1538))
 
 ## 3.12.2 (April 13th, 2022)
 
 ENHANCEMENTS:
 
-* resource/cloudflare_ruleset: Setting description to `Optional` to better reflect API requirements ([#1556](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1556))
+- resource/cloudflare_ruleset: Setting description to `Optional` to better reflect API requirements ([#1556](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1556))
 
 ## 3.12.1 (April 9th, 2022)
 
 BUG FIXES:
 
-* resource/cloudflare_zone: don't get stuck in endless loop for partner zone rate plans ([#1547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1547))
+- resource/cloudflare_zone: don't get stuck in endless loop for partner zone rate plans ([#1547](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1547))
 
 ## 3.12.0 (April 6th, 2022)
 
 NOTES:
 
-* resource/cloudflare_healthcheck: `notification_suspended` and `notification_email_addresses` attributes are being deprecated in favour of `cloudflare_notification_policy` resource instead. ([#1529](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1529))
+- resource/cloudflare_healthcheck: `notification_suspended` and `notification_email_addresses` attributes are being deprecated in favour of `cloudflare_notification_policy` resource instead. ([#1529](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1529))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_access_bookmark` ([#1539](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1539))
+- **New Resource:** `cloudflare_access_bookmark` ([#1539](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1539))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_access_application: Add service_auth_401_redirect field. ([#1540](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1540))
+- resource/cloudflare_access_application: Add service_auth_401_redirect field. ([#1540](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1540))
 
 BUG FIXES:
 
-* resource/cloudflare_api_token: ignore ordering changes in `permission_groups` ([#1545](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1545))
-* resource/cloudflare_notification_policy: Fix unexpected crashes when using cloudflare_notification_policy with a filters attribute ([#1542](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1542))
-* resource/cloudflare_zone_dnssec: don't try to enable DNSSEC when state is "pending" ([#1530](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1530))
+- resource/cloudflare_api_token: ignore ordering changes in `permission_groups` ([#1545](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1545))
+- resource/cloudflare_notification_policy: Fix unexpected crashes when using cloudflare_notification_policy with a filters attribute ([#1542](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1542))
+- resource/cloudflare_zone_dnssec: don't try to enable DNSSEC when state is "pending" ([#1530](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1530))
 
 ## 3.11.0 (March 23rd, 2022)
 
 NOTES:
 
-* resource/cloudflare_origin_ca_certificate: `requested_validity` no longer decrements until the `expires_on` value but is now the amount of days the certificate was requested for. ([#1502](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1502))
+- resource/cloudflare_origin_ca_certificate: `requested_validity` no longer decrements until the `expires_on` value but is now the amount of days the certificate was requested for. ([#1502](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1502))
 
 FEATURES:
 
-* **New Resource:** `cloudflare_teams_proxy_endpoint` ([#1517](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1517))
-* **New Resource:** `cloudflare_waiting_room_event` ([#1509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1509))
+- **New Resource:** `cloudflare_teams_proxy_endpoint` ([#1517](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1517))
+- **New Resource:** `cloudflare_waiting_room_event` ([#1509](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1509))
 
 ENHANCEMENTS:
 
-* resource/cloudflare_page_rule: add support for `actions.disable_zaraz` ([#1523](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1523))
-* resource/cloudflare_ruleset: add support for `action_parameters.response` to control the response when triggering a WAF rule ([#1507](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1507))
-* resource/cloudflare_ruleset: add support for `ratelimit.requests_to_origin` ([#1507](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1507))
+- resource/cloudflare_page_rule: add support for `actions.disable_zaraz` ([#1523](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1523))
+- resource/cloudflare_ruleset: add support for `action_parameters.response` to control the response when triggering a WAF rule ([#1507](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1507))
+- resource/cloudflare_ruleset: add support for `ratelimit.requests_to_origin` ([#1507](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1507))
 
 BUG FIXES:
 
-* resource/cloudflare_device_posture_integration: remove superfluous `id` from schema ([#1504](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1504))
-* resource/cloudflare_spectrum_application: Fix 'edge_ip_connectivity' state persistence ([#1515](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1515))
+- resource/cloudflare_device_posture_integration: remove superfluous `id` from schema ([#1504](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1504))
+- resource/cloudflare_spectrum_application: Fix 'edge_ip_connectivity' state persistence ([#1515](https://github.com/cloudflare/terraform-provider-cloudflare/issues/1515))
 
 ## 3.10.1 (March 10th, 2022)
 
